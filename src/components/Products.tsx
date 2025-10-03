@@ -12,7 +12,7 @@ import {
   Square,
 } from "lucide-react";
 
-type Product = { icon: any; title: string; description: string; image: string };
+type Product = { icon: React.ComponentType<{ className?: string }>; title: string; description: string; image: string };
 
 export default function Products() {
   const products: Product[] = [

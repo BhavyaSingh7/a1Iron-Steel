@@ -421,7 +421,7 @@ export default function Home() {
               Get In Touch
             </h2>
             <p className="text-xl text-gray-600">
-              Ready to work with us? Let's discuss your project
+              Ready to work with us? Let&apos;s discuss your project
             </p>
           </motion.div>
 

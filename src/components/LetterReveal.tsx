@@ -19,7 +19,7 @@ export default function LetterReveal({
   const characters = Array.from(text);
 
   return (
-    <span className={className} aria-label={text} role="heading">
+    <span className={className} aria-label={text} role="heading" aria-level={1}>
       {characters.map((char, index) => (
         <motion.span
           key={`${char}-${index}`}
