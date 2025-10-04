@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useScroll } from "framer-motion";
+import { motion } from "framer-motion";
 import {
   Phone,
   Mail,
@@ -18,7 +18,6 @@ import {
 import React, { useState, useEffect, useCallback } from "react";
 import Logo from "@/components/Logo";
 import Typewriter from "@/components/Typewriter";
-import CounterAnimation from "@/components/CounterAnimation";
 import Mission from "@/components/Mission";
 import Image from "next/image";
 
@@ -1189,7 +1188,7 @@ export default function Home() {
                 viewport={{ once: true }}
                 className="text-sm sm:text-base md:text-lg text-gray-600 mb-2 sm:mb-3 md:mb-4"
               >
-                // ABOUT US
+                {/* ABOUT US */}
               </motion.p>
               <motion.h2
                 initial={{ opacity: 0, y: 30 }}
@@ -1727,7 +1726,7 @@ export default function Home() {
                 className="inline-block mb-2 sm:mb-3 md:mb-4"
               >
                 <span className="text-orange-500 font-semibold text-sm sm:text-base md:text-lg tracking-wider">
-                  // GET IN TOUCH
+                  {/* GET IN TOUCH */}
                 </span>
               </motion.div>
               <motion.h2

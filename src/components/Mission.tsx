@@ -110,7 +110,7 @@ export default function Mission() {
               textShadow: "0 0 20px rgba(156, 163, 175, 0.3)",
             }}
           >
-            // OUR MISSION
+            {/* OUR MISSION */}
           </motion.p>
         </motion.div>
 
