@@ -634,15 +634,50 @@
         function handleNavbarScroll() {
             const navbar = document.getElementById('navbar');
             const scrollToTopBtn = document.getElementById('scrollToTop');
+            const logoText = navbar.querySelector('h1');
+            const logoSubtext = navbar.querySelectorAll('p');
+            const navButtons = navbar.querySelectorAll('button');
             
             if (window.scrollY > 100) {
                 navbar.classList.remove('bg-black/20');
                 navbar.classList.add('bg-white/95', 'shadow-lg', 'border-gray-200');
+                
+                // Change text colors to dark when background is white
+                logoText.classList.remove('text-white/90');
+                logoText.classList.add('text-gray-900');
+                
+                logoSubtext[0].classList.remove('text-orange-300');
+                logoSubtext[0].classList.add('text-orange-600');
+                
+                logoSubtext[1].classList.remove('text-gray-300/90');
+                logoSubtext[1].classList.add('text-gray-600');
+                
+                navButtons.forEach(button => {
+                    button.classList.remove('text-white', 'hover:text-orange-400', 'hover:bg-white/10');
+                    button.classList.add('text-gray-700', 'hover:text-blue-600', 'hover:bg-gray-100');
+                });
+                
                 scrollToTopBtn.classList.remove('opacity-0');
                 scrollToTopBtn.classList.add('opacity-100');
             } else {
                 navbar.classList.add('bg-black/20');
                 navbar.classList.remove('bg-white/95', 'shadow-lg', 'border-gray-200');
+                
+                // Change text colors back to light when background is dark
+                logoText.classList.add('text-white/90');
+                logoText.classList.remove('text-gray-900');
+                
+                logoSubtext[0].classList.add('text-orange-300');
+                logoSubtext[0].classList.remove('text-orange-600');
+                
+                logoSubtext[1].classList.add('text-gray-300/90');
+                logoSubtext[1].classList.remove('text-gray-600');
+                
+                navButtons.forEach(button => {
+                    button.classList.add('text-white', 'hover:text-orange-400', 'hover:bg-white/10');
+                    button.classList.remove('text-gray-700', 'hover:text-blue-600', 'hover:bg-gray-100');
+                });
+                
                 scrollToTopBtn.classList.add('opacity-0');
                 scrollToTopBtn.classList.remove('opacity-100');
             }
