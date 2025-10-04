@@ -69,6 +69,8 @@ export default function HeroSection({
     >
       {/* Background Image Carousel */}
       <div className="absolute inset-0 w-full h-full">
+        {/* Fallback background color */}
+        <div className="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-300" />
         {/* f2.jpg */}
         <motion.div
           animate={{
@@ -78,7 +80,7 @@ export default function HeroSection({
           className="absolute inset-0"
         >
           <Image
-            src="/f2.jpg"
+            src="./f2.jpg"
             alt="Background Image 1"
             fill
             className="object-cover"
@@ -95,7 +97,7 @@ export default function HeroSection({
           className="absolute inset-0"
         >
           <Image
-            src="/f3.jpg"
+            src="./f3.jpg"
             alt="Background Image 2"
             fill
             className="object-cover"
@@ -112,7 +114,7 @@ export default function HeroSection({
           className="absolute inset-0"
         >
           <Image
-            src="/f4.jpg"
+            src="./f4.jpg"
             alt="Background Image 3"
             fill
             className="object-cover"
@@ -129,7 +131,7 @@ export default function HeroSection({
           className="absolute inset-0"
         >
           <Image
-            src="/f6.jpg"
+            src="./f6.jpg"
             alt="Background Image 4"
             fill
             className="object-cover"
@@ -146,7 +148,7 @@ export default function HeroSection({
           className="absolute inset-0"
         >
           <Image
-            src="/f7.jpg"
+            src="./f7.jpg"
             alt="Background Image 5"
             fill
             className="object-cover"

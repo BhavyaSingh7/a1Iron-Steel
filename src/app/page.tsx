@@ -26,31 +26,31 @@ export default function Home() {
     }, 2000); // 2 seconds
 
     // Check if video loads, if not show fallback image
-    const video = document.querySelector('video');
+    const video = document.querySelector("video");
     if (video) {
-      const fallback = document.getElementById('video-fallback') as HTMLElement;
-      
+      const fallback = document.getElementById("video-fallback") as HTMLElement;
+
       const handleVideoError = () => {
-        console.log('Video failed to load, showing fallback image');
+        console.log("Video failed to load, showing fallback image");
         if (fallback) {
-          fallback.style.display = 'block';
+          fallback.style.display = "block";
         }
       };
 
       const handleVideoLoad = () => {
-        console.log('Video loaded successfully');
+        console.log("Video loaded successfully");
         if (fallback) {
-          fallback.style.display = 'none';
+          fallback.style.display = "none";
         }
       };
 
-      video.addEventListener('error', handleVideoError);
-      video.addEventListener('loadeddata', handleVideoLoad);
+      video.addEventListener("error", handleVideoError);
+      video.addEventListener("loadeddata", handleVideoLoad);
 
       return () => {
         clearTimeout(timer);
-        video.removeEventListener('error', handleVideoError);
-        video.removeEventListener('loadeddata', handleVideoLoad);
+        video.removeEventListener("error", handleVideoError);
+        video.removeEventListener("loadeddata", handleVideoLoad);
       };
     }
 
@@ -98,20 +98,20 @@ export default function Home() {
       >
         {/* Video Background */}
         <div className="absolute inset-0 w-full h-full">
-          <video 
-            autoPlay 
-            muted 
-            loop 
+          <video
+            autoPlay
+            muted
+            loop
             playsInline
             className="w-full h-full object-cover"
             onError={(e) => {
-              console.error('Video error:', e);
+              console.error("Video error:", e);
               // Fallback to background image if video fails
               const videoElement = e.target as HTMLVideoElement;
-              videoElement.style.display = 'none';
+              videoElement.style.display = "none";
             }}
-            onLoadStart={() => console.log('Video loading started')}
-            onCanPlay={() => console.log('Video can play')}
+            onLoadStart={() => console.log("Video loading started")}
+            onCanPlay={() => console.log("Video can play")}
             preload="auto"
           >
             <source src="./bg-video.mp4" type="video/mp4" />
@@ -119,13 +119,13 @@ export default function Home() {
             <source src="bg-video.mp4" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
-          
+
           {/* Fallback background image */}
-          <div 
+          <div
             className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
             style={{
-              backgroundImage: 'url(./f1.webp)',
-              display: 'none'
+              backgroundImage: "url(./f1.webp)",
+              display: "none",
             }}
             id="video-fallback"
           />
