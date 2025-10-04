@@ -276,7 +276,6 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
                 className="bg-orange-500 text-white px-8 py-4 rounded-full hover:bg-orange-600 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl"
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
-                transition={{ duration: 0.2 }}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 1.8 }}
@@ -321,7 +320,7 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
                 transition={{ duration: 1, delay: 1.0, ease: "easeOut" }}
               >
                 At A1 Iron & Steel, we believe that true leadership is defined
-                by more than just making decisions—it's about inspiring teams,
+                by more than just making decisions—it&apos;s about inspiring teams,
                 driving innovation, and fostering an environment where
                 excellence thrives. Our leadership is the driving force behind
                 our continued success, setting the standard for industry-leading
@@ -362,7 +361,7 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
             >
-              // MISSION VISION STATEMENT
+              {/* MISSION VISION STATEMENT */}
             </motion.div>
             <motion.h2
               className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-8"
@@ -462,7 +461,7 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 1.0, ease: "easeOut" }}
               >
-                Alongside contributing to Rwanda's growth story, the company is
+                Alongside contributing to Rwanda&apos;s growth story, the company is
                 driving an ambitious global expansion plan with its sights set
                 on emerging as a leading business group. The company aims to
                 capitalize on opportunities in high growth markets, expanding
@@ -483,7 +482,7 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 1.4, ease: "easeOut" }}
               >
-                The company endeavors to strengthen Rwanda's industrial base by
+                The company endeavors to strengthen Rwanda&apos;s industrial base by
                 aiding infrastructural development through sustainable
                 infrastructural development approaches and inclusive growth. It
                 deploys its resources to improve infrastructure, education,
@@ -557,7 +556,7 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
             >
-              // Contact US
+              {/* Contact US */}
             </motion.div>
             <motion.h2
               className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-8"

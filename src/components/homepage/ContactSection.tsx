@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import React from "react";
-import { Phone, Mail, MapPin, Send } from "lucide-react";
+import { Phone, Mail, MapPin } from "lucide-react";
 
 export default function ContactSection() {
   const contactInfo = [
@@ -91,7 +91,7 @@ export default function ContactSection() {
               textShadow: "0 0 30px rgba(249, 115, 22, 0.5)",
             }}
           >
-            Let's Connect
+            Let&apos;s Connect
           </motion.h2>
           <motion.div
             initial={{ opacity: 0, scaleX: 0 }}
@@ -174,7 +174,7 @@ export default function ContactSection() {
                   Send us a Message
                 </h3>
                 <p className="text-gray-300 text-xs sm:text-sm">
-                  Fill out the form below and we'll get back to you within 24
+                  Fill out the form below and we&apos;ll get back to you within 24
                   hours.
                 </p>
               </div>

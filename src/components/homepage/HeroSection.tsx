@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 import React, { useState, useEffect } from "react";
 import { ArrowUp } from "lucide-react";
 import Logo from "@/components/Logo";
-import Typewriter from "@/components/Typewriter";
 import Image from "next/image";
 
 interface HeroSectionProps {

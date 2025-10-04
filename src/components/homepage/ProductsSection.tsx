@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
 
@@ -18,7 +18,7 @@ type Product = {
 
 export default function ProductsSection() {
   // Products data matching the live site
-  const products: Product[] = [
+  const products: Product[] = useMemo(() => [
     {
       id: 1,
       title: "TMT Bars",
@@ -172,7 +172,7 @@ export default function ProductsSection() {
         "Durable Coating",
       ],
     },
-  ];
+  ], []);
 
   const [isClient, setIsClient] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(products.length);
@@ -185,7 +185,7 @@ export default function ProductsSection() {
     setIsClient(true);
     // Create infinite carousel by duplicating products
     setCarouselItems([...products, ...products, ...products]);
-  }, []);
+  }, [products]);
 
   const navigateLeft = useCallback(() => {
     if (isTransitioning) return;
