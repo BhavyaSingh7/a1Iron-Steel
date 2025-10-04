@@ -8,6 +8,7 @@ type TypewriterProps = {
   startDelayMs?: number;
   className?: string;
   caretClassName?: string;
+  onComplete?: () => void;
 };
 
 export default function Typewriter({
@@ -16,6 +17,7 @@ export default function Typewriter({
   startDelayMs = 200,
   className,
   caretClassName,
+  onComplete,
 }: TypewriterProps) {
   const characters = useMemo(() => Array.from(text), [text]);
   const [index, setIndex] = useState(0);
@@ -41,6 +43,13 @@ export default function Typewriter({
 
   const visible = characters.slice(0, index).join("");
   const done = index >= characters.length;
+
+  // Call onComplete when typewriter finishes
+  useEffect(() => {
+    if (done && onComplete) {
+      onComplete();
+    }
+  }, [done, onComplete]);
 
   return (
     <span className={className} aria-label={text}>
