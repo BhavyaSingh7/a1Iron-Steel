@@ -25,6 +25,35 @@ export default function Home() {
       setShowVideoIntro(false);
     }, 2000); // 2 seconds
 
+    // Check if video loads, if not show fallback image
+    const video = document.querySelector('video');
+    if (video) {
+      const fallback = document.getElementById('video-fallback') as HTMLElement;
+      
+      const handleVideoError = () => {
+        console.log('Video failed to load, showing fallback image');
+        if (fallback) {
+          fallback.style.display = 'block';
+        }
+      };
+
+      const handleVideoLoad = () => {
+        console.log('Video loaded successfully');
+        if (fallback) {
+          fallback.style.display = 'none';
+        }
+      };
+
+      video.addEventListener('error', handleVideoError);
+      video.addEventListener('loadeddata', handleVideoLoad);
+
+      return () => {
+        clearTimeout(timer);
+        video.removeEventListener('error', handleVideoError);
+        video.removeEventListener('loadeddata', handleVideoLoad);
+      };
+    }
+
     return () => clearTimeout(timer);
   }, []);
 
@@ -69,9 +98,37 @@ export default function Home() {
       >
         {/* Video Background */}
         <div className="absolute inset-0 w-full h-full">
-          <video autoPlay muted loop className="w-full h-full object-cover">
+          <video 
+            autoPlay 
+            muted 
+            loop 
+            playsInline
+            className="w-full h-full object-cover"
+            onError={(e) => {
+              console.error('Video error:', e);
+              // Fallback to background image if video fails
+              const videoElement = e.target as HTMLVideoElement;
+              videoElement.style.display = 'none';
+            }}
+            onLoadStart={() => console.log('Video loading started')}
+            onCanPlay={() => console.log('Video can play')}
+            preload="auto"
+          >
+            <source src="./bg-video.mp4" type="video/mp4" />
             <source src="/bg-video.mp4" type="video/mp4" />
+            <source src="bg-video.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
           </video>
+          
+          {/* Fallback background image */}
+          <div 
+            className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
+            style={{
+              backgroundImage: 'url(./f1.webp)',
+              display: 'none'
+            }}
+            id="video-fallback"
+          />
         </div>
 
         {/* Dark overlay for better text readability */}
