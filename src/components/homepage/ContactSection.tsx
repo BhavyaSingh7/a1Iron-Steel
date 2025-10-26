@@ -90,9 +90,6 @@ export default function ContactSection() {
             style={{
               textShadow: "0 0 30px rgba(249, 115, 22, 0.5)",
             }}
-            style={{
-              textShadow: "0 0 30px rgba(249, 115, 22, 0.5)",
-            }}
           >
             Let&apos;s Connect
           </motion.h2>
