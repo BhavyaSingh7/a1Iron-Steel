@@ -8,7 +8,7 @@ export default function AboutSection() {
   return (
     <section
       id="about"
-      className="relative min-h-screen flex items-center justify-center overflow-y-auto py-8 sm:py-12 lg:py-16 bg-gradient-to-br from-gray-50 to-white"
+      className="relative min-h-screen flex items-center justify-center overflow-y-auto py-8 sm:py-12 lg:py-16 logo-gray-bg"
     >
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
@@ -24,7 +24,7 @@ export default function AboutSection() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             viewport={{ once: true }}
-            className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-bold text-gray-900 mb-2 sm:mb-3"
+            className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-bold logo-blue-gradient mb-2 sm:mb-3"
           >
             ABOUT US
           </motion.h2>
@@ -33,14 +33,14 @@ export default function AboutSection() {
             whileInView={{ opacity: 1, scaleX: 1 }}
             transition={{ duration: 0.8, delay: 0.4 }}
             viewport={{ once: true }}
-            className="w-16 sm:w-20 h-1 bg-gradient-to-r from-orange-500 to-orange-600 mx-auto mb-2 sm:mb-3"
+            className="w-16 sm:w-20 h-1 logo-orange-bg mx-auto mb-2 sm:mb-3"
           />
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
             viewport={{ once: true }}
-            className="text-sm sm:text-base md:text-lg text-orange-500 font-medium"
+            className="text-sm sm:text-base md:text-lg logo-orange-gradient font-medium"
           >
             {/* ABOUT US */}
           </motion.p>

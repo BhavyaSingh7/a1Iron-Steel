@@ -1,8 +1,24 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* A1 Steel Logo Color Scheme - Exact Match */
+  --logo-blue-light: #00B4DB;
+  --logo-blue-medium: #0083B0;
+  --logo-blue-dark: #004D73;
+  --logo-blue-gradient: linear-gradient(135deg, #00B4DB 0%, #0083B0 50%, #004D73 100%);
+  
+  --logo-orange-light: #FFD700;
+  --logo-orange-medium: #FF8C00;
+  --logo-orange-dark: #FF4500;
+  --logo-orange-gradient: linear-gradient(135deg, #FFD700 0%, #FF8C00 50%, #FF4500 100%);
+  
+  --logo-gray-light: #F8F9FA;
+  --logo-gray-medium: #E9ECEF;
+  --logo-gray-dark: #6C757D;
+  
+  --background: #F8F9FA;
+  --foreground: #212529;
+  --text-secondary: #6C757D;
 }
 
 @theme inline {
@@ -10,17 +26,67 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  
+  /* A1 Steel Logo Colors */
+  --color-logo-blue: var(--logo-blue-medium);
+  --color-logo-blue-light: var(--logo-blue-light);
+  --color-logo-blue-dark: var(--logo-blue-dark);
+  --color-logo-orange: var(--logo-orange-medium);
+  --color-logo-orange-light: var(--logo-orange-light);
+  --color-logo-orange-dark: var(--logo-orange-dark);
+  --color-logo-gray-light: var(--logo-gray-light);
+  --color-logo-gray-medium: var(--logo-gray-medium);
+  --color-logo-gray-dark: var(--logo-gray-dark);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Logo gradient utilities */
+.logo-blue-gradient {
+  background: var(--logo-blue-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.logo-orange-gradient {
+  background: var(--logo-orange-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.logo-blue-bg {
+  background: var(--logo-blue-gradient);
+}
+
+.logo-orange-bg {
+  background: var(--logo-orange-gradient);
+}
+
+.logo-gray-bg {
+  background: linear-gradient(135deg, var(--logo-gray-light) 0%, var(--logo-gray-medium) 100%);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--logo-gray-medium);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--logo-blue-gradient);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--logo-orange-gradient);
 }

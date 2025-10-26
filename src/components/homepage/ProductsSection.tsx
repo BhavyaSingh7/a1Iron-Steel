@@ -17,162 +17,376 @@ type Product = {
 };
 
 export default function ProductsSection() {
-  // Products data matching the live site
-  const products: Product[] = useMemo(() => [
-    {
-      id: 1,
-      title: "TMT Bars",
-      description:
-        "Thermo Mechanical Treatment Steel bars used in Earthquake-resistant construction",
-      image:
-        "https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=2070&auto=format&fit=crop",
-      specifications: [
-        "Grade: Fe500",
-        "Diameter: 8mm-32mm",
-        "IS 1786:2008",
-        "Yield Strength: 500 MPa",
-      ],
-      applications: [
-        "Reinforced Concrete Construction",
-        "High-rise Buildings",
-        "Bridges & Infrastructure",
-        "Earthquake-resistant Structures",
-      ],
-      features: [
-        "Superior Ductility",
-        "High Tensile Strength",
-        "Corrosion Resistance",
-        "Weldability",
-      ],
-    },
-    {
-      id: 2,
-      title: "5.5MM Wire Rod",
-      description: "A low-carbon general-purpose manufacturing wire",
-      image:
-        "https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=2070&auto=format&fit=crop",
-      specifications: [
-        "Diameter: 5.5mm",
-        "Grade: Low Carbon Steel",
-        "Surface: Bright",
-        "Tolerance: ±0.1mm",
-      ],
-      applications: [
-        "Wire Drawing",
-        "Nail Manufacturing",
-        "Mesh Production",
-        "Spring Manufacturing",
-      ],
-      features: [
-        "Consistent Quality",
-        "Excellent Drawability",
-        "Uniform Cross-section",
-        "High Purity",
-      ],
-    },
-    {
-      id: 3,
-      title: "Hot Rolled Strip",
-      description:
-        "High-quality steel strips for various industrial applications",
-      image:
-        "https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=2070&auto=format&fit=crop",
-      specifications: [
-        "Thickness: 1.5mm-12mm",
-        "Width: 25mm-200mm",
-        "Grade: Mild Steel",
-        "Surface: Mill Scale",
-      ],
-      applications: [
-        "Automotive Industry",
-        "Construction",
-        "Manufacturing",
-        "Fabrication",
-      ],
-      features: [
-        "Dimensional Accuracy",
-        "Good Surface Finish",
-        "Machinability",
-        "Formability",
-      ],
-    },
-    {
-      id: 4,
-      title: "V Angle",
-      description:
-        "Versatile angle steel for structural and construction purposes",
-      image:
-        "https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=2070&auto=format&fit=crop",
-      specifications: [
-        "Size: 25x25mm to 200x200mm",
-        "Thickness: 3mm-20mm",
-        "Grade: Structural Steel",
-        "Length: 6m-12m",
-      ],
-      applications: [
-        "Structural Framing",
-        "Support Brackets",
-        "Reinforcement",
-        "Fabrication",
-      ],
-      features: [
-        "High Strength",
-        "Easy Welding",
-        "Corrosion Resistance",
-        "Versatile Design",
-      ],
-    },
-    {
-      id: 5,
-      title: "Flat Bar",
-      description: "Precision-engineered flat steel bars for manufacturing",
-      image:
-        "https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=2070&auto=format&fit=crop",
-      specifications: [
-        "Width: 10mm-200mm",
-        "Thickness: 3mm-50mm",
-        "Grade: Mild Steel",
-        "Surface: Mill Finish",
-      ],
-      applications: [
-        "Machinery Parts",
-        "Fabrication",
-        "Construction",
-        "Manufacturing",
-      ],
-      features: [
-        "Precise Dimensions",
-        "Good Machinability",
-        "Consistent Quality",
-        "Weldability",
-      ],
-    },
-    {
-      id: 6,
-      title: "C Channel",
-      description: "Corrosion-resistant hot-dip galvanized channel steel",
-      image:
-        "https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=2070&auto=format&fit=crop",
-      specifications: [
-        "Size: 75x40mm to 200x75mm",
-        "Thickness: 2mm-8mm",
-        "Coating: Hot-dip Galvanized",
-        "Length: 6m-12m",
-      ],
-      applications: [
-        "Structural Support",
-        "Framing Systems",
-        "Industrial Racking",
-        "Construction",
-      ],
-      features: [
-        "Corrosion Protection",
-        "High Load Capacity",
-        "Easy Installation",
-        "Durable Coating",
-      ],
-    },
-  ], []);
+  // Products data for homepage carousel (6 products)
+  const products: Product[] = useMemo(
+    () => [
+      {
+        id: 1,
+        title: "TMT Bars",
+        description:
+          "Thermo Mechanical Treatment Steel bars used in Earthquake-resistant construction",
+        image:
+          "https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=2070&auto=format&fit=crop",
+        specifications: [
+          "Grade: Fe500",
+          "Diameter: 8mm-32mm",
+          "IS 1786:2008",
+          "Yield Strength: 500 MPa",
+        ],
+        applications: [
+          "Reinforced Concrete Construction",
+          "High-rise Buildings",
+          "Bridges & Infrastructure",
+          "Earthquake-resistant Structures",
+        ],
+        features: [
+          "Superior Ductility",
+          "High Tensile Strength",
+          "Corrosion Resistance",
+          "Weldability",
+        ],
+      },
+      {
+        id: 2,
+        title: "5.5MM Wire Rod",
+        description:
+          "A low-carbon general-purpose manufacturing wire used in a wide range of industries",
+        image:
+          "https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=2070&auto=format&fit=crop",
+        specifications: [
+          "Diameter: 5.5mm",
+          "Grade: Low Carbon Steel",
+          "Surface: Bright",
+          "Tolerance: ±0.1mm",
+        ],
+        applications: [
+          "Wire Drawing",
+          "Nail Manufacturing",
+          "Mesh Production",
+          "Spring Manufacturing",
+        ],
+        features: [
+          "Consistent Quality",
+          "Excellent Drawability",
+          "Uniform Cross-section",
+          "High Purity",
+        ],
+      },
+      {
+        id: 3,
+        title: "Hot Rolled Strip",
+        description:
+          "Strong hot-rolled strip, engineered to meet the diverse needs of various industries",
+        image:
+          "https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=2070&auto=format&fit=crop",
+        specifications: [
+          "Thickness: 1.5mm-12mm",
+          "Width: 25mm-200mm",
+          "Grade: Mild Steel",
+          "Surface: Mill Scale",
+        ],
+        applications: [
+          "Automotive Industry",
+          "Construction",
+          "Manufacturing",
+          "Fabrication",
+        ],
+        features: [
+          "Dimensional Accuracy",
+          "Good Surface Finish",
+          "Machinability",
+          "Formability",
+        ],
+      },
+      {
+        id: 4,
+        title: "V Angle",
+        description:
+          "Designed to meet the demands of the most rigorous construction and industrial applications",
+        image:
+          "https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=2070&auto=format&fit=crop",
+        specifications: [
+          "Size: 25x25mm to 200x200mm",
+          "Thickness: 3mm-20mm",
+          "Grade: Structural Steel",
+          "Length: 6m-12m",
+        ],
+        applications: [
+          "Structural Framing",
+          "Support Brackets",
+          "Reinforcement",
+          "Fabrication",
+        ],
+        features: [
+          "High Strength",
+          "Easy Welding",
+          "Corrosion Resistance",
+          "Versatile Design",
+        ],
+      },
+      {
+        id: 5,
+        title: "Flat Bar",
+        description:
+          "Bars Crafted to provide reliable strength and versatility for a range of manufacturing applications",
+        image:
+          "https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=2070&auto=format&fit=crop",
+        specifications: [
+          "Width: 10mm-200mm",
+          "Thickness: 3mm-50mm",
+          "Grade: Mild Steel",
+          "Surface: Mill Finish",
+        ],
+        applications: [
+          "Machinery Parts",
+          "Fabrication",
+          "Construction",
+          "Manufacturing",
+        ],
+        features: [
+          "Precise Dimensions",
+          "Good Machinability",
+          "Consistent Quality",
+          "Weldability",
+        ],
+      },
+      {
+        id: 6,
+        title: "C Channel",
+        description:
+          "C Channels engineered to provide outstanding structural support, stability, and versatility",
+        image:
+          "https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=2070&auto=format&fit=crop",
+        specifications: [
+          "Size: 75x40mm to 200x75mm",
+          "Thickness: 2mm-8mm",
+          "Coating: Hot-dip Galvanized",
+          "Length: 6m-12m",
+        ],
+        applications: [
+          "Structural Support",
+          "Framing Systems",
+          "Industrial Racking",
+          "Construction",
+        ],
+        features: [
+          "Corrosion Protection",
+          "High Load Capacity",
+          "Easy Installation",
+          "Durable Coating",
+        ],
+      },
+      {
+        id: 7,
+        title: "I-Beam",
+        description:
+          "Specifically designed to provide maximum structural strength, stability, and reliability",
+        image:
+          "https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=2070&auto=format&fit=crop",
+        specifications: [
+          "Size: 100x50mm to 600x200mm",
+          "Thickness: 3mm-25mm",
+          "Coating: Hot-dip Galvanized",
+          "Length: 6m-12m",
+        ],
+        applications: [
+          "Structural Framing",
+          "Bridge Construction",
+          "Industrial Buildings",
+          "Heavy Load Support",
+        ],
+        features: [
+          "Maximum Load Capacity",
+          "Structural Stability",
+          "Corrosion Resistance",
+          "Easy Installation",
+        ],
+      },
+      {
+        id: 8,
+        title: "Round Bar",
+        description:
+          "Engineered to meet the needs of construction, manufacturing, automotive, and more industries",
+        image:
+          "https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=2070&auto=format&fit=crop",
+        specifications: [
+          "Diameter: 6mm-100mm",
+          "Grade: Stainless Steel",
+          "Surface: Bright/Polished",
+          "Length: 3m-6m",
+        ],
+        applications: [
+          "Machinery Components",
+          "Construction",
+          "Automotive Parts",
+          "Manufacturing",
+        ],
+        features: [
+          "Corrosion Resistance",
+          "High Strength",
+          "Excellent Machinability",
+          "Consistent Quality",
+        ],
+      },
+      {
+        id: 9,
+        title: "Hollow Section",
+        description:
+          "Versatile hollow section with exceptional strength for construction, structural, & engineering applications",
+        image:
+          "https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=2070&auto=format&fit=crop",
+        specifications: [
+          "Size: 20x20mm to 400x400mm",
+          "Thickness: 1.5mm-12mm",
+          "Grade: Structural Steel",
+          "Length: 6m-12m",
+        ],
+        applications: [
+          "Structural Construction",
+          "Architectural Applications",
+          "Industrial Framing",
+          "Engineering Projects",
+        ],
+        features: [
+          "Exceptional Strength",
+          "Lightweight Design",
+          "Easy Fabrication",
+          "Versatile Applications",
+        ],
+      },
+      {
+        id: 10,
+        title: "Wire Nails",
+        description:
+          "Versatile and durable Wire nails, perfect for both industrial and construction applications",
+        image:
+          "https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=2070&auto=format&fit=crop",
+        specifications: [
+          "Length: 25mm-150mm",
+          "Diameter: 2mm-6mm",
+          "Material: Carbon Steel",
+          "Coating: Galvanized",
+        ],
+        applications: [
+          "Construction",
+          "Carpentry",
+          "Furniture Making",
+          "General Fastening",
+        ],
+        features: [
+          "High Durability",
+          "Corrosion Resistance",
+          "Sharp Points",
+          "Consistent Quality",
+        ],
+      },
+      {
+        id: 11,
+        title: "Binding Wire",
+        description:
+          "Deliver reliable performance in a range of applications, construction to general industrial use",
+        image:
+          "https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=2070&auto=format&fit=crop",
+        specifications: [
+          "Diameter: 0.8mm-2.5mm",
+          "Material: Galvanized Steel",
+          "Coating: Hot-dip Galvanized",
+          "Length: 50kg-100kg coils",
+        ],
+        applications: [
+          "Concrete Reinforcement",
+          "Construction Tying",
+          "General Binding",
+          "Industrial Use",
+        ],
+        features: [
+          "Durable Coating",
+          "Corrosion Resistance",
+          "Flexible",
+          "Easy to Use",
+        ],
+      },
+      {
+        id: 12,
+        title: "BRC",
+        description:
+          "British Reinforcement Concrete mesh for concrete strengthening",
+        image:
+          "https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=2070&auto=format&fit=crop",
+        specifications: [
+          "Mesh Size: 100x100mm to 200x200mm",
+          "Wire Diameter: 4mm-8mm",
+          "Material: High Tensile Steel",
+          "Coating: Galvanized",
+        ],
+        applications: [
+          "Concrete Reinforcement",
+          "Slab Construction",
+          "Foundation Work",
+          "Structural Strengthening",
+        ],
+        features: [
+          "High Tensile Strength",
+          "Corrosion Resistance",
+          "Easy Installation",
+          "Consistent Quality",
+        ],
+      },
+      {
+        id: 13,
+        title: "GI Chain Link",
+        description:
+          "GI (Galvanized Iron) Chain Link fencing that provides a strong, durable, and cost-effective solution for securing properties and enclosures",
+        image:
+          "https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=2070&auto=format&fit=crop",
+        specifications: [
+          "Mesh Size: 50mm-100mm",
+          "Wire Gauge: 8-12 gauge",
+          "Coating: Hot-dip Galvanized",
+          "Height: 1m-3m",
+        ],
+        applications: [
+          "Security Fencing",
+          "Property Boundaries",
+          "Industrial Enclosures",
+          "Sports Facilities",
+        ],
+        features: [
+          "Durable Coating",
+          "Weather Resistance",
+          "Easy Installation",
+          "Cost Effective",
+        ],
+      },
+      {
+        id: 14,
+        title: "Barbed Wire",
+        description:
+          "Widely used in various security applications to deter trespassers and enhance safety, Known for its sharpness and durability",
+        image:
+          "https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=2070&auto=format&fit=crop",
+        specifications: [
+          "Wire Gauge: 12-14 gauge",
+          "Barb Spacing: 75mm-150mm",
+          "Coating: Galvanized",
+          "Length: 400m-500m rolls",
+        ],
+        applications: [
+          "Security Fencing",
+          "Property Protection",
+          "Agricultural Use",
+          "Perimeter Security",
+        ],
+        features: [
+          "Sharp Barbs",
+          "High Durability",
+          "Weather Resistance",
+          "Effective Deterrent",
+        ],
+      },
+    ],
+    []
+  );
 
   const [isClient, setIsClient] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(products.length);
@@ -236,7 +450,7 @@ export default function ProductsSection() {
   return (
     <section
       id="products"
-      className="relative min-h-screen flex items-center justify-center py-16 sm:py-20 lg:py-24 bg-gradient-to-br from-gray-50 to-white overflow-hidden"
+      className="relative min-h-screen flex items-center justify-center py-16 sm:py-20 lg:py-24 logo-gray-bg overflow-hidden"
     >
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         {/* Section Header */}
@@ -254,14 +468,14 @@ export default function ProductsSection() {
             viewport={{ once: true }}
             className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4"
           >
-            <span className="text-gray-800">Our</span>{" "}
-            <span className="text-orange-500">Products</span>
+            <span className="logo-blue-gradient">Our</span>{" "}
+            <span className="logo-orange-gradient">Products</span>
           </motion.h2>
 
           {/* Underline with color split */}
           <div className="flex justify-center mb-6">
-            <div className="w-16 h-0.5 bg-gray-400"></div>
-            <div className="w-16 h-0.5 bg-orange-500"></div>
+            <div className="w-16 h-0.5 bg-logo-gray-medium"></div>
+            <div className="w-16 h-0.5 logo-orange-bg"></div>
           </div>
 
           <motion.p

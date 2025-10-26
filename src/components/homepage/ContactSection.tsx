@@ -90,6 +90,9 @@ export default function ContactSection() {
             style={{
               textShadow: "0 0 30px rgba(249, 115, 22, 0.5)",
             }}
+            style={{
+              textShadow: "0 0 30px rgba(249, 115, 22, 0.5)",
+            }}
           >
             Let&apos;s Connect
           </motion.h2>
@@ -174,8 +177,8 @@ export default function ContactSection() {
                   Send us a Message
                 </h3>
                 <p className="text-gray-300 text-xs sm:text-sm">
-                  Fill out the form below and we&apos;ll get back to you within 24
-                  hours.
+                  Fill out the form below and we&apos;ll get back to you within
+                  24 hours.
                 </p>
               </div>
 

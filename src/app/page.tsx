@@ -8,6 +8,8 @@ import Mission from "@/components/Mission";
 import ProductsSection from "@/components/homepage/ProductsSection";
 import ContactSection from "@/components/homepage/ContactSection";
 import { AboutUsPage } from "@/components/about-us-section";
+import { ProductPage } from "@/components/product-section";
+import { ContactPage } from "@/components/contact";
 
 export default function Home() {
   const [videoPhase, setVideoPhase] = useState<
@@ -17,13 +19,33 @@ export default function Home() {
   const [currentBgImage, setCurrentBgImage] = useState(0);
   const [showVideoIntro, setShowVideoIntro] = useState(true);
   const [showAboutUs, setShowAboutUs] = useState(false);
+  const [showProducts, setShowProducts] = useState(false);
+  const [showContact, setShowContact] = useState(false);
+  const [showSecondVideo, setShowSecondVideo] = useState(false);
+  const [showBubbles, setShowBubbles] = useState(false);
 
-  // Auto-slide to home screen after 2 seconds
+  // Show bubbles after 1 second
+  useEffect(() => {
+    const bubbleTimer = setTimeout(() => {
+      setShowBubbles(true);
+    }, 1000);
+    return () => clearTimeout(bubbleTimer);
+  }, []);
+
+  // Show second video after 5 seconds
+  useEffect(() => {
+    const secondVideoTimer = setTimeout(() => {
+      setShowSecondVideo(true);
+    }, 5000);
+    return () => clearTimeout(secondVideoTimer);
+  }, []);
+
+  // Auto-slide to home screen after 10 seconds (5s first video + 5s second video)
   useEffect(() => {
     const timer = setTimeout(() => {
       // Hide the video intro with slide-up animation
       setShowVideoIntro(false);
-    }, 2000); // 2 seconds
+    }, 10000); // 10 seconds total
 
     // Check if video loads, if not show fallback image
     const video = document.querySelector("video");
@@ -86,7 +108,7 @@ export default function Home() {
 
   return (
     <main className="min-h-screen">
-      {/* Video Intro Screen - Shows for 2 seconds then slides up */}
+      {/* Video Intro Screen - Shows for 8 seconds then slides up */}
       <motion.section
         className="fixed inset-0 z-50 bg-black"
         initial={{ y: 0 }}
@@ -96,8 +118,12 @@ export default function Home() {
           ease: [0.25, 0.1, 0.25, 1], // Smooth slide-up
         }}
       >
-        {/* Video Background */}
-        <div className="absolute inset-0 w-full h-full">
+        {/* First Video Background */}
+        <motion.div
+          className="absolute inset-0 w-full h-full"
+          animate={{ opacity: showSecondVideo ? 0 : 1 }}
+          transition={{ duration: 2, ease: "easeInOut" }}
+        >
           <video
             autoPlay
             muted
@@ -106,7 +132,6 @@ export default function Home() {
             className="w-full h-full object-cover"
             onError={(e) => {
               console.error("Video error:", e);
-              // Fallback to background image if video fails
               const videoElement = e.target as HTMLVideoElement;
               videoElement.style.display = "none";
             }}
@@ -114,25 +139,85 @@ export default function Home() {
             onCanPlay={() => console.log("Video can play")}
             preload="auto"
           >
-            <source src="./bg-video.mp4" type="video/mp4" />
             <source src="/bg-video.mp4" type="video/mp4" />
-            <source src="bg-video.mp4" type="video/mp4" />
+            <source
+              src="https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4"
+              type="video/mp4"
+            />
             Your browser does not support the video tag.
           </video>
+        </motion.div>
 
-          {/* Fallback background image */}
-          <div
-            className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
-            style={{
-              backgroundImage: "url(./f1.webp)",
-              display: "none",
+        {/* Second Video Background */}
+        <motion.div
+          className="absolute inset-0 w-full h-full"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: showSecondVideo ? 1 : 0 }}
+          transition={{ duration: 2, ease: "easeInOut" }}
+        >
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="w-full h-full object-cover"
+            onError={(e) => {
+              console.error("Second video error:", e);
+              const videoElement = e.target as HTMLVideoElement;
+              videoElement.style.display = "none";
             }}
-            id="video-fallback"
-          />
-        </div>
+            preload="auto"
+          >
+            <source src="/bg-video3.mp4" type="video/mp4" />
+            <source
+              src="https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_2mb.mp4"
+              type="video/mp4"
+            />
+            Your browser does not support the video tag.
+          </video>
+        </motion.div>
+
+        {/* Fallback background image */}
+        <div
+          className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage:
+              "url(https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=2070&auto=format&fit=crop)",
+            display: "none",
+          }}
+          id="video-fallback"
+        />
 
         {/* Dark overlay for better text readability */}
         <div className="absolute inset-0 bg-black/50" />
+
+        {/* Bouncing Bubbles */}
+        {showBubbles && (
+          <div className="absolute inset-0 overflow-hidden">
+            {[...Array(15)].map((_, i) => (
+              <motion.div
+                key={i}
+                className="absolute w-4 h-4 bg-white/20 rounded-full"
+                style={{
+                  left: `${Math.random() * 100}%`,
+                  top: `${Math.random() * 100}%`,
+                }}
+                animate={{
+                  y: [0, -30, 0],
+                  x: [0, Math.random() * 20 - 10, 0],
+                  scale: [1, 1.2, 1],
+                  opacity: [0.3, 0.8, 0.3],
+                }}
+                transition={{
+                  duration: 2 + Math.random() * 2,
+                  repeat: Infinity,
+                  delay: Math.random() * 2,
+                  ease: "easeInOut",
+                }}
+              />
+            ))}
+          </div>
+        )}
 
         {/* A1 IRON & STEEL Text */}
         <div className="relative z-10 h-full flex items-center justify-center">
@@ -149,18 +234,36 @@ export default function Home() {
             >
               A1 IRON & STEEL
             </motion.h1>
+
+            {/* Info text that appears with second video */}
+            <motion.div
+              className="mt-8 max-w-2xl mx-auto"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{
+                opacity: showSecondVideo ? 1 : 0,
+                y: showSecondVideo ? 0 : 30,
+              }}
+              transition={{ duration: 1, delay: 0.2 }}
+            >
+              <p className="text-xl sm:text-2xl md:text-3xl text-white/90 font-light leading-relaxed">
+                Forging Excellence in Steel Manufacturing
+              </p>
+              <p className="text-lg sm:text-xl text-white/70 mt-4">
+                Where Innovation Meets Industrial Strength
+              </p>
+            </motion.div>
           </div>
         </div>
       </motion.section>
 
       {/* Hero Section */}
       <HeroSection
-        videoPhase={videoPhase}
-        typewriterComplete={typewriterComplete}
         setTypewriterComplete={setTypewriterComplete}
         currentBgImage={currentBgImage}
         showVideoIntro={showVideoIntro}
         onAboutClick={() => setShowAboutUs(true)}
+        onProductsClick={() => setShowProducts(true)}
+        onContactClick={() => setShowContact(true)}
       />
 
       {/* About Section */}
@@ -177,6 +280,12 @@ export default function Home() {
 
       {/* About Us Page */}
       {showAboutUs && <AboutUsPage onClose={() => setShowAboutUs(false)} />}
+
+      {/* Products Page */}
+      {showProducts && <ProductPage onClose={() => setShowProducts(false)} />}
+
+      {/* Contact Page */}
+      {showContact && <ContactPage onClose={() => setShowContact(false)} />}
     </main>
   );
 }
