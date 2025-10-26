@@ -1,10 +1,15 @@
 import type { NextConfig } from "next";
 
+const basePath = process.env.GITHUB_ACTIONS ? '/a1Iron-Steel' : '';
+
 const nextConfig: NextConfig = {
   output: 'export',
   trailingSlash: true,
-  basePath: process.env.GITHUB_ACTIONS ? '/a1Iron-Steel' : '',
-  assetPrefix: process.env.GITHUB_ACTIONS ? '/a1Iron-Steel' : '',
+  basePath,
+  assetPrefix: basePath,
+  env: {
+    NEXT_PUBLIC_BASE_PATH: basePath,
+  },
   images: {
     unoptimized: true,
     remotePatterns: [
