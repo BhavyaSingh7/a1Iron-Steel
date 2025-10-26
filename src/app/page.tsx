@@ -139,7 +139,10 @@ export default function Home() {
             onCanPlay={() => console.log("Video can play")}
             preload="auto"
           >
-            <source src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/bg-video.mp4`} type="video/mp4" />
+            <source
+              src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/bg-video.mp4`}
+              type="video/mp4"
+            />
             <source
               src="https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4"
               type="video/mp4"
@@ -168,7 +171,10 @@ export default function Home() {
             }}
             preload="auto"
           >
-            <source src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/bg-video3.mp4`} type="video/mp4" />
+            <source
+              src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/bg-video3.mp4`}
+              type="video/mp4"
+            />
             <source
               src="https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_2mb.mp4"
               type="video/mp4"

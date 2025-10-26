@@ -123,7 +123,7 @@ export default function HeroSection({
           className="absolute inset-0"
         >
           <Image
-            src="/f2.jpg"
+            src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/f2.jpg`}
             alt="Background Image 1"
             fill
             className="object-cover"
@@ -140,7 +140,7 @@ export default function HeroSection({
           className="absolute inset-0"
         >
           <Image
-            src="/f3.jpg"
+            src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/f3.jpg`}
             alt="Background Image 2"
             fill
             className="object-cover"
@@ -157,7 +157,7 @@ export default function HeroSection({
           className="absolute inset-0"
         >
           <Image
-            src="/f4.jpg"
+            src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/f4.jpg`}
             alt="Background Image 3"
             fill
             className="object-cover"
@@ -174,7 +174,7 @@ export default function HeroSection({
           className="absolute inset-0"
         >
           <Image
-            src="/f6.jpg"
+            src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/f6.jpg`}
             alt="Background Image 4"
             fill
             className="object-cover"
@@ -191,7 +191,7 @@ export default function HeroSection({
           className="absolute inset-0"
         >
           <Image
-            src="/f7.jpg"
+            src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/f7.jpg`}
             alt="Background Image 5"
             fill
             className="object-cover"
