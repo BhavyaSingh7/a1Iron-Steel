@@ -229,13 +229,17 @@ export default function Home() {
         <div className="relative z-10 h-full flex items-center justify-center">
           <div className="text-center">
             <motion.h1
-              className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold text-white"
-              initial={{ opacity: 0, y: 50, scale: 0.5 }}
+              className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold text-white tracking-tight"
+              initial={{ opacity: 0, y: 80, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               transition={{
-                duration: 1.2,
-                delay: 0.5,
-                ease: [0.68, -0.55, 0.265, 1.55], // Bounce effect
+                duration: 1.5,
+                delay: 0.3,
+                ease: [0.215, 0.61, 0.355, 1], // Smooth ease-out
+              }}
+              style={{
+                textShadow:
+                  "0 4px 20px rgba(0, 0, 0, 0.5), 0 0 40px rgba(0, 0, 0, 0.3)",
               }}
             >
               A1 IRON & STEEL
@@ -244,19 +248,33 @@ export default function Home() {
             {/* Info text that appears with second video */}
             <motion.div
               className="mt-8 max-w-2xl mx-auto"
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 40 }}
               animate={{
                 opacity: showSecondVideo ? 1 : 0,
-                y: showSecondVideo ? 0 : 30,
+                y: showSecondVideo ? 0 : 40,
               }}
-              transition={{ duration: 1, delay: 0.2 }}
+              transition={{
+                duration: 1.2,
+                delay: showSecondVideo ? 0.5 : 0,
+                ease: "easeOut",
+              }}
             >
-              <p className="text-xl sm:text-2xl md:text-3xl text-white/90 font-light leading-relaxed">
+              <motion.p
+                className="text-xl sm:text-2xl md:text-3xl text-white/95 font-light leading-relaxed"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: showSecondVideo ? 1 : 0 }}
+                transition={{ delay: 0.7, duration: 0.8 }}
+              >
                 Forging Excellence in Steel Manufacturing
-              </p>
-              <p className="text-lg sm:text-xl text-white/70 mt-4">
+              </motion.p>
+              <motion.p
+                className="text-lg sm:text-xl text-white/80 mt-4"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: showSecondVideo ? 1 : 0 }}
+                transition={{ delay: 0.9, duration: 0.8 }}
+              >
                 Where Innovation Meets Industrial Strength
-              </p>
+              </motion.p>
             </motion.div>
           </div>
         </div>
