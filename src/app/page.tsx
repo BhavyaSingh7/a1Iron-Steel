@@ -199,25 +199,35 @@ export default function Home() {
 
         {/* Bouncing Bubbles */}
         {showBubbles && (
-          <div className="absolute inset-0 overflow-hidden">
-            {[...Array(15)].map((_, i) => (
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            {[...Array(12)].map((_, i) => (
               <motion.div
                 key={i}
-                className="absolute w-4 h-4 bg-white/20 rounded-full"
+                className="absolute rounded-full blur-sm"
                 style={{
                   left: `${Math.random() * 100}%`,
                   top: `${Math.random() * 100}%`,
+                  width: `${8 + Math.random() * 16}px`,
+                  height: `${8 + Math.random() * 16}px`,
+                  background:
+                    i % 4 === 0
+                      ? "radial-gradient(circle, rgba(240, 174, 40, 0.25), rgba(241, 133, 46, 0.15))"
+                      : i % 4 === 1
+                      ? "radial-gradient(circle, rgba(32, 132, 177, 0.3), rgba(26, 95, 130, 0.2))"
+                      : i % 4 === 2
+                      ? "radial-gradient(circle, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1))"
+                      : "radial-gradient(circle, rgba(141, 188, 217, 0.3), rgba(32, 132, 177, 0.15))",
                 }}
                 animate={{
-                  y: [0, -30, 0],
-                  x: [0, Math.random() * 20 - 10, 0],
+                  y: [0, -40, 0],
+                  x: [0, 10, 0],
                   scale: [1, 1.2, 1],
-                  opacity: [0.3, 0.8, 0.3],
+                  opacity: [0.2, 0.5, 0.2],
                 }}
                 transition={{
-                  duration: 2 + Math.random() * 2,
+                  duration: 3,
                   repeat: Infinity,
-                  delay: Math.random() * 2,
+                  delay: i * 0.3,
                   ease: "easeInOut",
                 }}
               />
@@ -228,53 +238,135 @@ export default function Home() {
         {/* A1 IRON & STEEL Text */}
         <div className="relative z-10 h-full flex items-center justify-center">
           <div className="text-center">
+            {/* Background Glow Effect */}
+            <div
+              className="absolute inset-0 blur-3xl opacity-20"
+              style={{
+                background:
+                  "linear-gradient(135deg, #f0ae28 0%, #f1852e 25%, #2084b1 60%, #1a5f82 100%)",
+                transform: "scale(1.8)",
+              }}
+            />
+
             <motion.h1
-              className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold text-white tracking-tight"
-              initial={{ opacity: 0, y: 80, scale: 0.95 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
+              className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-black relative z-10 tracking-wide gradient-title"
+              initial={{ opacity: 0, y: 80, scale: 0.9 }}
+              animate={{
+                opacity: 1,
+                y: 0,
+                scale: 1,
+              }}
               transition={{
-                duration: 1.5,
+                duration: 1.8,
                 delay: 0.3,
-                ease: [0.215, 0.61, 0.355, 1], // Smooth ease-out
+                ease: [0.215, 0.61, 0.355, 1],
               }}
               style={{
-                textShadow:
-                  "0 4px 20px rgba(0, 0, 0, 0.5), 0 0 40px rgba(0, 0, 0, 0.3)",
+                background:
+                  "linear-gradient(135deg, #FFFFFF 0%, #f0ae28 25%, #2084b1 60%, #1a5f82 100%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+                backgroundSize: "200% auto",
+                textShadow: "0 0 80px rgba(32, 132, 177, 0.4)",
+                letterSpacing: "0.05em",
+                fontFamily: "'Helvetica Neue', 'Arial Black', sans-serif",
               }}
             >
               A1 IRON & STEEL
             </motion.h1>
 
+            {/* Animated Underline */}
+            <motion.div
+              className="h-1 mt-4 mx-auto"
+              style={{
+                background:
+                  "linear-gradient(90deg, transparent, #f0ae28 25%, #2084b1 50%, #1a5f82 75%, transparent)",
+                maxWidth: "600px",
+                boxShadow: "0 2px 20px rgba(32, 132, 177, 0.5)",
+              }}
+              initial={{ scaleX: 0, opacity: 0 }}
+              animate={{ scaleX: 1, opacity: 1 }}
+              transition={{ duration: 1.2, delay: 1.2, ease: "easeOut" }}
+            />
+
             {/* Info text that appears with second video */}
             <motion.div
-              className="mt-8 max-w-2xl mx-auto"
-              initial={{ opacity: 0, y: 40 }}
+              className="mt-12 max-w-3xl mx-auto"
+              initial={{ opacity: 0, y: 50 }}
               animate={{
                 opacity: showSecondVideo ? 1 : 0,
-                y: showSecondVideo ? 0 : 40,
+                y: showSecondVideo ? 0 : 50,
               }}
               transition={{
-                duration: 1.2,
-                delay: showSecondVideo ? 0.5 : 0,
+                duration: 1.5,
+                delay: showSecondVideo ? 0.8 : 0,
                 ease: "easeOut",
               }}
             >
               <motion.p
-                className="text-xl sm:text-2xl md:text-3xl text-white/95 font-light leading-relaxed"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: showSecondVideo ? 1 : 0 }}
-                transition={{ delay: 0.7, duration: 0.8 }}
+                className="text-2xl sm:text-3xl md:text-4xl text-white font-bold leading-tight"
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{
+                  opacity: showSecondVideo ? 1 : 0,
+                  scale: showSecondVideo ? 1 : 0.95,
+                }}
+                transition={{ delay: 1.0, duration: 1.0 }}
+                style={{
+                  textShadow:
+                    "2px 2px 10px rgba(0, 0, 0, 0.8), 0 0 30px rgba(32, 132, 177, 0.3)",
+                  letterSpacing: "0.03em",
+                  fontFamily: "'Helvetica Neue', 'Arial', sans-serif",
+                }}
               >
                 Forging Excellence in Steel Manufacturing
               </motion.p>
-              <motion.p
-                className="text-lg sm:text-xl text-white/80 mt-4"
+              <motion.div
+                className="mt-6 flex items-center justify-center gap-3"
+                initial={{ opacity: 0, x: -20 }}
+                animate={{
+                  opacity: showSecondVideo ? 1 : 0,
+                  x: showSecondVideo ? 0 : -20,
+                }}
+                transition={{ delay: 1.3, duration: 0.8 }}
+              >
+                <div className="h-px w-12 bg-gradient-to-r from-transparent to-cyan-400" />
+                <motion.p
+                  className="text-lg sm:text-xl md:text-2xl text-white/90 font-semibold"
+                  style={{
+                    textShadow: "1px 1px 8px rgba(0, 0, 0, 0.7)",
+                    letterSpacing: "0.05em",
+                  }}
+                >
+                  Where Innovation Meets Industrial Strength
+                </motion.p>
+                <div className="h-px w-12 bg-gradient-to-l from-transparent to-cyan-400" />
+              </motion.div>
+
+              {/* Decorative Elements */}
+              <motion.div
+                className="mt-8 flex items-center justify-center gap-2"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: showSecondVideo ? 1 : 0 }}
-                transition={{ delay: 0.9, duration: 0.8 }}
+                transition={{ delay: 1.6, duration: 0.8 }}
               >
-                Where Innovation Meets Industrial Strength
-              </motion.p>
+                {[...Array(5)].map((_, i) => (
+                  <motion.div
+                    key={i}
+                    className="h-1.5 w-1.5 rounded-full bg-white/60"
+                    animate={{
+                      scale: [1, 1.5, 1],
+                      opacity: [0.6, 1, 0.6],
+                    }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      delay: i * 0.2,
+                      ease: "easeInOut",
+                    }}
+                  />
+                ))}
+              </motion.div>
             </motion.div>
           </div>
         </div>

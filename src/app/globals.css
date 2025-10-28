@@ -1,17 +1,26 @@
 @import "tailwindcss";
 
 :root {
-  /* A1 Steel Logo Color Scheme - Exact Match */
-  --logo-blue-light: #00B4DB;
-  --logo-blue-medium: #0083B0;
-  --logo-blue-dark: #004D73;
-  --logo-blue-gradient: linear-gradient(135deg, #00B4DB 0%, #0083B0 50%, #004D73 100%);
+  /* A1 Steel Logo Color Scheme - Exact Palette Match */
+  /* Primary Colors */
+  --logo-gold-1: #f0ae28;      /* Light gold */
+  --logo-orange-1: #f1852e;    /* Medium orange */
+  --logo-orange-2: #de8d45;    /* Light orange */
+  --logo-orange-3: #f09b30;    /* Bright orange */
   
-  --logo-orange-light: #FFD700;
-  --logo-orange-medium: #FF8C00;
-  --logo-orange-dark: #FF4500;
-  --logo-orange-gradient: linear-gradient(135deg, #FFD700 0%, #FF8C00 50%, #FF4500 100%);
+  /* Secondary Colors */
+  --logo-blue-1: #2084b1;      /* Medium blue */
+  --logo-blue-2: #8dbcd9;      /* Light blue */
+  --logo-blue-dark-1: #113d59; /* Dark blue */
+  --logo-blue-dark-2: #1a5f82; /* Darker blue */
   
+  /* Gradients */
+  --logo-gold-gradient: linear-gradient(135deg, #f0ae28 0%, #f1852e 50%, #de8d45 100%);
+  --logo-blue-gradient: linear-gradient(135deg, #8dbcd9 0%, #2084b1 50%, #1a5f82 100%);
+  --logo-orange-gradient: linear-gradient(135deg, #f09b30 0%, #f1852e 50%, #de8d45 100%);
+  --logo-primary-gradient: linear-gradient(135deg, #f0ae28 0%, #f1852e 25%, #2084b1 60%, #1a5f82 100%);
+  
+  /* Utility Colors */
   --logo-gray-light: #F8F9FA;
   --logo-gray-medium: #E9ECEF;
   --logo-gray-dark: #6C757D;
@@ -27,13 +36,15 @@
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   
-  /* A1 Steel Logo Colors */
-  --color-logo-blue: var(--logo-blue-medium);
-  --color-logo-blue-light: var(--logo-blue-light);
-  --color-logo-blue-dark: var(--logo-blue-dark);
-  --color-logo-orange: var(--logo-orange-medium);
-  --color-logo-orange-light: var(--logo-orange-light);
-  --color-logo-orange-dark: var(--logo-orange-dark);
+  /* A1 Steel Logo Colors - New Palette */
+  --color-logo-gold-1: var(--logo-gold-1);
+  --color-logo-orange-1: var(--logo-orange-1);
+  --color-logo-orange-2: var(--logo-orange-2);
+  --color-logo-orange-3: var(--logo-orange-3);
+  --color-logo-blue-1: var(--logo-blue-1);
+  --color-logo-blue-2: var(--logo-blue-2);
+  --color-logo-blue-dark-1: var(--logo-blue-dark-1);
+  --color-logo-blue-dark-2: var(--logo-blue-dark-2);
   --color-logo-gray-light: var(--logo-gray-light);
   --color-logo-gray-medium: var(--logo-gray-medium);
   --color-logo-gray-dark: var(--logo-gray-dark);
@@ -47,8 +58,22 @@
   background-clip: text;
 }
 
+.logo-gold-gradient {
+  background: var(--logo-gold-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
 .logo-orange-gradient {
   background: var(--logo-orange-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.logo-primary-gradient {
+  background: var(--logo-primary-gradient);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -60,6 +85,14 @@
 
 .logo-orange-bg {
   background: var(--logo-orange-gradient);
+}
+
+.logo-gold-bg {
+  background: var(--logo-gold-gradient);
+}
+
+.logo-primary-bg {
+  background: var(--logo-primary-gradient);
 }
 
 .logo-gray-bg {
@@ -89,4 +122,14 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--logo-orange-gradient);
+}
+
+/* Gradient animation for video intro title */
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.gradient-title {
+  animation: gradientShift 5s ease infinite;
 }

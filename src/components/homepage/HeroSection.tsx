@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import React, { useState, useEffect } from "react";
-import { ArrowUp } from "lucide-react";
+import { ArrowUp, Trees } from "lucide-react";
 import Logo from "@/components/Logo";
 import Image from "next/image";
 
@@ -26,6 +26,9 @@ export default function HeroSection({
   const [displayedText, setDisplayedText] = useState("");
   const [showCursor, setShowCursor] = useState(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [sliderPosition, setSliderPosition] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
+  const [slideTriggered, setSlideTriggered] = useState(false);
   const fullText = "A1 IRON & STEEL";
 
   // Custom typing effect
@@ -119,7 +122,7 @@ export default function HeroSection({
           animate={{
             opacity: currentBgImage === 0 ? 0.6 : 0,
           }}
-          transition={{ duration: 1.5 }}
+          transition={{ duration: 0.8 }}
           className="absolute inset-0"
         >
           <Image
@@ -128,6 +131,7 @@ export default function HeroSection({
             fill
             className="object-cover"
             priority
+            loading="eager"
           />
         </motion.div>
 
@@ -136,7 +140,7 @@ export default function HeroSection({
           animate={{
             opacity: currentBgImage === 1 ? 0.6 : 0,
           }}
-          transition={{ duration: 1.5 }}
+          transition={{ duration: 0.8 }}
           className="absolute inset-0"
         >
           <Image
@@ -144,7 +148,7 @@ export default function HeroSection({
             alt="Background Image 2"
             fill
             className="object-cover"
-            priority
+            loading="lazy"
           />
         </motion.div>
 
@@ -153,7 +157,7 @@ export default function HeroSection({
           animate={{
             opacity: currentBgImage === 2 ? 0.6 : 0,
           }}
-          transition={{ duration: 1.5 }}
+          transition={{ duration: 0.8 }}
           className="absolute inset-0"
         >
           <Image
@@ -161,7 +165,7 @@ export default function HeroSection({
             alt="Background Image 3"
             fill
             className="object-cover"
-            priority
+            loading="lazy"
           />
         </motion.div>
 
@@ -170,7 +174,7 @@ export default function HeroSection({
           animate={{
             opacity: currentBgImage === 3 ? 0.6 : 0,
           }}
-          transition={{ duration: 1.5 }}
+          transition={{ duration: 0.8 }}
           className="absolute inset-0"
         >
           <Image
@@ -178,7 +182,7 @@ export default function HeroSection({
             alt="Background Image 4"
             fill
             className="object-cover"
-            priority
+            loading="lazy"
           />
         </motion.div>
 
@@ -187,7 +191,7 @@ export default function HeroSection({
           animate={{
             opacity: currentBgImage === 4 ? 0.6 : 0,
           }}
-          transition={{ duration: 1.5 }}
+          transition={{ duration: 0.8 }}
           className="absolute inset-0"
         >
           <Image
@@ -195,7 +199,7 @@ export default function HeroSection({
             alt="Background Image 5"
             fill
             className="object-cover"
-            priority
+            loading="lazy"
           />
         </motion.div>
       </div>
@@ -211,38 +215,64 @@ export default function HeroSection({
           className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm shadow-lg border-b border-logo-orange-medium/30"
         >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex items-center justify-between h-16 md:h-18 lg:h-20">
+            <div className="flex items-center justify-between h-14 md:h-16">
               {/* Logo */}
-              <div className="flex items-center">
-                <Logo />
+              <div className="flex items-center h-full">
+                <motion.a
+                  href="#home"
+                  className="flex items-center h-full"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <div className="relative h-full w-auto">
+                    <Image
+                      src={`${
+                        process.env.NEXT_PUBLIC_BASE_PATH || ""
+                      }/logo.png`}
+                      alt="A1 Iron & Steel Logo"
+                      width={80}
+                      height={80}
+                      className="h-full w-auto object-contain"
+                      priority
+                    />
+                  </div>
+                </motion.a>
               </div>
 
               {/* Navigation Links */}
-              <nav className="hidden md:flex items-center space-x-8">
-                <a
+              <nav className="hidden md:flex items-center space-x-6">
+                <motion.a
                   href="#home"
-                  className="text-logo-orange-medium hover:text-logo-orange-dark transition-colors duration-300 font-medium"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="text-gray-700 font-bold text-sm hover:text-logo-orange-1 transition-all duration-300 cursor-pointer"
                 >
                   Home
-                </a>
-                <button
+                </motion.a>
+                <motion.button
                   onClick={onAboutClick}
-                  className="text-logo-orange-medium hover:text-logo-orange-dark transition-colors duration-300 font-medium"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="text-gray-700 font-bold text-sm hover:text-logo-orange-1 transition-all duration-300"
                 >
                   About
-                </button>
-                <button
+                </motion.button>
+                <motion.button
                   onClick={onProductsClick}
-                  className="text-logo-orange-medium hover:text-logo-orange-dark transition-colors duration-300 font-medium"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="text-gray-700 font-bold text-sm hover:text-logo-orange-1 transition-all duration-300"
                 >
                   Products
-                </button>
-                <button
+                </motion.button>
+                <motion.button
                   onClick={onContactClick}
-                  className="text-logo-orange-medium hover:text-logo-orange-dark transition-colors duration-300 font-medium"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="text-gray-700 font-bold text-sm hover:text-logo-orange-1 transition-all duration-300"
                 >
                   Contact
-                </button>
+                </motion.button>
               </nav>
 
               {/* Mobile Menu Button */}
@@ -343,7 +373,7 @@ export default function HeroSection({
                 ease: [0.68, -0.55, 0.265, 1.55], // Bounce effect
               }}
             >
-              <span className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl font-bold leading-tight mb-2 whitespace-nowrap">
+              <span className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-black leading-tight mb-2 whitespace-nowrap tracking-tight">
                 <span className="logo-blue-gradient">
                   {displayedText.includes("&")
                     ? displayedText.split("&")[0]
@@ -377,7 +407,7 @@ export default function HeroSection({
               duration: 1,
               delay: showVideoIntro ? 0 : 0.8,
             }}
-            className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold logo-blue-gradient mb-6 sm:mb-8"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold logo-blue-gradient mb-6 sm:mb-8 tracking-tight"
           >
             The Metal That Builds a Nation
           </motion.h2>
@@ -393,7 +423,7 @@ export default function HeroSection({
               duration: 1,
               delay: showVideoIntro ? 0 : 1.1,
             }}
-            className="text-base sm:text-lg md:text-xl text-logo-gray-dark mb-8 sm:mb-10 md:mb-12 leading-relaxed max-w-4xl mx-auto"
+            className="text-lg sm:text-xl md:text-2xl text-gray-700 mb-10 sm:mb-12 md:mb-16 leading-relaxed max-w-4xl mx-auto font-medium"
           >
             Forging strength and shaping the future{" "}
             <span className="logo-orange-gradient font-semibold">
@@ -412,23 +442,118 @@ export default function HeroSection({
               duration: 1,
               delay: showVideoIntro ? 0 : 1.4,
             }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6"
+            className="flex flex-col sm:flex-row items-center justify-center gap-5 sm:gap-6"
           >
             <motion.button
               onClick={onProductsClick}
-              whileHover={{ scale: 1.05, y: -2 }}
+              whileHover={{ scale: 1.08, y: -3 }}
               whileTap={{ scale: 0.95 }}
-              className="px-8 sm:px-10 py-3 sm:py-4 logo-orange-bg text-white font-bold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 text-base sm:text-lg"
+              className="px-10 sm:px-12 py-4 sm:py-5 logo-orange-bg text-white font-bold rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 text-lg sm:text-xl tracking-wide"
             >
               Explore Products
             </motion.button>
             <motion.button
-              whileHover={{ scale: 1.05, y: -2 }}
+              whileHover={{
+                scale: 1.1,
+                y: -4,
+                transition: { type: "spring", stiffness: 300, damping: 20 },
+              }}
               whileTap={{ scale: 0.95 }}
-              className="px-8 sm:px-10 py-3 sm:py-4 border-2 border-logo-orange-medium text-logo-orange-medium font-bold rounded-full hover:logo-orange-bg hover:text-white transition-all duration-300 text-base sm:text-lg"
+              className="px-10 sm:px-12 py-4 sm:py-5 border-2 border-logo-orange-medium text-logo-orange-medium font-bold rounded-full hover:border-logo-orange-medium hover:text-white hover:shadow-xl transition-all duration-300 text-lg sm:text-xl tracking-wide group relative overflow-hidden bg-white"
             >
-              Learn More
+              <span className="relative z-10 transition-all duration-300 text-logo-orange-medium group-hover:text-white">
+                Learn More
+              </span>
+              <div
+                className="absolute inset-0 logo-orange-bg scale-0 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all duration-300 ease-out"
+                style={{ borderRadius: "inherit" }}
+              />
             </motion.button>
+            {/* Interactive Slider CTA to Sustainability */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{
+                opacity: showVideoIntro ? 0 : 1,
+                y: showVideoIntro ? 30 : 0,
+              }}
+              transition={{ duration: 1, delay: showVideoIntro ? 0 : 1.6 }}
+              className="relative select-none"
+            >
+              <div className="sustainability-slider w-48 sm:w-56 h-14 sm:h-16 bg-white/90 backdrop-blur-sm border border-gray-300 rounded-full shadow-md relative overflow-hidden">
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <span
+                    className="text-xs font-semibold text-gray-700 z-10 transition-opacity duration-300 px-2"
+                    style={{ opacity: sliderPosition > 15 ? 0 : 1 }}
+                  >
+                    Sustainability
+                  </span>
+                </div>
+                <motion.div
+                  drag="x"
+                  dragConstraints={{ left: 0, right: 0 }}
+                  dragElastic={0}
+                  onDrag={(e, info) => {
+                    const sliderElement = (e.target as HTMLElement)
+                      .parentElement!;
+                    const buttonWidth = 40; // w-10 = 40px
+                    const maxWidth = sliderElement.offsetWidth - buttonWidth;
+                    const newPos = Math.max(
+                      0,
+                      Math.min(info.point.x - buttonWidth / 2, maxWidth)
+                    );
+                    setSliderPosition(newPos);
+
+                    if (newPos >= maxWidth * 0.9 && !slideTriggered) {
+                      setSlideTriggered(true);
+                      setTimeout(() => {
+                        const el = document.querySelector("#sustainability");
+                        if (el) {
+                          el.scrollIntoView({
+                            behavior: "smooth",
+                            block: "start",
+                          });
+                        }
+                        setTimeout(() => {
+                          setSliderPosition(0);
+                          setSlideTriggered(false);
+                        }, 1500);
+                      }, 300);
+                    }
+                  }}
+                  onDragEnd={() => {
+                    if (!slideTriggered) {
+                      setSliderPosition(0);
+                    }
+                  }}
+                  style={{ left: `${Math.max(2, sliderPosition)}px` }}
+                  className={`absolute top-2 sm:top-2 w-10 h-10 rounded-full shadow-lg flex items-center justify-center cursor-grab active:cursor-grabbing z-20 hover:shadow-xl transition-all duration-300 ${
+                    sliderPosition > 120
+                      ? "bg-gradient-to-br from-green-500 to-emerald-600 border-2 border-green-400"
+                      : "bg-white border border-gray-400"
+                  }`}
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                >
+                  <Trees
+                    className={`w-6 h-6 ${
+                      sliderPosition > 120 ? "text-white" : "text-green-600"
+                    }`}
+                  />
+                </motion.div>
+                {sliderPosition > 10 && (
+                  <motion.div
+                    initial={{ width: 0, opacity: 0 }}
+                    animate={{ width: sliderPosition + 4, opacity: 1 }}
+                    transition={{ type: "spring", stiffness: 150, damping: 15 }}
+                    className={`absolute left-0 top-0 h-full rounded-full ${
+                      sliderPosition > 120
+                        ? "bg-gradient-to-r from-green-500 via-emerald-600 to-teal-600 shadow-inner"
+                        : "bg-gradient-to-r from-blue-500 via-blue-600 to-cyan-600 shadow-sm"
+                    }`}
+                  />
+                )}
+              </div>
+            </motion.div>
           </motion.div>
         </div>
 
