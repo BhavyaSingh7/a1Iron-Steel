@@ -129,7 +129,7 @@ export default function Home() {
             muted
             loop
             playsInline
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover brightness-110 contrast-105"
             onError={(e) => {
               console.error("Video error:", e);
               const videoElement = e.target as HTMLVideoElement;
@@ -138,6 +138,9 @@ export default function Home() {
             onLoadStart={() => console.log("Video loading started")}
             onCanPlay={() => console.log("Video can play")}
             preload="auto"
+            style={{
+              filter: "brightness(1.15) contrast(1.1) saturate(1.1)",
+            }}
           >
             <source
               src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/bg-video.mp4`}
@@ -163,13 +166,16 @@ export default function Home() {
             muted
             loop
             playsInline
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover brightness-110 contrast-105"
             onError={(e) => {
               console.error("Second video error:", e);
               const videoElement = e.target as HTMLVideoElement;
               videoElement.style.display = "none";
             }}
             preload="auto"
+            style={{
+              filter: "brightness(1.15) contrast(1.1) saturate(1.1)",
+            }}
           >
             <source
               src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/bg-video3.mp4`}
@@ -194,8 +200,8 @@ export default function Home() {
           id="video-fallback"
         />
 
-        {/* Dark overlay for better text readability */}
-        <div className="absolute inset-0 bg-black/50" />
+        {/* Light overlay for better text readability without hiding video */}
+        <div className="absolute inset-0 bg-black/20" />
 
         {/* Bouncing Bubbles */}
         {showBubbles && (
@@ -211,12 +217,12 @@ export default function Home() {
                   height: `${8 + Math.random() * 16}px`,
                   background:
                     i % 4 === 0
-                      ? "radial-gradient(circle, rgba(240, 174, 40, 0.25), rgba(241, 133, 46, 0.15))"
+                      ? "radial-gradient(circle, rgba(240, 174, 40, 0.15), rgba(241, 133, 46, 0.08))"
                       : i % 4 === 1
-                      ? "radial-gradient(circle, rgba(32, 132, 177, 0.3), rgba(26, 95, 130, 0.2))"
+                      ? "radial-gradient(circle, rgba(32, 132, 177, 0.18), rgba(26, 95, 130, 0.1))"
                       : i % 4 === 2
-                      ? "radial-gradient(circle, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1))"
-                      : "radial-gradient(circle, rgba(141, 188, 217, 0.3), rgba(32, 132, 177, 0.15))",
+                      ? "radial-gradient(circle, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05))"
+                      : "radial-gradient(circle, rgba(141, 188, 217, 0.18), rgba(32, 132, 177, 0.08))",
                 }}
                 animate={{
                   y: [0, -40, 0],
@@ -240,7 +246,7 @@ export default function Home() {
           <div className="text-center">
             {/* Background Glow Effect */}
             <div
-              className="absolute inset-0 blur-3xl opacity-20"
+              className="absolute inset-0 blur-3xl opacity-10"
               style={{
                 background:
                   "linear-gradient(135deg, #f0ae28 0%, #f1852e 25%, #2084b1 60%, #1a5f82 100%)",
