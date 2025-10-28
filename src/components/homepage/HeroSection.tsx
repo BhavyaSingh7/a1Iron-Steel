@@ -228,7 +228,7 @@ export default function HeroSection({
                     <Image
                       src={`${
                         process.env.NEXT_PUBLIC_BASE_PATH || ""
-                      }/logo.png`}
+                      }/logo-1.png`}
                       alt="A1 Iron & Steel Logo"
                       width={80}
                       height={80}
