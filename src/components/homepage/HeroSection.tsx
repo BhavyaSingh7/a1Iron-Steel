@@ -214,10 +214,10 @@ export default function HeroSection({
           transition={{ duration: 1, delay: 0.5 }}
           className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm shadow-lg border-b border-logo-orange-medium/30"
         >
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-6">
             <div className="flex items-center justify-between h-14 md:h-16">
               {/* Logo */}
-              <div className="flex items-center h-full">
+              <div className="flex items-center h-full -ml-2">
                 <motion.a
                   href="#home"
                   className="flex items-center h-full"
