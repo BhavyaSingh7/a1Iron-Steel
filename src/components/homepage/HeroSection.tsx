@@ -117,7 +117,7 @@ export default function HeroSection({
       <div className="absolute inset-0 w-full h-full">
         {/* Fallback background color */}
         <div className="absolute inset-0 logo-gray-bg" />
-        {/* f2.jpg */}
+        {/* hm1.png */}
         <motion.div
           animate={{
             opacity: currentBgImage === 0 ? 0.6 : 0,
@@ -126,7 +126,7 @@ export default function HeroSection({
           className="absolute inset-0"
         >
           <Image
-            src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/f2.jpg`}
+            src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/homepage/hm1.png`}
             alt="Background Image 1"
             fill
             className="object-cover"
@@ -135,7 +135,7 @@ export default function HeroSection({
           />
         </motion.div>
 
-        {/* f3.jpg */}
+        {/* hm2.jpeg */}
         <motion.div
           animate={{
             opacity: currentBgImage === 1 ? 0.6 : 0,
@@ -144,7 +144,7 @@ export default function HeroSection({
           className="absolute inset-0"
         >
           <Image
-            src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/f3.jpg`}
+            src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/homepage/hm2.jpeg`}
             alt="Background Image 2"
             fill
             className="object-cover"
@@ -152,7 +152,7 @@ export default function HeroSection({
           />
         </motion.div>
 
-        {/* f4.jpg */}
+        {/* hm3.jpeg */}
         <motion.div
           animate={{
             opacity: currentBgImage === 2 ? 0.6 : 0,
@@ -161,7 +161,7 @@ export default function HeroSection({
           className="absolute inset-0"
         >
           <Image
-            src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/f4.jpg`}
+            src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/homepage/hm3.jpeg`}
             alt="Background Image 3"
             fill
             className="object-cover"
@@ -169,7 +169,7 @@ export default function HeroSection({
           />
         </motion.div>
 
-        {/* f6.jpg */}
+        {/* hm4.jpeg */}
         <motion.div
           animate={{
             opacity: currentBgImage === 3 ? 0.6 : 0,
@@ -178,7 +178,7 @@ export default function HeroSection({
           className="absolute inset-0"
         >
           <Image
-            src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/f6.jpg`}
+            src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/homepage/hm4.jpeg`}
             alt="Background Image 4"
             fill
             className="object-cover"
@@ -186,7 +186,7 @@ export default function HeroSection({
           />
         </motion.div>
 
-        {/* f7.jpg */}
+        {/* hm5.jpeg */}
         <motion.div
           animate={{
             opacity: currentBgImage === 4 ? 0.6 : 0,
@@ -195,8 +195,42 @@ export default function HeroSection({
           className="absolute inset-0"
         >
           <Image
-            src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/f7.jpg`}
+            src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/homepage/hm5.jpeg`}
             alt="Background Image 5"
+            fill
+            className="object-cover"
+            loading="lazy"
+          />
+        </motion.div>
+
+        {/* hm6.jpeg */}
+        <motion.div
+          animate={{
+            opacity: currentBgImage === 5 ? 0.6 : 0,
+          }}
+          transition={{ duration: 0.8 }}
+          className="absolute inset-0"
+        >
+          <Image
+            src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/homepage/hm6.jpeg`}
+            alt="Background Image 6"
+            fill
+            className="object-cover"
+            loading="lazy"
+          />
+        </motion.div>
+
+        {/* hm7.jpeg */}
+        <motion.div
+          animate={{
+            opacity: currentBgImage === 6 ? 0.6 : 0,
+          }}
+          transition={{ duration: 0.8 }}
+          className="absolute inset-0"
+        >
+          <Image
+            src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/homepage/hm7.jpeg`}
+            alt="Background Image 7"
             fill
             className="object-cover"
             loading="lazy"

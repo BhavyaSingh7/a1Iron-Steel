@@ -100,7 +100,7 @@ export default function Home() {
   // Background image carousel effect
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentBgImage((prev) => (prev + 1) % 5); // Cycle through 5 images
+      setCurrentBgImage((prev) => (prev + 1) % 7); // Cycle through 7 images
     }, 3000); // Change every 3 seconds
 
     return () => clearInterval(interval);
