@@ -129,7 +129,7 @@ export default function HeroSection({
             src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/homepage/hm1.png`}
             alt="Background Image 1"
             fill
-            className="object-cover"
+            className="object-contain"
             priority
             loading="eager"
           />
@@ -147,7 +147,7 @@ export default function HeroSection({
             src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/homepage/hm2.jpeg`}
             alt="Background Image 2"
             fill
-            className="object-cover"
+            className="object-contain"
             loading="lazy"
           />
         </motion.div>
@@ -164,7 +164,7 @@ export default function HeroSection({
             src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/homepage/hm3.jpeg`}
             alt="Background Image 3"
             fill
-            className="object-cover"
+            className="object-contain"
             loading="lazy"
           />
         </motion.div>
@@ -181,7 +181,7 @@ export default function HeroSection({
             src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/homepage/hm4.jpeg`}
             alt="Background Image 4"
             fill
-            className="object-cover"
+            className="object-contain"
             loading="lazy"
           />
         </motion.div>
@@ -198,7 +198,7 @@ export default function HeroSection({
             src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/homepage/hm5.jpeg`}
             alt="Background Image 5"
             fill
-            className="object-cover"
+            className="object-contain"
             loading="lazy"
           />
         </motion.div>
@@ -215,7 +215,7 @@ export default function HeroSection({
             src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/homepage/hm6.jpeg`}
             alt="Background Image 6"
             fill
-            className="object-cover"
+            className="object-contain"
             loading="lazy"
           />
         </motion.div>
@@ -232,7 +232,7 @@ export default function HeroSection({
             src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/homepage/hm7.jpeg`}
             alt="Background Image 7"
             fill
-            className="object-cover"
+            className="object-contain"
             loading="lazy"
           />
         </motion.div>
