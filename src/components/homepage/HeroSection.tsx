@@ -27,7 +27,6 @@ export default function HeroSection({
   const [showCursor, setShowCursor] = useState(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [sliderPosition, setSliderPosition] = useState(0);
-  const [isDragging, setIsDragging] = useState(false);
   const [slideTriggered, setSlideTriggered] = useState(false);
   const fullText = "A1 IRON & STEEL";
 
@@ -116,17 +115,20 @@ export default function HeroSection({
     >
       {/* Background Image Carousel */}
       <div className="absolute inset-0 w-full h-full" aria-hidden="true">
-        {/* Fallback background color */}
-        <div className="absolute inset-0 logo-gray-bg" />
+        {/* Fallback background color - dark to prevent white flash */}
+        <div className="absolute inset-0 bg-gray-900" />
         {/* hm1.png */}
-        {(currentBgImage === 0 || currentBgImage === 6) && (
+        {(currentBgImage === 0 || currentBgImage === 6 || currentBgImage === 7) && (
           <motion.div
             initial={{ opacity: currentBgImage === 0 ? 0.25 : 0 }}
             animate={{
               opacity: currentBgImage === 0 ? 0.25 : 0,
             }}
-            transition={{ duration: 1, ease: "easeInOut" }}
-            style={{ willChange: "opacity" }}
+            transition={{ duration: 1.5, ease: "easeInOut" }}
+            style={{ 
+              willChange: "opacity",
+              zIndex: currentBgImage === 0 ? 2 : (currentBgImage === 7 ? 1 : 0)
+            }}
             className="absolute inset-0"
             aria-hidden="true"
           >
@@ -137,9 +139,9 @@ export default function HeroSection({
               alt="Background Image 1"
               fill
               className="object-cover"
-              quality={30}
-              priority={currentBgImage === 0}
-              loading={currentBgImage === 0 ? "eager" : "lazy"}
+              quality={50}
+              priority={currentBgImage === 0 || currentBgImage === 7}
+              loading={currentBgImage === 0 || currentBgImage === 7 ? "eager" : "lazy"}
               sizes="100vw"
             />
           </motion.div>
@@ -152,8 +154,11 @@ export default function HeroSection({
             animate={{
               opacity: currentBgImage === 1 ? 0.25 : 0,
             }}
-            transition={{ duration: 1, ease: "easeInOut" }}
-            style={{ willChange: "opacity" }}
+            transition={{ duration: 1.5, ease: "easeInOut" }}
+            style={{ 
+              willChange: "opacity",
+              zIndex: currentBgImage === 1 ? 2 : 1
+            }}
             className="absolute inset-0"
             aria-hidden="true"
           >
@@ -164,7 +169,7 @@ export default function HeroSection({
               alt="Background Image 2"
               fill
               className="object-cover"
-              quality={30}
+              quality={50}
               sizes="100vw"
               priority={currentBgImage === 1}
               loading={currentBgImage === 1 ? "eager" : "lazy"}
@@ -179,8 +184,11 @@ export default function HeroSection({
             animate={{
               opacity: currentBgImage === 2 ? 0.25 : 0,
             }}
-            transition={{ duration: 1, ease: "easeInOut" }}
-            style={{ willChange: "opacity" }}
+            transition={{ duration: 1.5, ease: "easeInOut" }}
+            style={{ 
+              willChange: "opacity",
+              zIndex: currentBgImage === 2 ? 2 : 1
+            }}
             className="absolute inset-0"
             aria-hidden="true"
           >
@@ -191,7 +199,7 @@ export default function HeroSection({
               alt="Background Image 3"
               fill
               className="object-cover"
-              quality={30}
+              quality={50}
               sizes="100vw"
               priority={currentBgImage === 2}
               loading={currentBgImage === 2 ? "eager" : "lazy"}
@@ -206,8 +214,11 @@ export default function HeroSection({
             animate={{
               opacity: currentBgImage === 3 ? 0.25 : 0,
             }}
-            transition={{ duration: 1, ease: "easeInOut" }}
-            style={{ willChange: "opacity" }}
+            transition={{ duration: 1.5, ease: "easeInOut" }}
+            style={{ 
+              willChange: "opacity",
+              zIndex: currentBgImage === 3 ? 2 : 1
+            }}
             className="absolute inset-0"
             aria-hidden="true"
           >
@@ -218,7 +229,7 @@ export default function HeroSection({
               alt="Background Image 4"
               fill
               className="object-cover"
-              quality={30}
+              quality={50}
               sizes="100vw"
               priority={currentBgImage === 3}
               loading={currentBgImage === 3 ? "eager" : "lazy"}
@@ -233,8 +244,11 @@ export default function HeroSection({
             animate={{
               opacity: currentBgImage === 4 ? 0.25 : 0,
             }}
-            transition={{ duration: 1, ease: "easeInOut" }}
-            style={{ willChange: "opacity" }}
+            transition={{ duration: 1.5, ease: "easeInOut" }}
+            style={{ 
+              willChange: "opacity",
+              zIndex: currentBgImage === 4 ? 2 : 1
+            }}
             className="absolute inset-0"
             aria-hidden="true"
           >
@@ -245,7 +259,7 @@ export default function HeroSection({
               alt="Background Image 5"
               fill
               className="object-cover"
-              quality={30}
+              quality={50}
               sizes="100vw"
               priority={currentBgImage === 4}
               loading={currentBgImage === 4 ? "eager" : "lazy"}
@@ -260,8 +274,11 @@ export default function HeroSection({
             animate={{
               opacity: currentBgImage === 5 ? 0.25 : 0,
             }}
-            transition={{ duration: 1, ease: "easeInOut" }}
-            style={{ willChange: "opacity" }}
+            transition={{ duration: 1.5, ease: "easeInOut" }}
+            style={{ 
+              willChange: "opacity",
+              zIndex: currentBgImage === 5 ? 2 : 1
+            }}
             className="absolute inset-0"
             aria-hidden="true"
           >
@@ -272,7 +289,7 @@ export default function HeroSection({
               alt="Background Image 6"
               fill
               className="object-cover"
-              quality={30}
+              quality={50}
               sizes="100vw"
               priority={currentBgImage === 5}
               loading={currentBgImage === 5 ? "eager" : "lazy"}
@@ -287,8 +304,11 @@ export default function HeroSection({
             animate={{
               opacity: currentBgImage === 6 ? 0.25 : 0,
             }}
-            transition={{ duration: 1, ease: "easeInOut" }}
-            style={{ willChange: "opacity" }}
+            transition={{ duration: 1.5, ease: "easeInOut" }}
+            style={{ 
+              willChange: "opacity",
+              zIndex: currentBgImage === 6 ? 2 : 1
+            }}
             className="absolute inset-0"
             aria-hidden="true"
           >
@@ -299,7 +319,7 @@ export default function HeroSection({
               alt="Background Image 7"
               fill
               className="object-cover"
-              quality={30}
+              quality={50}
               sizes="100vw"
               priority={currentBgImage === 6}
               loading={currentBgImage === 6 ? "eager" : "lazy"}
