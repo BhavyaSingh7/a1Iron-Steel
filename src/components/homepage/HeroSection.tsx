@@ -117,215 +117,203 @@ export default function HeroSection({
       <div className="absolute inset-0 w-full h-full" aria-hidden="true">
         {/* Fallback background color - dark to prevent white flash */}
         <div className="absolute inset-0 bg-gray-900" />
-        {/* hm1.png */}
-        {(currentBgImage === 0 || currentBgImage === 6 || currentBgImage === 7) && (
-          <motion.div
-            initial={{ opacity: currentBgImage === 0 ? 0.25 : 0 }}
-            animate={{
-              opacity: currentBgImage === 0 ? 0.25 : 0,
-            }}
-            transition={{ duration: 1.5, ease: "easeInOut" }}
-            style={{ 
-              willChange: "opacity",
-              zIndex: currentBgImage === 0 ? 2 : (currentBgImage === 7 ? 1 : 0)
-            }}
-            className="absolute inset-0"
-            aria-hidden="true"
-          >
-            <Image
-              src={`${
-                process.env.NEXT_PUBLIC_BASE_PATH || ""
-              }/homepage/hm1.png`}
-              alt="Background Image 1"
-              fill
-              className="object-cover"
-              quality={50}
-              priority={currentBgImage === 0 || currentBgImage === 7}
-              loading={currentBgImage === 0 || currentBgImage === 7 ? "eager" : "lazy"}
-              sizes="100vw"
-            />
-          </motion.div>
-        )}
+
+        {/* Always render all images with proper opacity and z-index for seamless transitions */}
+        {/* hm1.png - handle wrap-around from image 6 */}
+        <motion.div
+          animate={{
+            opacity: currentBgImage === 0 ? 0.25 : 0,
+          }}
+          transition={{ duration: 1.5, ease: "easeInOut" }}
+          style={{
+            willChange: "opacity",
+            zIndex: currentBgImage === 0 ? 2 : currentBgImage === 6 ? 1 : 0,
+            pointerEvents: "none",
+          }}
+          className="absolute inset-0"
+          aria-hidden="true"
+        >
+          <Image
+            src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/homepage/hm1.png`}
+            alt="Background Image 1"
+            fill
+            className="object-cover"
+            quality={50}
+            priority={currentBgImage === 0 || currentBgImage === 6}
+            loading={
+              currentBgImage === 0 || currentBgImage === 6 ? "eager" : "lazy"
+            }
+            sizes="100vw"
+          />
+        </motion.div>
 
         {/* hm2.jpeg */}
-        {(currentBgImage === 1 || currentBgImage === 0) && (
-          <motion.div
-            initial={{ opacity: currentBgImage === 1 ? 0.25 : 0 }}
-            animate={{
-              opacity: currentBgImage === 1 ? 0.25 : 0,
-            }}
-            transition={{ duration: 1.5, ease: "easeInOut" }}
-            style={{ 
-              willChange: "opacity",
-              zIndex: currentBgImage === 1 ? 2 : 1
-            }}
-            className="absolute inset-0"
-            aria-hidden="true"
-          >
-            <Image
-              src={`${
-                process.env.NEXT_PUBLIC_BASE_PATH || ""
-              }/homepage/hm2.jpeg`}
-              alt="Background Image 2"
-              fill
-              className="object-cover"
-              quality={50}
-              sizes="100vw"
-              priority={currentBgImage === 1}
-              loading={currentBgImage === 1 ? "eager" : "lazy"}
-            />
-          </motion.div>
-        )}
+        <motion.div
+          animate={{
+            opacity: currentBgImage === 1 ? 0.25 : 0,
+          }}
+          transition={{ duration: 1.5, ease: "easeInOut" }}
+          style={{
+            willChange: "opacity",
+            zIndex: currentBgImage === 1 ? 2 : currentBgImage === 0 ? 1 : 0,
+            pointerEvents: "none",
+          }}
+          className="absolute inset-0"
+          aria-hidden="true"
+        >
+          <Image
+            src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/homepage/hm2.jpeg`}
+            alt="Background Image 2"
+            fill
+            className="object-cover"
+            quality={50}
+            sizes="100vw"
+            priority={currentBgImage === 1 || currentBgImage === 0}
+            loading={
+              currentBgImage === 1 || currentBgImage === 0 ? "eager" : "lazy"
+            }
+          />
+        </motion.div>
 
         {/* hm3.jpeg */}
-        {(currentBgImage === 2 || currentBgImage === 1) && (
-          <motion.div
-            initial={{ opacity: currentBgImage === 2 ? 0.25 : 0 }}
-            animate={{
-              opacity: currentBgImage === 2 ? 0.25 : 0,
-            }}
-            transition={{ duration: 1.5, ease: "easeInOut" }}
-            style={{ 
-              willChange: "opacity",
-              zIndex: currentBgImage === 2 ? 2 : 1
-            }}
-            className="absolute inset-0"
-            aria-hidden="true"
-          >
-            <Image
-              src={`${
-                process.env.NEXT_PUBLIC_BASE_PATH || ""
-              }/homepage/hm3.jpeg`}
-              alt="Background Image 3"
-              fill
-              className="object-cover"
-              quality={50}
-              sizes="100vw"
-              priority={currentBgImage === 2}
-              loading={currentBgImage === 2 ? "eager" : "lazy"}
-            />
-          </motion.div>
-        )}
+        <motion.div
+          animate={{
+            opacity: currentBgImage === 2 ? 0.25 : 0,
+          }}
+          transition={{ duration: 1.5, ease: "easeInOut" }}
+          style={{
+            willChange: "opacity",
+            zIndex: currentBgImage === 2 ? 2 : currentBgImage === 1 ? 1 : 0,
+            pointerEvents: "none",
+          }}
+          className="absolute inset-0"
+          aria-hidden="true"
+        >
+          <Image
+            src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/homepage/hm3.jpeg`}
+            alt="Background Image 3"
+            fill
+            className="object-cover"
+            quality={50}
+            sizes="100vw"
+            priority={currentBgImage === 2 || currentBgImage === 1}
+            loading={
+              currentBgImage === 2 || currentBgImage === 1 ? "eager" : "lazy"
+            }
+          />
+        </motion.div>
 
         {/* hm4.jpeg */}
-        {(currentBgImage === 3 || currentBgImage === 2) && (
-          <motion.div
-            initial={{ opacity: currentBgImage === 3 ? 0.25 : 0 }}
-            animate={{
-              opacity: currentBgImage === 3 ? 0.25 : 0,
-            }}
-            transition={{ duration: 1.5, ease: "easeInOut" }}
-            style={{ 
-              willChange: "opacity",
-              zIndex: currentBgImage === 3 ? 2 : 1
-            }}
-            className="absolute inset-0"
-            aria-hidden="true"
-          >
-            <Image
-              src={`${
-                process.env.NEXT_PUBLIC_BASE_PATH || ""
-              }/homepage/hm4.jpeg`}
-              alt="Background Image 4"
-              fill
-              className="object-cover"
-              quality={50}
-              sizes="100vw"
-              priority={currentBgImage === 3}
-              loading={currentBgImage === 3 ? "eager" : "lazy"}
-            />
-          </motion.div>
-        )}
+        <motion.div
+          animate={{
+            opacity: currentBgImage === 3 ? 0.25 : 0,
+          }}
+          transition={{ duration: 1.5, ease: "easeInOut" }}
+          style={{
+            willChange: "opacity",
+            zIndex: currentBgImage === 3 ? 2 : currentBgImage === 2 ? 1 : 0,
+            pointerEvents: "none",
+          }}
+          className="absolute inset-0"
+          aria-hidden="true"
+        >
+          <Image
+            src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/homepage/hm4.jpeg`}
+            alt="Background Image 4"
+            fill
+            className="object-cover"
+            quality={50}
+            sizes="100vw"
+            priority={currentBgImage === 3 || currentBgImage === 2}
+            loading={
+              currentBgImage === 3 || currentBgImage === 2 ? "eager" : "lazy"
+            }
+          />
+        </motion.div>
 
         {/* hm5.jpeg */}
-        {(currentBgImage === 4 || currentBgImage === 3) && (
-          <motion.div
-            initial={{ opacity: currentBgImage === 4 ? 0.25 : 0 }}
-            animate={{
-              opacity: currentBgImage === 4 ? 0.25 : 0,
-            }}
-            transition={{ duration: 1.5, ease: "easeInOut" }}
-            style={{ 
-              willChange: "opacity",
-              zIndex: currentBgImage === 4 ? 2 : 1
-            }}
-            className="absolute inset-0"
-            aria-hidden="true"
-          >
-            <Image
-              src={`${
-                process.env.NEXT_PUBLIC_BASE_PATH || ""
-              }/homepage/hm5.jpeg`}
-              alt="Background Image 5"
-              fill
-              className="object-cover"
-              quality={50}
-              sizes="100vw"
-              priority={currentBgImage === 4}
-              loading={currentBgImage === 4 ? "eager" : "lazy"}
-            />
-          </motion.div>
-        )}
+        <motion.div
+          animate={{
+            opacity: currentBgImage === 4 ? 0.25 : 0,
+          }}
+          transition={{ duration: 1.5, ease: "easeInOut" }}
+          style={{
+            willChange: "opacity",
+            zIndex: currentBgImage === 4 ? 2 : currentBgImage === 3 ? 1 : 0,
+            pointerEvents: "none",
+          }}
+          className="absolute inset-0"
+          aria-hidden="true"
+        >
+          <Image
+            src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/homepage/hm5.jpeg`}
+            alt="Background Image 5"
+            fill
+            className="object-cover"
+            quality={50}
+            sizes="100vw"
+            priority={currentBgImage === 4 || currentBgImage === 3}
+            loading={
+              currentBgImage === 4 || currentBgImage === 3 ? "eager" : "lazy"
+            }
+          />
+        </motion.div>
 
         {/* hm6.jpeg */}
-        {(currentBgImage === 5 || currentBgImage === 4) && (
-          <motion.div
-            initial={{ opacity: currentBgImage === 5 ? 0.25 : 0 }}
-            animate={{
-              opacity: currentBgImage === 5 ? 0.25 : 0,
-            }}
-            transition={{ duration: 1.5, ease: "easeInOut" }}
-            style={{ 
-              willChange: "opacity",
-              zIndex: currentBgImage === 5 ? 2 : 1
-            }}
-            className="absolute inset-0"
-            aria-hidden="true"
-          >
-            <Image
-              src={`${
-                process.env.NEXT_PUBLIC_BASE_PATH || ""
-              }/homepage/hm6.jpeg`}
-              alt="Background Image 6"
-              fill
-              className="object-cover"
-              quality={50}
-              sizes="100vw"
-              priority={currentBgImage === 5}
-              loading={currentBgImage === 5 ? "eager" : "lazy"}
-            />
-          </motion.div>
-        )}
+        <motion.div
+          animate={{
+            opacity: currentBgImage === 5 ? 0.25 : 0,
+          }}
+          transition={{ duration: 1.5, ease: "easeInOut" }}
+          style={{
+            willChange: "opacity",
+            zIndex: currentBgImage === 5 ? 2 : currentBgImage === 4 ? 1 : 0,
+            pointerEvents: "none",
+          }}
+          className="absolute inset-0"
+          aria-hidden="true"
+        >
+          <Image
+            src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/homepage/hm6.jpeg`}
+            alt="Background Image 6"
+            fill
+            className="object-cover"
+            quality={50}
+            sizes="100vw"
+            priority={currentBgImage === 5 || currentBgImage === 4}
+            loading={
+              currentBgImage === 5 || currentBgImage === 4 ? "eager" : "lazy"
+            }
+          />
+        </motion.div>
 
         {/* hm7.jpeg */}
-        {(currentBgImage === 6 || currentBgImage === 5) && (
-          <motion.div
-            initial={{ opacity: currentBgImage === 6 ? 0.25 : 0 }}
-            animate={{
-              opacity: currentBgImage === 6 ? 0.25 : 0,
-            }}
-            transition={{ duration: 1.5, ease: "easeInOut" }}
-            style={{ 
-              willChange: "opacity",
-              zIndex: currentBgImage === 6 ? 2 : 1
-            }}
-            className="absolute inset-0"
-            aria-hidden="true"
-          >
-            <Image
-              src={`${
-                process.env.NEXT_PUBLIC_BASE_PATH || ""
-              }/homepage/hm7.jpeg`}
-              alt="Background Image 7"
-              fill
-              className="object-cover"
-              quality={50}
-              sizes="100vw"
-              priority={currentBgImage === 6}
-              loading={currentBgImage === 6 ? "eager" : "lazy"}
-            />
-          </motion.div>
-        )}
+        <motion.div
+          animate={{
+            opacity: currentBgImage === 6 ? 0.25 : 0,
+          }}
+          transition={{ duration: 1.5, ease: "easeInOut" }}
+          style={{
+            willChange: "opacity",
+            zIndex: currentBgImage === 6 ? 2 : currentBgImage === 5 ? 1 : 0,
+            pointerEvents: "none",
+          }}
+          className="absolute inset-0"
+          aria-hidden="true"
+        >
+          <Image
+            src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/homepage/hm7.jpeg`}
+            alt="Background Image 7"
+            fill
+            className="object-cover"
+            quality={50}
+            sizes="100vw"
+            priority={currentBgImage === 6 || currentBgImage === 5}
+            loading={
+              currentBgImage === 6 || currentBgImage === 5 ? "eager" : "lazy"
+            }
+          />
+        </motion.div>
       </div>
 
       {/* Removed white overlay to avoid tint on images */}
@@ -581,7 +569,7 @@ export default function HeroSection({
               duration: 1,
               delay: showVideoIntro ? 0 : 1.1,
             }}
-            className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-600 mb-12 sm:mb-16 md:mb-20 leading-[1.8] max-w-3xl mx-auto font-light"
+            className="text-base sm:text-lg md:text-xl lg:text-2xl text-white mb-12 sm:mb-16 md:mb-20 leading-[1.8] max-w-3xl mx-auto font-light"
             style={{ letterSpacing: "0.01em" }}
           >
             Rwanda&apos;s premier steel manufacturer delivering{" "}

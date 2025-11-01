@@ -24,7 +24,7 @@ export default function ContactSection() {
     <section
       id="contact"
       aria-label="Contact us section"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden py-8 sm:py-12 lg:py-16"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden py-8 sm:py-12 lg:py-16 snap-start snap-always"
     >
       {/* Animated Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-black">

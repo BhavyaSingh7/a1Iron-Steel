@@ -16,7 +16,7 @@ export default function AboutSection() {
   return (
     <section
       id="about"
-      className="relative min-h-screen flex items-center justify-center overflow-y-auto py-16 sm:py-20 lg:py-24 bg-white pb-0"
+      className="relative min-h-screen flex items-center justify-center overflow-y-auto py-16 sm:py-20 lg:py-24 bg-white pb-0 snap-start snap-always"
       aria-label="About A1 Iron and Steel company information"
     >
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

@@ -30,11 +30,10 @@ export default function Mission() {
   return (
     <motion.section
       id="about"
-      className="relative min-h-screen flex items-start justify-center overflow-y-auto pt-12 sm:pt-16 lg:pt-20 pb-16 sm:pb-20 lg:pb-24"
+      className="relative min-h-screen flex items-start justify-center overflow-y-auto pt-12 sm:pt-16 lg:pt-20 pb-16 sm:pb-20 lg:pb-24 snap-start snap-always"
       style={{
         background:
           "linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%)",
-        scrollSnapAlign: "start",
       }}
     >
       {/* Animated Background Glow */}
@@ -119,11 +118,11 @@ export default function Mission() {
               initial={{ opacity: 0, y: 60, scale: 0.8 }}
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
               transition={{
-                duration: 1.2,
-                delay: index * 0.2,
+                duration: 0.6,
+                delay: index * 0.1,
                 type: "spring",
-                stiffness: 100,
-                damping: 20,
+                stiffness: 150,
+                damping: 25,
               }}
               viewport={{ once: true, margin: "-50px" }}
               whileHover={{
