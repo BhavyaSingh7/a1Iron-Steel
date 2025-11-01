@@ -30,7 +30,7 @@ export default function Mission() {
   return (
     <motion.section
       id="about"
-      className="relative min-h-screen flex items-center justify-center overflow-y-auto py-8 sm:py-12 lg:py-16"
+      className="relative min-h-screen flex items-start justify-center overflow-y-auto pt-12 sm:pt-16 lg:pt-20 pb-8 sm:pb-12 lg:pb-16"
       style={{
         background:
           "linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%)",
@@ -73,32 +73,29 @@ export default function Mission() {
             damping: 20,
           }}
           viewport={{ once: true, margin: "-100px" }}
-          className="text-center mb-4 sm:mb-6 md:mb-8"
+          className="text-center mb-12 sm:mb-16 md:mb-20"
         >
           <motion.h2
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1.2, delay: 0.3 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
             viewport={{ once: true }}
-            className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-bold text-white mb-3 sm:mb-4 lg:mb-6 relative"
+            className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-semibold text-white mb-4 sm:mb-6 tracking-wide"
             style={{
-              textShadow: `
-                0 0 20px rgba(249, 115, 22, 0.5),
-                0 0 40px rgba(249, 115, 22, 0.3),
-                0 0 60px rgba(249, 115, 22, 0.2),
-                0 0 80px rgba(249, 115, 22, 0.1)
-              `,
+              letterSpacing: "0.03em",
+              textShadow:
+                "0 0 10px rgba(255, 255, 255, 0.3), 0 0 20px rgba(255, 255, 255, 0.2), 0 0 30px rgba(255, 255, 255, 0.1)",
             }}
           >
-            <span
-              style={{
-                textShadow:
-                  "0 0 20px rgba(249, 115, 22, 0.5), 0 0 40px rgba(249, 115, 22, 0.3), 0 0 60px rgba(249, 115, 22, 0.2), 0 0 80px rgba(249, 115, 22, 0.1)",
-              }}
-            >
-              WHY WE DO WHAT WE DO
-            </span>
+            WHY WE DO WHAT WE DO
           </motion.h2>
+          <motion.div
+            initial={{ opacity: 0, scaleX: 0 }}
+            whileInView={{ opacity: 1, scaleX: 1 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            viewport={{ once: true }}
+            className="w-20 sm:w-24 h-0.5 logo-orange-bg mx-auto mb-6 sm:mb-8"
+          />
 
           <motion.p
             initial={{ opacity: 0, y: 30 }}

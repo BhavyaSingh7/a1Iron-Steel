@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import React, { useState, useEffect } from "react";
-import { ArrowUp, Trees } from "lucide-react";
+import { ArrowUp, Trees, ChevronRight } from "lucide-react";
 import Logo from "@/components/Logo";
 import Image from "next/image";
 
@@ -112,141 +112,207 @@ export default function HeroSection({
     <section
       id="home"
       className="relative h-screen flex items-center justify-center overflow-hidden"
+      aria-label="Hero section with company introduction"
     >
       {/* Background Image Carousel */}
-      <div className="absolute inset-0 w-full h-full">
+      <div className="absolute inset-0 w-full h-full" aria-hidden="true">
         {/* Fallback background color */}
         <div className="absolute inset-0 logo-gray-bg" />
         {/* hm1.png */}
-        <motion.div
-          animate={{
-            opacity: currentBgImage === 0 ? 0.6 : 0,
-          }}
-          transition={{ duration: 0.8 }}
-          className="absolute inset-0"
-        >
-          <Image
-            src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/homepage/hm1.png`}
-            alt="Background Image 1"
-            fill
-            className="object-contain"
-            priority
-            loading="eager"
-          />
-        </motion.div>
+        {(currentBgImage === 0 || currentBgImage === 6) && (
+          <motion.div
+            initial={{ opacity: currentBgImage === 0 ? 0.25 : 0 }}
+            animate={{
+              opacity: currentBgImage === 0 ? 0.25 : 0,
+            }}
+            transition={{ duration: 1.5, ease: "easeInOut" }}
+            style={{ willChange: "opacity" }}
+            className="absolute inset-0"
+            aria-hidden="true"
+          >
+            <Image
+              src={`${
+                process.env.NEXT_PUBLIC_BASE_PATH || ""
+              }/homepage/hm1.png`}
+              alt="Background Image 1"
+              fill
+              className="object-cover"
+              quality={50}
+              priority={currentBgImage === 0}
+              loading={currentBgImage === 0 ? "eager" : "lazy"}
+            />
+          </motion.div>
+        )}
 
         {/* hm2.jpeg */}
-        <motion.div
-          animate={{
-            opacity: currentBgImage === 1 ? 0.6 : 0,
-          }}
-          transition={{ duration: 0.8 }}
-          className="absolute inset-0"
-        >
-          <Image
-            src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/homepage/hm2.jpeg`}
-            alt="Background Image 2"
-            fill
-            className="object-contain"
-            loading="lazy"
-          />
-        </motion.div>
+        {(currentBgImage === 1 || currentBgImage === 0) && (
+          <motion.div
+            initial={{ opacity: currentBgImage === 1 ? 0.25 : 0 }}
+            animate={{
+              opacity: currentBgImage === 1 ? 0.25 : 0,
+            }}
+            transition={{ duration: 1.5, ease: "easeInOut" }}
+            style={{ willChange: "opacity" }}
+            className="absolute inset-0"
+            aria-hidden="true"
+          >
+            <Image
+              src={`${
+                process.env.NEXT_PUBLIC_BASE_PATH || ""
+              }/homepage/hm2.jpeg`}
+              alt="Background Image 2"
+              fill
+              className="object-cover"
+              quality={50}
+              priority={currentBgImage === 1}
+              loading={currentBgImage === 1 ? "eager" : "lazy"}
+            />
+          </motion.div>
+        )}
 
         {/* hm3.jpeg */}
-        <motion.div
-          animate={{
-            opacity: currentBgImage === 2 ? 0.6 : 0,
-          }}
-          transition={{ duration: 0.8 }}
-          className="absolute inset-0"
-        >
-          <Image
-            src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/homepage/hm3.jpeg`}
-            alt="Background Image 3"
-            fill
-            className="object-contain"
-            loading="lazy"
-          />
-        </motion.div>
+        {(currentBgImage === 2 || currentBgImage === 1) && (
+          <motion.div
+            initial={{ opacity: currentBgImage === 2 ? 0.25 : 0 }}
+            animate={{
+              opacity: currentBgImage === 2 ? 0.25 : 0,
+            }}
+            transition={{ duration: 1.5, ease: "easeInOut" }}
+            style={{ willChange: "opacity" }}
+            className="absolute inset-0"
+            aria-hidden="true"
+          >
+            <Image
+              src={`${
+                process.env.NEXT_PUBLIC_BASE_PATH || ""
+              }/homepage/hm3.jpeg`}
+              alt="Background Image 3"
+              fill
+              className="object-cover"
+              quality={50}
+              priority={currentBgImage === 2}
+              loading={currentBgImage === 2 ? "eager" : "lazy"}
+            />
+          </motion.div>
+        )}
 
         {/* hm4.jpeg */}
-        <motion.div
-          animate={{
-            opacity: currentBgImage === 3 ? 0.6 : 0,
-          }}
-          transition={{ duration: 0.8 }}
-          className="absolute inset-0"
-        >
-          <Image
-            src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/homepage/hm4.jpeg`}
-            alt="Background Image 4"
-            fill
-            className="object-contain"
-            loading="lazy"
-          />
-        </motion.div>
+        {(currentBgImage === 3 || currentBgImage === 2) && (
+          <motion.div
+            initial={{ opacity: currentBgImage === 3 ? 0.25 : 0 }}
+            animate={{
+              opacity: currentBgImage === 3 ? 0.25 : 0,
+            }}
+            transition={{ duration: 1.5, ease: "easeInOut" }}
+            style={{ willChange: "opacity" }}
+            className="absolute inset-0"
+            aria-hidden="true"
+          >
+            <Image
+              src={`${
+                process.env.NEXT_PUBLIC_BASE_PATH || ""
+              }/homepage/hm4.jpeg`}
+              alt="Background Image 4"
+              fill
+              className="object-cover"
+              quality={50}
+              priority={currentBgImage === 3}
+              loading={currentBgImage === 3 ? "eager" : "lazy"}
+            />
+          </motion.div>
+        )}
 
         {/* hm5.jpeg */}
-        <motion.div
-          animate={{
-            opacity: currentBgImage === 4 ? 0.6 : 0,
-          }}
-          transition={{ duration: 0.8 }}
-          className="absolute inset-0"
-        >
-          <Image
-            src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/homepage/hm5.jpeg`}
-            alt="Background Image 5"
-            fill
-            className="object-contain"
-            loading="lazy"
-          />
-        </motion.div>
+        {(currentBgImage === 4 || currentBgImage === 3) && (
+          <motion.div
+            initial={{ opacity: currentBgImage === 4 ? 0.25 : 0 }}
+            animate={{
+              opacity: currentBgImage === 4 ? 0.25 : 0,
+            }}
+            transition={{ duration: 1.5, ease: "easeInOut" }}
+            style={{ willChange: "opacity" }}
+            className="absolute inset-0"
+            aria-hidden="true"
+          >
+            <Image
+              src={`${
+                process.env.NEXT_PUBLIC_BASE_PATH || ""
+              }/homepage/hm5.jpeg`}
+              alt="Background Image 5"
+              fill
+              className="object-cover"
+              quality={50}
+              priority={currentBgImage === 4}
+              loading={currentBgImage === 4 ? "eager" : "lazy"}
+            />
+          </motion.div>
+        )}
 
         {/* hm6.jpeg */}
-        <motion.div
-          animate={{
-            opacity: currentBgImage === 5 ? 0.6 : 0,
-          }}
-          transition={{ duration: 0.8 }}
-          className="absolute inset-0"
-        >
-          <Image
-            src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/homepage/hm6.jpeg`}
-            alt="Background Image 6"
-            fill
-            className="object-contain"
-            loading="lazy"
-          />
-        </motion.div>
+        {(currentBgImage === 5 || currentBgImage === 4) && (
+          <motion.div
+            initial={{ opacity: currentBgImage === 5 ? 0.25 : 0 }}
+            animate={{
+              opacity: currentBgImage === 5 ? 0.25 : 0,
+            }}
+            transition={{ duration: 1.5, ease: "easeInOut" }}
+            style={{ willChange: "opacity" }}
+            className="absolute inset-0"
+            aria-hidden="true"
+          >
+            <Image
+              src={`${
+                process.env.NEXT_PUBLIC_BASE_PATH || ""
+              }/homepage/hm6.jpeg`}
+              alt="Background Image 6"
+              fill
+              className="object-cover"
+              quality={50}
+              priority={currentBgImage === 5}
+              loading={currentBgImage === 5 ? "eager" : "lazy"}
+            />
+          </motion.div>
+        )}
 
         {/* hm7.jpeg */}
-        <motion.div
-          animate={{
-            opacity: currentBgImage === 6 ? 0.6 : 0,
-          }}
-          transition={{ duration: 0.8 }}
-          className="absolute inset-0"
-        >
-          <Image
-            src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/homepage/hm7.jpeg`}
-            alt="Background Image 7"
-            fill
-            className="object-contain"
-            loading="lazy"
-          />
-        </motion.div>
+        {(currentBgImage === 6 || currentBgImage === 5) && (
+          <motion.div
+            initial={{ opacity: currentBgImage === 6 ? 0.25 : 0 }}
+            animate={{
+              opacity: currentBgImage === 6 ? 0.25 : 0,
+            }}
+            transition={{ duration: 1.5, ease: "easeInOut" }}
+            style={{ willChange: "opacity" }}
+            className="absolute inset-0"
+            aria-hidden="true"
+          >
+            <Image
+              src={`${
+                process.env.NEXT_PUBLIC_BASE_PATH || ""
+              }/homepage/hm7.jpeg`}
+              alt="Background Image 7"
+              fill
+              className="object-cover"
+              quality={50}
+              priority={currentBgImage === 6}
+              loading={currentBgImage === 6 ? "eager" : "lazy"}
+            />
+          </motion.div>
+        )}
       </div>
 
-      {/* Light overlay for better text readability */}
-      <div className="absolute inset-0 bg-white/60" />
+      {/* Removed white overlay to avoid tint on images */}
       {/* Navigation Bar - Only show when video intro is not showing */}
       {!showVideoIntro && (
         <motion.div
           initial={{ y: -100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 1, delay: 0.5 }}
-          className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm shadow-lg border-b border-logo-orange-medium/30"
+          className="fixed top-0 left-0 right-0 z-50 bg-white/98 backdrop-blur-md shadow-sm border-b border-gray-100"
+          style={{
+            boxShadow:
+              "0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.05)",
+          }}
         >
           <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-6">
             <div className="flex items-center justify-between h-14 md:h-16">
@@ -274,12 +340,17 @@ export default function HeroSection({
               </div>
 
               {/* Navigation Links */}
-              <nav className="hidden md:flex items-center space-x-6">
+              <nav
+                className="hidden md:flex items-center space-x-6"
+                aria-label="Main navigation"
+              >
                 <motion.a
                   href="#home"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="text-gray-700 font-bold text-sm hover:text-logo-orange-1 transition-all duration-300 cursor-pointer"
+                  className="text-gray-800 font-medium text-sm hover:text-logo-orange-1 transition-all duration-200 cursor-pointer focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded px-2 tracking-wide"
+                  aria-label="Navigate to home section"
+                  tabIndex={0}
                 >
                   Home
                 </motion.a>
@@ -287,7 +358,9 @@ export default function HeroSection({
                   onClick={onAboutClick}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="text-gray-700 font-bold text-sm hover:text-logo-orange-1 transition-all duration-300"
+                  className="text-gray-700 font-bold text-sm hover:text-logo-orange-1 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded px-2"
+                  aria-label="Navigate to about section"
+                  tabIndex={0}
                 >
                   About
                 </motion.button>
@@ -295,7 +368,9 @@ export default function HeroSection({
                   onClick={onProductsClick}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="text-gray-700 font-bold text-sm hover:text-logo-orange-1 transition-all duration-300"
+                  className="text-gray-700 font-bold text-sm hover:text-logo-orange-1 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded px-2"
+                  aria-label="View our products"
+                  tabIndex={0}
                 >
                   Products
                 </motion.button>
@@ -303,7 +378,9 @@ export default function HeroSection({
                   onClick={onContactClick}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="text-gray-700 font-bold text-sm hover:text-logo-orange-1 transition-all duration-300"
+                  className="text-gray-700 font-bold text-sm hover:text-logo-orange-1 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded px-2"
+                  aria-label="Contact us"
+                  tabIndex={0}
                 >
                   Contact
                 </motion.button>
@@ -312,8 +389,12 @@ export default function HeroSection({
               {/* Mobile Menu Button */}
               <button
                 onClick={toggleMobileMenu}
-                className="md:hidden p-2 text-logo-gray-dark hover:text-logo-orange-medium transition-colors duration-300"
-                aria-label="Toggle mobile menu"
+                className="md:hidden p-2 text-logo-gray-dark hover:text-logo-orange-medium transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded"
+                aria-label={
+                  isMobileMenuOpen ? "Close mobile menu" : "Open mobile menu"
+                }
+                aria-expanded={isMobileMenuOpen}
+                tabIndex={0}
               >
                 <motion.svg
                   className="w-6 h-6"
@@ -352,25 +433,34 @@ export default function HeroSection({
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}
           transition={{ duration: 0.3 }}
-          className="mobile-menu-container fixed top-16 left-0 right-0 z-40 bg-white/95 backdrop-blur-sm shadow-lg border-b border-logo-orange-medium/30 md:hidden"
+          className="mobile-menu-container fixed top-16 left-0 right-0 z-40 bg-white backdrop-blur-sm shadow-lg border-b border-logo-orange-medium/30 md:hidden"
+          role="dialog"
+          aria-label="Mobile navigation menu"
+          aria-modal="true"
         >
-          <nav className="px-4 py-6 space-y-4">
+          <nav className="px-4 py-6 space-y-4" aria-label="Mobile navigation">
             <a
               href="#home"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="block text-lg font-medium text-logo-orange-medium hover:text-logo-orange-dark transition-colors duration-300 py-2"
+              className="block text-lg font-medium text-logo-orange-medium hover:text-logo-orange-dark transition-colors duration-300 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded px-2"
+              aria-label="Navigate to home section"
+              tabIndex={0}
             >
               Home
             </a>
             <button
               onClick={() => handleMobileNavClick(onAboutClick)}
-              className="block text-lg font-medium text-orange-500 hover:text-orange-600 transition-colors duration-300 py-2 w-full text-left"
+              className="block text-lg font-medium text-orange-500 hover:text-orange-600 transition-colors duration-300 py-2 w-full text-left focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded px-2"
+              aria-label="Navigate to about section"
+              tabIndex={0}
             >
               About
             </button>
             <button
               onClick={() => handleMobileNavClick(onProductsClick)}
-              className="block text-lg font-medium text-orange-500 hover:text-orange-600 transition-colors duration-300 py-2 w-full text-left"
+              className="block text-lg font-medium text-orange-500 hover:text-orange-600 transition-colors duration-300 py-2 w-full text-left focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded px-2"
+              aria-label="View our products"
+              tabIndex={0}
             >
               Products
             </button>
@@ -379,7 +469,9 @@ export default function HeroSection({
                 onContactClick();
                 setIsMobileMenuOpen(false);
               }}
-              className="block text-lg font-medium text-orange-500 hover:text-orange-600 transition-colors duration-300 py-2 w-full text-left"
+              className="block text-lg font-medium text-orange-500 hover:text-orange-600 transition-colors duration-300 py-2 w-full text-left focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded px-2"
+              aria-label="Contact us"
+              tabIndex={0}
             >
               Contact
             </button>
@@ -389,8 +481,13 @@ export default function HeroSection({
 
       {/* Hero Content */}
       <div className="relative w-full h-full flex items-center justify-center">
+        {/* Subtle overlay for text readability */}
+        <div
+          className="absolute inset-0 bg-gradient-to-b from-black/5 via-transparent to-black/10 pointer-events-none"
+          aria-hidden="true"
+        />
         {/* Main Content */}
-        <div className="text-center max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center max-w-5xl mx-auto px-6 sm:px-8 lg:px-12 relative z-10">
           {/* A1 IRON & STEEL Title */}
           <div className="flex justify-center items-center mb-4 sm:mb-6">
             <motion.div
@@ -407,26 +504,26 @@ export default function HeroSection({
                 ease: [0.68, -0.55, 0.265, 1.55], // Bounce effect
               }}
             >
-              <span className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-black leading-tight mb-2 whitespace-nowrap tracking-tight">
-                <span className="logo-blue-gradient">
-                  {displayedText.includes("&")
-                    ? displayedText.split("&")[0]
-                    : displayedText}
-                </span>
-                {displayedText.includes("&") && (
-                  <>
-                    <span className="logo-orange-gradient">&</span>
-                    <span className="logo-orange-gradient">
-                      {displayedText.split("&")[1] || ""}
-                    </span>
-                  </>
-                )}
+              <h1
+                className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-black leading-[1.1] mb-3 sm:mb-4 whitespace-nowrap tracking-[-0.02em]"
+                style={{
+                  backgroundImage:
+                    "linear-gradient(to right, #8dbcd9, #2084b1, #f09b30, #f1852e, #2084b1)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  backgroundClip: "text",
+                  letterSpacing: "-0.02em",
+                  textShadow: "0 0 80px rgba(32, 132, 177, 0.1)",
+                }}
+              >
+                {displayedText}
                 <span
                   className={`inline-block w-[0.08em] ml-0.5 align-baseline logo-blue-bg ${
                     showCursor ? "opacity-100" : "opacity-0"
                   }`}
+                  aria-hidden="true"
                 ></span>
-              </span>
+              </h1>
             </motion.div>
           </div>
 
@@ -441,7 +538,8 @@ export default function HeroSection({
               duration: 1,
               delay: showVideoIntro ? 0 : 0.8,
             }}
-            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold logo-blue-gradient mb-6 sm:mb-8 tracking-tight"
+            className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold logo-blue-gradient mb-8 sm:mb-10 md:mb-12 tracking-wide"
+            style={{ letterSpacing: "0.03em" }}
           >
             The Metal That Builds a Nation
           </motion.h2>
@@ -457,12 +555,15 @@ export default function HeroSection({
               duration: 1,
               delay: showVideoIntro ? 0 : 1.1,
             }}
-            className="text-lg sm:text-xl md:text-2xl text-gray-700 mb-10 sm:mb-12 md:mb-16 leading-relaxed max-w-4xl mx-auto font-medium"
+            className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-600 mb-12 sm:mb-16 md:mb-20 leading-[1.8] max-w-3xl mx-auto font-light"
+            style={{ letterSpacing: "0.01em" }}
           >
-            Forging strength and shaping the future{" "}
+            Rwanda's premier steel manufacturer delivering{" "}
             <span className="logo-orange-gradient font-semibold">
-              — where raw metal becomes enduring power.
+              exceptional quality, sustainable solutions, and unwavering
+              reliability.
             </span>{" "}
+            Building the infrastructure that drives world forward.
           </motion.p>
 
           {/* Buttons */}
@@ -480,28 +581,73 @@ export default function HeroSection({
           >
             <motion.button
               onClick={onProductsClick}
-              whileHover={{ scale: 1.08, y: -3 }}
-              whileTap={{ scale: 0.95 }}
-              className="px-10 sm:px-12 py-4 sm:py-5 logo-orange-bg text-white font-bold rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 text-lg sm:text-xl tracking-wide"
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.98 }}
+              className="relative w-52 sm:w-60 h-14 sm:h-16 logo-orange-bg text-white font-medium rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 text-sm sm:text-base tracking-wider overflow-hidden group flex items-center justify-center focus:outline-none focus:ring-4 focus:ring-orange-300 focus:ring-offset-2"
+              aria-label="Explore our steel products and solutions"
+              tabIndex={0}
+              style={{
+                boxShadow:
+                  "0 10px 25px -5px rgba(241, 133, 46, 0.25), 0 4px 10px -2px rgba(241, 133, 46, 0.15)",
+                letterSpacing: "0.05em",
+              }}
             >
-              Explore Products
+              <span className="relative z-10 flex items-center justify-center gap-2">
+                Explore Products
+                <motion.svg
+                  className="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  initial={{ x: 0 }}
+                  whileHover={{ x: 4 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 5l7 7-7 7"
+                  />
+                </motion.svg>
+              </span>
+              <motion.div
+                className="absolute inset-0 bg-white/20"
+                initial={{ x: "-100%" }}
+                whileHover={{ x: "100%" }}
+                transition={{ duration: 0.6, ease: "easeInOut" }}
+              />
             </motion.button>
             <motion.button
-              whileHover={{
-                scale: 1.1,
-                y: -4,
-                transition: { type: "spring", stiffness: 300, damping: 20 },
+              onClick={onAboutClick}
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.98 }}
+              className="relative w-52 sm:w-60 h-14 sm:h-16 bg-white border border-gray-200 text-gray-800 font-medium rounded-lg hover:border-gray-300 transition-all duration-300 text-sm sm:text-base tracking-wider group overflow-hidden shadow-sm hover:shadow-md flex items-center justify-center focus:outline-none focus:ring-4 focus:ring-blue-300 focus:ring-offset-2"
+              aria-label="Learn more about our company"
+              tabIndex={0}
+              style={{
+                letterSpacing: "0.05em",
               }}
-              whileTap={{ scale: 0.95 }}
-              className="px-10 sm:px-12 py-4 sm:py-5 border-2 border-logo-orange-medium text-logo-orange-medium font-bold rounded-full hover:border-logo-orange-medium hover:text-white hover:shadow-xl transition-all duration-300 text-lg sm:text-xl tracking-wide group relative overflow-hidden bg-white"
             >
-              <span className="relative z-10 transition-all duration-300 text-logo-orange-medium group-hover:text-white">
+              <span className="relative z-10 flex items-center justify-center gap-2 text-gray-800 transition-colors duration-300">
                 Learn More
+                <motion.svg
+                  className="w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  initial={{ x: 0 }}
+                  whileHover={{ x: 4 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 5l7 7-7 7"
+                  />
+                </motion.svg>
               </span>
-              <div
-                className="absolute inset-0 logo-orange-bg scale-0 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all duration-300 ease-out"
-                style={{ borderRadius: "inherit" }}
-              />
             </motion.button>
             {/* Interactive Slider CTA to Sustainability */}
             <motion.div
@@ -513,14 +659,46 @@ export default function HeroSection({
               transition={{ duration: 1, delay: showVideoIntro ? 0 : 1.6 }}
               className="relative select-none"
             >
-              <div className="sustainability-slider w-48 sm:w-56 h-14 sm:h-16 bg-white/90 backdrop-blur-sm border border-gray-300 rounded-full shadow-md relative overflow-hidden">
-                <div className="absolute inset-0 flex items-center justify-center">
+              <div className="sustainability-slider w-48 sm:w-56 h-14 sm:h-16 bg-white/95 backdrop-blur-sm border-2 border-gray-200 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 relative overflow-hidden">
+                {/* Text and arrows positioned on the right side to avoid tree handle */}
+                <div className="absolute inset-0 flex items-center justify-end gap-1 pr-3 sm:pr-4">
                   <span
-                    className="text-xs font-semibold text-gray-700 z-10 transition-opacity duration-300 px-2"
+                    className="text-xs font-bold text-gray-700 z-10 transition-opacity duration-300 tracking-wider"
                     style={{ opacity: sliderPosition > 15 ? 0 : 1 }}
                   >
                     Sustainability
                   </span>
+                  {/* Animated arrow indicators */}
+                  <div
+                    className="flex items-center gap-0.5 z-10 transition-opacity duration-300"
+                    style={{ opacity: sliderPosition > 15 ? 0 : 1 }}
+                  >
+                    <motion.div
+                      animate={{
+                        x: [0, 4, 0],
+                      }}
+                      transition={{
+                        duration: 1.5,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                      }}
+                    >
+                      <ChevronRight className="w-3 h-3 text-gray-500" />
+                    </motion.div>
+                    <motion.div
+                      animate={{
+                        x: [0, 4, 0],
+                      }}
+                      transition={{
+                        duration: 1.5,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                        delay: 0.2,
+                      }}
+                    >
+                      <ChevronRight className="w-3 h-3 text-gray-500" />
+                    </motion.div>
+                  </div>
                 </div>
                 <motion.div
                   drag="x"
@@ -559,11 +737,11 @@ export default function HeroSection({
                       setSliderPosition(0);
                     }
                   }}
-                  style={{ left: `${Math.max(2, sliderPosition)}px` }}
-                  className={`absolute top-2 sm:top-2 w-10 h-10 rounded-full shadow-lg flex items-center justify-center cursor-grab active:cursor-grabbing z-20 hover:shadow-xl transition-all duration-300 ${
+                  style={{ left: `${Math.max(4, sliderPosition)}px` }}
+                  className={`absolute top-1/2 -translate-y-1/2 w-12 h-12 rounded-xl shadow-xl flex items-center justify-center cursor-grab active:cursor-grabbing z-20 hover:shadow-2xl transition-all duration-300 ${
                     sliderPosition > 120
                       ? "bg-gradient-to-br from-green-500 to-emerald-600 border-2 border-green-400"
-                      : "bg-white border border-gray-400"
+                      : "bg-white border-2 border-gray-300 shadow-lg"
                   }`}
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
@@ -579,7 +757,7 @@ export default function HeroSection({
                     initial={{ width: 0, opacity: 0 }}
                     animate={{ width: sliderPosition + 4, opacity: 1 }}
                     transition={{ type: "spring", stiffness: 150, damping: 15 }}
-                    className={`absolute left-0 top-0 h-full rounded-full ${
+                    className={`absolute left-0 top-0 h-full rounded-xl ${
                       sliderPosition > 120
                         ? "bg-gradient-to-r from-green-500 via-emerald-600 to-teal-600 shadow-inner"
                         : "bg-gradient-to-r from-blue-500 via-blue-600 to-cyan-600 shadow-sm"

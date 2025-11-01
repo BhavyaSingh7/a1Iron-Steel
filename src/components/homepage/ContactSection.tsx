@@ -2,16 +2,10 @@
 
 import { motion } from "framer-motion";
 import React from "react";
-import { Phone, Mail, MapPin } from "lucide-react";
+import { Mail, MapPin } from "lucide-react";
 
 export default function ContactSection() {
   const contactInfo = [
-    {
-      icon: Phone,
-      title: "Phone",
-      description: "Call us for immediate assistance",
-      details: ["+250 788 123 456", "+250 789 987 654"],
-    },
     {
       icon: Mail,
       title: "Email",
@@ -29,6 +23,7 @@ export default function ContactSection() {
   return (
     <section
       id="contact"
+      aria-label="Contact us section"
       className="relative min-h-screen flex items-center justify-center overflow-hidden py-8 sm:py-12 lg:py-16"
     >
       {/* Animated Background */}

@@ -2,14 +2,44 @@
 
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import dynamic from "next/dynamic";
 import HeroSection from "@/components/homepage/HeroSection";
-import AboutSection from "@/components/homepage/AboutSection";
-import Mission from "@/components/Mission";
-import ProductsSection from "@/components/homepage/ProductsSection";
-import ContactSection from "@/components/homepage/ContactSection";
-import { AboutUsPage } from "@/components/about-us-section";
-import { ProductPage } from "@/components/product-section";
-import { ContactPage } from "@/components/contact";
+
+// Lazy load sections for better performance
+const AboutSection = dynamic(
+  () => import("@/components/homepage/AboutSection"),
+  {
+    loading: () => <div className="min-h-screen" />,
+  }
+);
+const Mission = dynamic(() => import("@/components/Mission"), {
+  loading: () => <div className="min-h-screen" />,
+});
+const ProductsSection = dynamic(
+  () => import("@/components/homepage/ProductsSection"),
+  {
+    loading: () => <div className="min-h-screen" />,
+  }
+);
+const ContactSection = dynamic(
+  () => import("@/components/homepage/ContactSection"),
+  {
+    loading: () => <div className="min-h-screen" />,
+  }
+);
+const AboutUsPage = dynamic(() =>
+  import("@/components/about-us-section").then((mod) => ({
+    default: mod.AboutUsPage,
+  }))
+);
+const ProductPage = dynamic(() =>
+  import("@/components/product-section").then((mod) => ({
+    default: mod.ProductPage,
+  }))
+);
+const ContactPage = dynamic(() =>
+  import("@/components/contact").then((mod) => ({ default: mod.ContactPage }))
+);
 
 export default function Home() {
   const [videoPhase, setVideoPhase] = useState<
@@ -97,14 +127,24 @@ export default function Home() {
     }
   }, [typewriterComplete]);
 
-  // Background image carousel effect
+  // Background image carousel effect - only start when video intro is done
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentBgImage((prev) => (prev + 1) % 7); // Cycle through 7 images
-    }, 3000); // Change every 3 seconds
+    if (showVideoIntro) return; // Don't start carousel until video intro is done
 
-    return () => clearInterval(interval);
-  }, [videoPhase]);
+    let interval: NodeJS.Timeout | null = null;
+
+    // Add delay before starting carousel to reduce initial load
+    const startTimer = setTimeout(() => {
+      interval = setInterval(() => {
+        setCurrentBgImage((prev) => (prev + 1) % 7); // Cycle through 7 images
+      }, 5000); // Change every 5 seconds for more moderate transitions
+    }, 2000); // Wait 2 seconds after video intro ends for better performance
+
+    return () => {
+      clearTimeout(startTimer);
+      if (interval) clearInterval(interval);
+    };
+  }, [showVideoIntro]);
 
   return (
     <main className="min-h-screen">
@@ -137,17 +177,16 @@ export default function Home() {
             }}
             onLoadStart={() => console.log("Video loading started")}
             onCanPlay={() => console.log("Video can play")}
-            preload="auto"
+            preload="none"
+            poster={`${
+              process.env.NEXT_PUBLIC_BASE_PATH || ""
+            }/homepage/hm1.png`}
             style={{
               filter: "brightness(1.15) contrast(1.1) saturate(1.1)",
             }}
           >
             <source
               src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/bg-video.mp4`}
-              type="video/mp4"
-            />
-            <source
-              src="https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4"
               type="video/mp4"
             />
             Your browser does not support the video tag.
@@ -172,17 +211,16 @@ export default function Home() {
               const videoElement = e.target as HTMLVideoElement;
               videoElement.style.display = "none";
             }}
-            preload="auto"
+            preload="none"
+            poster={`${
+              process.env.NEXT_PUBLIC_BASE_PATH || ""
+            }/homepage/hm1.png`}
             style={{
               filter: "brightness(1.15) contrast(1.1) saturate(1.1)",
             }}
           >
             <source
               src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/bg-video3.mp4`}
-              type="video/mp4"
-            />
-            <source
-              src="https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_2mb.mp4"
               type="video/mp4"
             />
             Your browser does not support the video tag.
@@ -203,10 +241,10 @@ export default function Home() {
         {/* Light overlay for better text readability without hiding video */}
         <div className="absolute inset-0 bg-black/20" />
 
-        {/* Bouncing Bubbles */}
+        {/* Bouncing Bubbles - Reduced for performance */}
         {showBubbles && (
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            {[...Array(12)].map((_, i) => (
+            {[...Array(3)].map((_, i) => (
               <motion.div
                 key={i}
                 className="absolute rounded-full blur-sm"
@@ -231,9 +269,9 @@ export default function Home() {
                   opacity: [0.2, 0.5, 0.2],
                 }}
                 transition={{
-                  duration: 3,
+                  duration: 4,
                   repeat: Infinity,
-                  delay: i * 0.3,
+                  delay: i * 0.5,
                   ease: "easeInOut",
                 }}
               />

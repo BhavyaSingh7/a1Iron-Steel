@@ -16,7 +16,8 @@ export default function AboutSection() {
   return (
     <section
       id="about"
-      className="relative min-h-screen flex items-center justify-center overflow-y-auto py-8 sm:py-12 lg:py-16 logo-gray-bg"
+      className="relative min-h-screen flex items-center justify-center overflow-y-auto py-16 sm:py-20 lg:py-24 bg-white"
+      aria-label="About A1 Iron and Steel company information"
     >
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
@@ -32,7 +33,8 @@ export default function AboutSection() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             viewport={{ once: true }}
-            className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-bold logo-blue-gradient mb-2 sm:mb-3"
+            className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-semibold logo-blue-gradient mb-4 sm:mb-6 tracking-wide"
+            style={{ letterSpacing: "0.03em" }}
           >
             ABOUT US
           </motion.h2>
@@ -41,17 +43,8 @@ export default function AboutSection() {
             whileInView={{ opacity: 1, scaleX: 1 }}
             transition={{ duration: 0.8, delay: 0.4 }}
             viewport={{ once: true }}
-            className="w-16 sm:w-20 h-1 logo-orange-bg mx-auto mb-2 sm:mb-3"
+            className="w-20 sm:w-24 h-0.5 logo-orange-bg mx-auto mb-6 sm:mb-8"
           />
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            viewport={{ once: true }}
-            className="text-sm sm:text-base md:text-lg logo-orange-gradient font-medium"
-          >
-            {/* ABOUT US */}
-          </motion.p>
         </motion.div>
 
         {/* Single Column Layout - Centered */}
@@ -69,7 +62,11 @@ export default function AboutSection() {
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.4 }}
               viewport={{ once: true }}
-              className="bg-white rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-6 shadow-xl border border-gray-100"
+              className="bg-white rounded-lg p-6 sm:p-8 shadow-lg border border-gray-100"
+              style={{
+                boxShadow:
+                  "0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 4px 10px -2px rgba(0, 0, 0, 0.05)",
+              }}
             >
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
@@ -115,7 +112,11 @@ export default function AboutSection() {
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8, delay: 0.8 }}
                 viewport={{ once: true }}
-                className="bg-white rounded-lg sm:rounded-xl p-3 sm:p-4 shadow-lg border border-gray-100 hover:shadow-xl transition-shadow duration-300 text-center"
+                className="bg-white rounded-lg p-4 sm:p-6 shadow-md border border-gray-100 hover:shadow-lg hover:border-gray-200 transition-all duration-300 text-center"
+                style={{
+                  boxShadow:
+                    "0 4px 12px -2px rgba(0, 0, 0, 0.08), 0 2px 6px -1px rgba(0, 0, 0, 0.04)",
+                }}
               >
                 <motion.div
                   whileHover={{ scale: 1.05 }}
@@ -137,7 +138,11 @@ export default function AboutSection() {
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8, delay: 1.0 }}
                 viewport={{ once: true }}
-                className="bg-white rounded-lg sm:rounded-xl p-3 sm:p-4 shadow-lg border border-gray-100 hover:shadow-xl transition-shadow duration-300 text-center"
+                className="bg-white rounded-lg p-4 sm:p-6 shadow-md border border-gray-100 hover:shadow-lg hover:border-gray-200 transition-all duration-300 text-center"
+                style={{
+                  boxShadow:
+                    "0 4px 12px -2px rgba(0, 0, 0, 0.08), 0 2px 6px -1px rgba(0, 0, 0, 0.04)",
+                }}
               >
                 <motion.div
                   whileHover={{ scale: 1.05 }}
@@ -159,7 +164,11 @@ export default function AboutSection() {
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8, delay: 1.2 }}
                 viewport={{ once: true }}
-                className="bg-white rounded-lg sm:rounded-xl p-3 sm:p-4 shadow-lg border border-gray-100 hover:shadow-xl transition-shadow duration-300 text-center"
+                className="bg-white rounded-lg p-4 sm:p-6 shadow-md border border-gray-100 hover:shadow-lg hover:border-gray-200 transition-all duration-300 text-center"
+                style={{
+                  boxShadow:
+                    "0 4px 12px -2px rgba(0, 0, 0, 0.08), 0 2px 6px -1px rgba(0, 0, 0, 0.04)",
+                }}
               >
                 <motion.div
                   whileHover={{ scale: 1.05 }}
@@ -181,7 +190,11 @@ export default function AboutSection() {
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8, delay: 1.4 }}
                 viewport={{ once: true }}
-                className="bg-white rounded-lg sm:rounded-xl p-3 sm:p-4 shadow-lg border border-gray-100 hover:shadow-xl transition-shadow duration-300 text-center"
+                className="bg-white rounded-lg p-4 sm:p-6 shadow-md border border-gray-100 hover:shadow-lg hover:border-gray-200 transition-all duration-300 text-center"
+                style={{
+                  boxShadow:
+                    "0 4px 12px -2px rgba(0, 0, 0, 0.08), 0 2px 6px -1px rgba(0, 0, 0, 0.04)",
+                }}
               >
                 <motion.div
                   whileHover={{ scale: 1.05 }}
@@ -206,169 +219,244 @@ export default function AboutSection() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
             viewport={{ once: true }}
-            className="relative mt-12 sm:mt-16 md:mt-20 min-h-screen flex items-center justify-center overflow-hidden"
+            className="relative mt-12 sm:mt-16 md:mt-20 py-8 sm:py-10 md:py-12 flex items-center justify-center overflow-hidden"
           >
-            {/* Main Sustainability Card */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
-              viewport={{ once: true }}
-              className="max-w-6xl w-full mx-auto bg-white/90 backdrop-blur-sm rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-10 shadow-2xl border border-gray-100 relative overflow-hidden"
-            >
-              {/* Background decorative elements */}
-              <div
-                className="absolute inset-0 opacity-40 -z-10"
-                style={{ background: "var(--logo-primary-gradient)" }}
-              />
-              <div className="absolute inset-0 bg-white/70 -z-10" />
-
-              <div className="relative z-10">
-                {/* Header */}
-                <div className="text-center mb-6 sm:mb-8">
-                  <motion.div
-                    initial={{ scale: 0 }}
-                    whileInView={{ scale: 1 }}
-                    transition={{ duration: 0.6, delay: 0.8, type: "spring" }}
-                    viewport={{ once: true }}
-                    className="inline-flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-green-500 to-emerald-600 rounded-full mb-4 sm:mb-6"
-                  >
-                    <Trees className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
-                  </motion.div>
-                  <motion.h3
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 1.0 }}
-                    viewport={{ once: true }}
-                    className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3 sm:mb-4"
-                  >
-                    Our Green Commitment
-                  </motion.h3>
-                  <div
-                    className="w-20 sm:w-24 h-1 mx-auto mb-4"
-                    style={{ background: "var(--logo-blue-gradient)" }}
-                  />
-                </div>
-
-                {/* Main Target - 100,000 Plants */}
+            <div className="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 overflow-hidden">
+              {/* Header */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.6 }}
+                viewport={{ once: true }}
+                className="text-center mb-6 sm:mb-8"
+              >
                 <motion.div
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 1, delay: 1.2 }}
+                  initial={{ scale: 0, rotate: -180 }}
+                  whileInView={{ scale: 1, rotate: 0 }}
+                  transition={{ duration: 0.8, delay: 0.8, type: "spring" }}
                   viewport={{ once: true }}
-                  className="text-center mb-8 sm:mb-12"
+                  className="inline-flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl mb-4 sm:mb-6 shadow-xl"
                 >
-                  <div className="inline-block bg-white/85 backdrop-blur-sm rounded-2xl sm:rounded-3xl px-6 sm:px-10 md:px-14 py-6 sm:py-10 shadow-lg border border-gray-100">
-                    <div className="flex items-center justify-center gap-3 sm:gap-4 mb-4">
-                      <Leaf className="w-8 h-8 sm:w-10 sm:h-10 text-green-600" />
-                      <h4 className="text-lg sm:text-xl md:text-2xl font-semibold text-gray-700">
-                        Planting Target
-                      </h4>
+                  <Trees className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
+                </motion.div>
+                <motion.h3
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 1.0 }}
+                  viewport={{ once: true }}
+                  className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-gray-900 mb-4 sm:mb-6 tracking-wide"
+                  style={{ letterSpacing: "0.03em" }}
+                >
+                  Our Green Commitment
+                </motion.h3>
+                <motion.div
+                  initial={{ width: 0 }}
+                  whileInView={{ width: "100px" }}
+                  transition={{ duration: 0.8, delay: 1.2 }}
+                  viewport={{ once: true }}
+                  className="h-1.5 mx-auto mb-6 rounded-full"
+                  style={{ background: "var(--logo-blue-gradient)" }}
+                />
+              </motion.div>
+
+              {/* Main Layout: Two Column */}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 md:gap-8 items-stretch mb-4 sm:mb-6">
+                {/* Left Side: Planting Target */}
+                <motion.div
+                  initial={{ opacity: 0, x: -50 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.8, delay: 1.4 }}
+                  viewport={{ once: true }}
+                  className="order-2 lg:order-1 w-full flex"
+                >
+                  <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl p-6 sm:p-8 shadow-sm border border-green-100 relative overflow-hidden w-full flex flex-col">
+                    {/* Decorative background elements */}
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-green-200/20 rounded-full blur-3xl -mr-16 -mt-16" />
+                    <div className="absolute bottom-0 left-0 w-24 h-24 bg-emerald-200/20 rounded-full blur-2xl -ml-12 -mb-12" />
+
+                    <div className="relative z-10 w-full flex flex-col flex-grow">
+                      <div className="flex items-center gap-3 mb-4 sm:mb-5">
+                        <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl flex items-center justify-center shadow-lg flex-shrink-0">
+                          <Leaf className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                        </div>
+                        <h4 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-800">
+                          Planting Target
+                        </h4>
+                      </div>
+
+                      <div className="mb-4 sm:mb-5 w-full overflow-hidden">
+                        <div className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black logo-blue-gradient bg-clip-text text-transparent mb-2 sm:mb-3 leading-tight break-words">
+                          100,000
+                        </div>
+                        <p className="text-lg sm:text-xl md:text-2xl font-bold text-gray-800 mb-2 sm:mb-3">
+                          Trees at Our Facility
+                        </p>
+                        <p className="text-sm sm:text-base md:text-lg text-gray-600 leading-relaxed">
+                          Creating a sustainable future for generations to come
+                        </p>
+                      </div>
+
+                      {/* Progress indicator */}
+                      <div className="mt-4 sm:mt-6 pt-4 sm:pt-6 border-t-2 border-green-200/50">
+                        <div className="flex items-center justify-between mb-2 gap-2">
+                          <span className="text-xs sm:text-sm font-semibold text-gray-700 truncate">
+                            Environmental Impact
+                          </span>
+                          <span className="text-xs sm:text-sm font-bold text-green-600 flex-shrink-0">
+                            100%
+                          </span>
+                        </div>
+                        <div className="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
+                          <motion.div
+                            initial={{ width: 0 }}
+                            whileInView={{ width: "100%" }}
+                            transition={{
+                              duration: 1.5,
+                              delay: 2.0,
+                              ease: "easeOut",
+                            }}
+                            viewport={{ once: true }}
+                            className="h-full bg-gradient-to-r from-green-500 to-emerald-600 rounded-full"
+                          />
+                        </div>
+                      </div>
+
+                      {/* Call to Action */}
+                      <motion.div
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        transition={{ duration: 0.8, delay: 2.4 }}
+                        viewport={{ once: true }}
+                        className="mt-auto pt-6 sm:pt-8 border-t-2 border-green-200/50"
+                      >
+                        <p className="text-xs sm:text-sm md:text-base text-gray-700 font-medium text-center leading-relaxed break-words">
+                          Join us in building a sustainable future through{" "}
+                          <span className="font-bold text-green-600">
+                            responsible manufacturing
+                          </span>{" "}
+                          and{" "}
+                          <span className="font-bold text-emerald-600">
+                            environmental stewardship
+                          </span>
+                        </p>
+                      </motion.div>
                     </div>
-                    <div className="text-5xl sm:text-6xl md:text-7xl font-extrabold logo-blue-gradient bg-clip-text text-transparent mb-2 sm:mb-3">
-                      100,000
-                    </div>
-                    <p className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-800 mb-2 sm:mb-3">
-                      Trees at Our Facility
-                    </p>
-                    <p className="text-base sm:text-lg md:text-xl text-gray-600">
-                      Creating a sustainable future for generations to come
-                    </p>
                   </div>
                 </motion.div>
 
-                {/* Sustainability Features Grid */}
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
-                  {/* Carbon Reduction */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 1.4 }}
-                    viewport={{ once: true }}
-                    whileHover={{ scale: 1.05, y: -5 }}
-                    className="bg-white/90 backdrop-blur-sm rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 text-center"
-                  >
-                    <div className="w-12 h-12 sm:w-14 sm:h-14 logo-blue-bg rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
-                      <Recycle className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
-                    </div>
-                    <h5 className="text-sm sm:text-base md:text-lg font-bold text-gray-900 mb-2 sm:mb-3">
-                      Carbon Offset
-                    </h5>
-                    <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">
-                      Significantly reducing our carbon footprint through
-                      reforestation
-                    </p>
-                  </motion.div>
-
-                  {/* Eco-Friendly Manufacturing */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 1.6 }}
-                    viewport={{ once: true }}
-                    whileHover={{ scale: 1.05, y: -5 }}
-                    className="bg-white/90 backdrop-blur-sm rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 text-center"
-                  >
-                    <div className="w-12 h-12 sm:w-14 sm:h-14 logo-orange-bg rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
-                      <Leaf className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
-                    </div>
-                    <h5 className="text-sm sm:text-base md:text-lg font-bold text-gray-900 mb-2 sm:mb-3">
-                      Green Manufacturing
-                    </h5>
-                    <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">
-                      Sustainable practices integrated into every aspect of our
-                      operations
-                    </p>
-                  </motion.div>
-
-                  {/* Future Generations */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 1.8 }}
-                    viewport={{ once: true }}
-                    whileHover={{ scale: 1.05, y: -5 }}
-                    className="bg-white/90 backdrop-blur-sm rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 text-center"
-                  >
-                    <div className="w-12 h-12 sm:w-14 sm:h-14 logo-primary-bg rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
-                      <Trees className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
-                    </div>
-                    <h5 className="text-sm sm:text-base md:text-lg font-bold text-gray-900 mb-2 sm:mb-3">
-                      Legacy Impact
-                    </h5>
-                    <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">
-                      Leaving a greener planet for future generations through
-                      our commitment
-                    </p>
-                  </motion.div>
-                </div>
-
-                {/* Call to Action */}
+                {/* Right Side: Features Grid */}
                 <motion.div
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
-                  transition={{ duration: 0.8, delay: 2.0 }}
+                  initial={{ opacity: 0, x: 50 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.8, delay: 1.6 }}
                   viewport={{ once: true }}
-                  className="mt-8 sm:mt-10 md:mt-12 text-center"
+                  className="order-1 lg:order-2 w-full flex flex-col"
                 >
-                  <p className="text-sm sm:text-base md:text-lg text-gray-700 font-medium">
-                    Join us in building a sustainable future through{" "}
-                    <span className="font-bold text-green-600">
-                      responsible manufacturing
-                    </span>{" "}
-                    and{" "}
-                    <span className="font-bold text-emerald-600">
-                      environmental stewardship
-                    </span>
-                  </p>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4 sm:gap-5 w-full flex-grow">
+                    {/* Carbon Offset */}
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.6, delay: 1.8 }}
+                      viewport={{ once: true }}
+                      whileHover={{
+                        scale: 1.03,
+                        y: -8,
+                        transition: { duration: 0.3 },
+                      }}
+                      className="bg-white rounded-lg p-5 sm:p-6 shadow-md border border-gray-100 hover:shadow-lg hover:border-gray-200 transition-all duration-300 group w-full flex-shrink-0"
+                      style={{
+                        boxShadow:
+                          "0 4px 12px -2px rgba(0, 0, 0, 0.08), 0 2px 6px -1px rgba(0, 0, 0, 0.04)",
+                      }}
+                    >
+                      <div className="flex items-start gap-3 sm:gap-4">
+                        <div className="w-12 h-12 sm:w-14 sm:h-14 logo-blue-bg rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300 flex-shrink-0">
+                          <Recycle className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <h5 className="text-base sm:text-lg md:text-xl font-bold text-gray-900 mb-1 sm:mb-2">
+                            Carbon Offset
+                          </h5>
+                          <p className="text-xs sm:text-sm md:text-base text-gray-600 leading-relaxed break-words">
+                            Significantly reducing our carbon footprint through
+                            strategic reforestation initiatives
+                          </p>
+                        </div>
+                      </div>
+                    </motion.div>
+
+                    {/* Green Manufacturing */}
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.6, delay: 2.0 }}
+                      viewport={{ once: true }}
+                      whileHover={{
+                        scale: 1.03,
+                        y: -8,
+                        transition: { duration: 0.3 },
+                      }}
+                      className="bg-white rounded-lg p-5 sm:p-6 shadow-md border border-gray-100 hover:shadow-lg hover:border-gray-200 transition-all duration-300 group w-full flex-shrink-0"
+                      style={{
+                        boxShadow:
+                          "0 4px 12px -2px rgba(0, 0, 0, 0.08), 0 2px 6px -1px rgba(0, 0, 0, 0.04)",
+                      }}
+                    >
+                      <div className="flex items-start gap-3 sm:gap-4">
+                        <div className="w-12 h-12 sm:w-14 sm:h-14 logo-orange-bg rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300 flex-shrink-0">
+                          <Leaf className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <h5 className="text-base sm:text-lg md:text-xl font-bold text-gray-900 mb-1 sm:mb-2">
+                            Green Manufacturing
+                          </h5>
+                          <p className="text-xs sm:text-sm md:text-base text-gray-600 leading-relaxed break-words">
+                            Sustainable practices integrated into every aspect
+                            of our production operations
+                          </p>
+                        </div>
+                      </div>
+                    </motion.div>
+
+                    {/* Legacy Impact */}
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.6, delay: 2.2 }}
+                      viewport={{ once: true }}
+                      whileHover={{
+                        scale: 1.03,
+                        y: -8,
+                        transition: { duration: 0.3 },
+                      }}
+                      className="bg-white rounded-lg p-5 sm:p-6 shadow-sm border border-gray-100 hover:shadow-md hover:border-gray-200 transition-all duration-300 group sm:col-span-2 lg:col-span-1 w-full flex-shrink-0"
+                    >
+                      <div className="flex items-start gap-3 sm:gap-4">
+                        <div className="w-12 h-12 sm:w-14 sm:h-14 logo-primary-bg rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300 flex-shrink-0">
+                          <Trees className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <h5 className="text-base sm:text-lg md:text-xl font-bold text-gray-900 mb-1 sm:mb-2">
+                            Legacy Impact
+                          </h5>
+                          <p className="text-xs sm:text-sm md:text-base text-gray-600 leading-relaxed break-words">
+                            Leaving a greener planet for future generations
+                            through our unwavering commitment to environmental
+                            stewardship
+                          </p>
+                        </div>
+                      </div>
+                    </motion.div>
+                  </div>
                 </motion.div>
               </div>
-            </motion.div>
+            </div>
           </motion.div>
         </div>
 
         {/* Bottom spacing */}
-        <div className="h-8 sm:h-12 md:h-16 lg:h-20"></div>
+        <div className="h-4 sm:h-6 md:h-8"></div>
       </div>
     </section>
   );

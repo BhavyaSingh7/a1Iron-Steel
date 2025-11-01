@@ -21,11 +21,11 @@
   --logo-primary-gradient: linear-gradient(135deg, #f0ae28 0%, #f1852e 25%, #2084b1 60%, #1a5f82 100%);
   
   /* Utility Colors */
-  --logo-gray-light: #F8F9FA;
-  --logo-gray-medium: #E9ECEF;
+  --logo-gray-light: #FFFFFF;
+  --logo-gray-medium: #F5F5F5;
   --logo-gray-dark: #6C757D;
   
-  --background: #F8F9FA;
+  --background: #FFFFFF;
   --foreground: #212529;
   --text-secondary: #6C757D;
 }
@@ -102,8 +102,11 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
   line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
 /* Custom scrollbar */
