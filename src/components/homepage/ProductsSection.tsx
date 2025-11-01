@@ -25,8 +25,9 @@ export default function ProductsSection() {
         title: "TMT Bars",
         description:
           "Thermo Mechanical Treatment Steel bars used in Earthquake-resistant construction",
-        image:
-          "https://images.unsplash.com/photo-1639322537228-f710d846310a?q=80&w=2070&auto=format&fit=crop",
+        image: `${
+          process.env.NEXT_PUBLIC_BASE_PATH || ""
+        }/products/tmt bars.jpg`,
         specifications: [
           "Grade: Fe500",
           "Diameter: 8mm-32mm",
@@ -51,8 +52,7 @@ export default function ProductsSection() {
         title: "5.5MM Wire Rod",
         description:
           "A low-carbon general-purpose manufacturing wire used in a wide range of industries",
-        image:
-          "https://images.unsplash.com/photo-1614624532983-4ce03382d63d?q=80&w=2070&auto=format&fit=crop",
+        image: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/products/5.5mm.webp`,
         specifications: [
           "Diameter: 5.5mm",
           "Grade: Low Carbon Steel",
@@ -77,8 +77,9 @@ export default function ProductsSection() {
         title: "Hot Rolled Strip",
         description:
           "Strong hot-rolled strip, engineered to meet the diverse needs of various industries",
-        image:
-          "https://images.unsplash.com/photo-1594736797933-d0401ba2fe65?q=80&w=2070&auto=format&fit=crop",
+        image: `${
+          process.env.NEXT_PUBLIC_BASE_PATH || ""
+        }/products/HOT-ROLLED-STRIP.webp`,
         specifications: [
           "Thickness: 1.5mm-12mm",
           "Width: 25mm-200mm",
@@ -103,8 +104,9 @@ export default function ProductsSection() {
         title: "V Angle",
         description:
           "Designed to meet the demands of the most rigorous construction and industrial applications",
-        image:
-          "https://images.unsplash.com/photo-1518818608552-195ed130c1cd?q=80&w=2070&auto=format&fit=crop",
+        image: `${
+          process.env.NEXT_PUBLIC_BASE_PATH || ""
+        }/products/V-ANGLES.jpg`,
         specifications: [
           "Size: 25x25mm to 200x200mm",
           "Thickness: 3mm-20mm",
@@ -129,8 +131,9 @@ export default function ProductsSection() {
         title: "Flat Bar",
         description:
           "Bars Crafted to provide reliable strength and versatility for a range of manufacturing applications",
-        image:
-          "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?q=80&w=2070&auto=format&fit=crop",
+        image: `${
+          process.env.NEXT_PUBLIC_BASE_PATH || ""
+        }/products/Flat-Bars.jpg`,
         specifications: [
           "Width: 10mm-200mm",
           "Thickness: 3mm-50mm",
@@ -155,8 +158,9 @@ export default function ProductsSection() {
         title: "C Channel",
         description:
           "C Channels engineered to provide outstanding structural support, stability, and versatility",
-        image:
-          "https://images.unsplash.com/photo-1581833971358-2c8b550f87b3?q=80&w=2070&auto=format&fit=crop",
+        image: `${
+          process.env.NEXT_PUBLIC_BASE_PATH || ""
+        }/products/C-Chanel.jpg`,
         specifications: [
           "Size: 75x40mm to 200x75mm",
           "Thickness: 2mm-8mm",
@@ -181,8 +185,9 @@ export default function ProductsSection() {
         title: "I-Beam",
         description:
           "Specifically designed to provide maximum structural strength, stability, and reliability",
-        image:
-          "https://images.unsplash.com/photo-1504307651254-35680f2df2c5?q=80&w=2070&auto=format&fit=crop",
+        image: `${
+          process.env.NEXT_PUBLIC_BASE_PATH || ""
+        }/products/STEEL-BEAMS.jpg`,
         specifications: [
           "Size: 100x50mm to 600x200mm",
           "Thickness: 3mm-25mm",
@@ -207,8 +212,9 @@ export default function ProductsSection() {
         title: "Round Bar",
         description:
           "Engineered to meet the needs of construction, manufacturing, automotive, and more industries",
-        image:
-          "https://images.unsplash.com/photo-1581578731548-c64695cc6952?q=80&w=2070&auto=format&fit=crop",
+        image: `${
+          process.env.NEXT_PUBLIC_BASE_PATH || ""
+        }/products/Round bars.jpg`,
         specifications: [
           "Diameter: 6mm-100mm",
           "Grade: Stainless Steel",
@@ -233,8 +239,7 @@ export default function ProductsSection() {
         title: "Hollow Section",
         description:
           "Versatile hollow section with exceptional strength for construction, structural, & engineering applications",
-        image:
-          "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop",
+        image: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/products/HS.jpg`,
         specifications: [
           "Size: 20x20mm to 400x400mm",
           "Thickness: 1.5mm-12mm",
@@ -259,8 +264,9 @@ export default function ProductsSection() {
         title: "Wire Nails",
         description:
           "Versatile and durable Wire nails, perfect for both industrial and construction applications",
-        image:
-          "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?q=80&w=2070&auto=format&fit=crop",
+        image: `${
+          process.env.NEXT_PUBLIC_BASE_PATH || ""
+        }/products/Wire-Nails (1).avif`,
         specifications: [
           "Length: 25mm-150mm",
           "Diameter: 2mm-6mm",
@@ -285,8 +291,9 @@ export default function ProductsSection() {
         title: "Binding Wire",
         description:
           "Deliver reliable performance in a range of applications, construction to general industrial use",
-        image:
-          "https://images.unsplash.com/photo-1560814330-8e5a270640dd?q=80&w=2070&auto=format&fit=crop",
+        image: `${
+          process.env.NEXT_PUBLIC_BASE_PATH || ""
+        }/products/Binding-Wire (1).jpg`,
         specifications: [
           "Diameter: 0.8mm-2.5mm",
           "Material: Galvanized Steel",
@@ -311,8 +318,7 @@ export default function ProductsSection() {
         title: "BRC",
         description:
           "British Reinforcement Concrete mesh for concrete strengthening",
-        image:
-          "https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=2070&auto=format&fit=crop",
+        image: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/products/brc.jpg`,
         specifications: [
           "Mesh Size: 100x100mm to 200x200mm",
           "Wire Diameter: 4mm-8mm",
@@ -337,8 +343,9 @@ export default function ProductsSection() {
         title: "GI Chain Link",
         description:
           "GI (Galvanized Iron) Chain Link fencing that provides a strong, durable, and cost-effective solution for securing properties and enclosures",
-        image:
-          "https://images.unsplash.com/photo-1605244863941-a12801e952cc?q=80&w=2070&auto=format&fit=crop",
+        image: `${
+          process.env.NEXT_PUBLIC_BASE_PATH || ""
+        }/products/gi chain link.jpg`,
         specifications: [
           "Mesh Size: 50mm-100mm",
           "Wire Gauge: 8-12 gauge",
@@ -363,8 +370,9 @@ export default function ProductsSection() {
         title: "Barbed Wire",
         description:
           "Widely used in various security applications to deter trespassers and enhance safety, Known for its sharpness and durability",
-        image:
-          "https://images.unsplash.com/photo-1578662996442-77f7473e3e81?q=80&w=2070&auto=format&fit=crop",
+        image: `${
+          process.env.NEXT_PUBLIC_BASE_PATH || ""
+        }/products/barbed-wires.jpg`,
         specifications: [
           "Wire Gauge: 12-14 gauge",
           "Barb Spacing: 75mm-150mm",
