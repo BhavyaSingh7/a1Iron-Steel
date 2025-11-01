@@ -95,9 +95,9 @@ export default function VideoSection() {
   return (
     <section
       ref={containerRef}
-      className="relative w-full overflow-hidden mb-8 sm:mb-12 lg:mb-16"
+      className="relative w-full overflow-hidden mb-8 sm:mb-12 lg:mb-16 snap-start snap-always"
       id="video-section"
-      style={{ minHeight: "1px" }}
+      style={{ minHeight: "100vh" }}
     >
       {/* Fixed fullscreen video overlay */}
       <motion.div
@@ -113,7 +113,7 @@ export default function VideoSection() {
           muted
           playsInline
           loop
-          preload="auto"
+          preload="none"
           onPlay={() => setIsPlaying(true)}
           onPause={() => setIsPlaying(false)}
           onError={(e) => {

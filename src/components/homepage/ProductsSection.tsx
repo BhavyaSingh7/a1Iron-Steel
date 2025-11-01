@@ -403,19 +403,11 @@ export default function ProductsSection() {
   const [carouselItems, setCarouselItems] = useState<Product[]>([]);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [imagesLoading, setImagesLoading] = useState(true);
 
   useEffect(() => {
     setIsClient(true);
-    // Create infinite carousel by duplicating products
-    setCarouselItems([...products, ...products, ...products]);
-
-    // Simulate image loading
-    const timer = setTimeout(() => {
-      setImagesLoading(false);
-    }, 800);
-
-    return () => clearTimeout(timer);
+    // Create infinite carousel by duplicating products only twice (was 3x)
+    setCarouselItems([...products, ...products]);
   }, [products]);
 
   const navigateLeft = useCallback(() => {
@@ -429,7 +421,7 @@ export default function ProductsSection() {
       }
       return newIndex;
     });
-    setTimeout(() => setIsTransitioning(false), 500);
+    setTimeout(() => setIsTransitioning(false), 300);
   }, [products.length, isTransitioning]);
 
   const navigateRight = useCallback(() => {
@@ -443,7 +435,7 @@ export default function ProductsSection() {
       }
       return newIndex;
     });
-    setTimeout(() => setIsTransitioning(false), 500);
+    setTimeout(() => setIsTransitioning(false), 300);
   }, [products.length, isTransitioning]);
 
   const goToSlide = useCallback((index: number) => {
@@ -468,7 +460,7 @@ export default function ProductsSection() {
     <section
       id="products"
       aria-label="Product showcase section"
-      className="relative min-h-screen flex items-center justify-center py-16 sm:py-20 lg:py-24 bg-white overflow-hidden"
+      className="relative min-h-screen flex items-center justify-center py-16 sm:py-20 lg:py-24 bg-white overflow-hidden snap-start snap-always"
     >
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         {/* Section Header */}
@@ -515,62 +507,52 @@ export default function ProductsSection() {
         {/* Carousel Container */}
         <div className="relative">
           {/* Navigation Arrows */}
-          <motion.button
+          <button
             onClick={navigateLeft}
-            className="absolute left-0 top-1/2 transform -translate-y-1/2 z-20 w-12 h-12 bg-white border border-orange-500 rounded-full flex items-center justify-center text-orange-500 hover:bg-orange-50 transition-all duration-300 shadow-md hover:shadow-lg"
+            className="absolute left-0 top-1/2 transform -translate-y-1/2 z-20 w-12 h-12 bg-white border border-orange-500 rounded-full flex items-center justify-center text-orange-500 hover:bg-orange-50 transition-all duration-200 hover:scale-105 active:scale-95 shadow-md hover:shadow-lg"
             style={{
               boxShadow:
                 "0 4px 12px -2px rgba(249, 115, 22, 0.25), 0 2px 6px -1px rgba(249, 115, 22, 0.15)",
             }}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
           >
             <ChevronLeft className="w-6 h-6" />
-          </motion.button>
+          </button>
 
-          <motion.button
+          <button
             onClick={navigateRight}
-            className="absolute right-0 top-1/2 transform -translate-y-1/2 z-20 w-12 h-12 bg-white border border-blue-500 rounded-full flex items-center justify-center text-blue-500 hover:bg-blue-50 transition-all duration-300 shadow-md hover:shadow-lg"
+            className="absolute right-0 top-1/2 transform -translate-y-1/2 z-20 w-12 h-12 bg-white border border-blue-500 rounded-full flex items-center justify-center text-blue-500 hover:bg-blue-50 transition-all duration-200 hover:scale-105 active:scale-95 shadow-md hover:shadow-lg"
             style={{
               boxShadow:
                 "0 4px 12px -2px rgba(32, 132, 177, 0.25), 0 2px 6px -1px rgba(32, 132, 177, 0.15)",
             }}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
           >
             <ChevronRight className="w-6 h-6" />
-          </motion.button>
+          </button>
 
           {/* Product Cards */}
           <div className="overflow-hidden px-16">
-            {!isClient || imagesLoading ? (
+            {!isClient ? (
               <CarouselSkeleton />
             ) : (
-              <motion.div
-                className="flex transition-transform duration-500 ease-out"
+              <div
+                className="flex transition-transform duration-300 ease-out"
                 style={{
                   transform: `translateX(-${currentIndex * 320}px)`,
+                  willChange: "transform",
                 }}
               >
                 {/* Render all carousel items */}
                 {carouselItems.map((product, index) => (
-                  <motion.div
+                  <div
                     key={`${product.id}-${index}`}
                     className="flex-shrink-0 w-80 md:w-96 px-4"
                   >
-                    <motion.div
-                      className="bg-white rounded-lg overflow-hidden shadow-md border border-gray-100 h-full hover:border-gray-200 hover:shadow-lg transition-all duration-300 flex flex-col cursor-pointer group"
+                    <div
+                      className="bg-white rounded-lg overflow-hidden shadow-md border border-gray-100 h-full hover:border-gray-200 hover:shadow-lg transition-all duration-200 ease-out hover:-translate-y-2 flex flex-col cursor-pointer group"
                       onClick={() => openProductModal(product)}
                       style={{
                         boxShadow:
                           "0 4px 12px -2px rgba(0, 0, 0, 0.08), 0 2px 6px -1px rgba(0, 0, 0, 0.04)",
-                      }}
-                      whileHover={{ y: -8, scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                      transition={{
-                        type: "spring",
-                        stiffness: 300,
-                        damping: 20,
                       }}
                     >
                       {/* Product Image */}
@@ -580,9 +562,13 @@ export default function ProductsSection() {
                           alt={product.title}
                           fill
                           className="object-cover"
-                          quality={50}
+                          quality={60}
+                          sizes="(max-width: 768px) 320px, 384px"
                           loading="lazy"
-                          priority={false}
+                          priority={
+                            index < 3 &&
+                            currentIndex % products.length === index
+                          }
                         />
                         {/* Top right icon */}
                         <div className="absolute top-4 right-4 w-8 h-8 bg-white/95 backdrop-blur-sm rounded-full flex items-center justify-center shadow-sm">
@@ -603,23 +589,17 @@ export default function ProductsSection() {
                         <div className="w-full h-px bg-gray-100 mb-5"></div>
 
                         {/* LEARN MORE button */}
-                        <motion.button
-                          className="text-orange-500 font-medium text-left hover:text-orange-600 transition-colors text-sm tracking-wide group-hover:text-orange-600"
+                        <button
+                          className="text-orange-500 font-medium text-left hover:text-orange-600 transition-transform duration-200 ease-out hover:translate-x-1 text-sm tracking-wide group-hover:text-orange-600"
                           style={{ letterSpacing: "0.05em" }}
-                          whileHover={{ x: 4 }}
-                          transition={{
-                            type: "spring",
-                            stiffness: 400,
-                            damping: 17,
-                          }}
                         >
                           LEARN MORE →
-                        </motion.button>
+                        </button>
                       </div>
-                    </motion.div>
-                  </motion.div>
+                    </div>
+                  </div>
                 ))}
-              </motion.div>
+              </div>
             )}
           </div>
 
@@ -634,18 +614,14 @@ export default function ProductsSection() {
             {products.map((_, index) => {
               const isActive = index === currentIndex % products.length;
               return (
-                <motion.button
+                <button
                   key={index}
                   onClick={() => goToSlide(index)}
-                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                    isActive ? "bg-orange-500" : "bg-gray-300 hover:bg-gray-400"
+                  className={`w-3 h-3 rounded-full transition-all duration-200 hover:scale-125 active:scale-95 ${
+                    isActive
+                      ? "bg-orange-500 scale-125"
+                      : "bg-gray-300 hover:bg-gray-400"
                   }`}
-                  whileHover={{ scale: 1.3 }}
-                  whileTap={{ scale: 0.9 }}
-                  animate={{
-                    scale: isActive ? 1.5 : 1,
-                  }}
-                  transition={{ type: "spring", stiffness: 400, damping: 17 }}
                 />
               );
             })}

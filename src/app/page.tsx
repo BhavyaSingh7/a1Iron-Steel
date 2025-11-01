@@ -48,9 +48,7 @@ const ContactPage = dynamic(() =>
 );
 
 export default function Home() {
-  const [videoPhase, setVideoPhase] = useState<
-    "fullscreen" | "minimizing" | "minimized"
-  >("fullscreen");
+  // Removed unused videoPhase state for performance
   const [typewriterComplete, setTypewriterComplete] = useState(false);
   const [currentBgImage, setCurrentBgImage] = useState(0);
   const [showVideoIntro, setShowVideoIntro] = useState(true);
@@ -58,23 +56,25 @@ export default function Home() {
   const [showProducts, setShowProducts] = useState(false);
   const [showContact, setShowContact] = useState(false);
   const [showSecondVideo, setShowSecondVideo] = useState(false);
-  const [showBubbles, setShowBubbles] = useState(false);
+  // Removed unused showBubbles state for performance
 
-  // Show bubbles after 1 second
-  useEffect(() => {
-    const bubbleTimer = setTimeout(() => {
-      setShowBubbles(true);
-    }, 1000);
-    return () => clearTimeout(bubbleTimer);
-  }, []);
+  // Disable bubbles animation for performance
+  // useEffect(() => {
+  //   const bubbleTimer = setTimeout(() => {
+  //     setShowBubbles(true);
+  //   }, 1000);
+  //   return () => clearTimeout(bubbleTimer);
+  // }, []);
 
-  // Show second video after 5 seconds
+  // Show second video after 5 seconds - lazy load it
   useEffect(() => {
-    const secondVideoTimer = setTimeout(() => {
-      setShowSecondVideo(true);
-    }, 5000);
-    return () => clearTimeout(secondVideoTimer);
-  }, []);
+    if (showVideoIntro) {
+      const secondVideoTimer = setTimeout(() => {
+        setShowSecondVideo(true);
+      }, 5000);
+      return () => clearTimeout(secondVideoTimer);
+    }
+  }, [showVideoIntro]);
 
   // Auto-slide to home screen after 10 seconds (5s first video + 5s second video)
   useEffect(() => {
@@ -89,14 +89,14 @@ export default function Home() {
       const fallback = document.getElementById("video-fallback") as HTMLElement;
 
       const handleVideoError = () => {
-        console.log("Video failed to load, showing fallback image");
+        // Video failed to load, fallback will be shown
         if (fallback) {
           fallback.style.display = "block";
         }
       };
 
       const handleVideoLoad = () => {
-        console.log("Video loaded successfully");
+        // Video loaded successfully
         if (fallback) {
           fallback.style.display = "none";
         }
@@ -115,23 +115,7 @@ export default function Home() {
     return () => clearTimeout(timer);
   }, []);
 
-  // Trigger video vanishing when typewriter completes
-  useEffect(() => {
-    if (typewriterComplete) {
-      const timer1 = setTimeout(() => {
-        setVideoPhase("minimizing");
-      }, 500); // Start minimizing 0.5 seconds after typewriter completes
-
-      const timer2 = setTimeout(() => {
-        setVideoPhase("minimized");
-      }, 3000); // Complete minimizing after 3 seconds
-
-      return () => {
-        clearTimeout(timer1);
-        clearTimeout(timer2);
-      };
-    }
-  }, [typewriterComplete]);
+  // Video phase logic removed for performance optimization
 
   // Background image carousel effect - only start when video intro is done
   useEffect(() => {
@@ -153,40 +137,35 @@ export default function Home() {
   }, [showVideoIntro]);
 
   return (
-    <main className="min-h-screen">
+    <main className="min-h-screen snap-y snap-mandatory">
       {/* Video Intro Screen - Shows for 8 seconds then slides up */}
       <motion.section
         className="fixed inset-0 z-50 bg-black"
         initial={{ y: 0 }}
         animate={{ y: showVideoIntro ? 0 : "-100%" }}
         transition={{
-          duration: 1.5,
-          ease: [0.25, 0.1, 0.25, 1], // Smooth slide-up
+          duration: 0.8,
+          ease: "easeInOut",
         }}
       >
         {/* First Video Background */}
         <motion.div
           className="absolute inset-0 w-full h-full"
           animate={{ opacity: showSecondVideo ? 0 : 1 }}
-          transition={{ duration: 2, ease: "easeInOut" }}
+          transition={{ duration: 1, ease: "easeOut" }}
+          style={{ willChange: showSecondVideo ? "auto" : "opacity" }}
         >
           <video
             autoPlay
             muted
             loop
             playsInline
-            className="w-full h-full object-cover brightness-110 contrast-105"
+            className="w-full h-full object-cover"
             onError={(e) => {
-              console.error("Video error:", e);
               const videoElement = e.target as HTMLVideoElement;
               videoElement.style.display = "none";
             }}
-            onLoadStart={() => console.log("Video loading started")}
-            onCanPlay={() => console.log("Video can play")}
-            preload="auto"
-            style={{
-              filter: "brightness(1.15) contrast(1.1) saturate(1.1)",
-            }}
+            preload="none"
           >
             <source
               src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/bg-video.mp4`}
@@ -201,30 +180,29 @@ export default function Home() {
           className="absolute inset-0 w-full h-full"
           initial={{ opacity: 0 }}
           animate={{ opacity: showSecondVideo ? 1 : 0 }}
-          transition={{ duration: 2, ease: "easeInOut" }}
+          transition={{ duration: 1, ease: "easeOut" }}
+          style={{ willChange: showSecondVideo ? "opacity" : "auto" }}
         >
-          <video
-            autoPlay
-            muted
-            loop
-            playsInline
-            className="w-full h-full object-cover brightness-110 contrast-105"
-            onError={(e) => {
-              console.error("Second video error:", e);
-              const videoElement = e.target as HTMLVideoElement;
-              videoElement.style.display = "none";
-            }}
-            preload="auto"
-            style={{
-              filter: "brightness(1.15) contrast(1.1) saturate(1.1)",
-            }}
-          >
-            <source
-              src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/bg-video3.mp4`}
-              type="video/mp4"
-            />
-            Your browser does not support the video tag.
-          </video>
+          {showSecondVideo && (
+            <video
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="w-full h-full object-cover"
+              onError={(e) => {
+                const videoElement = e.target as HTMLVideoElement;
+                videoElement.style.display = "none";
+              }}
+              preload="none"
+            >
+              <source
+                src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/bg-video3.mp4`}
+                type="video/mp4"
+              />
+              Your browser does not support the video tag.
+            </video>
+          )}
         </motion.div>
 
         {/* Fallback background image */}
@@ -241,43 +219,7 @@ export default function Home() {
         {/* Light overlay for better text readability without hiding video */}
         <div className="absolute inset-0 bg-black/20" />
 
-        {/* Bouncing Bubbles - Reduced for performance */}
-        {showBubbles && (
-          <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            {[...Array(3)].map((_, i) => (
-              <motion.div
-                key={i}
-                className="absolute rounded-full blur-sm"
-                style={{
-                  left: `${Math.random() * 100}%`,
-                  top: `${Math.random() * 100}%`,
-                  width: `${8 + Math.random() * 16}px`,
-                  height: `${8 + Math.random() * 16}px`,
-                  background:
-                    i % 4 === 0
-                      ? "radial-gradient(circle, rgba(240, 174, 40, 0.15), rgba(241, 133, 46, 0.08))"
-                      : i % 4 === 1
-                      ? "radial-gradient(circle, rgba(32, 132, 177, 0.18), rgba(26, 95, 130, 0.1))"
-                      : i % 4 === 2
-                      ? "radial-gradient(circle, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05))"
-                      : "radial-gradient(circle, rgba(141, 188, 217, 0.18), rgba(32, 132, 177, 0.08))",
-                }}
-                animate={{
-                  y: [0, -40, 0],
-                  x: [0, 10, 0],
-                  scale: [1, 1.2, 1],
-                  opacity: [0.2, 0.5, 0.2],
-                }}
-                transition={{
-                  duration: 4,
-                  repeat: Infinity,
-                  delay: i * 0.5,
-                  ease: "easeInOut",
-                }}
-              />
-            ))}
-          </div>
-        )}
+        {/* Bouncing Bubbles - Disabled for performance */}
 
         {/* A1 IRON & STEEL Text */}
         <div className="relative z-10 h-full flex items-center justify-center">

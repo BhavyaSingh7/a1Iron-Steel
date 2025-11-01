@@ -111,7 +111,7 @@ export default function HeroSection({
   return (
     <section
       id="home"
-      className="relative h-screen flex items-center justify-center overflow-hidden"
+      className="relative h-screen flex items-center justify-center overflow-hidden snap-start snap-always"
       aria-label="Hero section with company introduction"
     >
       {/* Background Image Carousel */}
@@ -125,7 +125,7 @@ export default function HeroSection({
             animate={{
               opacity: currentBgImage === 0 ? 0.25 : 0,
             }}
-            transition={{ duration: 1.5, ease: "easeInOut" }}
+            transition={{ duration: 1, ease: "easeInOut" }}
             style={{ willChange: "opacity" }}
             className="absolute inset-0"
             aria-hidden="true"
@@ -137,9 +137,10 @@ export default function HeroSection({
               alt="Background Image 1"
               fill
               className="object-cover"
-              quality={50}
+              quality={30}
               priority={currentBgImage === 0}
               loading={currentBgImage === 0 ? "eager" : "lazy"}
+              sizes="100vw"
             />
           </motion.div>
         )}
@@ -151,7 +152,7 @@ export default function HeroSection({
             animate={{
               opacity: currentBgImage === 1 ? 0.25 : 0,
             }}
-            transition={{ duration: 1.5, ease: "easeInOut" }}
+            transition={{ duration: 1, ease: "easeInOut" }}
             style={{ willChange: "opacity" }}
             className="absolute inset-0"
             aria-hidden="true"
@@ -163,7 +164,8 @@ export default function HeroSection({
               alt="Background Image 2"
               fill
               className="object-cover"
-              quality={50}
+              quality={30}
+              sizes="100vw"
               priority={currentBgImage === 1}
               loading={currentBgImage === 1 ? "eager" : "lazy"}
             />
@@ -177,7 +179,7 @@ export default function HeroSection({
             animate={{
               opacity: currentBgImage === 2 ? 0.25 : 0,
             }}
-            transition={{ duration: 1.5, ease: "easeInOut" }}
+            transition={{ duration: 1, ease: "easeInOut" }}
             style={{ willChange: "opacity" }}
             className="absolute inset-0"
             aria-hidden="true"
@@ -189,7 +191,8 @@ export default function HeroSection({
               alt="Background Image 3"
               fill
               className="object-cover"
-              quality={50}
+              quality={30}
+              sizes="100vw"
               priority={currentBgImage === 2}
               loading={currentBgImage === 2 ? "eager" : "lazy"}
             />
@@ -203,7 +206,7 @@ export default function HeroSection({
             animate={{
               opacity: currentBgImage === 3 ? 0.25 : 0,
             }}
-            transition={{ duration: 1.5, ease: "easeInOut" }}
+            transition={{ duration: 1, ease: "easeInOut" }}
             style={{ willChange: "opacity" }}
             className="absolute inset-0"
             aria-hidden="true"
@@ -215,7 +218,8 @@ export default function HeroSection({
               alt="Background Image 4"
               fill
               className="object-cover"
-              quality={50}
+              quality={30}
+              sizes="100vw"
               priority={currentBgImage === 3}
               loading={currentBgImage === 3 ? "eager" : "lazy"}
             />
@@ -229,7 +233,7 @@ export default function HeroSection({
             animate={{
               opacity: currentBgImage === 4 ? 0.25 : 0,
             }}
-            transition={{ duration: 1.5, ease: "easeInOut" }}
+            transition={{ duration: 1, ease: "easeInOut" }}
             style={{ willChange: "opacity" }}
             className="absolute inset-0"
             aria-hidden="true"
@@ -241,7 +245,8 @@ export default function HeroSection({
               alt="Background Image 5"
               fill
               className="object-cover"
-              quality={50}
+              quality={30}
+              sizes="100vw"
               priority={currentBgImage === 4}
               loading={currentBgImage === 4 ? "eager" : "lazy"}
             />
@@ -255,7 +260,7 @@ export default function HeroSection({
             animate={{
               opacity: currentBgImage === 5 ? 0.25 : 0,
             }}
-            transition={{ duration: 1.5, ease: "easeInOut" }}
+            transition={{ duration: 1, ease: "easeInOut" }}
             style={{ willChange: "opacity" }}
             className="absolute inset-0"
             aria-hidden="true"
@@ -267,7 +272,8 @@ export default function HeroSection({
               alt="Background Image 6"
               fill
               className="object-cover"
-              quality={50}
+              quality={30}
+              sizes="100vw"
               priority={currentBgImage === 5}
               loading={currentBgImage === 5 ? "eager" : "lazy"}
             />
@@ -281,7 +287,7 @@ export default function HeroSection({
             animate={{
               opacity: currentBgImage === 6 ? 0.25 : 0,
             }}
-            transition={{ duration: 1.5, ease: "easeInOut" }}
+            transition={{ duration: 1, ease: "easeInOut" }}
             style={{ willChange: "opacity" }}
             className="absolute inset-0"
             aria-hidden="true"
@@ -293,7 +299,8 @@ export default function HeroSection({
               alt="Background Image 7"
               fill
               className="object-cover"
-              quality={50}
+              quality={30}
+              sizes="100vw"
               priority={currentBgImage === 6}
               loading={currentBgImage === 6 ? "eager" : "lazy"}
             />
@@ -492,16 +499,15 @@ export default function HeroSection({
           <div className="flex justify-center items-center mb-4 sm:mb-6">
             <motion.div
               className="text-center"
-              initial={{ opacity: 0, y: 50, scale: 0.5 }}
+              initial={{ opacity: 0, y: 30 }}
               animate={{
                 opacity: showVideoIntro ? 0 : 1,
-                y: showVideoIntro ? 50 : 0,
-                scale: showVideoIntro ? 0.5 : 1,
+                y: showVideoIntro ? 30 : 0,
               }}
               transition={{
-                duration: 1.2,
-                delay: showVideoIntro ? 0 : 0.5,
-                ease: [0.68, -0.55, 0.265, 1.55], // Bounce effect
+                duration: 0.6,
+                delay: showVideoIntro ? 0 : 0.3,
+                ease: "easeOut",
               }}
             >
               <h1

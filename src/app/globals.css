@@ -99,6 +99,11 @@
   background: linear-gradient(135deg, var(--logo-gray-light) 0%, var(--logo-gray-medium) 100%);
 }
 
+html {
+  scroll-behavior: smooth;
+  /* scroll-snap-type: y mandatory; */ /* Disabled for better scroll performance */
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
