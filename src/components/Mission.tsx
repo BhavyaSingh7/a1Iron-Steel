@@ -30,7 +30,7 @@ export default function Mission() {
   return (
     <motion.section
       id="about"
-      className="relative min-h-screen flex items-start justify-center overflow-y-auto pt-12 sm:pt-16 lg:pt-20 pb-8 sm:pb-12 lg:pb-16"
+      className="relative min-h-screen flex items-start justify-center overflow-y-auto pt-12 sm:pt-16 lg:pt-20 pb-16 sm:pb-20 lg:pb-24"
       style={{
         background:
           "linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%)",

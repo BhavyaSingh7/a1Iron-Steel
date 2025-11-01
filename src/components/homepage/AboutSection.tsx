@@ -16,7 +16,7 @@ export default function AboutSection() {
   return (
     <section
       id="about"
-      className="relative min-h-screen flex items-center justify-center overflow-y-auto py-16 sm:py-20 lg:py-24 bg-white"
+      className="relative min-h-screen flex items-center justify-center overflow-y-auto py-16 sm:py-20 lg:py-24 bg-white pb-0"
       aria-label="About A1 Iron and Steel company information"
     >
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -226,14 +226,19 @@ export default function AboutSection() {
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.6 }}
+                transition={{ duration: 0.5, delay: 0.1 }}
                 viewport={{ once: true }}
                 className="text-center mb-6 sm:mb-8"
               >
                 <motion.div
                   initial={{ scale: 0, rotate: -180 }}
                   whileInView={{ scale: 1, rotate: 0 }}
-                  transition={{ duration: 0.8, delay: 0.8, type: "spring" }}
+                  transition={{
+                    duration: 0.4,
+                    delay: 0.2,
+                    type: "spring",
+                    stiffness: 200,
+                  }}
                   viewport={{ once: true }}
                   className="inline-flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl mb-4 sm:mb-6 shadow-xl"
                 >
@@ -242,7 +247,7 @@ export default function AboutSection() {
                 <motion.h3
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 1.0 }}
+                  transition={{ duration: 0.5, delay: 0.3 }}
                   viewport={{ once: true }}
                   className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-gray-900 mb-4 sm:mb-6 tracking-wide"
                   style={{ letterSpacing: "0.03em" }}
@@ -252,7 +257,7 @@ export default function AboutSection() {
                 <motion.div
                   initial={{ width: 0 }}
                   whileInView={{ width: "100px" }}
-                  transition={{ duration: 0.8, delay: 1.2 }}
+                  transition={{ duration: 0.4, delay: 0.4 }}
                   viewport={{ once: true }}
                   className="h-1.5 mx-auto mb-6 rounded-full"
                   style={{ background: "var(--logo-blue-gradient)" }}
@@ -265,7 +270,7 @@ export default function AboutSection() {
                 <motion.div
                   initial={{ opacity: 0, x: -50 }}
                   whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.8, delay: 1.4 }}
+                  transition={{ duration: 0.5, delay: 0.2 }}
                   viewport={{ once: true }}
                   className="order-2 lg:order-1 w-full flex"
                 >
@@ -311,8 +316,8 @@ export default function AboutSection() {
                             initial={{ width: 0 }}
                             whileInView={{ width: "100%" }}
                             transition={{
-                              duration: 1.5,
-                              delay: 2.0,
+                              duration: 0.8,
+                              delay: 0.5,
                               ease: "easeOut",
                             }}
                             viewport={{ once: true }}
@@ -325,7 +330,7 @@ export default function AboutSection() {
                       <motion.div
                         initial={{ opacity: 0 }}
                         whileInView={{ opacity: 1 }}
-                        transition={{ duration: 0.8, delay: 2.4 }}
+                        transition={{ duration: 0.5, delay: 0.7 }}
                         viewport={{ once: true }}
                         className="mt-auto pt-6 sm:pt-8 border-t-2 border-green-200/50"
                       >
@@ -348,7 +353,7 @@ export default function AboutSection() {
                 <motion.div
                   initial={{ opacity: 0, x: 50 }}
                   whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.8, delay: 1.6 }}
+                  transition={{ duration: 0.5, delay: 0.4 }}
                   viewport={{ once: true }}
                   className="order-1 lg:order-2 w-full flex flex-col"
                 >
@@ -357,7 +362,7 @@ export default function AboutSection() {
                     <motion.div
                       initial={{ opacity: 0, y: 20 }}
                       whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.6, delay: 1.8 }}
+                      transition={{ duration: 0.4, delay: 0.6 }}
                       viewport={{ once: true }}
                       whileHover={{
                         scale: 1.03,
@@ -390,7 +395,7 @@ export default function AboutSection() {
                     <motion.div
                       initial={{ opacity: 0, y: 20 }}
                       whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.6, delay: 2.0 }}
+                      transition={{ duration: 0.4, delay: 0.7 }}
                       viewport={{ once: true }}
                       whileHover={{
                         scale: 1.03,
@@ -423,7 +428,7 @@ export default function AboutSection() {
                     <motion.div
                       initial={{ opacity: 0, y: 20 }}
                       whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.6, delay: 2.2 }}
+                      transition={{ duration: 0.4, delay: 0.8 }}
                       viewport={{ once: true }}
                       whileHover={{
                         scale: 1.03,
@@ -454,9 +459,6 @@ export default function AboutSection() {
             </div>
           </motion.div>
         </div>
-
-        {/* Bottom spacing */}
-        <div className="h-4 sm:h-6 md:h-8"></div>
       </div>
     </section>
   );

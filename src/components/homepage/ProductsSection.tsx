@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import React, { useState, useEffect, useCallback, useMemo } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
+import { CarouselSkeleton } from "@/components/LoadingSkeleton";
 
 // Product type definition
 type Product = {
@@ -402,11 +403,19 @@ export default function ProductsSection() {
   const [carouselItems, setCarouselItems] = useState<Product[]>([]);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [imagesLoading, setImagesLoading] = useState(true);
 
   useEffect(() => {
     setIsClient(true);
     // Create infinite carousel by duplicating products
     setCarouselItems([...products, ...products, ...products]);
+
+    // Simulate image loading
+    const timer = setTimeout(() => {
+      setImagesLoading(false);
+    }, 800);
+
+    return () => clearTimeout(timer);
   }, [products]);
 
   const navigateLeft = useCallback(() => {
@@ -534,69 +543,84 @@ export default function ProductsSection() {
 
           {/* Product Cards */}
           <div className="overflow-hidden px-16">
-            <motion.div
-              className="flex transition-transform duration-500 ease-out"
-              style={{
-                transform: `translateX(-${currentIndex * 320}px)`,
-              }}
-            >
-              {/* Render all carousel items */}
-              {carouselItems.map((product, index) => (
-                <motion.div
-                  key={`${product.id}-${index}`}
-                  className="flex-shrink-0 w-80 md:w-96 px-4"
-                  whileHover={{ y: -10, scale: 1.02 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <div
-                    className="bg-white rounded-lg overflow-hidden shadow-md border border-gray-100 h-full hover:border-gray-200 hover:shadow-lg transition-all duration-300 flex flex-col cursor-pointer group"
-                    onClick={() => openProductModal(product)}
-                    style={{
-                      boxShadow:
-                        "0 4px 12px -2px rgba(0, 0, 0, 0.08), 0 2px 6px -1px rgba(0, 0, 0, 0.04)",
-                    }}
+            {!isClient || imagesLoading ? (
+              <CarouselSkeleton />
+            ) : (
+              <motion.div
+                className="flex transition-transform duration-500 ease-out"
+                style={{
+                  transform: `translateX(-${currentIndex * 320}px)`,
+                }}
+              >
+                {/* Render all carousel items */}
+                {carouselItems.map((product, index) => (
+                  <motion.div
+                    key={`${product.id}-${index}`}
+                    className="flex-shrink-0 w-80 md:w-96 px-4"
                   >
-                    {/* Product Image */}
-                    <div className="relative h-64 sm:h-72 overflow-hidden bg-gray-50">
-                      <Image
-                        src={product.image}
-                        alt={product.title}
-                        fill
-                        className="object-cover"
-                        quality={50}
-                        loading="lazy"
-                        priority={false}
-                      />
-                      {/* Top right icon */}
-                      <div className="absolute top-4 right-4 w-8 h-8 bg-white/95 backdrop-blur-sm rounded-full flex items-center justify-center shadow-sm">
-                        <div className="w-3 h-3 bg-gray-400 rounded-full"></div>
+                    <motion.div
+                      className="bg-white rounded-lg overflow-hidden shadow-md border border-gray-100 h-full hover:border-gray-200 hover:shadow-lg transition-all duration-300 flex flex-col cursor-pointer group"
+                      onClick={() => openProductModal(product)}
+                      style={{
+                        boxShadow:
+                          "0 4px 12px -2px rgba(0, 0, 0, 0.08), 0 2px 6px -1px rgba(0, 0, 0, 0.04)",
+                      }}
+                      whileHover={{ y: -8, scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 300,
+                        damping: 20,
+                      }}
+                    >
+                      {/* Product Image */}
+                      <div className="relative h-64 sm:h-72 overflow-hidden bg-gray-50">
+                        <Image
+                          src={product.image}
+                          alt={product.title}
+                          fill
+                          className="object-cover"
+                          quality={50}
+                          loading="lazy"
+                          priority={false}
+                        />
+                        {/* Top right icon */}
+                        <div className="absolute top-4 right-4 w-8 h-8 bg-white/95 backdrop-blur-sm rounded-full flex items-center justify-center shadow-sm">
+                          <div className="w-3 h-3 bg-gray-400 rounded-full"></div>
+                        </div>
                       </div>
-                    </div>
 
-                    {/* Product Info */}
-                    <div className="p-6 sm:p-8 flex flex-col flex-grow">
-                      <h3 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-4 tracking-tight">
-                        {product.title}
-                      </h3>
-                      <p className="text-gray-600 mb-6 leading-relaxed flex-grow text-sm sm:text-base font-light">
-                        {product.description}
-                      </p>
+                      {/* Product Info */}
+                      <div className="p-6 sm:p-8 flex flex-col flex-grow">
+                        <h3 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-4 tracking-tight">
+                          {product.title}
+                        </h3>
+                        <p className="text-gray-600 mb-6 leading-relaxed flex-grow text-sm sm:text-base font-light">
+                          {product.description}
+                        </p>
 
-                      {/* Horizontal line */}
-                      <div className="w-full h-px bg-gray-100 mb-5"></div>
+                        {/* Horizontal line */}
+                        <div className="w-full h-px bg-gray-100 mb-5"></div>
 
-                      {/* LEARN MORE button */}
-                      <button
-                        className="text-orange-500 font-medium text-left hover:text-orange-600 transition-colors text-sm tracking-wide group-hover:text-orange-600"
-                        style={{ letterSpacing: "0.05em" }}
-                      >
-                        LEARN MORE →
-                      </button>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </motion.div>
+                        {/* LEARN MORE button */}
+                        <motion.button
+                          className="text-orange-500 font-medium text-left hover:text-orange-600 transition-colors text-sm tracking-wide group-hover:text-orange-600"
+                          style={{ letterSpacing: "0.05em" }}
+                          whileHover={{ x: 4 }}
+                          transition={{
+                            type: "spring",
+                            stiffness: 400,
+                            damping: 17,
+                          }}
+                        >
+                          LEARN MORE →
+                        </motion.button>
+                      </div>
+                    </motion.div>
+                  </motion.div>
+                ))}
+              </motion.div>
+            )}
           </div>
 
           {/* Pagination Dots */}
@@ -607,17 +631,24 @@ export default function ProductsSection() {
             viewport={{ once: true }}
             className="flex justify-center mt-8 space-x-2"
           >
-            {products.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => goToSlide(index)}
-                className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                  index === currentIndex
-                    ? "bg-orange-500 scale-125"
-                    : "bg-gray-300 hover:bg-gray-400"
-                }`}
-              />
-            ))}
+            {products.map((_, index) => {
+              const isActive = index === currentIndex % products.length;
+              return (
+                <motion.button
+                  key={index}
+                  onClick={() => goToSlide(index)}
+                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                    isActive ? "bg-orange-500" : "bg-gray-300 hover:bg-gray-400"
+                  }`}
+                  whileHover={{ scale: 1.3 }}
+                  whileTap={{ scale: 0.9 }}
+                  animate={{
+                    scale: isActive ? 1.5 : 1,
+                  }}
+                  transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                />
+              );
+            })}
           </motion.div>
 
           {/* Instructions */}

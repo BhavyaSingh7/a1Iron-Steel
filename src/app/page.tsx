@@ -27,6 +27,12 @@ const ContactSection = dynamic(
     loading: () => <div className="min-h-screen" />,
   }
 );
+const VideoSection = dynamic(
+  () => import("@/components/homepage/VideoSection"),
+  {
+    loading: () => <div className="min-h-screen" />,
+  }
+);
 const AboutUsPage = dynamic(() =>
   import("@/components/about-us-section").then((mod) => ({
     default: mod.AboutUsPage,
@@ -422,6 +428,9 @@ export default function Home() {
 
       {/* About Section */}
       <AboutSection />
+
+      {/* Video Section - Fullscreen between About and Mission */}
+      <VideoSection />
 
       {/* Mission Section */}
       <Mission />
