@@ -177,10 +177,7 @@ export default function Home() {
             }}
             onLoadStart={() => console.log("Video loading started")}
             onCanPlay={() => console.log("Video can play")}
-            preload="none"
-            poster={`${
-              process.env.NEXT_PUBLIC_BASE_PATH || ""
-            }/homepage/hm1.png`}
+            preload="auto"
             style={{
               filter: "brightness(1.15) contrast(1.1) saturate(1.1)",
             }}
@@ -211,10 +208,7 @@ export default function Home() {
               const videoElement = e.target as HTMLVideoElement;
               videoElement.style.display = "none";
             }}
-            preload="none"
-            poster={`${
-              process.env.NEXT_PUBLIC_BASE_PATH || ""
-            }/homepage/hm1.png`}
+            preload="auto"
             style={{
               filter: "brightness(1.15) contrast(1.1) saturate(1.1)",
             }}

@@ -314,24 +314,24 @@ export default function HeroSection({
               "0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.05)",
           }}
         >
-          <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-6">
-            <div className="flex items-center justify-between h-14 md:h-16">
+          <div className="max-w-6xl mx-auto px-2 sm:px-4 lg:px-6">
+            <div className="flex items-center justify-between h-16 md:h-20 lg:h-20">
               {/* Logo */}
-              <div className="flex items-center h-full -ml-2">
+              <div className="flex items-center h-full -ml-4 md:-ml-6">
                 <motion.a
                   href="#home"
                   className="flex items-center h-full"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  <div className="relative h-full w-auto">
+                  <div className="relative h-full w-auto py-2">
                     <Image
                       src={`${
                         process.env.NEXT_PUBLIC_BASE_PATH || ""
                       }/logo-1.png`}
                       alt="A1 Iron & Steel Logo"
-                      width={80}
-                      height={80}
+                      width={100}
+                      height={100}
                       className="h-full w-auto object-contain"
                       priority
                     />
@@ -348,7 +348,7 @@ export default function HeroSection({
                   href="#home"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="text-gray-800 font-medium text-sm hover:text-logo-orange-1 transition-all duration-200 cursor-pointer focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded px-2 tracking-wide"
+                  className="text-gray-800 font-medium text-base md:text-lg hover:text-logo-orange-1 transition-all duration-200 cursor-pointer focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded px-2 tracking-wide"
                   aria-label="Navigate to home section"
                   tabIndex={0}
                 >
@@ -358,7 +358,7 @@ export default function HeroSection({
                   onClick={onAboutClick}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="text-gray-700 font-bold text-sm hover:text-logo-orange-1 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded px-2"
+                  className="text-gray-700 font-bold text-base md:text-lg hover:text-logo-orange-1 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded px-2"
                   aria-label="Navigate to about section"
                   tabIndex={0}
                 >
@@ -368,7 +368,7 @@ export default function HeroSection({
                   onClick={onProductsClick}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="text-gray-700 font-bold text-sm hover:text-logo-orange-1 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded px-2"
+                  className="text-gray-700 font-bold text-base md:text-lg hover:text-logo-orange-1 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded px-2"
                   aria-label="View our products"
                   tabIndex={0}
                 >
@@ -378,7 +378,7 @@ export default function HeroSection({
                   onClick={onContactClick}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="text-gray-700 font-bold text-sm hover:text-logo-orange-1 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded px-2"
+                  className="text-gray-700 font-bold text-base md:text-lg hover:text-logo-orange-1 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded px-2"
                   aria-label="Contact us"
                   tabIndex={0}
                 >
