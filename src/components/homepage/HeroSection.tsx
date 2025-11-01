@@ -558,7 +558,7 @@ export default function HeroSection({
             className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-600 mb-12 sm:mb-16 md:mb-20 leading-[1.8] max-w-3xl mx-auto font-light"
             style={{ letterSpacing: "0.01em" }}
           >
-            Rwanda's premier steel manufacturer delivering{" "}
+            Rwanda&apos;s premier steel manufacturer delivering{" "}
             <span className="logo-orange-gradient font-semibold">
               exceptional quality, sustainable solutions, and unwavering
               reliability.
