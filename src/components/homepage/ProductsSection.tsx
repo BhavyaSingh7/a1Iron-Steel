@@ -26,28 +26,32 @@ export default function ProductsSection() {
         id: 1,
         title: "TMT Bars",
         description:
-          "The Backbone of Modern Construction. A superior choice for construction projects that demand strength, durability, and safety. Thermo-Mechanically Treated (TMT) Bars provide exceptional resistance to seismic forces, corrosion, and high temperatures.",
+          "Thermo Mechanical Treatment (TMT) Steel bars used in Earthquake-resistant construction. The backbone of modern construction, providing superior strength, durability, and safety for projects that demand exceptional resistance to seismic forces, corrosion, and high temperatures.",
         image: `${
           process.env.NEXT_PUBLIC_BASE_PATH || ""
         }/products/tmt bars.jpg`,
         specifications: [
           "Grade: Fe500",
           "Diameter: 8mm-32mm",
-          "IS 1786:2008",
+          "Standard: IS 1786:2008",
           "Yield Strength: 500 MPa",
+          "Tensile Strength: 545 MPa",
+          "Elongation: 12% minimum",
         ],
         applications: [
           "Reinforced Concrete Construction",
           "High-rise Buildings",
           "Bridges & Infrastructure",
           "Earthquake-resistant Structures",
+          "Industrial Buildings",
         ],
         features: [
           "High Strength and Durability",
           "Corrosion Resistance",
           "Earthquake Resistance",
           "Enhanced Workability",
-          "Sustainable",
+          "Superior Bonding with Concrete",
+          "Sustainable Manufacturing",
         ],
       },
       // 2. Round Bars
@@ -86,13 +90,15 @@ export default function ProductsSection() {
         id: 3,
         title: "5.5MM Wire Rod",
         description:
-          "Versatile and Reliable for Multiple Applications. A versatile and essential product used in a wide range of industries. Our wire rods are manufactured with precision, ensuring uniformity and superior mechanical properties. With exceptional strength, flexibility, and durability, these wire rods are an ideal choice for various applications, from construction to industrial manufacturing.",
+          "A low-carbon general-purpose manufacturing wire used in a wide range of industries. Versatile and reliable for multiple applications, our wire rods are manufactured with precision, ensuring uniformity and superior mechanical properties. Ideal for construction, automotive, fencing, and engineering applications.",
         image: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/products/5.5mm.webp`,
         specifications: [
           "Diameter: 5.5mm",
           "Grade: Low Carbon Steel",
           "Surface: Bright",
           "Tolerance: ±0.1mm",
+          "Tensile Strength: 350-450 MPa",
+          "Elongation: 20% minimum",
         ],
         applications: [
           "Construction: For reinforcing concrete, manufacturing nails, and other wire products",
@@ -105,6 +111,7 @@ export default function ProductsSection() {
           "Precision and Uniformity",
           "Corrosion Resistance",
           "Wide Range of Applications",
+          "Excellent Formability",
           "Environmentally Sustainable",
         ],
       },
@@ -113,34 +120,39 @@ export default function ProductsSection() {
         id: 4,
         title: "V Angle",
         description:
-          "Designed to meet the demands of the most rigorous construction and industrial applications",
+          "Versatile stainless steel structural connector designed to meet the demands of the most rigorous construction and industrial applications. Perfect for structural framing, support brackets, and reinforcement work.",
         image: `${
           process.env.NEXT_PUBLIC_BASE_PATH || ""
         }/products/V-ANGLES.jpg`,
         specifications: [
           "Size: 25x25mm to 200x200mm",
           "Thickness: 3mm-20mm",
-          "Grade: Structural Steel",
+          "Grade: Structural Steel / Stainless Steel",
           "Length: 6m-12m",
+          "Standard: ASTM A36 / IS 2062",
+          "Surface: Mill Finish / Polished",
         ],
         applications: [
           "Structural Framing",
           "Support Brackets",
           "Reinforcement",
           "Fabrication",
+          "Architectural Applications",
         ],
         features: [
           "High Strength",
           "Easy Welding",
           "Corrosion Resistance",
           "Versatile Design",
+          "Precise Dimensions",
+          "Durable Construction",
         ],
       },
       {
         id: 5,
         title: "C Channel",
         description:
-          "C Channels engineered to provide outstanding structural support, stability, and versatility",
+          "Corrosion-resistant hot-dip galvanized channel steel engineered to provide outstanding structural support, stability, and versatility. Ideal for structural support, framing systems, and industrial applications.",
         image: `${
           process.env.NEXT_PUBLIC_BASE_PATH || ""
         }/products/C-Chanel.jpg`,
@@ -149,25 +161,30 @@ export default function ProductsSection() {
           "Thickness: 2mm-8mm",
           "Coating: Hot-dip Galvanized",
           "Length: 6m-12m",
+          "Grade: Structural Steel",
+          "Standard: ASTM A36 / IS 2062",
         ],
         applications: [
           "Structural Support",
           "Framing Systems",
           "Industrial Racking",
           "Construction",
+          "Building Infrastructure",
         ],
         features: [
           "Corrosion Protection",
           "High Load Capacity",
           "Easy Installation",
           "Durable Coating",
+          "Long-lasting Performance",
+          "Cost-effective Solution",
         ],
       },
       {
         id: 6,
         title: "I-Beam",
         description:
-          "Specifically designed to provide maximum structural strength, stability, and reliability",
+          "Corrosion-resistant galvanized I-beam steel specifically designed to provide maximum structural strength, stability, and reliability. Perfect for structural framing, bridge construction, and heavy load support applications.",
         image: `${
           process.env.NEXT_PUBLIC_BASE_PATH || ""
         }/products/STEEL-BEAMS.jpg`,
@@ -176,45 +193,55 @@ export default function ProductsSection() {
           "Thickness: 3mm-25mm",
           "Coating: Hot-dip Galvanized",
           "Length: 6m-12m",
+          "Grade: Structural Steel",
+          "Standard: ASTM A36 / IS 2062",
         ],
         applications: [
           "Structural Framing",
           "Bridge Construction",
           "Industrial Buildings",
           "Heavy Load Support",
+          "High-rise Construction",
         ],
         features: [
           "Maximum Load Capacity",
           "Structural Stability",
           "Corrosion Resistance",
           "Easy Installation",
+          "Superior Strength-to-Weight Ratio",
+          "Long-term Durability",
         ],
       },
       {
         id: 7,
         title: "Flat Bar",
         description:
-          "Bars Crafted to provide reliable strength and versatility for a range of manufacturing applications",
+          "Steel flat bar for versatile industrial applications. Crafted to provide reliable strength and versatility for a range of manufacturing, construction, and fabrication needs.",
         image: `${
           process.env.NEXT_PUBLIC_BASE_PATH || ""
         }/products/Flat-Bars.jpg`,
         specifications: [
           "Width: 10mm-200mm",
           "Thickness: 3mm-50mm",
-          "Grade: Mild Steel",
+          "Grade: Mild Steel / Structural Steel",
           "Surface: Mill Finish",
+          "Length: 3m-6m (standard), Custom lengths available",
+          "Standard: ASTM A36 / IS 2062",
         ],
         applications: [
           "Machinery Parts",
           "Fabrication",
           "Construction",
           "Manufacturing",
+          "Industrial Components",
         ],
         features: [
           "Precise Dimensions",
           "Good Machinability",
           "Consistent Quality",
           "Weldability",
+          "Versatile Applications",
+          "Cost-effective Solution",
         ],
       },
       // 5. Hot Rolled Strip
@@ -222,27 +249,32 @@ export default function ProductsSection() {
         id: 8,
         title: "Hot Rolled Strip",
         description:
-          "Strong hot-rolled strip, engineered to meet the diverse needs of various industries",
+          "High-strength hot-rolled construction material engineered to meet the diverse needs of various industries. Strong hot-rolled strip perfect for automotive, construction, manufacturing, and fabrication applications.",
         image: `${
           process.env.NEXT_PUBLIC_BASE_PATH || ""
         }/products/HOT-ROLLED-STRIP.webp`,
         specifications: [
           "Thickness: 1.5mm-12mm",
           "Width: 25mm-200mm",
-          "Grade: Mild Steel",
+          "Grade: Mild Steel / Low Carbon Steel",
           "Surface: Mill Scale",
+          "Tensile Strength: 400-500 MPa",
+          "Standard: ASTM A36 / IS 2062",
         ],
         applications: [
           "Automotive Industry",
           "Construction",
           "Manufacturing",
           "Fabrication",
+          "Industrial Components",
         ],
         features: [
           "Dimensional Accuracy",
           "Good Surface Finish",
           "Machinability",
           "Formability",
+          "High Strength",
+          "Consistent Quality",
         ],
       },
       // 6. Hollow Sections
@@ -250,25 +282,30 @@ export default function ProductsSection() {
         id: 9,
         title: "Hollow Section",
         description:
-          "Versatile hollow section with exceptional strength for construction, structural, & engineering applications",
+          "Versatile hollow section for structural construction with exceptional strength. Perfect for construction, structural, and engineering applications, offering an excellent strength-to-weight ratio.",
         image: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/products/HS.jpg`,
         specifications: [
           "Size: 20x20mm to 400x400mm",
           "Thickness: 1.5mm-12mm",
           "Grade: Structural Steel",
           "Length: 6m-12m",
+          "Shape: Square / Rectangular / Circular",
+          "Standard: ASTM A500 / IS 4923",
         ],
         applications: [
           "Structural Construction",
           "Architectural Applications",
           "Industrial Framing",
           "Engineering Projects",
+          "Building Infrastructure",
         ],
         features: [
           "Exceptional Strength",
           "Lightweight Design",
           "Easy Fabrication",
           "Versatile Applications",
+          "Superior Strength-to-Weight Ratio",
+          "Aesthetic Appeal",
         ],
       },
       // 7. Wire Products
@@ -276,7 +313,7 @@ export default function ProductsSection() {
         id: 10,
         title: "Wire Nails",
         description:
-          "Versatile and durable Wire nails, perfect for both industrial and construction applications",
+          "Wire nails: versatile, durable fasteners for construction. Perfect for both industrial and construction applications, offering reliable fastening solutions with superior quality and performance.",
         image: `${
           process.env.NEXT_PUBLIC_BASE_PATH || ""
         }/products/Wire-Nails (1).avif`,
@@ -284,26 +321,31 @@ export default function ProductsSection() {
           "Length: 25mm-150mm",
           "Diameter: 2mm-6mm",
           "Material: Carbon Steel",
-          "Coating: Galvanized",
+          "Coating: Galvanized / Electro-galvanized",
+          "Head Type: Flat / Round / Countersunk",
+          "Point Type: Diamond / Blunt",
         ],
         applications: [
           "Construction",
           "Carpentry",
           "Furniture Making",
           "General Fastening",
+          "Woodworking",
         ],
         features: [
           "High Durability",
           "Corrosion Resistance",
           "Sharp Points",
           "Consistent Quality",
+          "Strong Holding Power",
+          "Easy to Use",
         ],
       },
       {
         id: 11,
         title: "Binding Wire",
         description:
-          "Deliver reliable performance in a range of applications, construction to general industrial use",
+          "Durable, corrosion-resistant galvanized binding wire that delivers reliable performance in a range of applications, from construction to general industrial use. Essential for concrete reinforcement and construction tying.",
         image: `${
           process.env.NEXT_PUBLIC_BASE_PATH || ""
         }/products/Binding-Wire (1).jpg`,
@@ -312,50 +354,60 @@ export default function ProductsSection() {
           "Material: Galvanized Steel",
           "Coating: Hot-dip Galvanized",
           "Length: 50kg-100kg coils",
+          "Tensile Strength: 350-450 MPa",
+          "Standard: IS 280 / ASTM A641",
         ],
         applications: [
           "Concrete Reinforcement",
           "Construction Tying",
           "General Binding",
           "Industrial Use",
+          "Rebar Tying",
         ],
         features: [
           "Durable Coating",
           "Corrosion Resistance",
           "Flexible",
           "Easy to Use",
+          "High Tensile Strength",
+          "Long-lasting Performance",
         ],
       },
       {
         id: 12,
         title: "BRC",
         description:
-          "British Reinforcement Concrete mesh for concrete strengthening",
+          "British Reinforcement Concrete (BRC) reinforcement mesh for concrete strengthening. High-quality mesh designed to enhance the structural integrity and durability of concrete structures.",
         image: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/products/brc.jpg`,
         specifications: [
           "Mesh Size: 100x100mm to 200x200mm",
           "Wire Diameter: 4mm-8mm",
           "Material: High Tensile Steel",
           "Coating: Galvanized",
+          "Sheet Size: Standard 2.4m x 4.8m (custom sizes available)",
+          "Standard: BS 4483 / IS 1566",
         ],
         applications: [
           "Concrete Reinforcement",
           "Slab Construction",
           "Foundation Work",
           "Structural Strengthening",
+          "Pavement Construction",
         ],
         features: [
           "High Tensile Strength",
           "Corrosion Resistance",
           "Easy Installation",
           "Consistent Quality",
+          "Uniform Mesh Pattern",
+          "Cost-effective Solution",
         ],
       },
       {
         id: 13,
         title: "GI Chain Link",
         description:
-          "GI (Galvanized Iron) Chain Link fencing that provides a strong, durable, and cost-effective solution for securing properties and enclosures",
+          "Durable galvanized chain-link fencing material. GI (Galvanized Iron) Chain Link fencing that provides a strong, durable, and cost-effective solution for securing properties and enclosures.",
         image: `${
           process.env.NEXT_PUBLIC_BASE_PATH || ""
         }/products/gi chain link.jpg`,
@@ -364,25 +416,30 @@ export default function ProductsSection() {
           "Wire Gauge: 8-12 gauge",
           "Coating: Hot-dip Galvanized",
           "Height: 1m-3m",
+          "Post Spacing: 2.5m-3m",
+          "Standard: ASTM A392 / BS 1722",
         ],
         applications: [
           "Security Fencing",
           "Property Boundaries",
           "Industrial Enclosures",
           "Sports Facilities",
+          "Perimeter Protection",
         ],
         features: [
           "Durable Coating",
           "Weather Resistance",
           "Easy Installation",
           "Cost Effective",
+          "Long-lasting Performance",
+          "Low Maintenance",
         ],
       },
       {
         id: 14,
         title: "Barbed Wire",
         description:
-          "Widely used in various security applications to deter trespassers and enhance safety, Known for its sharpness and durability",
+          "Secure, cost-effective barbed wire fencing solution. Widely used in various security applications to deter trespassers and enhance safety. Known for its sharpness, durability, and effectiveness as a security deterrent.",
         image: `${
           process.env.NEXT_PUBLIC_BASE_PATH || ""
         }/products/barbed-wires.jpg`,
@@ -391,18 +448,23 @@ export default function ProductsSection() {
           "Barb Spacing: 75mm-150mm",
           "Coating: Galvanized",
           "Length: 400m-500m rolls",
+          "Barb Type: 2-point / 4-point",
+          "Standard: ASTM A121 / BS 4102",
         ],
         applications: [
           "Security Fencing",
           "Property Protection",
           "Agricultural Use",
           "Perimeter Security",
+          "Boundary Marking",
         ],
         features: [
           "Sharp Barbs",
           "High Durability",
           "Weather Resistance",
           "Effective Deterrent",
+          "Easy Installation",
+          "Cost-effective Security",
         ],
       },
     ],

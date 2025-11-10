@@ -1,5 +1,47 @@
 @import "tailwindcss";
 
+/* Smooth scrolling enhancements */
+html {
+  scroll-behavior: smooth;
+  /* Optimize rendering performance */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Performance optimizations */
+* {
+  /* Reduce repaints and reflows */
+  will-change: auto;
+}
+
+/* Optimize video rendering */
+video {
+  /* Hardware acceleration for videos */
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Custom scrollbar for fancy look */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #f1852e 0%, #2084b1 100%);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #f09b30 0%, #1a5f82 100%);
+}
+
 :root {
   /* A1 Steel Logo Color Scheme - Exact Palette Match */
   /* Primary Colors */
@@ -99,11 +141,6 @@
   background: linear-gradient(135deg, var(--logo-gray-light) 0%, var(--logo-gray-medium) 100%);
 }
 
-html {
-  scroll-behavior: smooth;
-  /* scroll-snap-type: y mandatory; */ /* Disabled for better scroll performance */
-}
-
 body {
   background: var(--background);
   color: var(--foreground);
@@ -112,24 +149,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
-}
-
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--logo-gray-medium);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--logo-blue-gradient);
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--logo-orange-gradient);
 }
 
 /* Gradient animation for video intro title */

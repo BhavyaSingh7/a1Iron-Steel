@@ -57,6 +57,10 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
       exit={{ opacity: 0 }}
       transition={{ duration: 0.3 }}
       className="fixed inset-0 bg-gray-50 z-50 overflow-y-auto"
+      style={{
+        scrollBehavior: "smooth",
+        scrollSnapType: "y proximity",
+      }}
     >
       {/* Header */}
       <div className="sticky top-0 bg-white/98 backdrop-blur-md border-b border-gray-200 shadow-sm z-10">
@@ -80,12 +84,15 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
       </div>
 
       {/* Hero Section */}
-      <section className="relative py-20 sm:py-24 md:py-32 overflow-hidden">
+      <section
+        className="relative py-20 sm:py-24 md:py-32 overflow-hidden snap-start snap-always min-h-screen flex items-center"
+        style={{ scrollSnapAlign: "start" }}
+      >
         {/* Background with subtle gradient */}
         <div className="absolute inset-0 bg-gradient-to-br from-white via-blue-50/30 to-gray-50" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(32,132,177,0.05),transparent_50%)]" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(241,133,46,0.05),transparent_50%)]" />
-        
+
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -124,28 +131,31 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
       </section>
 
       {/* Company Description */}
-      <section className="py-20 md:py-24 bg-white relative">
+      <section
+        className="py-20 md:py-24 bg-white relative snap-start snap-always min-h-screen flex items-center"
+        style={{ scrollSnapAlign: "start" }}
+      >
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-50/20 to-transparent" />
         <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="max-w-4xl mx-auto"
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            className="max-w-4xl mx-auto w-full"
           >
             <div
               className="relative bg-white rounded-3xl p-8 sm:p-12 shadow-xl border overflow-hidden"
-              style={{ 
+              style={{
                 borderColor: "rgba(32, 132, 177, 0.15)",
-                boxShadow: "0 20px 60px -12px rgba(32, 132, 177, 0.15)"
+                boxShadow: "0 20px 60px -12px rgba(32, 132, 177, 0.15)",
               }}
             >
               {/* Decorative gradient overlay */}
               <div className="absolute top-0 left-0 w-full h-2 logo-primary-bg" />
               <div className="absolute top-0 right-0 w-32 h-32 bg-blue-100/30 rounded-full blur-3xl -translate-y-16 translate-x-16" />
               <div className="absolute bottom-0 left-0 w-32 h-32 bg-orange-100/30 rounded-full blur-3xl translate-y-16 -translate-x-16" />
-              
+
               <div className="relative">
                 <div className="flex items-center justify-center mb-6">
                   <div className="w-16 h-1 logo-orange-bg rounded-full" />
@@ -166,14 +176,17 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
       </section>
 
       {/* Factory Videos Section */}
-      <section className="py-20 md:py-24 bg-gradient-to-b from-gray-50 to-white relative overflow-hidden">
+      <section
+        className="py-20 md:py-24 bg-gradient-to-b from-gray-50 to-white relative overflow-hidden snap-start snap-always min-h-screen flex items-center"
+        style={{ scrollSnapAlign: "start" }}
+      >
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(32,132,177,0.03),transparent_70%)]" />
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
             className="text-center mb-16"
           >
             <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
@@ -186,16 +199,16 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
             {/* Factory Video */}
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.3 }}
+              initial={{ opacity: 0, y: 50, scale: 0.95 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
               className="space-y-4"
             >
               <div className="flex items-center gap-3 mb-4">
                 <Building className="w-6 h-6" style={{ color: "#2084b1" }} />
                 <h3 className="text-2xl sm:text-3xl font-bold text-gray-900">
-                  Our Factory
+                  Our Manufacturing Facility
                 </h3>
               </div>
               <div className="relative rounded-2xl h-72 sm:h-80 overflow-hidden shadow-2xl group border-2 border-white/50">
@@ -225,10 +238,10 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent pointer-events-none" />
                 <div className="absolute bottom-6 left-6 text-white pointer-events-none">
                   <p className="text-xl font-bold mb-1 drop-shadow-lg">
-                  Industrial Steel Mill
+                    Advanced Production Line
                   </p>
                   <p className="text-sm opacity-90 drop-shadow-md">
-                    State-of-the-art facilities
+                    Precision manufacturing processes
                   </p>
                 </div>
                 {/* Decorative corner accent */}
@@ -238,10 +251,10 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
 
             {/* Steel Making Video */}
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.3, delay: 0.1 }}
+              initial={{ opacity: 0, y: 50, scale: 0.95 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
               className="space-y-4"
             >
               <div className="flex items-center gap-3 mb-4">
@@ -279,7 +292,9 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
                   <p className="text-xl font-bold mb-1 drop-shadow-lg">
                     Steel Making Process
                   </p>
-                  <p className="text-sm opacity-90 drop-shadow-md">Precision manufacturing</p>
+                  <p className="text-sm opacity-90 drop-shadow-md">
+                    Precision manufacturing
+                  </p>
                 </div>
                 {/* Decorative corner accent */}
                 <div className="absolute top-0 right-0 w-24 h-24 logo-blue-bg opacity-20 rounded-bl-full" />
@@ -290,13 +305,16 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
       </section>
 
       {/* Leadership Excellence */}
-      <section className="py-20 md:py-24 bg-white">
+      <section
+        className="py-20 md:py-24 bg-white snap-start snap-always min-h-screen flex items-center"
+        style={{ scrollSnapAlign: "start" }}
+      >
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.3 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
             className="text-center mb-12"
           >
             <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
@@ -309,24 +327,24 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.3, delay: 0.1 }}
-            className="max-w-4xl mx-auto"
+            initial={{ opacity: 0, y: 50, scale: 0.95 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
+            className="max-w-4xl mx-auto w-full"
           >
             <div
               className="relative bg-white rounded-3xl p-8 sm:p-10 shadow-xl border overflow-hidden"
               style={{
                 borderColor: "rgba(32, 132, 177, 0.15)",
-                boxShadow: "0 20px 60px -12px rgba(32, 132, 177, 0.15)"
+                boxShadow: "0 20px 60px -12px rgba(32, 132, 177, 0.15)",
               }}
             >
               {/* Decorative elements */}
               <div className="absolute top-0 left-0 w-full h-2 logo-primary-bg" />
               <div className="absolute top-0 right-0 w-40 h-40 bg-blue-100/20 rounded-full blur-3xl -translate-y-20 translate-x-20" />
               <div className="absolute bottom-0 left-0 w-40 h-40 bg-orange-100/20 rounded-full blur-3xl translate-y-20 -translate-x-20" />
-              
+
               <div className="relative">
                 <div className="space-y-6 text-lg text-gray-700 leading-relaxed">
                   <p>
@@ -334,23 +352,24 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
                     <span className="font-semibold logo-blue-gradient">
                       A1 Iron & Steel
                     </span>
-                    , we believe that true leadership is defined by more than just
-                    making decisions—it&apos;s about inspiring teams, driving
-                    innovation, and fostering an environment where excellence
-                    thrives. Our leadership is the driving force behind our
-                    continued success, setting the standard for industry-leading
-                performance, sustainability, and customer satisfaction.
+                    , we believe that true leadership is defined by more than
+                    just making decisions—it&apos;s about inspiring teams,
+                    driving innovation, and fostering an environment where
+                    excellence thrives. Our leadership is the driving force
+                    behind our continued success, setting the standard for
+                    industry-leading performance, sustainability, and customer
+                    satisfaction.
                   </p>
                   <p>
-                We take pride in a management team that exemplifies the values
-                    of integrity, vision, and strategic foresight. The company
-                    aims to produce economical and efficient steel through
-                    backward and forward integration. Each leader within our
-                    organization is committed not only to operational excellence
-                    but also to creating a culture of collaboration, trust, and
-                    empowerment. Their collective experience spans decades across
-                    diverse industries, ensuring that our company remains at the
-                    forefront of innovation and competitive edge.
+                    We take pride in a management team that exemplifies the
+                    values of integrity, vision, and strategic foresight. The
+                    company aims to produce economical and efficient steel
+                    through backward and forward integration. Each leader within
+                    our organization is committed not only to operational
+                    excellence but also to creating a culture of collaboration,
+                    trust, and empowerment. Their collective experience spans
+                    decades across diverse industries, ensuring that our company
+                    remains at the forefront of innovation and competitive edge.
                   </p>
                 </div>
               </div>
@@ -360,13 +379,16 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
       </section>
 
       {/* Mission Vision Statement */}
-      <section className="py-20 md:py-24 bg-gray-50">
+      <section
+        className="py-20 md:py-24 bg-gray-50 snap-start snap-always min-h-screen flex items-center"
+        style={{ scrollSnapAlign: "start" }}
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.3 }}
+            initial={{ opacity: 0, y: 30, scale: 0.95 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
             className="text-center mb-16"
           >
             <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
@@ -378,57 +400,59 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
             {/* Mission */}
             <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.3 }}
-              className="bg-white rounded-2xl p-8 shadow-xl border border-gray-200 hover:shadow-2xl transition-shadow duration-300"
+              initial={{ opacity: 0, x: -50, scale: 0.95 }}
+              whileInView={{ opacity: 1, x: 0, scale: 1 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+              whileHover={{ scale: 1.02, y: -5 }}
+              className="bg-white rounded-2xl p-8 shadow-xl border border-gray-200 hover:shadow-2xl transition-all duration-300"
             >
               <div className="flex items-center gap-4 mb-6">
                 <div className="w-12 h-12 logo-blue-bg rounded-xl flex items-center justify-center shadow-lg">
                   <Target className="w-6 h-6 text-white" />
                 </div>
                 <h3 className="text-3xl font-bold text-gray-900">
-                Our Mission
-              </h3>
+                  Our Mission
+                </h3>
               </div>
               <div className="space-y-5 text-gray-700 leading-relaxed">
                 <div className="flex items-start gap-3">
                   <CheckCircle className="w-5 h-5 text-green-600 mt-1 flex-shrink-0" />
-                <p>
+                  <p>
                     At A1, our mission is to forge the future by producing
-                  innovative, high-quality iron and steel products that shape
+                    innovative, high-quality iron and steel products that shape
                     industries, drive sustainability, and support the
                     development of resilient infrastructures worldwide.
-                </p>
+                  </p>
                 </div>
                 <div className="flex items-start gap-3">
                   <CheckCircle className="w-5 h-5 text-green-600 mt-1 flex-shrink-0" />
-                <p>
+                  <p>
                     We are committed to advancing technology, ensuring
-                  environmental responsibility, and empowering our partners
-                  through customized, reliable solutions.
-                </p>
+                    environmental responsibility, and empowering our partners
+                    through customized, reliable solutions.
+                  </p>
                 </div>
                 <div className="flex items-start gap-3">
                   <CheckCircle className="w-5 h-5 text-green-600 mt-1 flex-shrink-0" />
-                <p>
+                  <p>
                     By blending tradition with innovation, we aim to build
-                  stronger communities, elevate industries, and lay the
-                  groundwork for a more sustainable tomorrow, one alloy at a
-                  time.
-                </p>
+                    stronger communities, elevate industries, and lay the
+                    groundwork for a more sustainable tomorrow, one alloy at a
+                    time.
+                  </p>
                 </div>
               </div>
             </motion.div>
 
             {/* Vision */}
             <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.3 }}
-              className="bg-white rounded-2xl p-8 shadow-xl border border-gray-200 hover:shadow-2xl transition-shadow duration-300"
+              initial={{ opacity: 0, x: 50, scale: 0.95 }}
+              whileInView={{ opacity: 1, x: 0, scale: 1 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+              whileHover={{ scale: 1.02, y: -5 }}
+              className="bg-white rounded-2xl p-8 shadow-xl border border-gray-200 hover:shadow-2xl transition-all duration-300"
             >
               <div className="flex items-center gap-4 mb-6">
                 <div className="w-12 h-12 logo-orange-bg rounded-xl flex items-center justify-center shadow-lg">
@@ -450,13 +474,16 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
       </section>
 
       {/* Long-term Achievement */}
-      <section className="py-20 md:py-24 bg-white">
+      <section
+        className="py-20 md:py-24 bg-white snap-start snap-always min-h-screen flex items-center"
+        style={{ scrollSnapAlign: "start" }}
+      >
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.3 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
             className="text-center mb-12"
           >
             <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
@@ -467,54 +494,55 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.3, delay: 0.1 }}
-            className="max-w-4xl mx-auto"
+            initial={{ opacity: 0, y: 50, scale: 0.95 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
+            className="max-w-4xl mx-auto w-full"
           >
             <div
               className="relative bg-white rounded-3xl p-8 sm:p-10 shadow-xl border overflow-hidden"
               style={{
                 borderColor: "rgba(32, 132, 177, 0.15)",
-                boxShadow: "0 20px 60px -12px rgba(32, 132, 177, 0.15)"
+                boxShadow: "0 20px 60px -12px rgba(32, 132, 177, 0.15)",
               }}
             >
               {/* Decorative elements */}
               <div className="absolute top-0 left-0 w-full h-2 logo-primary-bg" />
               <div className="absolute top-0 right-0 w-40 h-40 bg-blue-100/20 rounded-full blur-3xl -translate-y-20 translate-x-20" />
               <div className="absolute bottom-0 left-0 w-40 h-40 bg-orange-100/20 rounded-full blur-3xl translate-y-20 -translate-x-20" />
-              
+
               <div className="relative">
                 <div className="space-y-6 text-lg text-gray-700 leading-relaxed">
-              <p>
-                The company has a well spread out installed Steel capacity of
-                0.250 MTPA prudently spread over SMS, TMT Bars Mills, Strip
-                Mill, Medium and Light Structural Mill and Wire Rod Mill & ERW
-                Pipe Plant.
-              </p>
-              <p>
-                Alongside contributing to Rwanda&apos;s growth story, the
-                company is driving an ambitious global expansion plan with its
-                sights set on emerging as a leading business group. The company
-                aims to capitalize on opportunities in high growth markets,
-                expanding into its core areas as well as diversifying into new
-                businesses.
-              </p>
-              <p>
-                From the flat products to a whole range of long products, A1 has
-                a unique product portfolio that caters to markets across the
-                steel value chain. A1 Iron and Steel aims to pioneer production
-                of 100% value added steel products in the country.
-              </p>
-              <p>
-                The company endeavors to strengthen Rwanda&apos;s industrial
-                base by aiding infrastructural development through sustainable
-                infrastructural development approaches and inclusive growth. It
-                deploys its resources to improve infrastructure, education,
-                health, water, sanitation, environment and so on in the areas it
-                operates in.
-              </p>
+                  <p>
+                    The company has a well spread out installed Steel capacity
+                    of 0.250 MTPA prudently spread over SMS, TMT Bars Mills,
+                    Strip Mill, Medium and Light Structural Mill and Wire Rod
+                    Mill & ERW Pipe Plant.
+                  </p>
+                  <p>
+                    Alongside contributing to Rwanda&apos;s growth story, the
+                    company is driving an ambitious global expansion plan with
+                    its sights set on emerging as a leading business group. The
+                    company aims to capitalize on opportunities in high growth
+                    markets, expanding into its core areas as well as
+                    diversifying into new businesses.
+                  </p>
+                  <p>
+                    From the flat products to a whole range of long products, A1
+                    has a unique product portfolio that caters to markets across
+                    the steel value chain. A1 Iron and Steel aims to pioneer
+                    production of 100% value added steel products in the
+                    country.
+                  </p>
+                  <p>
+                    The company endeavors to strengthen Rwanda&apos;s industrial
+                    base by aiding infrastructural development through
+                    sustainable infrastructural development approaches and
+                    inclusive growth. It deploys its resources to improve
+                    infrastructure, education, health, water, sanitation,
+                    environment and so on in the areas it operates in.
+                  </p>
                 </div>
               </div>
             </div>
@@ -523,13 +551,16 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
       </section>
 
       {/* A1 in Numbers */}
-      <section className="py-20 md:py-24 bg-gradient-to-b from-gray-50 to-white">
+      <section
+        className="py-20 md:py-24 bg-gradient-to-b from-gray-50 to-white snap-start snap-always min-h-screen flex items-center"
+        style={{ scrollSnapAlign: "start" }}
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.3 }}
+            initial={{ opacity: 0, y: 30, scale: 0.95 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
             className="text-center mb-16"
           >
             <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
@@ -579,26 +610,42 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
             ].map((stat, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.3, delay: index * 0.05 }}
-                className="text-center bg-white rounded-2xl p-6 shadow-lg border border-gray-200 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden group"
+                initial={{ opacity: 0, y: 50, scale: 0.9, rotateY: -15 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1, rotateY: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{
+                  duration: 0.6,
+                  delay: index * 0.08,
+                  ease: "easeOut",
+                  type: "spring",
+                  stiffness: 100,
+                }}
+                whileHover={{
+                  scale: 1.05,
+                  y: -8,
+                  rotateY: 5,
+                  transition: { duration: 0.3 },
+                }}
+                className="text-center bg-white rounded-2xl p-6 shadow-lg border border-gray-200 hover:shadow-2xl transition-all duration-300 relative overflow-hidden group"
               >
                 {/* Hover gradient effect */}
                 <div className="absolute inset-0 bg-gradient-to-br from-blue-50/0 to-orange-50/0 group-hover:from-blue-50/50 group-hover:to-orange-50/50 transition-all duration-300" />
                 <div className="relative">
-                <div
-                  className={`w-12 h-12 mx-auto mb-4 rounded-xl ${stat.color} flex items-center justify-center shadow-md`}
-                >
-                  <stat.icon className="w-6 h-6 text-white" />
-                </div>
-                <div className="text-3xl sm:text-4xl font-bold text-gray-900 mb-2">
-                  {stat.number}
-                </div>
-                <div className="text-sm text-gray-600 leading-tight">
-                  {stat.label}
-                </div>
+                  <div
+                    className={`w-12 h-12 mx-auto mb-4 rounded-xl flex items-center justify-center shadow-md ${
+                      stat.color.includes("from-")
+                        ? `bg-gradient-to-br ${stat.color}`
+                        : stat.color
+                    }`}
+                  >
+                    <stat.icon className="w-6 h-6 text-white" />
+                  </div>
+                  <div className="text-3xl sm:text-4xl font-bold text-gray-900 mb-2">
+                    {stat.number}
+                  </div>
+                  <div className="text-sm text-gray-600 leading-tight">
+                    {stat.label}
+                  </div>
                 </div>
               </motion.div>
             ))}
@@ -607,14 +654,17 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
       </section>
 
       {/* Contact Section */}
-      <section className="py-20 md:py-24 bg-gradient-to-b from-white via-blue-50/30 to-white relative overflow-hidden">
+      <section
+        className="py-20 md:py-24 bg-gradient-to-b from-white via-blue-50/30 to-white relative overflow-hidden snap-start snap-always min-h-screen flex items-center"
+        style={{ scrollSnapAlign: "start" }}
+      >
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(241,133,46,0.05),transparent_70%)]" />
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
+            initial={{ opacity: 0, y: 30, scale: 0.95 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
             className="text-center mb-12"
           >
             <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
@@ -627,11 +677,11 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
             </p>
           </motion.div>
 
-            <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.3 }}
+          <motion.div
+            initial={{ opacity: 0, y: 30, scale: 0.9 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
             className="flex justify-center mb-12"
           >
             <button
@@ -642,20 +692,20 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
               <Phone className="w-5 h-5" />
               Contact Us
             </button>
-            </motion.div>
+          </motion.div>
 
-            <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.3 }}
-              className="flex flex-col sm:flex-row gap-4 justify-center"
+          <motion.div
+            initial={{ opacity: 0, y: 30, scale: 0.9 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
+            className="flex flex-col sm:flex-row gap-4 justify-center"
           >
             <button
               onClick={handleClose}
               className="logo-orange-bg text-white px-10 py-4 rounded-full font-bold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
-              >
-                Request Quote
+            >
+              Request Quote
             </button>
             <button
               onClick={handleClose}
@@ -669,8 +719,8 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
                 e.currentTarget.style.background = "transparent";
                 e.currentTarget.style.color = "#f1852e";
               }}
-              >
-                Learn More
+            >
+              Learn More
             </button>
           </motion.div>
         </div>

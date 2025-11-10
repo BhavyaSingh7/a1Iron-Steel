@@ -50,6 +50,8 @@ const ContactPage = dynamic(() =>
 
 function HomeContent() {
   const searchParams = useSearchParams();
+  const videoRef1 = React.useRef<HTMLVideoElement>(null);
+  const videoRef2 = React.useRef<HTMLVideoElement>(null);
 
   // Check skipIntro - use useMemo to compute once
   const skipIntro = React.useMemo(() => {
@@ -68,6 +70,53 @@ function HomeContent() {
   const [showContact, setShowContact] = useState(false);
   const [showSecondVideo, setShowSecondVideo] = useState(false);
   // Removed unused showBubbles state for performance
+
+  // Preload videos immediately on mount - create hidden video elements early
+  useEffect(() => {
+    if (!skipIntro && typeof document !== "undefined") {
+      // Preload videos using link tags for better browser optimization
+      const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+
+      // Create preload links
+      const link1 = document.createElement("link");
+      link1.rel = "preload";
+      link1.href = `${basePath}/bg-video.mp4`;
+      link1.as = "video";
+      link1.type = "video/mp4";
+      document.head.appendChild(link1);
+
+      const link2 = document.createElement("link");
+      link2.rel = "preload";
+      link2.href = `${basePath}/bg-video3.mp4`;
+      link2.as = "video";
+      link2.type = "video/mp4";
+      document.head.appendChild(link2);
+
+      // Also create hidden video elements to start loading
+      const video1 = document.createElement("video");
+      video1.src = `${basePath}/bg-video.mp4`;
+      video1.preload = "auto";
+      video1.muted = true;
+      video1.style.display = "none";
+      document.body.appendChild(video1);
+      video1.load();
+
+      const video2 = document.createElement("video");
+      video2.src = `${basePath}/bg-video3.mp4`;
+      video2.preload = "auto";
+      video2.muted = true;
+      video2.style.display = "none";
+      document.body.appendChild(video2);
+      video2.load();
+
+      return () => {
+        document.head.removeChild(link1);
+        document.head.removeChild(link2);
+        document.body.removeChild(video1);
+        document.body.removeChild(video2);
+      };
+    }
+  }, [skipIntro]);
 
   // Ensure video intro is skipped if skipIntro is true (double check on mount)
   useEffect(() => {
@@ -166,14 +215,16 @@ function HomeContent() {
             ease: "easeOut",
           }}
           style={{
-            background: "linear-gradient(135deg, #1a5f82 0%, #113d59 50%, #0a2a3d 100%)",
+            background:
+              "linear-gradient(135deg, #1a5f82 0%, #113d59 50%, #0a2a3d 100%)",
           }}
         >
           {/* Loading Background - Shows immediately */}
           <div
             className="absolute inset-0 w-full h-full"
             style={{
-              background: "linear-gradient(135deg, #1a5f82 0%, #113d59 50%, #0a2a3d 100%)",
+              background:
+                "linear-gradient(135deg, #1a5f82 0%, #113d59 50%, #0a2a3d 100%)",
             }}
           />
 
@@ -185,6 +236,7 @@ function HomeContent() {
             style={{ willChange: showSecondVideo ? "auto" : "opacity" }}
           >
             <video
+              ref={videoRef1}
               autoPlay
               muted
               loop
@@ -194,7 +246,12 @@ function HomeContent() {
                 const videoElement = e.target as HTMLVideoElement;
                 videoElement.style.display = "none";
               }}
-              preload="metadata"
+              onLoadedData={() => {
+                if (videoRef1.current) {
+                  videoRef1.current.play().catch(() => {});
+                }
+              }}
+              preload="auto"
             >
               <source
                 src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/bg-video.mp4`}
@@ -212,28 +269,31 @@ function HomeContent() {
             transition={{ duration: 0.3, ease: "easeOut" }}
             style={{ willChange: showSecondVideo ? "opacity" : "auto" }}
           >
-            {showSecondVideo && (
-              <video
-                autoPlay
-                muted
-                loop
-                playsInline
-                className="w-full h-full object-cover"
-                onError={(e) => {
-                  const videoElement = e.target as HTMLVideoElement;
-                  videoElement.style.display = "none";
-                }}
-                preload="metadata"
-              >
-                <source
-                  src={`${
-                    process.env.NEXT_PUBLIC_BASE_PATH || ""
-                  }/bg-video3.mp4`}
-                  type="video/mp4"
-                />
-                Your browser does not support the video tag.
-              </video>
-            )}
+            <video
+              ref={videoRef2}
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="w-full h-full object-cover"
+              onError={(e) => {
+                const videoElement = e.target as HTMLVideoElement;
+                videoElement.style.display = "none";
+              }}
+              onLoadedData={() => {
+                if (videoRef2.current && showSecondVideo) {
+                  videoRef2.current.play().catch(() => {});
+                }
+              }}
+              preload="auto"
+              style={{ display: showSecondVideo ? "block" : "none" }}
+            >
+              <source
+                src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/bg-video3.mp4`}
+                type="video/mp4"
+              />
+              Your browser does not support the video tag.
+            </video>
           </motion.div>
 
           {/* Fallback background image */}
@@ -428,7 +488,24 @@ function HomeContent() {
 
 export default function Home() {
   return (
-    <Suspense fallback={<div className="min-h-screen bg-gray-900" />}>
+    <Suspense
+      fallback={
+        <div
+          className="min-h-screen flex items-center justify-center"
+          style={{
+            background:
+              "linear-gradient(135deg, #1a5f82 0%, #113d59 50%, #0a2a3d 100%)",
+          }}
+        >
+          <div className="text-center">
+            <div className="text-4xl sm:text-6xl font-black text-white mb-4">
+              A1 IRON & STEEL
+            </div>
+            <div className="w-24 h-1 mx-auto bg-gradient-to-r from-transparent via-orange-400 to-transparent" />
+          </div>
+        </div>
+      }
+    >
       <HomeContent />
     </Suspense>
   );
