@@ -24,7 +24,6 @@ interface AboutUsPageProps {
 
 export default function AboutUsPage({ onClose }: AboutUsPageProps) {
   const router = useRouter();
-  const videoRef = React.useRef<HTMLVideoElement>(null);
 
   const handleClose = () => {
     router.push("/?skipIntro=true");
@@ -33,11 +32,18 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
     }
   };
 
-  const videoPath = `/aboutUs/process-1.mp4`;
+  const videoPath1 = `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/aboutUs/process-1.mp4`;
+  const videoPath2 = `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/aboutUs/process-2.mp4`;
+
+  const videoRef1 = React.useRef<HTMLVideoElement>(null);
+  const videoRef2 = React.useRef<HTMLVideoElement>(null);
 
   React.useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.load();
+    if (videoRef1.current) {
+      videoRef1.current.load();
+    }
+    if (videoRef2.current) {
+      videoRef2.current.load();
     }
   }, []);
   return (
@@ -157,6 +163,8 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
               </div>
               <div className="relative rounded-xl h-72 sm:h-80 overflow-hidden shadow-xl group">
                 <video
+                  ref={videoRef2}
+                  key={videoPath2}
                   className="w-full h-full object-cover"
                   autoPlay
                   muted
@@ -164,14 +172,23 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
                   playsInline
                   preload="auto"
                   controls
+                  onError={(e) => {
+                    console.error("Video failed to load:", videoPath2, e);
+                  }}
+                  onLoadedData={() => {
+                    console.log("Video loaded successfully:", videoPath2);
+                  }}
+                  onCanPlay={() => {
+                    console.log("Video can play");
+                  }}
                 >
-                  <source src="/aboutUs/process-2.mp4" type="video/mp4" />
+                  <source src={videoPath2} type="video/mp4" />
                   Your browser does not support the video tag.
                 </video>
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent pointer-events-none" />
                 <div className="absolute bottom-6 left-6 text-white pointer-events-none">
                   <p className="text-xl font-semibold mb-1">
-                    Industrial Steel Mill
+                  Industrial Steel Mill
                   </p>
                   <p className="text-sm opacity-90">
                     State-of-the-art facilities
@@ -196,8 +213,8 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
               </div>
               <div className="relative rounded-xl h-72 sm:h-80 overflow-hidden shadow-xl group">
                 <video
-                  ref={videoRef}
-                  key={videoPath}
+                  ref={videoRef1}
+                  key={videoPath1}
                   className="w-full h-full object-cover"
                   autoPlay
                   muted
@@ -206,16 +223,16 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
                   preload="auto"
                   controls
                   onError={(e) => {
-                    console.error("Video failed to load:", videoPath, e);
+                    console.error("Video failed to load:", videoPath1, e);
                   }}
                   onLoadedData={() => {
-                    console.log("Video loaded successfully:", videoPath);
+                    console.log("Video loaded successfully:", videoPath1);
                   }}
                   onCanPlay={() => {
                     console.log("Video can play");
                   }}
                 >
-                  <source src={videoPath} type="video/mp4" />
+                  <source src={videoPath1} type="video/mp4" />
                   Your browser does not support the video tag.
                 </video>
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent pointer-events-none" />
@@ -276,10 +293,10 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
                   innovation, and fostering an environment where excellence
                   thrives. Our leadership is the driving force behind our
                   continued success, setting the standard for industry-leading
-                  performance, sustainability, and customer satisfaction.
+                performance, sustainability, and customer satisfaction.
                 </p>
                 <p>
-                  We take pride in a management team that exemplifies the values
+                We take pride in a management team that exemplifies the values
                   of integrity, vision, and strategic foresight. The company
                   aims to produce economical and efficient steel through
                   backward and forward integration. Each leader within our
@@ -325,35 +342,35 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
                   <Target className="w-6 h-6 text-white" />
                 </div>
                 <h3 className="text-3xl font-bold text-gray-900">
-                  Our Mission
-                </h3>
+                Our Mission
+              </h3>
               </div>
               <div className="space-y-5 text-gray-700 leading-relaxed">
                 <div className="flex items-start gap-3">
                   <CheckCircle className="w-5 h-5 text-green-600 mt-1 flex-shrink-0" />
-                  <p>
+                <p>
                     At A1, our mission is to forge the future by producing
-                    innovative, high-quality iron and steel products that shape
+                  innovative, high-quality iron and steel products that shape
                     industries, drive sustainability, and support the
                     development of resilient infrastructures worldwide.
-                  </p>
+                </p>
                 </div>
                 <div className="flex items-start gap-3">
                   <CheckCircle className="w-5 h-5 text-green-600 mt-1 flex-shrink-0" />
-                  <p>
+                <p>
                     We are committed to advancing technology, ensuring
-                    environmental responsibility, and empowering our partners
-                    through customized, reliable solutions.
-                  </p>
+                  environmental responsibility, and empowering our partners
+                  through customized, reliable solutions.
+                </p>
                 </div>
                 <div className="flex items-start gap-3">
                   <CheckCircle className="w-5 h-5 text-green-600 mt-1 flex-shrink-0" />
-                  <p>
+                <p>
                     By blending tradition with innovation, we aim to build
-                    stronger communities, elevate industries, and lay the
-                    groundwork for a more sustainable tomorrow, one alloy at a
-                    time.
-                  </p>
+                  stronger communities, elevate industries, and lay the
+                  groundwork for a more sustainable tomorrow, one alloy at a
+                  time.
+                </p>
                 </div>
               </div>
             </motion.div>
@@ -403,7 +420,7 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.3, delay: 0.1 }}
@@ -548,7 +565,7 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
             </p>
           </motion.div>
 
-          <motion.div
+            <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -563,20 +580,20 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
               <Phone className="w-5 h-5" />
               Contact Us
             </button>
-          </motion.div>
+            </motion.div>
 
-          <motion.div
+            <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.3 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center"
+              className="flex flex-col sm:flex-row gap-4 justify-center"
           >
             <button
               onClick={handleClose}
               className="logo-orange-bg text-white px-10 py-4 rounded-full font-bold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
-            >
-              Request Quote
+              >
+                Request Quote
             </button>
             <button
               onClick={handleClose}
@@ -590,8 +607,8 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
                 e.currentTarget.style.background = "transparent";
                 e.currentTarget.style.color = "#f1852e";
               }}
-            >
-              Learn More
+              >
+                Learn More
             </button>
           </motion.div>
         </div>
