@@ -32,8 +32,12 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
     }
   };
 
-  const videoPath1 = `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/aboutUs/process-1.mp4`;
-  const videoPath2 = `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/aboutUs/process-2.mp4`;
+  const videoPath1 = `${
+    process.env.NEXT_PUBLIC_BASE_PATH || ""
+  }/aboutUs/process-1.mp4`;
+  const videoPath2 = `${
+    process.env.NEXT_PUBLIC_BASE_PATH || ""
+  }/aboutUs/process-2.mp4`;
 
   const videoRef1 = React.useRef<HTMLVideoElement>(null);
   const videoRef2 = React.useRef<HTMLVideoElement>(null);
@@ -76,19 +80,37 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
       </div>
 
       {/* Hero Section */}
-      <section className="py-20 sm:py-24 md:py-32 bg-gradient-to-b from-white to-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="relative py-20 sm:py-24 md:py-32 overflow-hidden">
+        {/* Background with subtle gradient */}
+        <div className="absolute inset-0 bg-gradient-to-br from-white via-blue-50/30 to-gray-50" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(32,132,177,0.05),transparent_50%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(241,133,46,0.05),transparent_50%)]" />
+        
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.5 }}
             className="text-center max-w-4xl mx-auto"
           >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="inline-block mb-6"
+            >
+              <div className="w-20 h-1 logo-orange-bg mx-auto mb-6 rounded-full" />
+            </motion.div>
             <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold mb-6 leading-tight">
               <span className="logo-blue-gradient">Get To Know Us</span>
             </h1>
-            <div className="w-24 h-1 logo-orange-bg mx-auto mb-8" />
-            <p className="text-xl sm:text-2xl text-gray-700 leading-relaxed">
+            <div className="w-24 h-1 logo-orange-bg mx-auto mb-8 rounded-full" />
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="text-xl sm:text-2xl text-gray-700 leading-relaxed"
+            >
               <span className="font-semibold logo-blue-gradient">
                 A1 Iron & Steel
               </span>{" "}
@@ -96,54 +118,69 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
               steel industry. With decades of experience, we provide
               high-quality, precision-engineered steel solutions for sectors
               like construction, engineering, and infrastructure worldwide.
-            </p>
+            </motion.p>
           </motion.div>
         </div>
       </section>
 
       {/* Company Description */}
-      <section className="py-20 md:py-24 bg-white">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-20 md:py-24 bg-white relative">
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-50/20 to-transparent" />
+        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.5 }}
             className="max-w-4xl mx-auto"
           >
             <div
-              className="bg-gradient-to-br from-blue-50/50 to-gray-50 rounded-2xl p-8 sm:p-12 shadow-lg border"
-              style={{ borderColor: "rgba(32, 132, 177, 0.2)" }}
+              className="relative bg-white rounded-3xl p-8 sm:p-12 shadow-xl border overflow-hidden"
+              style={{ 
+                borderColor: "rgba(32, 132, 177, 0.15)",
+                boxShadow: "0 20px 60px -12px rgba(32, 132, 177, 0.15)"
+              }}
             >
-              <p className="text-lg sm:text-xl text-gray-700 leading-relaxed text-center">
-                The company is driven by a passionate team that combines
-                advanced technology with traditional craftsmanship. Our steel
-                products are known for precision, durability, and
-                sustainability. A1 Iron & Steel views steel as a catalyst for
-                growth, contributing to iconic structures like skyscrapers and
-                bridges while prioritizing environmentally responsible
-                practices.
-              </p>
+              {/* Decorative gradient overlay */}
+              <div className="absolute top-0 left-0 w-full h-2 logo-primary-bg" />
+              <div className="absolute top-0 right-0 w-32 h-32 bg-blue-100/30 rounded-full blur-3xl -translate-y-16 translate-x-16" />
+              <div className="absolute bottom-0 left-0 w-32 h-32 bg-orange-100/30 rounded-full blur-3xl translate-y-16 -translate-x-16" />
+              
+              <div className="relative">
+                <div className="flex items-center justify-center mb-6">
+                  <div className="w-16 h-1 logo-orange-bg rounded-full" />
+                </div>
+                <p className="text-lg sm:text-xl text-gray-700 leading-relaxed text-center font-light">
+                  The company is driven by a passionate team that combines
+                  advanced technology with traditional craftsmanship. Our steel
+                  products are known for precision, durability, and
+                  sustainability. A1 Iron & Steel views steel as a catalyst for
+                  growth, contributing to iconic structures like skyscrapers and
+                  bridges while prioritizing environmentally responsible
+                  practices.
+                </p>
+              </div>
             </div>
           </motion.div>
         </div>
       </section>
 
       {/* Factory Videos Section */}
-      <section className="py-20 md:py-24 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-20 md:py-24 bg-gradient-to-b from-gray-50 to-white relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(32,132,177,0.03),transparent_70%)]" />
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.3 }}
-            className="text-center mb-12"
+            transition={{ duration: 0.5 }}
+            className="text-center mb-16"
           >
             <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
               Our <span className="logo-blue-gradient">Manufacturing</span>{" "}
               Excellence
             </h2>
-            <div className="w-20 h-1 logo-orange-bg mx-auto" />
+            <div className="w-20 h-1 logo-orange-bg mx-auto rounded-full" />
           </motion.div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
@@ -161,11 +198,11 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
                   Our Factory
                 </h3>
               </div>
-              <div className="relative rounded-xl h-72 sm:h-80 overflow-hidden shadow-xl group">
+              <div className="relative rounded-2xl h-72 sm:h-80 overflow-hidden shadow-2xl group border-2 border-white/50">
                 <video
                   ref={videoRef2}
                   key={videoPath2}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   autoPlay
                   muted
                   loop
@@ -185,15 +222,17 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
                   <source src={videoPath2} type="video/mp4" />
                   Your browser does not support the video tag.
                 </video>
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent pointer-events-none" />
                 <div className="absolute bottom-6 left-6 text-white pointer-events-none">
-                  <p className="text-xl font-semibold mb-1">
+                  <p className="text-xl font-bold mb-1 drop-shadow-lg">
                   Industrial Steel Mill
                   </p>
-                  <p className="text-sm opacity-90">
+                  <p className="text-sm opacity-90 drop-shadow-md">
                     State-of-the-art facilities
                   </p>
                 </div>
+                {/* Decorative corner accent */}
+                <div className="absolute top-0 right-0 w-24 h-24 logo-orange-bg opacity-20 rounded-bl-full" />
               </div>
             </motion.div>
 
@@ -211,11 +250,11 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
                   Making of Steel
                 </h3>
               </div>
-              <div className="relative rounded-xl h-72 sm:h-80 overflow-hidden shadow-xl group">
+              <div className="relative rounded-2xl h-72 sm:h-80 overflow-hidden shadow-2xl group border-2 border-white/50">
                 <video
                   ref={videoRef1}
                   key={videoPath1}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   autoPlay
                   muted
                   loop
@@ -235,13 +274,15 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
                   <source src={videoPath1} type="video/mp4" />
                   Your browser does not support the video tag.
                 </video>
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent pointer-events-none" />
                 <div className="absolute bottom-6 left-6 text-white pointer-events-none">
-                  <p className="text-xl font-semibold mb-1">
+                  <p className="text-xl font-bold mb-1 drop-shadow-lg">
                     Steel Making Process
                   </p>
-                  <p className="text-sm opacity-90">Precision manufacturing</p>
+                  <p className="text-sm opacity-90 drop-shadow-md">Precision manufacturing</p>
                 </div>
+                {/* Decorative corner accent */}
+                <div className="absolute top-0 right-0 w-24 h-24 logo-blue-bg opacity-20 rounded-bl-full" />
               </div>
             </motion.div>
           </div>
@@ -275,37 +316,43 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
             className="max-w-4xl mx-auto"
           >
             <div
-              className="bg-gradient-to-br from-gray-50 rounded-2xl p-8 sm:p-10 shadow-lg border"
+              className="relative bg-white rounded-3xl p-8 sm:p-10 shadow-xl border overflow-hidden"
               style={{
-                borderColor: "rgba(32, 132, 177, 0.2)",
-                background:
-                  "linear-gradient(to bottom right, #f5f5f5, rgba(141, 188, 217, 0.1))",
+                borderColor: "rgba(32, 132, 177, 0.15)",
+                boxShadow: "0 20px 60px -12px rgba(32, 132, 177, 0.15)"
               }}
             >
-              <div className="space-y-6 text-lg text-gray-700 leading-relaxed">
-                <p>
-                  At{" "}
-                  <span className="font-semibold logo-blue-gradient">
-                    A1 Iron & Steel
-                  </span>
-                  , we believe that true leadership is defined by more than just
-                  making decisions—it&apos;s about inspiring teams, driving
-                  innovation, and fostering an environment where excellence
-                  thrives. Our leadership is the driving force behind our
-                  continued success, setting the standard for industry-leading
+              {/* Decorative elements */}
+              <div className="absolute top-0 left-0 w-full h-2 logo-primary-bg" />
+              <div className="absolute top-0 right-0 w-40 h-40 bg-blue-100/20 rounded-full blur-3xl -translate-y-20 translate-x-20" />
+              <div className="absolute bottom-0 left-0 w-40 h-40 bg-orange-100/20 rounded-full blur-3xl translate-y-20 -translate-x-20" />
+              
+              <div className="relative">
+                <div className="space-y-6 text-lg text-gray-700 leading-relaxed">
+                  <p>
+                    At{" "}
+                    <span className="font-semibold logo-blue-gradient">
+                      A1 Iron & Steel
+                    </span>
+                    , we believe that true leadership is defined by more than just
+                    making decisions—it&apos;s about inspiring teams, driving
+                    innovation, and fostering an environment where excellence
+                    thrives. Our leadership is the driving force behind our
+                    continued success, setting the standard for industry-leading
                 performance, sustainability, and customer satisfaction.
-                </p>
-                <p>
+                  </p>
+                  <p>
                 We take pride in a management team that exemplifies the values
-                  of integrity, vision, and strategic foresight. The company
-                  aims to produce economical and efficient steel through
-                  backward and forward integration. Each leader within our
-                  organization is committed not only to operational excellence
-                  but also to creating a culture of collaboration, trust, and
-                  empowerment. Their collective experience spans decades across
-                  diverse industries, ensuring that our company remains at the
-                  forefront of innovation and competitive edge.
-                </p>
+                    of integrity, vision, and strategic foresight. The company
+                    aims to produce economical and efficient steel through
+                    backward and forward integration. Each leader within our
+                    organization is committed not only to operational excellence
+                    but also to creating a culture of collaboration, trust, and
+                    empowerment. Their collective experience spans decades across
+                    diverse industries, ensuring that our company remains at the
+                    forefront of innovation and competitive edge.
+                  </p>
+                </div>
               </div>
             </div>
           </motion.div>
@@ -420,18 +467,26 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
           </motion.div>
 
           <motion.div
-                initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.3, delay: 0.1 }}
-            className="bg-gradient-to-br rounded-2xl p-8 sm:p-10 shadow-lg border"
-            style={{
-              borderColor: "rgba(32, 132, 177, 0.2)",
-              background:
-                "linear-gradient(to bottom right, rgba(141, 188, 217, 0.1), #f5f5f5)",
-            }}
+            className="max-w-4xl mx-auto"
           >
-            <div className="space-y-6 text-lg text-gray-700 leading-relaxed">
+            <div
+              className="relative bg-white rounded-3xl p-8 sm:p-10 shadow-xl border overflow-hidden"
+              style={{
+                borderColor: "rgba(32, 132, 177, 0.15)",
+                boxShadow: "0 20px 60px -12px rgba(32, 132, 177, 0.15)"
+              }}
+            >
+              {/* Decorative elements */}
+              <div className="absolute top-0 left-0 w-full h-2 logo-primary-bg" />
+              <div className="absolute top-0 right-0 w-40 h-40 bg-blue-100/20 rounded-full blur-3xl -translate-y-20 translate-x-20" />
+              <div className="absolute bottom-0 left-0 w-40 h-40 bg-orange-100/20 rounded-full blur-3xl translate-y-20 -translate-x-20" />
+              
+              <div className="relative">
+                <div className="space-y-6 text-lg text-gray-700 leading-relaxed">
               <p>
                 The company has a well spread out installed Steel capacity of
                 0.250 MTPA prudently spread over SMS, TMT Bars Mills, Strip
@@ -460,6 +515,8 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
                 health, water, sanitation, environment and so on in the areas it
                 operates in.
               </p>
+                </div>
+              </div>
             </div>
           </motion.div>
         </div>
@@ -526,8 +583,11 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.3, delay: index * 0.05 }}
-                className="text-center bg-white rounded-xl p-6 shadow-lg border border-gray-200 hover:shadow-xl transition-shadow duration-300"
+                className="text-center bg-white rounded-2xl p-6 shadow-lg border border-gray-200 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden group"
               >
+                {/* Hover gradient effect */}
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-50/0 to-orange-50/0 group-hover:from-blue-50/50 group-hover:to-orange-50/50 transition-all duration-300" />
+                <div className="relative">
                 <div
                   className={`w-12 h-12 mx-auto mb-4 rounded-xl ${stat.color} flex items-center justify-center shadow-md`}
                 >
@@ -539,6 +599,7 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
                 <div className="text-sm text-gray-600 leading-tight">
                   {stat.label}
                 </div>
+                </div>
               </motion.div>
             ))}
           </div>
@@ -546,20 +607,21 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
       </section>
 
       {/* Contact Section */}
-      <section className="py-20 md:py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-20 md:py-24 bg-gradient-to-b from-white via-blue-50/30 to-white relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(241,133,46,0.05),transparent_70%)]" />
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.5 }}
             className="text-center mb-12"
           >
             <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
               Get In <span className="logo-blue-gradient">Touch</span>
             </h2>
-            <div className="w-20 h-1 logo-orange-bg mx-auto mb-6" />
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <div className="w-20 h-1 logo-orange-bg mx-auto mb-6 rounded-full" />
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto font-light">
               Thank you for choosing A1 Iron & Steel as your trusted partner in
               strength and progress!
             </p>

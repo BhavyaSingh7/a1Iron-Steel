@@ -158,14 +158,25 @@ function HomeContent() {
       {/* Video Intro Screen - Shows for 8 seconds then slides up */}
       {showVideoIntro && (
         <motion.section
-          className="fixed inset-0 z-50 bg-black"
+          className="fixed inset-0 z-50"
           initial={{ y: 0 }}
           animate={{ y: showVideoIntro ? 0 : "-100%" }}
           transition={{
             duration: 0.4,
             ease: "easeOut",
           }}
+          style={{
+            background: "linear-gradient(135deg, #1a5f82 0%, #113d59 50%, #0a2a3d 100%)",
+          }}
         >
+          {/* Loading Background - Shows immediately */}
+          <div
+            className="absolute inset-0 w-full h-full"
+            style={{
+              background: "linear-gradient(135deg, #1a5f82 0%, #113d59 50%, #0a2a3d 100%)",
+            }}
+          />
+
           {/* First Video Background */}
           <motion.div
             className="absolute inset-0 w-full h-full"
@@ -183,7 +194,7 @@ function HomeContent() {
                 const videoElement = e.target as HTMLVideoElement;
                 videoElement.style.display = "none";
               }}
-              preload="none"
+              preload="metadata"
             >
               <source
                 src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/bg-video.mp4`}
@@ -212,7 +223,7 @@ function HomeContent() {
                   const videoElement = e.target as HTMLVideoElement;
                   videoElement.style.display = "none";
                 }}
-                preload="none"
+                preload="metadata"
               >
                 <source
                   src={`${

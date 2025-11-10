@@ -452,12 +452,15 @@ export default function ProductsSection() {
     setTimeout(() => setIsTransitioning(false), 300);
   }, [products.length, isTransitioning]);
 
-  const goToSlide = useCallback((index: number) => {
-    if (isTransitioning) return;
-    setIsTransitioning(true);
-    setCurrentIndex(index);
-    setTimeout(() => setIsTransitioning(false), 300);
-  }, [isTransitioning]);
+  const goToSlide = useCallback(
+    (index: number) => {
+      if (isTransitioning) return;
+      setIsTransitioning(true);
+      setCurrentIndex(index);
+      setTimeout(() => setIsTransitioning(false), 300);
+    },
+    [isTransitioning]
+  );
 
   const openProductModal = useCallback((product: Product) => {
     setSelectedProduct(product);
