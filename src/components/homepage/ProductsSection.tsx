@@ -410,7 +410,7 @@ export default function ProductsSection() {
   );
 
   const [isClient, setIsClient] = useState(false);
-  const [currentIndex, setCurrentIndex] = useState(products.length);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [carouselItems, setCarouselItems] = useState<Product[]>([]);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
@@ -420,6 +420,8 @@ export default function ProductsSection() {
     setIsClient(true);
     // Create infinite carousel by duplicating products only twice (was 3x)
     setCarouselItems([...products, ...products]);
+    // Initialize to show the first product (index 0)
+    setCurrentIndex(0);
   }, [products]);
 
   const navigateLeft = useCallback(() => {
@@ -442,8 +444,8 @@ export default function ProductsSection() {
     setCurrentIndex((prev) => {
       const newIndex = prev + 1;
       if (newIndex >= products.length * 2) {
-        // Jump to the beginning of the second set (seamless loop)
-        return products.length;
+        // Jump to the beginning of the first set (seamless loop)
+        return 0;
       }
       return newIndex;
     });
@@ -451,8 +453,11 @@ export default function ProductsSection() {
   }, [products.length, isTransitioning]);
 
   const goToSlide = useCallback((index: number) => {
+    if (isTransitioning) return;
+    setIsTransitioning(true);
     setCurrentIndex(index);
-  }, []);
+    setTimeout(() => setIsTransitioning(false), 300);
+  }, [isTransitioning]);
 
   const openProductModal = useCallback((product: Product) => {
     setSelectedProduct(product);
