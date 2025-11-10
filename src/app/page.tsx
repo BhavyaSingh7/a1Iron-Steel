@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 import dynamic from "next/dynamic";
 import HeroSection from "@/components/homepage/HeroSection";
@@ -47,37 +48,53 @@ const ContactPage = dynamic(() =>
   import("@/components/contact").then((mod) => ({ default: mod.ContactPage }))
 );
 
-export default function Home() {
+function HomeContent() {
+  const searchParams = useSearchParams();
+
+  // Check skipIntro - use useMemo to compute once
+  const skipIntro = React.useMemo(() => {
+    if (typeof window === "undefined") return false;
+    const skipFromParams = searchParams?.get("skipIntro") === "true";
+    const skipFromWindow =
+      new URLSearchParams(window.location.search).get("skipIntro") === "true";
+    return skipFromParams || skipFromWindow;
+  }, [searchParams]);
+
   // Removed unused videoPhase state for performance
-  const [typewriterComplete, setTypewriterComplete] = useState(false);
   const [currentBgImage, setCurrentBgImage] = useState(0);
-  const [showVideoIntro, setShowVideoIntro] = useState(true);
+  const [showVideoIntro, setShowVideoIntro] = useState(!skipIntro);
   const [showAboutUs, setShowAboutUs] = useState(false);
   const [showProducts, setShowProducts] = useState(false);
   const [showContact, setShowContact] = useState(false);
   const [showSecondVideo, setShowSecondVideo] = useState(false);
   // Removed unused showBubbles state for performance
 
-  // Disable bubbles animation for performance
-  // useEffect(() => {
-  //   const bubbleTimer = setTimeout(() => {
-  //     setShowBubbles(true);
-  //   }, 1000);
-  //   return () => clearTimeout(bubbleTimer);
-  // }, []);
+  // Ensure video intro is skipped if skipIntro is true (double check on mount)
+  useEffect(() => {
+    if (skipIntro) {
+      setShowVideoIntro(false);
+      setShowSecondVideo(false);
+    }
+  }, [skipIntro]);
 
   // Show second video after 5 seconds - lazy load it
   useEffect(() => {
-    if (showVideoIntro) {
+    if (showVideoIntro && !skipIntro) {
       const secondVideoTimer = setTimeout(() => {
         setShowSecondVideo(true);
       }, 5000);
       return () => clearTimeout(secondVideoTimer);
     }
-  }, [showVideoIntro]);
+  }, [showVideoIntro, skipIntro]);
 
   // Auto-slide to home screen after 10 seconds (5s first video + 5s second video)
+  // Skip this if skipIntro is true
   useEffect(() => {
+    if (skipIntro) {
+      setShowVideoIntro(false);
+      return;
+    }
+
     const timer = setTimeout(() => {
       // Hide the video intro with slide-up animation
       setShowVideoIntro(false);
@@ -113,7 +130,7 @@ export default function Home() {
     }
 
     return () => clearTimeout(timer);
-  }, []);
+  }, [skipIntro]);
 
   // Video phase logic removed for performance optimization
 
@@ -139,51 +156,23 @@ export default function Home() {
   return (
     <main className="min-h-screen snap-y snap-mandatory">
       {/* Video Intro Screen - Shows for 8 seconds then slides up */}
-      <motion.section
-        className="fixed inset-0 z-50 bg-black"
-        initial={{ y: 0 }}
-        animate={{ y: showVideoIntro ? 0 : "-100%" }}
-        transition={{
-          duration: 0.8,
-          ease: "easeInOut",
-        }}
-      >
-        {/* First Video Background */}
-        <motion.div
-          className="absolute inset-0 w-full h-full"
-          animate={{ opacity: showSecondVideo ? 0 : 1 }}
-          transition={{ duration: 1, ease: "easeOut" }}
-          style={{ willChange: showSecondVideo ? "auto" : "opacity" }}
+      {showVideoIntro && (
+        <motion.section
+          className="fixed inset-0 z-50 bg-black"
+          initial={{ y: 0 }}
+          animate={{ y: showVideoIntro ? 0 : "-100%" }}
+          transition={{
+            duration: 0.4,
+            ease: "easeOut",
+          }}
         >
-          <video
-            autoPlay
-            muted
-            loop
-            playsInline
-            className="w-full h-full object-cover"
-            onError={(e) => {
-              const videoElement = e.target as HTMLVideoElement;
-              videoElement.style.display = "none";
-            }}
-            preload="none"
+          {/* First Video Background */}
+          <motion.div
+            className="absolute inset-0 w-full h-full"
+            animate={{ opacity: showSecondVideo ? 0 : 1 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+            style={{ willChange: showSecondVideo ? "auto" : "opacity" }}
           >
-            <source
-              src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/bg-video.mp4`}
-              type="video/mp4"
-            />
-            Your browser does not support the video tag.
-          </video>
-        </motion.div>
-
-        {/* Second Video Background */}
-        <motion.div
-          className="absolute inset-0 w-full h-full"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: showSecondVideo ? 1 : 0 }}
-          transition={{ duration: 1, ease: "easeOut" }}
-          style={{ willChange: showSecondVideo ? "opacity" : "auto" }}
-        >
-          {showSecondVideo && (
             <video
               autoPlay
               muted
@@ -197,170 +186,201 @@ export default function Home() {
               preload="none"
             >
               <source
-                src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/bg-video3.mp4`}
+                src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/bg-video.mp4`}
                 type="video/mp4"
               />
               Your browser does not support the video tag.
             </video>
-          )}
-        </motion.div>
+          </motion.div>
 
-        {/* Fallback background image */}
-        <div
-          className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
-          style={{
-            backgroundImage:
-              "url(https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=2070&auto=format&fit=crop)",
-            display: "none",
-          }}
-          id="video-fallback"
-        />
-
-        {/* Light overlay for better text readability without hiding video */}
-        <div className="absolute inset-0 bg-black/20" />
-
-        {/* Bouncing Bubbles - Disabled for performance */}
-
-        {/* A1 IRON & STEEL Text */}
-        <div className="relative z-10 h-full flex items-center justify-center">
-          <div className="text-center">
-            {/* Background Glow Effect */}
-            <div
-              className="absolute inset-0 blur-3xl opacity-10"
-              style={{
-                background:
-                  "linear-gradient(135deg, #f0ae28 0%, #f1852e 25%, #2084b1 60%, #1a5f82 100%)",
-                transform: "scale(1.8)",
-              }}
-            />
-
-            <motion.h1
-              className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-black relative z-10 tracking-wide gradient-title"
-              initial={{ opacity: 0, y: 80, scale: 0.9 }}
-              animate={{
-                opacity: 1,
-                y: 0,
-                scale: 1,
-              }}
-              transition={{
-                duration: 1.8,
-                delay: 0.3,
-                ease: [0.215, 0.61, 0.355, 1],
-              }}
-              style={{
-                background:
-                  "linear-gradient(135deg, #FFFFFF 0%, #f0ae28 25%, #2084b1 60%, #1a5f82 100%)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
-                backgroundSize: "200% auto",
-                textShadow: "0 0 80px rgba(32, 132, 177, 0.4)",
-                letterSpacing: "0.05em",
-                fontFamily: "'Helvetica Neue', 'Arial Black', sans-serif",
-              }}
-            >
-              A1 IRON & STEEL
-            </motion.h1>
-
-            {/* Animated Underline */}
-            <motion.div
-              className="h-1 mt-4 mx-auto"
-              style={{
-                background:
-                  "linear-gradient(90deg, transparent, #f0ae28 25%, #2084b1 50%, #1a5f82 75%, transparent)",
-                maxWidth: "600px",
-                boxShadow: "0 2px 20px rgba(32, 132, 177, 0.5)",
-              }}
-              initial={{ scaleX: 0, opacity: 0 }}
-              animate={{ scaleX: 1, opacity: 1 }}
-              transition={{ duration: 1.2, delay: 1.2, ease: "easeOut" }}
-            />
-
-            {/* Info text that appears with second video */}
-            <motion.div
-              className="mt-12 max-w-3xl mx-auto"
-              initial={{ opacity: 0, y: 50 }}
-              animate={{
-                opacity: showSecondVideo ? 1 : 0,
-                y: showSecondVideo ? 0 : 50,
-              }}
-              transition={{
-                duration: 1.5,
-                delay: showSecondVideo ? 0.8 : 0,
-                ease: "easeOut",
-              }}
-            >
-              <motion.p
-                className="text-2xl sm:text-3xl md:text-4xl text-white font-bold leading-tight"
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{
-                  opacity: showSecondVideo ? 1 : 0,
-                  scale: showSecondVideo ? 1 : 0.95,
+          {/* Second Video Background */}
+          <motion.div
+            className="absolute inset-0 w-full h-full"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: showSecondVideo ? 1 : 0 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+            style={{ willChange: showSecondVideo ? "opacity" : "auto" }}
+          >
+            {showSecondVideo && (
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                className="w-full h-full object-cover"
+                onError={(e) => {
+                  const videoElement = e.target as HTMLVideoElement;
+                  videoElement.style.display = "none";
                 }}
-                transition={{ delay: 1.0, duration: 1.0 }}
+                preload="none"
+              >
+                <source
+                  src={`${
+                    process.env.NEXT_PUBLIC_BASE_PATH || ""
+                  }/bg-video3.mp4`}
+                  type="video/mp4"
+                />
+                Your browser does not support the video tag.
+              </video>
+            )}
+          </motion.div>
+
+          {/* Fallback background image */}
+          <div
+            className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
+            style={{
+              backgroundImage:
+                "url(https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=2070&auto=format&fit=crop)",
+              display: "none",
+            }}
+            id="video-fallback"
+          />
+
+          {/* Light overlay for better text readability without hiding video */}
+          <div className="absolute inset-0 bg-black/20" />
+
+          {/* Bouncing Bubbles - Disabled for performance */}
+
+          {/* A1 IRON & STEEL Text */}
+          <div className="relative z-10 h-full flex items-center justify-center">
+            <div className="text-center">
+              {/* Background Glow Effect */}
+              <div
+                className="absolute inset-0 blur-3xl opacity-10"
                 style={{
-                  textShadow:
-                    "2px 2px 10px rgba(0, 0, 0, 0.8), 0 0 30px rgba(32, 132, 177, 0.3)",
-                  letterSpacing: "0.03em",
-                  fontFamily: "'Helvetica Neue', 'Arial', sans-serif",
+                  background:
+                    "linear-gradient(135deg, #f0ae28 0%, #f1852e 25%, #2084b1 60%, #1a5f82 100%)",
+                  transform: "scale(1.8)",
+                }}
+              />
+
+              <motion.h1
+                className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-black relative z-10 tracking-wide gradient-title"
+                initial={{ opacity: 0, y: 80, scale: 0.9 }}
+                animate={{
+                  opacity: 1,
+                  y: 0,
+                  scale: 1,
+                }}
+                transition={{
+                  duration: 1.8,
+                  delay: 0.3,
+                  ease: [0.215, 0.61, 0.355, 1],
+                }}
+                style={{
+                  background:
+                    "linear-gradient(135deg, #FFFFFF 0%, #f0ae28 25%, #2084b1 60%, #1a5f82 100%)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  backgroundClip: "text",
+                  backgroundSize: "200% auto",
+                  textShadow: "0 0 80px rgba(32, 132, 177, 0.4)",
+                  letterSpacing: "0.05em",
+                  fontFamily: "'Helvetica Neue', 'Arial Black', sans-serif",
                 }}
               >
-                Forging Excellence in Steel Manufacturing
-              </motion.p>
+                A1 IRON & STEEL
+              </motion.h1>
+
+              {/* Animated Underline */}
               <motion.div
-                className="mt-6 flex items-center justify-center gap-3"
-                initial={{ opacity: 0, x: -20 }}
+                className="h-1 mt-4 mx-auto"
+                style={{
+                  background:
+                    "linear-gradient(90deg, transparent, #f0ae28 25%, #2084b1 50%, #1a5f82 75%, transparent)",
+                  maxWidth: "600px",
+                  boxShadow: "0 2px 20px rgba(32, 132, 177, 0.5)",
+                }}
+                initial={{ scaleX: 0, opacity: 0 }}
+                animate={{ scaleX: 1, opacity: 1 }}
+                transition={{ duration: 1.2, delay: 1.2, ease: "easeOut" }}
+              />
+
+              {/* Info text that appears with second video */}
+              <motion.div
+                className="mt-12 max-w-3xl mx-auto"
+                initial={{ opacity: 0, y: 50 }}
                 animate={{
                   opacity: showSecondVideo ? 1 : 0,
-                  x: showSecondVideo ? 0 : -20,
+                  y: showSecondVideo ? 0 : 50,
                 }}
-                transition={{ delay: 1.3, duration: 0.8 }}
+                transition={{
+                  duration: 1.5,
+                  delay: showSecondVideo ? 0.8 : 0,
+                  ease: "easeOut",
+                }}
               >
-                <div className="h-px w-12 bg-gradient-to-r from-transparent to-cyan-400" />
                 <motion.p
-                  className="text-lg sm:text-xl md:text-2xl text-white/90 font-semibold"
+                  className="text-2xl sm:text-3xl md:text-4xl text-white font-bold leading-tight"
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{
+                    opacity: showSecondVideo ? 1 : 0,
+                    scale: showSecondVideo ? 1 : 0.95,
+                  }}
+                  transition={{ delay: 1.0, duration: 1.0 }}
                   style={{
-                    textShadow: "1px 1px 8px rgba(0, 0, 0, 0.7)",
-                    letterSpacing: "0.05em",
+                    textShadow:
+                      "2px 2px 10px rgba(0, 0, 0, 0.8), 0 0 30px rgba(32, 132, 177, 0.3)",
+                    letterSpacing: "0.03em",
+                    fontFamily: "'Helvetica Neue', 'Arial', sans-serif",
                   }}
                 >
-                  Where Innovation Meets Industrial Strength
+                  Forging Excellence in Steel Manufacturing
                 </motion.p>
-                <div className="h-px w-12 bg-gradient-to-l from-transparent to-cyan-400" />
-              </motion.div>
+                <motion.div
+                  className="mt-6 flex items-center justify-center gap-3"
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{
+                    opacity: showSecondVideo ? 1 : 0,
+                    x: showSecondVideo ? 0 : -20,
+                  }}
+                  transition={{ delay: 1.3, duration: 0.8 }}
+                >
+                  <div className="h-px w-12 bg-gradient-to-r from-transparent to-cyan-400" />
+                  <motion.p
+                    className="text-lg sm:text-xl md:text-2xl text-white/90 font-semibold"
+                    style={{
+                      textShadow: "1px 1px 8px rgba(0, 0, 0, 0.7)",
+                      letterSpacing: "0.05em",
+                    }}
+                  >
+                    Where Innovation Meets Industrial Strength
+                  </motion.p>
+                  <div className="h-px w-12 bg-gradient-to-l from-transparent to-cyan-400" />
+                </motion.div>
 
-              {/* Decorative Elements */}
-              <motion.div
-                className="mt-8 flex items-center justify-center gap-2"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: showSecondVideo ? 1 : 0 }}
-                transition={{ delay: 1.6, duration: 0.8 }}
-              >
-                {[...Array(5)].map((_, i) => (
-                  <motion.div
-                    key={i}
-                    className="h-1.5 w-1.5 rounded-full bg-white/60"
-                    animate={{
-                      scale: [1, 1.5, 1],
-                      opacity: [0.6, 1, 0.6],
-                    }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                      delay: i * 0.2,
-                      ease: "easeInOut",
-                    }}
-                  />
-                ))}
+                {/* Decorative Elements */}
+                <motion.div
+                  className="mt-8 flex items-center justify-center gap-2"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: showSecondVideo ? 1 : 0 }}
+                  transition={{ delay: 1.6, duration: 0.8 }}
+                >
+                  {[...Array(5)].map((_, i) => (
+                    <motion.div
+                      key={i}
+                      className="h-1.5 w-1.5 rounded-full bg-white/60"
+                      animate={{
+                        scale: [1, 1.5, 1],
+                        opacity: [0.6, 1, 0.6],
+                      }}
+                      transition={{
+                        duration: 2,
+                        repeat: Infinity,
+                        delay: i * 0.2,
+                        ease: "easeInOut",
+                      }}
+                    />
+                  ))}
+                </motion.div>
               </motion.div>
-            </motion.div>
+            </div>
           </div>
-        </div>
-      </motion.section>
+        </motion.section>
+      )}
 
       {/* Hero Section */}
       <HeroSection
-        setTypewriterComplete={setTypewriterComplete}
         currentBgImage={currentBgImage}
         showVideoIntro={showVideoIntro}
         onAboutClick={() => setShowAboutUs(true)}
@@ -392,5 +412,13 @@ export default function Home() {
       {/* Contact Page */}
       {showContact && <ContactPage onClose={() => setShowContact(false)} />}
     </main>
+  );
+}
+
+export default function Home() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-gray-900" />}>
+      <HomeContent />
+    </Suspense>
   );
 }

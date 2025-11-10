@@ -3,11 +3,10 @@
 import { motion } from "framer-motion";
 import React, { useState, useEffect } from "react";
 import { ArrowUp, Trees, ChevronRight } from "lucide-react";
-import Logo from "@/components/Logo";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 interface HeroSectionProps {
-  setTypewriterComplete: (complete: boolean) => void;
   currentBgImage: number;
   showVideoIntro: boolean;
   onAboutClick: () => void;
@@ -16,19 +15,27 @@ interface HeroSectionProps {
 }
 
 export default function HeroSection({
-  setTypewriterComplete,
   currentBgImage,
   showVideoIntro,
   onAboutClick,
   onProductsClick,
   onContactClick,
 }: HeroSectionProps) {
+  const router = useRouter();
   const [displayedText, setDisplayedText] = useState("");
   const [showCursor, setShowCursor] = useState(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [sliderPosition, setSliderPosition] = useState(0);
   const [slideTriggered, setSlideTriggered] = useState(false);
   const fullText = "A1 IRON & STEEL";
+
+  const handleAboutClick = () => {
+    router.push("/about");
+  };
+
+  const handleContactClick = () => {
+    router.push("/contactus");
+  };
 
   // Custom typing effect
   useEffect(() => {
@@ -46,7 +53,7 @@ export default function HeroSection({
           currentIndex++;
         } else {
           clearInterval(typeInterval);
-          setTypewriterComplete(true);
+          // Typewriter animation complete
         }
       }, 150);
 
@@ -54,7 +61,7 @@ export default function HeroSection({
     }, 1000);
 
     return () => clearTimeout(startDelay);
-  }, [showVideoIntro, fullText, setTypewriterComplete]);
+  }, [showVideoIntro, fullText]);
 
   // Cursor blinking effect
   useEffect(() => {
@@ -124,7 +131,7 @@ export default function HeroSection({
           animate={{
             opacity: currentBgImage === 0 ? 0.25 : 0,
           }}
-          transition={{ duration: 1.5, ease: "easeInOut" }}
+          transition={{ duration: 0.8, ease: "easeInOut" }}
           style={{
             willChange: "opacity",
             zIndex: currentBgImage === 0 ? 2 : currentBgImage === 6 ? 1 : 0,
@@ -152,7 +159,7 @@ export default function HeroSection({
           animate={{
             opacity: currentBgImage === 1 ? 0.25 : 0,
           }}
-          transition={{ duration: 1.5, ease: "easeInOut" }}
+          transition={{ duration: 0.8, ease: "easeInOut" }}
           style={{
             willChange: "opacity",
             zIndex: currentBgImage === 1 ? 2 : currentBgImage === 0 ? 1 : 0,
@@ -180,7 +187,7 @@ export default function HeroSection({
           animate={{
             opacity: currentBgImage === 2 ? 0.25 : 0,
           }}
-          transition={{ duration: 1.5, ease: "easeInOut" }}
+          transition={{ duration: 0.8, ease: "easeInOut" }}
           style={{
             willChange: "opacity",
             zIndex: currentBgImage === 2 ? 2 : currentBgImage === 1 ? 1 : 0,
@@ -208,7 +215,7 @@ export default function HeroSection({
           animate={{
             opacity: currentBgImage === 3 ? 0.25 : 0,
           }}
-          transition={{ duration: 1.5, ease: "easeInOut" }}
+          transition={{ duration: 0.8, ease: "easeInOut" }}
           style={{
             willChange: "opacity",
             zIndex: currentBgImage === 3 ? 2 : currentBgImage === 2 ? 1 : 0,
@@ -236,7 +243,7 @@ export default function HeroSection({
           animate={{
             opacity: currentBgImage === 4 ? 0.25 : 0,
           }}
-          transition={{ duration: 1.5, ease: "easeInOut" }}
+          transition={{ duration: 0.8, ease: "easeInOut" }}
           style={{
             willChange: "opacity",
             zIndex: currentBgImage === 4 ? 2 : currentBgImage === 3 ? 1 : 0,
@@ -264,7 +271,7 @@ export default function HeroSection({
           animate={{
             opacity: currentBgImage === 5 ? 0.25 : 0,
           }}
-          transition={{ duration: 1.5, ease: "easeInOut" }}
+          transition={{ duration: 0.8, ease: "easeInOut" }}
           style={{
             willChange: "opacity",
             zIndex: currentBgImage === 5 ? 2 : currentBgImage === 4 ? 1 : 0,
@@ -292,7 +299,7 @@ export default function HeroSection({
           animate={{
             opacity: currentBgImage === 6 ? 0.25 : 0,
           }}
-          transition={{ duration: 1.5, ease: "easeInOut" }}
+          transition={{ duration: 0.8, ease: "easeInOut" }}
           style={{
             willChange: "opacity",
             zIndex: currentBgImage === 6 ? 2 : currentBgImage === 5 ? 1 : 0,
@@ -322,7 +329,7 @@ export default function HeroSection({
         <motion.div
           initial={{ y: -100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 1, delay: 0.5 }}
+          transition={{ duration: 0.3, delay: 0.1 }}
           className="fixed top-0 left-0 right-0 z-50 bg-white/98 backdrop-blur-md shadow-sm border-b border-gray-100"
           style={{
             boxShadow:
@@ -370,7 +377,7 @@ export default function HeroSection({
                   Home
                 </motion.a>
                 <motion.button
-                  onClick={onAboutClick}
+                  onClick={handleAboutClick}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   className="text-gray-700 font-bold text-base md:text-lg hover:text-logo-orange-1 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded px-2"
@@ -390,7 +397,7 @@ export default function HeroSection({
                   Products
                 </motion.button>
                 <motion.button
-                  onClick={onContactClick}
+                  onClick={handleContactClick}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   className="text-gray-700 font-bold text-base md:text-lg hover:text-logo-orange-1 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded px-2"
@@ -464,7 +471,7 @@ export default function HeroSection({
               Home
             </a>
             <button
-              onClick={() => handleMobileNavClick(onAboutClick)}
+              onClick={() => handleMobileNavClick(handleAboutClick)}
               className="block text-lg font-medium text-orange-500 hover:text-orange-600 transition-colors duration-300 py-2 w-full text-left focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded px-2"
               aria-label="Navigate to about section"
               tabIndex={0}
@@ -481,7 +488,7 @@ export default function HeroSection({
             </button>
             <button
               onClick={() => {
-                onContactClick();
+                handleContactClick();
                 setIsMobileMenuOpen(false);
               }}
               className="block text-lg font-medium text-orange-500 hover:text-orange-600 transition-colors duration-300 py-2 w-full text-left focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded px-2"
@@ -513,8 +520,8 @@ export default function HeroSection({
                 y: showVideoIntro ? 30 : 0,
               }}
               transition={{
-                duration: 0.6,
-                delay: showVideoIntro ? 0 : 0.3,
+                duration: 0.4,
+                delay: showVideoIntro ? 0 : 0.1,
                 ease: "easeOut",
               }}
             >
@@ -549,8 +556,8 @@ export default function HeroSection({
               y: showVideoIntro ? 30 : 0,
             }}
             transition={{
-              duration: 1,
-              delay: showVideoIntro ? 0 : 0.8,
+              duration: 0.4,
+              delay: showVideoIntro ? 0 : 0.2,
             }}
             className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold logo-blue-gradient mb-8 sm:mb-10 md:mb-12 tracking-wide"
             style={{ letterSpacing: "0.03em" }}
@@ -566,8 +573,8 @@ export default function HeroSection({
               y: showVideoIntro ? 30 : 0,
             }}
             transition={{
-              duration: 1,
-              delay: showVideoIntro ? 0 : 1.1,
+              duration: 0.4,
+              delay: showVideoIntro ? 0 : 0.3,
             }}
             className="text-base sm:text-lg md:text-xl lg:text-2xl text-white mb-12 sm:mb-16 md:mb-20 leading-[1.8] max-w-3xl mx-auto font-light"
             style={{ letterSpacing: "0.01em" }}
@@ -588,15 +595,13 @@ export default function HeroSection({
               y: showVideoIntro ? 30 : 0,
             }}
             transition={{
-              duration: 1,
-              delay: showVideoIntro ? 0 : 1.4,
+              duration: 0.4,
+              delay: showVideoIntro ? 0 : 0.4,
             }}
             className="flex flex-col sm:flex-row items-center justify-center gap-5 sm:gap-6"
           >
             <motion.button
               onClick={onProductsClick}
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.98 }}
               className="relative w-52 sm:w-60 h-14 sm:h-16 logo-orange-bg text-white font-medium rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 text-sm sm:text-base tracking-wider overflow-hidden group flex items-center justify-center focus:outline-none focus:ring-4 focus:ring-orange-300 focus:ring-offset-2"
               aria-label="Explore our steel products and solutions"
               tabIndex={0}
@@ -608,14 +613,11 @@ export default function HeroSection({
             >
               <span className="relative z-10 flex items-center justify-center gap-2">
                 Explore Products
-                <motion.svg
+                <svg
                   className="w-5 h-5"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
-                  initial={{ x: 0 }}
-                  whileHover={{ x: 4 }}
-                  transition={{ duration: 0.3 }}
                 >
                   <path
                     strokeLinecap="round"
@@ -623,19 +625,11 @@ export default function HeroSection({
                     strokeWidth={2}
                     d="M9 5l7 7-7 7"
                   />
-                </motion.svg>
+                </svg>
               </span>
-              <motion.div
-                className="absolute inset-0 bg-white/20"
-                initial={{ x: "-100%" }}
-                whileHover={{ x: "100%" }}
-                transition={{ duration: 0.6, ease: "easeInOut" }}
-              />
             </motion.button>
             <motion.button
-              onClick={onAboutClick}
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.98 }}
+              onClick={handleAboutClick}
               className="relative w-52 sm:w-60 h-14 sm:h-16 bg-white border border-gray-200 text-gray-800 font-medium rounded-lg hover:border-gray-300 transition-all duration-300 text-sm sm:text-base tracking-wider group overflow-hidden shadow-sm hover:shadow-md flex items-center justify-center focus:outline-none focus:ring-4 focus:ring-blue-300 focus:ring-offset-2"
               aria-label="Learn more about our company"
               tabIndex={0}
@@ -645,14 +639,11 @@ export default function HeroSection({
             >
               <span className="relative z-10 flex items-center justify-center gap-2 text-gray-800 transition-colors duration-300">
                 Learn More
-                <motion.svg
+                <svg
                   className="w-4 h-4"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
-                  initial={{ x: 0 }}
-                  whileHover={{ x: 4 }}
-                  transition={{ duration: 0.3 }}
                 >
                   <path
                     strokeLinecap="round"
@@ -660,7 +651,7 @@ export default function HeroSection({
                     strokeWidth={2}
                     d="M9 5l7 7-7 7"
                   />
-                </motion.svg>
+                </svg>
               </span>
             </motion.button>
             {/* Interactive Slider CTA to Sustainability */}
@@ -670,7 +661,7 @@ export default function HeroSection({
                 opacity: showVideoIntro ? 0 : 1,
                 y: showVideoIntro ? 30 : 0,
               }}
-              transition={{ duration: 1, delay: showVideoIntro ? 0 : 1.6 }}
+              transition={{ duration: 0.3, delay: showVideoIntro ? 0 : 0.5 }}
               className="relative select-none"
             >
               <div className="sustainability-slider w-48 sm:w-56 h-14 sm:h-16 bg-white/95 backdrop-blur-sm border-2 border-gray-200 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 relative overflow-hidden">
@@ -692,7 +683,7 @@ export default function HeroSection({
                         x: [0, 4, 0],
                       }}
                       transition={{
-                        duration: 1.5,
+                        duration: 0.5,
                         repeat: Infinity,
                         ease: "easeInOut",
                       }}
@@ -704,7 +695,7 @@ export default function HeroSection({
                         x: [0, 4, 0],
                       }}
                       transition={{
-                        duration: 1.5,
+                        duration: 0.5,
                         repeat: Infinity,
                         ease: "easeInOut",
                         delay: 0.2,
@@ -787,7 +778,7 @@ export default function HeroSection({
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 1.7 }}
+          transition={{ duration: 0.3, delay: 0.6 }}
           className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-center"
         >
           <motion.div

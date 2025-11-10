@@ -18,14 +18,15 @@ type Product = {
 };
 
 export default function ProductsSection() {
-  // Products data for homepage carousel (6 products)
+  // Products data for homepage carousel - ordered as requested
   const products: Product[] = useMemo(
     () => [
+      // 1. TMT Bars
       {
         id: 1,
         title: "TMT Bars",
         description:
-          "Thermo Mechanical Treatment Steel bars used in Earthquake-resistant construction",
+          "The Backbone of Modern Construction. A superior choice for construction projects that demand strength, durability, and safety. Thermo-Mechanically Treated (TMT) Bars provide exceptional resistance to seismic forces, corrosion, and high temperatures.",
         image: `${
           process.env.NEXT_PUBLIC_BASE_PATH || ""
         }/products/tmt bars.jpg`,
@@ -42,17 +43,50 @@ export default function ProductsSection() {
           "Earthquake-resistant Structures",
         ],
         features: [
-          "Superior Ductility",
-          "High Tensile Strength",
+          "High Strength and Durability",
           "Corrosion Resistance",
-          "Weldability",
+          "Earthquake Resistance",
+          "Enhanced Workability",
+          "Sustainable",
         ],
       },
+      // 2. Round Bars
       {
         id: 2,
+        title: "Round Bar",
+        description:
+          "Precision and Strength for Diverse Applications. At A1 Iron & Steel, we specialize in the production of high-quality round bars, engineered to meet the needs of a wide range of industries, including construction, manufacturing, automotive, and more. Our round bars are crafted with precision and durability in mind, offering superior strength and reliability for both standard and customized applications.",
+        image: `${
+          process.env.NEXT_PUBLIC_BASE_PATH || ""
+        }/products/Round bars.jpg`,
+        specifications: [
+          "Diameter: 6mm-100mm",
+          "Grade: Stainless Steel",
+          "Surface: Bright/Polished",
+          "Length: 3m-6m",
+        ],
+        applications: [
+          "Machinery Components",
+          "Construction",
+          "Automotive Parts",
+          "Manufacturing",
+        ],
+        features: [
+          "High Strength and Durability",
+          "Versatile Applications",
+          "Precision Manufacturing",
+          "Corrosion Resistance",
+          "Customizable to Your Needs",
+          "Cost-Effective and Efficient",
+          "Sustainable Production",
+        ],
+      },
+      // 3. Wire Rods
+      {
+        id: 3,
         title: "5.5MM Wire Rod",
         description:
-          "A low-carbon general-purpose manufacturing wire used in a wide range of industries",
+          "Versatile and Reliable for Multiple Applications. A versatile and essential product used in a wide range of industries. Our wire rods are manufactured with precision, ensuring uniformity and superior mechanical properties. With exceptional strength, flexibility, and durability, these wire rods are an ideal choice for various applications, from construction to industrial manufacturing.",
         image: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/products/5.5mm.webp`,
         specifications: [
           "Diameter: 5.5mm",
@@ -61,45 +95,20 @@ export default function ProductsSection() {
           "Tolerance: ±0.1mm",
         ],
         applications: [
-          "Wire Drawing",
-          "Nail Manufacturing",
-          "Mesh Production",
-          "Spring Manufacturing",
+          "Construction: For reinforcing concrete, manufacturing nails, and other wire products",
+          "Automotive: In the production of automotive components such as springs and wires",
+          "Fencing: Used for making robust, durable fencing solutions",
+          "Engineering & Manufacturing: As raw material for precision wire products like cables, coils, and more",
         ],
         features: [
-          "Consistent Quality",
-          "Excellent Drawability",
-          "Uniform Cross-section",
-          "High Purity",
+          "Superior Strength and Flexibility",
+          "Precision and Uniformity",
+          "Corrosion Resistance",
+          "Wide Range of Applications",
+          "Environmentally Sustainable",
         ],
       },
-      {
-        id: 3,
-        title: "Hot Rolled Strip",
-        description:
-          "Strong hot-rolled strip, engineered to meet the diverse needs of various industries",
-        image: `${
-          process.env.NEXT_PUBLIC_BASE_PATH || ""
-        }/products/HOT-ROLLED-STRIP.webp`,
-        specifications: [
-          "Thickness: 1.5mm-12mm",
-          "Width: 25mm-200mm",
-          "Grade: Mild Steel",
-          "Surface: Mill Scale",
-        ],
-        applications: [
-          "Automotive Industry",
-          "Construction",
-          "Manufacturing",
-          "Fabrication",
-        ],
-        features: [
-          "Dimensional Accuracy",
-          "Good Surface Finish",
-          "Machinability",
-          "Formability",
-        ],
-      },
+      // 4. Section Products (V Angle, C Channel, I-Beam, Flat Bar)
       {
         id: 4,
         title: "V Angle",
@@ -129,33 +138,6 @@ export default function ProductsSection() {
       },
       {
         id: 5,
-        title: "Flat Bar",
-        description:
-          "Bars Crafted to provide reliable strength and versatility for a range of manufacturing applications",
-        image: `${
-          process.env.NEXT_PUBLIC_BASE_PATH || ""
-        }/products/Flat-Bars.jpg`,
-        specifications: [
-          "Width: 10mm-200mm",
-          "Thickness: 3mm-50mm",
-          "Grade: Mild Steel",
-          "Surface: Mill Finish",
-        ],
-        applications: [
-          "Machinery Parts",
-          "Fabrication",
-          "Construction",
-          "Manufacturing",
-        ],
-        features: [
-          "Precise Dimensions",
-          "Good Machinability",
-          "Consistent Quality",
-          "Weldability",
-        ],
-      },
-      {
-        id: 6,
         title: "C Channel",
         description:
           "C Channels engineered to provide outstanding structural support, stability, and versatility",
@@ -182,7 +164,7 @@ export default function ProductsSection() {
         ],
       },
       {
-        id: 7,
+        id: 6,
         title: "I-Beam",
         description:
           "Specifically designed to provide maximum structural strength, stability, and reliability",
@@ -209,32 +191,61 @@ export default function ProductsSection() {
         ],
       },
       {
-        id: 8,
-        title: "Round Bar",
+        id: 7,
+        title: "Flat Bar",
         description:
-          "Engineered to meet the needs of construction, manufacturing, automotive, and more industries",
+          "Bars Crafted to provide reliable strength and versatility for a range of manufacturing applications",
         image: `${
           process.env.NEXT_PUBLIC_BASE_PATH || ""
-        }/products/Round bars.jpg`,
+        }/products/Flat-Bars.jpg`,
         specifications: [
-          "Diameter: 6mm-100mm",
-          "Grade: Stainless Steel",
-          "Surface: Bright/Polished",
-          "Length: 3m-6m",
+          "Width: 10mm-200mm",
+          "Thickness: 3mm-50mm",
+          "Grade: Mild Steel",
+          "Surface: Mill Finish",
         ],
         applications: [
-          "Machinery Components",
+          "Machinery Parts",
+          "Fabrication",
           "Construction",
-          "Automotive Parts",
           "Manufacturing",
         ],
         features: [
-          "Corrosion Resistance",
-          "High Strength",
-          "Excellent Machinability",
+          "Precise Dimensions",
+          "Good Machinability",
           "Consistent Quality",
+          "Weldability",
         ],
       },
+      // 5. Hot Rolled Strip
+      {
+        id: 8,
+        title: "Hot Rolled Strip",
+        description:
+          "Strong hot-rolled strip, engineered to meet the diverse needs of various industries",
+        image: `${
+          process.env.NEXT_PUBLIC_BASE_PATH || ""
+        }/products/HOT-ROLLED-STRIP.webp`,
+        specifications: [
+          "Thickness: 1.5mm-12mm",
+          "Width: 25mm-200mm",
+          "Grade: Mild Steel",
+          "Surface: Mill Scale",
+        ],
+        applications: [
+          "Automotive Industry",
+          "Construction",
+          "Manufacturing",
+          "Fabrication",
+        ],
+        features: [
+          "Dimensional Accuracy",
+          "Good Surface Finish",
+          "Machinability",
+          "Formability",
+        ],
+      },
+      // 6. Hollow Sections
       {
         id: 9,
         title: "Hollow Section",
@@ -260,6 +271,7 @@ export default function ProductsSection() {
           "Versatile Applications",
         ],
       },
+      // 7. Wire Products
       {
         id: 10,
         title: "Wire Nails",
@@ -467,14 +479,14 @@ export default function ProductsSection() {
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.3 }}
           viewport={{ once: true }}
           className="text-center mb-12 sm:mb-16 lg:mb-20"
         >
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            transition={{ duration: 0.3, delay: 0.05 }}
             viewport={{ once: true }}
             className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold mb-6 tracking-wide"
             style={{ letterSpacing: "0.03em" }}
@@ -487,7 +499,7 @@ export default function ProductsSection() {
           <motion.div
             initial={{ opacity: 0, scaleX: 0 }}
             whileInView={{ opacity: 1, scaleX: 1 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
+            transition={{ duration: 0.3, delay: 0.1 }}
             viewport={{ once: true }}
             className="w-20 sm:w-24 h-0.5 logo-orange-bg mx-auto mb-6 sm:mb-8"
           />
@@ -495,7 +507,7 @@ export default function ProductsSection() {
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
+            transition={{ duration: 0.3, delay: 0.1 }}
             viewport={{ once: true }}
             className="text-base sm:text-lg text-gray-600 font-light tracking-wide"
             style={{ letterSpacing: "0.02em" }}
@@ -607,7 +619,7 @@ export default function ProductsSection() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.8 }}
+            transition={{ duration: 0.3, delay: 0.2 }}
             viewport={{ once: true }}
             className="flex justify-center mt-8 space-x-2"
           >
@@ -631,7 +643,7 @@ export default function ProductsSection() {
           <motion.p
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 1.0 }}
+            transition={{ duration: 0.3, delay: 0.25 }}
             viewport={{ once: true }}
             className="text-center text-sm text-gray-500 mt-6"
           >

@@ -2,9 +2,9 @@
 
 import React, { useState } from "react";
 import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
 import {
   X,
-  Phone,
   Mail,
   MapPin,
   Clock,
@@ -14,20 +14,27 @@ import {
 } from "lucide-react";
 
 interface ContactPageProps {
-  onClose: () => void;
+  onClose?: () => void;
 }
 
 export const ContactPage: React.FC<ContactPageProps> = ({ onClose }) => {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    number: "",
     message: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<
     "idle" | "success" | "error"
   >("idle");
+
+  const handleClose = () => {
+    router.push("/?skipIntro=true");
+    if (onClose) {
+      onClose();
+    }
+  };
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -43,24 +50,34 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onClose }) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate form submission
-    setTimeout(() => {
+    try {
+      // Create mailto link with form data
+      const subject = encodeURIComponent(
+        `Contact Form Submission from ${formData.name}`
+      );
+      const body = encodeURIComponent(
+        `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
+      );
+      const mailtoLink = `mailto:hr@a1steelrwanda.com?subject=${subject}&body=${body}`;
+
+      // Open email client
+      window.location.href = mailtoLink;
+
+      // Show success message
       setIsSubmitting(false);
       setSubmitStatus("success");
-      setFormData({ name: "", email: "", number: "", message: "" });
+      setFormData({ name: "", email: "", message: "" });
 
-      // Reset success message after 3 seconds
+      // Reset success message after 5 seconds
+      setTimeout(() => setSubmitStatus("idle"), 5000);
+    } catch (error) {
+      setIsSubmitting(false);
+      setSubmitStatus("error");
       setTimeout(() => setSubmitStatus("idle"), 3000);
-    }, 2000);
+    }
   };
 
   const contactInfo = [
-    {
-      icon: Phone,
-      title: "Phone Numbers",
-      details: ["+250 790 060 555", "+250 795 555 555"],
-      color: "from-blue-500 to-blue-600",
-    },
     {
       icon: Mail,
       title: "Email Address",
@@ -131,7 +148,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onClose }) => {
               </p>
             </motion.div>
             <motion.button
-              onClick={onClose}
+              onClick={handleClose}
               className="group p-3 rounded-full bg-white/10 hover:bg-white/20 transition-all duration-300 border border-white/20 hover:border-orange-400/50"
               whileHover={{ scale: 1.1, rotate: 90 }}
               whileTap={{ scale: 0.9 }}
@@ -299,34 +316,11 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onClose }) => {
                   />
                 </motion.div>
 
-                {/* Phone Field */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 1.2 }}
-                >
-                  <label
-                    htmlFor="number"
-                    className="block text-sm font-medium text-white/90 mb-2"
-                  >
-                    Phone Number
-                  </label>
-                  <input
-                    type="tel"
-                    id="number"
-                    name="number"
-                    value={formData.number}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-300"
-                    placeholder="+250 XXX XXX XXX"
-                  />
-                </motion.div>
-
                 {/* Message Field */}
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 1.3 }}
+                  transition={{ duration: 0.5, delay: 1.2 }}
                 >
                   <label
                     htmlFor="message"

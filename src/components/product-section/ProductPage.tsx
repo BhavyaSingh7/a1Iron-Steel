@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import {
   X,
   ArrowRight,
@@ -30,20 +31,27 @@ interface Product {
 }
 
 export default function ProductPage({ onClose }: { onClose: () => void }) {
+  const router = useRouter();
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
-  const [filter, setFilter] = useState<string>("all");
 
-  // Complete products data from A1 Steel Rwanda website
+  const handleClose = () => {
+    router.push("/?skipIntro=true");
+    if (onClose) {
+      onClose();
+    }
+  };
+
+  // Complete products data from A1 Steel Rwanda website - ordered as requested
   const products: Product[] = [
     {
       id: 1,
       title: "TMT Bars",
       category: "Construction",
       description:
-        "Thermo Mechanical Treatment Steel bars used in Earthquake-resistant construction with superior strength and durability.",
-      shortDescription: "High-strength steel bars for construction",
-      image:
-        "https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=2070&auto=format&fit=crop",
+        "A superior choice for construction projects that demand strength, durability, and safety. Thermo-Mechanically Treated (TMT) Bars are the cornerstone of modern construction, providing exceptional resistance to seismic forces, corrosion, and high temperatures. Manufactured using state-of-the-art technology, our TMT bars are designed to meet the highest industry standards, ensuring both structural integrity and long-lasting performance.",
+      shortDescription:
+        "The Backbone of Modern Construction - Superior strength, durability, and earthquake resistance",
+      image: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/products/tmt bars.jpg`,
       specifications: [
         "Grade: Fe500",
         "Diameter: 8mm-32mm",
@@ -57,15 +65,16 @@ export default function ProductPage({ onClose }: { onClose: () => void }) {
         "Earthquake-resistant Structures",
       ],
       features: [
-        "Superior Ductility",
-        "High Tensile Strength",
+        "High Strength and Durability",
         "Corrosion Resistance",
-        "Weldability",
+        "Earthquake Resistance",
+        "Enhanced Workability",
+        "Sustainable",
       ],
       benefits: [
         "Superior structural integrity",
-        "Reduced construction time",
-        "Long-term durability",
+        "Exceptional resistance to seismic forces",
+        "Long-term durability and performance",
         "Cost-effective solution",
       ],
       certifications: ["ISI Mark", "BIS Certified", "ISO 9001:2015"],
@@ -74,36 +83,43 @@ export default function ProductPage({ onClose }: { onClose: () => void }) {
     },
     {
       id: 2,
-      title: "5.5MM Wire Rod",
+      title: "Round Bar",
       category: "Manufacturing",
       description:
-        "A low-carbon general-purpose manufacturing wire used in a wide range of industries.",
-      shortDescription: "Low-carbon manufacturing wire",
-      image:
-        "https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=2070&auto=format&fit=crop",
+        "Precision and Strength for Diverse Applications. At A1 Iron & Steel, we specialize in the production of high-quality round bars, engineered to meet the needs of a wide range of industries, including construction, manufacturing, automotive, and more. Our round bars are crafted with precision and durability in mind, offering superior strength and reliability for both standard and customized applications. With advanced manufacturing processes and strict quality control, our round bars meet the highest industry standards.",
+      shortDescription: "Precision and Strength for Diverse Applications",
+      image: `${
+        process.env.NEXT_PUBLIC_BASE_PATH || ""
+      }/products/Round bars.jpg`,
       specifications: [
-        "Diameter: 5.5mm",
-        "Grade: Low Carbon Steel",
-        "Surface: Bright",
-        "Tolerance: ±0.1mm",
+        "Diameter: 6mm-100mm",
+        "Grade: Stainless Steel",
+        "Surface: Bright/Polished",
+        "Length: 3m-6m",
       ],
       applications: [
-        "Wire Drawing",
-        "Nail Manufacturing",
-        "Mesh Production",
-        "Spring Manufacturing",
+        "Machinery Components",
+        "Construction",
+        "Automotive Parts",
+        "Manufacturing",
       ],
       features: [
-        "Consistent Quality",
-        "Excellent Drawability",
-        "Uniform Cross-section",
-        "High Purity",
+        "High Strength and Durability",
+        "Versatile Applications",
+        "Precision Manufacturing",
+        "Corrosion Resistance",
+        "Customizable to Your Needs",
+        "Cost-Effective and Efficient",
+        "Sustainable Production",
       ],
       benefits: [
-        "Versatile applications",
-        "Consistent quality",
-        "Easy processing",
-        "Cost competitive",
+        "High strength and durability",
+        "Versatile applications across industries",
+        "Precision manufacturing with strict quality control",
+        "Corrosion resistance for long-lasting performance",
+        "Customizable to meet specific project needs",
+        "Cost-effective and efficient solution",
+        "Sustainable production practices",
       ],
       certifications: ["ISO 9001", "ASTM Standards"],
       priceRange: "Contact for pricing",
@@ -111,36 +127,37 @@ export default function ProductPage({ onClose }: { onClose: () => void }) {
     },
     {
       id: 3,
-      title: "Hot Rolled Strip",
+      title: "5.5MM Wire Rod",
       category: "Manufacturing",
       description:
-        "Strong hot-rolled strip, engineered to meet the diverse needs of various industries.",
-      shortDescription: "High-strength hot-rolled construction material",
-      image:
-        "https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=2070&auto=format&fit=crop",
+        "Versatile and Reliable for Multiple Applications. A versatile and essential product used in a wide range of industries. Our wire rods are manufactured with precision, ensuring uniformity and superior mechanical properties. With exceptional strength, flexibility, and durability, these wire rods are an ideal choice for various applications, from construction to industrial manufacturing.",
+      shortDescription: "Versatile and Reliable for Multiple Applications",
+      image: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/products/5.5mm.webp`,
       specifications: [
-        "Thickness: 1.5mm-12mm",
-        "Width: 25mm-200mm",
-        "Grade: Mild Steel",
-        "Surface: Mill Scale",
+        "Diameter: 5.5mm",
+        "Grade: Low Carbon Steel",
+        "Surface: Bright",
+        "Tolerance: ±0.1mm",
       ],
       applications: [
-        "Automotive Industry",
-        "Construction",
-        "Manufacturing",
-        "Fabrication",
+        "Construction: For reinforcing concrete, manufacturing nails, and other wire products",
+        "Automotive: In the production of automotive components such as springs and wires",
+        "Fencing: Used for making robust, durable fencing solutions",
+        "Engineering & Manufacturing: As raw material for precision wire products like cables, coils, and more",
       ],
       features: [
-        "Dimensional Accuracy",
-        "Good Surface Finish",
-        "Machinability",
-        "Formability",
+        "Superior Strength and Flexibility",
+        "Precision and Uniformity",
+        "Corrosion Resistance",
+        "Wide Range of Applications",
+        "Environmentally Sustainable",
       ],
       benefits: [
-        "Versatile applications",
-        "Consistent quality",
-        "Easy fabrication",
-        "Long service life",
+        "Superior strength and flexibility for diverse applications",
+        "Precision manufacturing ensuring uniformity",
+        "Corrosion resistance for long-lasting performance",
+        "Wide range of applications across industries",
+        "Environmentally sustainable production",
       ],
       certifications: ["ISO 9001", "ASTM Standards"],
       priceRange: "Contact for pricing",
@@ -153,8 +170,7 @@ export default function ProductPage({ onClose }: { onClose: () => void }) {
       description:
         "Designed to meet the demands of the most rigorous construction and industrial applications.",
       shortDescription: "Versatile stainless steel structural connector",
-      image:
-        "https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=2070&auto=format&fit=crop",
+      image: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/products/V-ANGLES.jpg`,
       specifications: [
         "Size: 25x25mm to 200x200mm",
         "Thickness: 3mm-20mm",
@@ -185,18 +201,17 @@ export default function ProductPage({ onClose }: { onClose: () => void }) {
     },
     {
       id: 5,
-      title: "Flat Bar",
-      category: "Manufacturing",
+      title: "C Channel",
+      category: "Construction",
       description:
-        "Bars Crafted to provide reliable strength and versatility for a range of manufacturing applications.",
-      shortDescription: "Steel flat bar for versatile industrial applications",
-      image:
-        "https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=2070&auto=format&fit=crop",
+        "C Channels engineered to provide outstanding structural support, stability, and versatility.",
+      shortDescription: "Corrosion-resistant hot-dip galvanized channel steel",
+      image: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/products/C-Chanel.jpg`,
       specifications: [
-        "Width: 10mm-200mm",
-        "Thickness: 3mm-50mm",
-        "Grade: Mild Steel",
-        "Surface: Mill Finish",
+        "Size: 75x40mm to 200x75mm",
+        "Thickness: 2mm-8mm",
+        "Coating: Hot-dip Galvanized",
+        "Length: 6m-12m",
       ],
       applications: [
         "Machinery Parts",
@@ -222,16 +237,17 @@ export default function ProductPage({ onClose }: { onClose: () => void }) {
     },
     {
       id: 6,
-      title: "C Channel",
+      title: "I-Beam",
       category: "Construction",
       description:
-        "C Channels engineered to provide outstanding structural support, stability, and versatility.",
-      shortDescription: "Corrosion-resistant hot-dip galvanized channel steel",
-      image:
-        "https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=2070&auto=format&fit=crop",
+        "Specifically designed to provide maximum structural strength, stability, and reliability.",
+      shortDescription: "Corrosion-resistant galvanized I-beam steel",
+      image: `${
+        process.env.NEXT_PUBLIC_BASE_PATH || ""
+      }/products/STEEL-BEAMS.jpg`,
       specifications: [
-        "Size: 75x40mm to 200x75mm",
-        "Thickness: 2mm-8mm",
+        "Size: 100x50mm to 600x200mm",
+        "Thickness: 3mm-25mm",
         "Coating: Hot-dip Galvanized",
         "Length: 6m-12m",
       ],
@@ -259,18 +275,19 @@ export default function ProductPage({ onClose }: { onClose: () => void }) {
     },
     {
       id: 7,
-      title: "I-Beam",
-      category: "Construction",
+      title: "Flat Bar",
+      category: "Manufacturing",
       description:
-        "Specifically designed to provide maximum structural strength, stability, and reliability.",
-      shortDescription: "Corrosion-resistant galvanized I-beam steel",
-      image:
-        "https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=2070&auto=format&fit=crop",
+        "Bars Crafted to provide reliable strength and versatility for a range of manufacturing applications.",
+      shortDescription: "Steel flat bar for versatile industrial applications",
+      image: `${
+        process.env.NEXT_PUBLIC_BASE_PATH || ""
+      }/products/Flat-Bars.jpg`,
       specifications: [
-        "Size: 100x50mm to 600x200mm",
-        "Thickness: 3mm-25mm",
-        "Coating: Hot-dip Galvanized",
-        "Length: 6m-12m",
+        "Width: 10mm-200mm",
+        "Thickness: 3mm-50mm",
+        "Grade: Mild Steel",
+        "Surface: Mill Finish",
       ],
       applications: [
         "Structural Framing",
@@ -296,18 +313,19 @@ export default function ProductPage({ onClose }: { onClose: () => void }) {
     },
     {
       id: 8,
-      title: "Round Bar",
+      title: "Hot Rolled Strip",
       category: "Manufacturing",
       description:
-        "Engineered to meet the needs of construction, manufacturing, automotive, and more industries.",
-      shortDescription: "Corrosion-resistant stainless steel round bar",
-      image:
-        "https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=2070&auto=format&fit=crop",
+        "Strong hot-rolled strip, engineered to meet the diverse needs of various industries.",
+      shortDescription: "High-strength hot-rolled construction material",
+      image: `${
+        process.env.NEXT_PUBLIC_BASE_PATH || ""
+      }/products/HOT-ROLLED-STRIP.webp`,
       specifications: [
-        "Diameter: 6mm-100mm",
-        "Grade: Stainless Steel",
-        "Surface: Bright/Polished",
-        "Length: 3m-6m",
+        "Thickness: 1.5mm-12mm",
+        "Width: 25mm-200mm",
+        "Grade: Mild Steel",
+        "Surface: Mill Scale",
       ],
       applications: [
         "Machinery Components",
@@ -338,8 +356,7 @@ export default function ProductPage({ onClose }: { onClose: () => void }) {
       description:
         "Versatile hollow section with exceptional strength for construction, structural, & engineering applications.",
       shortDescription: "Versatile hollow section for structural construction",
-      image:
-        "https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=2070&auto=format&fit=crop",
+      image: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/products/HS.jpg`,
       specifications: [
         "Size: 20x20mm to 400x400mm",
         "Thickness: 1.5mm-12mm",
@@ -376,8 +393,9 @@ export default function ProductPage({ onClose }: { onClose: () => void }) {
         "Versatile and durable Wire nails, perfect for both industrial and construction applications.",
       shortDescription:
         "Wire nails: versatile, durable fasteners for construction",
-      image:
-        "https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=2070&auto=format&fit=crop",
+      image: `${
+        process.env.NEXT_PUBLIC_BASE_PATH || ""
+      }/products/Wire-Nails (1).avif`,
       specifications: [
         "Length: 25mm-150mm",
         "Diameter: 2mm-6mm",
@@ -413,8 +431,9 @@ export default function ProductPage({ onClose }: { onClose: () => void }) {
       description:
         "Deliver reliable performance in a range of applications, construction to general industrial use.",
       shortDescription: "Durable, corrosion-resistant galvanized binding wire",
-      image:
-        "https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=2070&auto=format&fit=crop",
+      image: `${
+        process.env.NEXT_PUBLIC_BASE_PATH || ""
+      }/products/Binding-Wire (1).jpg`,
       specifications: [
         "Diameter: 0.8mm-2.5mm",
         "Material: Galvanized Steel",
@@ -451,8 +470,7 @@ export default function ProductPage({ onClose }: { onClose: () => void }) {
         "British Reinforcement Concrete mesh for concrete strengthening.",
       shortDescription:
         "British Reinforcement Concrete mesh for concrete strengthening",
-      image:
-        "https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=2070&auto=format&fit=crop",
+      image: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/products/brc.jpg`,
       specifications: [
         "Mesh Size: 100x100mm to 200x200mm",
         "Wire Diameter: 4mm-8mm",
@@ -488,8 +506,9 @@ export default function ProductPage({ onClose }: { onClose: () => void }) {
       description:
         "GI (Galvanized Iron) Chain Link fencing that provides a strong, durable, and cost-effective solution for securing properties and enclosures.",
       shortDescription: "Durable galvanized chain-link fencing material",
-      image:
-        "https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=2070&auto=format&fit=crop",
+      image: `${
+        process.env.NEXT_PUBLIC_BASE_PATH || ""
+      }/products/gi chain link.jpg`,
       specifications: [
         "Mesh Size: 50mm-100mm",
         "Wire Gauge: 8-12 gauge",
@@ -525,8 +544,9 @@ export default function ProductPage({ onClose }: { onClose: () => void }) {
       description:
         "Widely used in various security applications to deter trespassers and enhance safety, Known for its sharpness and durability.",
       shortDescription: "Secure, cost-effective barbed wire fencing solution",
-      image:
-        "https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=2070&auto=format&fit=crop",
+      image: `${
+        process.env.NEXT_PUBLIC_BASE_PATH || ""
+      }/products/barbed-wires.jpg`,
       specifications: [
         "Wire Gauge: 12-14 gauge",
         "Barb Spacing: 75mm-150mm",
@@ -556,13 +576,6 @@ export default function ProductPage({ onClose }: { onClose: () => void }) {
       availability: "In Stock",
     },
   ];
-
-  const categories = ["all", "Construction", "Manufacturing", "Infrastructure"];
-
-  const filteredProducts =
-    filter === "all"
-      ? products
-      : products.filter((product) => product.category === filter);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -610,13 +623,14 @@ export default function ProductPage({ onClose }: { onClose: () => void }) {
               </p>
             </motion.div>
             <motion.button
-              onClick={onClose}
+              onClick={handleClose}
               className="group p-3 rounded-full bg-white/10 hover:bg-white/20 transition-all duration-300 border border-white/20 hover:border-orange-400/50"
               whileHover={{ scale: 1.1, rotate: 90 }}
               whileTap={{ scale: 0.9 }}
               initial={{ opacity: 0, rotate: -90 }}
               animate={{ opacity: 1, rotate: 0 }}
               transition={{ duration: 0.6, delay: 0.5 }}
+              aria-label="Close products page"
             >
               <X className="w-6 h-6 text-white group-hover:text-orange-400 transition-colors duration-300" />
             </motion.button>
@@ -625,58 +639,39 @@ export default function ProductPage({ onClose }: { onClose: () => void }) {
       </motion.div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Filter Tabs */}
-        <motion.div
-          className="flex flex-wrap gap-3 mb-12"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-        >
-          {categories.map((category, index) => (
-            <motion.button
-              key={category}
-              onClick={() => setFilter(category)}
-              className={`group relative px-6 py-3 rounded-full text-sm font-semibold transition-all duration-500 overflow-hidden ${
-                filter === category
-                  ? "bg-gradient-to-r from-orange-500 to-orange-600 text-white shadow-xl shadow-orange-500/25 scale-105"
-                  : "bg-white/10 text-white/80 hover:bg-white/20 hover:text-white border border-white/20 hover:border-orange-400/50"
-              }`}
-              whileHover={{
-                scale: 1.05,
-                y: -2,
-                boxShadow: "0 10px 25px rgba(249, 115, 22, 0.2)",
-              }}
-              whileTap={{ scale: 0.95 }}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.5 + index * 0.1 }}
-            >
-              <span className="relative z-10">
-                {category.charAt(0).toUpperCase() + category.slice(1)}
-              </span>
-              {filter === category && (
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-orange-400 to-orange-600 rounded-full"
-                  layoutId="activeFilter"
-                  transition={{ duration: 0.3, ease: "easeInOut" }}
-                />
-              )}
-            </motion.button>
-          ))}
-        </motion.div>
-
+        {/* Structured Data for Products */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "A1 Iron & Steel",
+              description: "Rwanda's premier steel manufacturer",
+              url: "https://a1steelrwanda.com",
+              logo: "https://a1steelrwanda.com/logo.png",
+              address: {
+                "@type": "PostalAddress",
+                addressLocality: "Kigali",
+                addressCountry: "RW",
+              },
+            }),
+          }}
+        />
         {/* Products Grid */}
         <motion.div
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
           variants={containerVariants}
           initial="hidden"
           animate="visible"
+          role="list"
+          aria-label="Product catalog"
         >
-          {filteredProducts.map((product, index) => (
+          {products.map((product, index) => (
             <motion.div
               key={product.id}
               variants={itemVariants}
-              className="group relative bg-white/5 backdrop-blur-xl rounded-3xl p-6 border border-white/10 hover:border-orange-500/50 transition-all duration-500 cursor-pointer overflow-hidden"
+              className="group relative bg-white/5 backdrop-blur-xl rounded-3xl p-6 border border-white/10 hover:border-orange-500/50 transition-all duration-500 cursor-pointer overflow-hidden flex flex-col"
               whileHover={{
                 y: -8,
                 scale: 1.02,
@@ -686,6 +681,15 @@ export default function ProductPage({ onClose }: { onClose: () => void }) {
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
+              role="listitem"
+              aria-label={`View details for ${product.title}`}
+              tabIndex={0}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  setSelectedProduct(product);
+                }
+              }}
             >
               {/* Background Gradient */}
               <div className="absolute inset-0 bg-gradient-to-br from-orange-500/5 via-transparent to-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -699,17 +703,6 @@ export default function ProductPage({ onClose }: { onClose: () => void }) {
                   className="object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-
-                {/* Category Badge */}
-                <div className="absolute top-4 left-4">
-                  <motion.span
-                    className="px-4 py-2 bg-gradient-to-r from-orange-500 to-orange-600 text-white text-xs font-bold rounded-full shadow-lg"
-                    whileHover={{ scale: 1.05 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    {product.category}
-                  </motion.span>
-                </div>
 
                 {/* Arrow Icon */}
                 <div className="absolute top-4 right-4">
@@ -739,7 +732,7 @@ export default function ProductPage({ onClose }: { onClose: () => void }) {
               </div>
 
               {/* Product Info */}
-              <div className="space-y-4 relative z-10">
+              <div className="space-y-4 relative z-10 flex flex-col flex-1">
                 <div>
                   <h3 className="text-xl font-bold text-white group-hover:text-orange-400 transition-colors duration-300 mb-2">
                     {product.title}
@@ -771,8 +764,8 @@ export default function ProductPage({ onClose }: { onClose: () => void }) {
                   )}
                 </div>
 
-                {/* Price */}
-                <div className="pt-2 border-t border-white/10">
+                {/* Price - Pushed to bottom */}
+                <div className="pt-2 border-t border-white/10 mt-auto">
                   <span className="text-orange-400 font-bold text-lg">
                     {product.priceRange}
                   </span>
@@ -784,45 +777,6 @@ export default function ProductPage({ onClose }: { onClose: () => void }) {
             </motion.div>
           ))}
         </motion.div>
-
-        {/* Empty State */}
-        {filteredProducts.length === 0 && (
-          <motion.div
-            className="text-center py-20"
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-          >
-            <motion.div
-              className="w-32 h-32 mx-auto mb-8 bg-gradient-to-br from-orange-500/20 to-blue-500/20 rounded-full flex items-center justify-center border border-white/20"
-              animate={{
-                rotate: [0, 5, -5, 0],
-                scale: [1, 1.05, 1],
-              }}
-              transition={{
-                duration: 4,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-            >
-              <Star className="w-16 h-16 text-orange-400" />
-            </motion.div>
-            <h3 className="text-3xl font-bold text-white mb-4 bg-gradient-to-r from-white to-orange-400 bg-clip-text text-transparent">
-              No products found
-            </h3>
-            <p className="text-white/70 text-lg mb-6">
-              Try selecting a different category to explore our products
-            </p>
-            <motion.button
-              onClick={() => setFilter("all")}
-              className="px-8 py-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-full font-semibold hover:from-orange-600 hover:to-orange-700 transition-all duration-300 shadow-lg hover:shadow-xl"
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              View All Products
-            </motion.button>
-          </motion.div>
-        )}
       </div>
 
       {/* Product Detail Modal */}
@@ -854,10 +808,7 @@ export default function ProductPage({ onClose }: { onClose: () => void }) {
                     {selectedProduct.title}
                   </h2>
                   <div className="flex items-center mt-2">
-                    <span className="px-4 py-2 bg-gradient-to-r from-orange-500 to-orange-600 text-white text-sm font-semibold rounded-full">
-                      {selectedProduct.category}
-                    </span>
-                    <span className="ml-4 flex items-center text-green-600 font-medium">
+                    <span className="flex items-center text-green-600 font-medium">
                       <CheckCircle className="w-5 h-5 mr-2" />
                       {selectedProduct.availability}
                     </span>
@@ -871,6 +822,7 @@ export default function ProductPage({ onClose }: { onClose: () => void }) {
                   initial={{ opacity: 0, rotate: -90 }}
                   animate={{ opacity: 1, rotate: 0 }}
                   transition={{ duration: 0.4, delay: 0.3 }}
+                  aria-label="Close product details"
                 >
                   <X className="w-6 h-6 text-gray-500 group-hover:text-orange-500 transition-colors duration-300" />
                 </motion.button>
@@ -894,13 +846,6 @@ export default function ProductPage({ onClose }: { onClose: () => void }) {
                     className="object-cover group-hover:scale-105 transition-transform duration-700"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
-
-                  {/* Image Badge */}
-                  <div className="absolute top-4 left-4">
-                    <span className="px-4 py-2 bg-white/90 backdrop-blur-sm text-gray-800 text-sm font-semibold rounded-full shadow-lg">
-                      {selectedProduct.category}
-                    </span>
-                  </div>
                 </motion.div>
 
                 {/* Product Details */}
@@ -1040,7 +985,7 @@ export default function ProductPage({ onClose }: { onClose: () => void }) {
                 <div className="flex flex-col lg:flex-row items-center justify-between gap-6">
                   <div className="text-center lg:text-left">
                     <motion.p
-                      className="text-3xl font-bold bg-gradient-to-r from-gray-900 to-orange-600 bg-clip-text text-transparent mb-2"
+                      className="text-3xl font-bold bg-gradient-to-r from-gray-900 to-orange-600 bg-clip-text text-transparent mb-2 text-center lg:text-left"
                       initial={{ scale: 0.8 }}
                       animate={{ scale: 1 }}
                       transition={{ duration: 0.5, delay: 1.1 }}

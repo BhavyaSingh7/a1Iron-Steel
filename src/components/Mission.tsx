@@ -40,7 +40,7 @@ export default function Mission() {
       <motion.div
         initial={{ opacity: 0, scale: 0.8 }}
         whileInView={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 2, ease: "easeOut" }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
         viewport={{ once: true }}
         className="absolute inset-0 overflow-hidden"
       >
@@ -118,22 +118,11 @@ export default function Mission() {
               initial={{ opacity: 0, y: 60, scale: 0.8 }}
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
               transition={{
-                duration: 0.6,
-                delay: index * 0.1,
-                type: "spring",
-                stiffness: 150,
-                damping: 25,
+                duration: 0.3,
+                delay: index * 0.05,
+                ease: "easeOut",
               }}
               viewport={{ once: true, margin: "-50px" }}
-              whileHover={{
-                scale: 1.05,
-                y: -10,
-                transition: {
-                  type: "spring",
-                  stiffness: 400,
-                  damping: 25,
-                },
-              }}
               className="relative group"
             >
               {/* Glowing Background */}

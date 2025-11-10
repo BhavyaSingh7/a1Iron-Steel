@@ -137,7 +137,7 @@ export default function VideoSection() {
           className="absolute bottom-0 left-0 right-0 z-10 px-4 sm:px-6 md:px-8 pb-8 sm:pb-12 md:pb-16 lg:pb-20"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : 30 }}
-          transition={{ duration: 1, delay: 0.5 }}
+          transition={{ duration: 0.3, delay: 0.1 }}
         >
           <div className="text-center max-w-4xl mx-auto">
             <motion.p
