@@ -542,21 +542,21 @@ export default function ProductsSection() {
     <section
       id="products"
       aria-label="Product showcase section"
-      className="relative min-h-screen flex items-center justify-center py-16 sm:py-20 lg:py-24 bg-white overflow-hidden snap-start snap-always"
+      className="relative min-h-screen flex items-center justify-center py-16 sm:py-20 lg:py-24 bg-white overflow-hidden"
     >
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3 }}
+          transition={{ duration: 0.2 }}
           viewport={{ once: true }}
           className="text-center mb-12 sm:mb-16 lg:mb-20"
         >
           <motion.h2
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3, delay: 0.05 }}
+            transition={{ duration: 0.2 }}
             viewport={{ once: true }}
             className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold mb-6 tracking-wide"
             style={{ letterSpacing: "0.03em" }}
@@ -569,15 +569,15 @@ export default function ProductsSection() {
           <motion.div
             initial={{ opacity: 0, scaleX: 0 }}
             whileInView={{ opacity: 1, scaleX: 1 }}
-            transition={{ duration: 0.3, delay: 0.1 }}
+            transition={{ duration: 0.2 }}
             viewport={{ once: true }}
             className="w-20 sm:w-24 h-0.5 logo-orange-bg mx-auto mb-6 sm:mb-8"
           />
 
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3, delay: 0.1 }}
+            transition={{ duration: 0.2 }}
             viewport={{ once: true }}
             className="text-base sm:text-lg text-gray-600 font-light tracking-wide"
             style={{ letterSpacing: "0.02em" }}
@@ -879,7 +879,18 @@ export default function ProductsSection() {
 
               {/* Contact Button */}
               <div className="mt-8 text-center">
-                <button className="bg-orange-500 text-white px-8 py-3 rounded-xl font-semibold hover:bg-orange-600 transition-colors">
+                <button
+                  onClick={() => {
+                    const subject = encodeURIComponent(
+                      `Product Quote Request - ${selectedProduct.title}`
+                    );
+                    const body = encodeURIComponent(
+                      `Hello,\n\nI am interested in getting a quote for ${selectedProduct.title}.\n\nPlease provide me with pricing and availability information.\n\nThank you.`
+                    );
+                    window.location.href = `mailto:marketing@a1steelrwanda.com?subject=${subject}&body=${body}`;
+                  }}
+                  className="bg-orange-500 text-white px-8 py-3 rounded-xl font-semibold hover:bg-orange-600 transition-colors"
+                >
                   Request Quote
                 </button>
               </div>

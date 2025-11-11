@@ -29,12 +29,20 @@ export default function HeroSection({
   const [slideTriggered, setSlideTriggered] = useState(false);
   const fullText = "A1 IRON & STEEL";
 
+  const handleHomeClick = () => {
+    router.push("/?skipIntro=true");
+  };
+
   const handleAboutClick = () => {
     router.push("/about");
   };
 
   const handleContactClick = () => {
     router.push("/contactus");
+  };
+
+  const handleMediaClick = () => {
+    router.push("/media");
   };
 
   // Custom typing effect
@@ -55,7 +63,7 @@ export default function HeroSection({
           clearInterval(typeInterval);
           // Typewriter animation complete
         }
-      }, 150);
+      }, 80);
 
       return () => clearInterval(typeInterval);
     }, 1000);
@@ -117,7 +125,7 @@ export default function HeroSection({
   return (
     <section
       id="home"
-      className="relative h-screen flex items-center justify-center overflow-hidden snap-start snap-always"
+      className="relative h-screen flex items-center justify-center overflow-hidden"
       aria-label="Hero section with company introduction"
     >
       {/* Background Image Carousel */}
@@ -131,9 +139,8 @@ export default function HeroSection({
           animate={{
             opacity: currentBgImage === 0 ? 0.25 : 0,
           }}
-          transition={{ duration: 0.8, ease: "easeInOut" }}
+          transition={{ duration: 0.5, ease: "easeInOut" }}
           style={{
-            willChange: "opacity",
             zIndex: currentBgImage === 0 ? 2 : currentBgImage === 6 ? 1 : 0,
             pointerEvents: "none",
           }}
@@ -145,7 +152,7 @@ export default function HeroSection({
             alt="Background Image 1"
             fill
             className="object-cover"
-            quality={50}
+            quality={30}
             priority={currentBgImage === 0 || currentBgImage === 6}
             loading={
               currentBgImage === 0 || currentBgImage === 6 ? "eager" : "lazy"
@@ -159,7 +166,7 @@ export default function HeroSection({
           animate={{
             opacity: currentBgImage === 1 ? 0.25 : 0,
           }}
-          transition={{ duration: 0.8, ease: "easeInOut" }}
+          transition={{ duration: 0.5, ease: "easeInOut" }}
           style={{
             willChange: "opacity",
             zIndex: currentBgImage === 1 ? 2 : currentBgImage === 0 ? 1 : 0,
@@ -173,7 +180,7 @@ export default function HeroSection({
             alt="Background Image 2"
             fill
             className="object-cover"
-            quality={50}
+            quality={30}
             sizes="100vw"
             priority={currentBgImage === 1 || currentBgImage === 0}
             loading={
@@ -187,7 +194,7 @@ export default function HeroSection({
           animate={{
             opacity: currentBgImage === 2 ? 0.25 : 0,
           }}
-          transition={{ duration: 0.8, ease: "easeInOut" }}
+          transition={{ duration: 0.5, ease: "easeInOut" }}
           style={{
             willChange: "opacity",
             zIndex: currentBgImage === 2 ? 2 : currentBgImage === 1 ? 1 : 0,
@@ -201,7 +208,7 @@ export default function HeroSection({
             alt="Background Image 3"
             fill
             className="object-cover"
-            quality={50}
+            quality={30}
             sizes="100vw"
             priority={currentBgImage === 2 || currentBgImage === 1}
             loading={
@@ -215,7 +222,7 @@ export default function HeroSection({
           animate={{
             opacity: currentBgImage === 3 ? 0.25 : 0,
           }}
-          transition={{ duration: 0.8, ease: "easeInOut" }}
+          transition={{ duration: 0.5, ease: "easeInOut" }}
           style={{
             willChange: "opacity",
             zIndex: currentBgImage === 3 ? 2 : currentBgImage === 2 ? 1 : 0,
@@ -229,7 +236,7 @@ export default function HeroSection({
             alt="Background Image 4"
             fill
             className="object-cover"
-            quality={50}
+            quality={30}
             sizes="100vw"
             priority={currentBgImage === 3 || currentBgImage === 2}
             loading={
@@ -243,7 +250,7 @@ export default function HeroSection({
           animate={{
             opacity: currentBgImage === 4 ? 0.25 : 0,
           }}
-          transition={{ duration: 0.8, ease: "easeInOut" }}
+          transition={{ duration: 0.5, ease: "easeInOut" }}
           style={{
             willChange: "opacity",
             zIndex: currentBgImage === 4 ? 2 : currentBgImage === 3 ? 1 : 0,
@@ -257,7 +264,7 @@ export default function HeroSection({
             alt="Background Image 5"
             fill
             className="object-cover"
-            quality={50}
+            quality={30}
             sizes="100vw"
             priority={currentBgImage === 4 || currentBgImage === 3}
             loading={
@@ -271,7 +278,7 @@ export default function HeroSection({
           animate={{
             opacity: currentBgImage === 5 ? 0.25 : 0,
           }}
-          transition={{ duration: 0.8, ease: "easeInOut" }}
+          transition={{ duration: 0.5, ease: "easeInOut" }}
           style={{
             willChange: "opacity",
             zIndex: currentBgImage === 5 ? 2 : currentBgImage === 4 ? 1 : 0,
@@ -285,7 +292,7 @@ export default function HeroSection({
             alt="Background Image 6"
             fill
             className="object-cover"
-            quality={50}
+            quality={30}
             sizes="100vw"
             priority={currentBgImage === 5 || currentBgImage === 4}
             loading={
@@ -299,7 +306,7 @@ export default function HeroSection({
           animate={{
             opacity: currentBgImage === 6 ? 0.25 : 0,
           }}
-          transition={{ duration: 0.8, ease: "easeInOut" }}
+          transition={{ duration: 0.5, ease: "easeInOut" }}
           style={{
             willChange: "opacity",
             zIndex: currentBgImage === 6 ? 2 : currentBgImage === 5 ? 1 : 0,
@@ -313,7 +320,7 @@ export default function HeroSection({
             alt="Background Image 7"
             fill
             className="object-cover"
-            quality={50}
+            quality={30}
             sizes="100vw"
             priority={currentBgImage === 6 || currentBgImage === 5}
             loading={
@@ -340,11 +347,12 @@ export default function HeroSection({
             <div className="flex items-center justify-between h-16 md:h-20 lg:h-20">
               {/* Logo */}
               <div className="flex items-center h-full -ml-4 md:-ml-6">
-                <motion.a
-                  href="#home"
-                  className="flex items-center h-full"
+                <motion.button
+                  onClick={handleHomeClick}
+                  className="flex items-center h-full cursor-pointer"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
+                  aria-label="Navigate to home"
                 >
                   <div className="relative h-full w-auto py-2">
                     <Image
@@ -358,7 +366,7 @@ export default function HeroSection({
                       priority
                     />
                   </div>
-                </motion.a>
+                </motion.button>
               </div>
 
               {/* Navigation Links */}
@@ -366,8 +374,8 @@ export default function HeroSection({
                 className="hidden md:flex items-center space-x-6"
                 aria-label="Main navigation"
               >
-                <motion.a
-                  href="#home"
+                <motion.button
+                  onClick={handleHomeClick}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   className="text-gray-800 font-medium text-base md:text-lg hover:text-logo-orange-1 transition-all duration-200 cursor-pointer focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded px-2 tracking-wide"
@@ -375,7 +383,7 @@ export default function HeroSection({
                   tabIndex={0}
                 >
                   Home
-                </motion.a>
+                </motion.button>
                 <motion.button
                   onClick={handleAboutClick}
                   whileHover={{ scale: 1.05 }}
@@ -395,6 +403,16 @@ export default function HeroSection({
                   tabIndex={0}
                 >
                   Products
+                </motion.button>
+                <motion.button
+                  onClick={handleMediaClick}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="text-gray-700 font-bold text-base md:text-lg hover:text-logo-orange-1 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded px-2"
+                  aria-label="View our media and social links"
+                  tabIndex={0}
+                >
+                  Media
                 </motion.button>
                 <motion.button
                   onClick={handleContactClick}
@@ -461,15 +479,17 @@ export default function HeroSection({
           aria-modal="true"
         >
           <nav className="px-4 py-6 space-y-4" aria-label="Mobile navigation">
-            <a
-              href="#home"
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="block text-lg font-medium text-logo-orange-medium hover:text-logo-orange-dark transition-colors duration-300 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded px-2"
+            <button
+              onClick={() => {
+                handleHomeClick();
+                setIsMobileMenuOpen(false);
+              }}
+              className="block text-lg font-medium text-logo-orange-medium hover:text-logo-orange-dark transition-colors duration-300 py-2 w-full text-left focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded px-2"
               aria-label="Navigate to home section"
               tabIndex={0}
             >
               Home
-            </a>
+            </button>
             <button
               onClick={() => handleMobileNavClick(handleAboutClick)}
               className="block text-lg font-medium text-orange-500 hover:text-orange-600 transition-colors duration-300 py-2 w-full text-left focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded px-2"
@@ -485,6 +505,17 @@ export default function HeroSection({
               tabIndex={0}
             >
               Products
+            </button>
+            <button
+              onClick={() => {
+                handleMediaClick();
+                setIsMobileMenuOpen(false);
+              }}
+              className="block text-lg font-medium text-orange-500 hover:text-orange-600 transition-colors duration-300 py-2 w-full text-left focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded px-2"
+              aria-label="View our media and social links"
+              tabIndex={0}
+            >
+              Media
             </button>
             <button
               onClick={() => {

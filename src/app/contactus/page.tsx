@@ -1,12 +1,9 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { ContactPage } from "@/components/contact/ContactPage";
 
 export default function ContactUsPage() {
-  const router = useRouter();
-
   useEffect(() => {
     document.title = "Contact Us - A1 Iron & Steel | Get in Touch";
     const metaDescription = document.querySelector('meta[name="description"]');
@@ -18,5 +15,5 @@ export default function ContactUsPage() {
     }
   }, []);
 
-  return <ContactPage onClose={() => router.push("/")} />;
+  return <ContactPage />;
 }

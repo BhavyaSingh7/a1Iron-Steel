@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import React from "react";
 import { useRouter } from "next/navigation";
 import {
@@ -51,15 +50,11 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
     }
   }, []);
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.3 }}
+    <div
       className="fixed inset-0 bg-gray-50 z-50 overflow-y-auto"
       style={{
         scrollBehavior: "smooth",
-        scrollSnapType: "y proximity",
+        scrollSnapType: "y mandatory",
       }}
     >
       {/* Header */}
@@ -85,7 +80,7 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
 
       {/* Hero Section */}
       <section
-        className="relative py-20 sm:py-24 md:py-32 overflow-hidden snap-start snap-always min-h-screen flex items-center"
+        className="relative py-20 sm:py-24 md:py-32 overflow-hidden min-h-screen flex items-center snap-start snap-always"
         style={{ scrollSnapAlign: "start" }}
       >
         {/* Background with subtle gradient */}
@@ -93,31 +88,16 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(32,132,177,0.05),transparent_50%)]" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(241,133,46,0.05),transparent_50%)]" />
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="text-center max-w-4xl mx-auto"
-          >
-            <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="inline-block mb-6"
-            >
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+          <div className="text-center max-w-4xl mx-auto">
+            <div className="inline-block mb-6">
               <div className="w-20 h-1 logo-orange-bg mx-auto mb-6 rounded-full" />
-            </motion.div>
+            </div>
             <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold mb-6 leading-tight">
               <span className="logo-blue-gradient">Get To Know Us</span>
             </h1>
             <div className="w-24 h-1 logo-orange-bg mx-auto mb-8 rounded-full" />
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="text-xl sm:text-2xl text-gray-700 leading-relaxed"
-            >
+            <p className="text-xl sm:text-2xl text-gray-700 leading-relaxed">
               <span className="font-semibold logo-blue-gradient">
                 A1 Iron & Steel
               </span>{" "}
@@ -125,8 +105,8 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
               steel industry. With decades of experience, we provide
               high-quality, precision-engineered steel solutions for sectors
               like construction, engineering, and infrastructure worldwide.
-            </motion.p>
-          </motion.div>
+            </p>
+          </div>
         </div>
       </section>
 
@@ -136,14 +116,8 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
         style={{ scrollSnapAlign: "start" }}
       >
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-50/20 to-transparent" />
-        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            className="max-w-4xl mx-auto w-full"
-          >
+        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+          <div className="max-w-4xl mx-auto w-full">
             <div
               className="relative bg-white rounded-3xl p-8 sm:p-12 shadow-xl border overflow-hidden"
               style={{
@@ -171,7 +145,7 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
                 </p>
               </div>
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
 
@@ -181,30 +155,18 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
         style={{ scrollSnapAlign: "start" }}
       >
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(32,132,177,0.03),transparent_70%)]" />
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            className="text-center mb-16"
-          >
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+          <div className="text-center mb-16">
             <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
               Our <span className="logo-blue-gradient">Manufacturing</span>{" "}
               Excellence
             </h2>
             <div className="w-20 h-1 logo-orange-bg mx-auto rounded-full" />
-          </motion.div>
+          </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
             {/* Factory Video */}
-            <motion.div
-              initial={{ opacity: 0, y: 50, scale: 0.95 }}
-              whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.6, ease: "easeOut" }}
-              className="space-y-4"
-            >
+            <div className="space-y-4">
               <div className="flex items-center gap-3 mb-4">
                 <Building className="w-6 h-6" style={{ color: "#2084b1" }} />
                 <h3 className="text-2xl sm:text-3xl font-bold text-gray-900">
@@ -220,17 +182,8 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
                   muted
                   loop
                   playsInline
-                  preload="auto"
+                  preload="metadata"
                   controls
-                  onError={(e) => {
-                    console.error("Video failed to load:", videoPath2, e);
-                  }}
-                  onLoadedData={() => {
-                    console.log("Video loaded successfully:", videoPath2);
-                  }}
-                  onCanPlay={() => {
-                    console.log("Video can play");
-                  }}
                 >
                   <source src={videoPath2} type="video/mp4" />
                   Your browser does not support the video tag.
@@ -247,16 +200,10 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
                 {/* Decorative corner accent */}
                 <div className="absolute top-0 right-0 w-24 h-24 logo-orange-bg opacity-20 rounded-bl-full" />
               </div>
-            </motion.div>
+            </div>
 
             {/* Steel Making Video */}
-            <motion.div
-              initial={{ opacity: 0, y: 50, scale: 0.95 }}
-              whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
-              className="space-y-4"
-            >
+            <div className="space-y-4">
               <div className="flex items-center gap-3 mb-4">
                 <Award className="w-6 h-6" style={{ color: "#f1852e" }} />
                 <h3 className="text-2xl sm:text-3xl font-bold text-gray-900">
@@ -272,17 +219,8 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
                   muted
                   loop
                   playsInline
-                  preload="auto"
+                  preload="metadata"
                   controls
-                  onError={(e) => {
-                    console.error("Video failed to load:", videoPath1, e);
-                  }}
-                  onLoadedData={() => {
-                    console.log("Video loaded successfully:", videoPath1);
-                  }}
-                  onCanPlay={() => {
-                    console.log("Video can play");
-                  }}
                 >
                   <source src={videoPath1} type="video/mp4" />
                   Your browser does not support the video tag.
@@ -299,7 +237,7 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
                 {/* Decorative corner accent */}
                 <div className="absolute top-0 right-0 w-24 h-24 logo-blue-bg opacity-20 rounded-bl-full" />
               </div>
-            </motion.div>
+            </div>
           </div>
         </div>
       </section>
@@ -309,14 +247,8 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
         className="py-20 md:py-24 bg-white snap-start snap-always min-h-screen flex items-center"
         style={{ scrollSnapAlign: "start" }}
       >
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            className="text-center mb-12"
-          >
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+          <div className="text-center mb-12">
             <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
               Leadership <span className="logo-blue-gradient">Excellence</span>
             </h2>
@@ -324,15 +256,9 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
             <p className="text-xl sm:text-2xl text-gray-600 font-semibold mb-8">
               Exemplary leadership that transforms challenges into opportunities
             </p>
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 50, scale: 0.95 }}
-            whileInView={{ opacity: 1, y: 0, scale: 1 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
-            className="max-w-4xl mx-auto w-full"
-          >
+          <div className="max-w-4xl mx-auto w-full">
             <div
               className="relative bg-white rounded-3xl p-8 sm:p-10 shadow-xl border overflow-hidden"
               style={{
@@ -342,8 +268,6 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
             >
               {/* Decorative elements */}
               <div className="absolute top-0 left-0 w-full h-2 logo-primary-bg" />
-              <div className="absolute top-0 right-0 w-40 h-40 bg-blue-100/20 rounded-full blur-3xl -translate-y-20 translate-x-20" />
-              <div className="absolute bottom-0 left-0 w-40 h-40 bg-orange-100/20 rounded-full blur-3xl translate-y-20 -translate-x-20" />
 
               <div className="relative">
                 <div className="space-y-6 text-lg text-gray-700 leading-relaxed">
@@ -374,7 +298,7 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
                 </div>
               </div>
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
 
@@ -383,30 +307,17 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
         className="py-20 md:py-24 bg-gray-50 snap-start snap-always min-h-screen flex items-center"
         style={{ scrollSnapAlign: "start" }}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 30, scale: 0.95 }}
-            whileInView={{ opacity: 1, y: 0, scale: 1 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            className="text-center mb-16"
-          >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+          <div className="text-center mb-16">
             <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
               Why We Do <span className="logo-blue-gradient">What We Do</span>
             </h2>
             <div className="w-20 h-1 logo-orange-bg mx-auto" />
-          </motion.div>
+          </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
             {/* Mission */}
-            <motion.div
-              initial={{ opacity: 0, x: -50, scale: 0.95 }}
-              whileInView={{ opacity: 1, x: 0, scale: 1 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.6, ease: "easeOut" }}
-              whileHover={{ scale: 1.02, y: -5 }}
-              className="bg-white rounded-2xl p-8 shadow-xl border border-gray-200 hover:shadow-2xl transition-all duration-300"
-            >
+            <div className="bg-white rounded-2xl p-8 shadow-xl border border-gray-200 hover:shadow-2xl transition-all duration-300">
               <div className="flex items-center gap-4 mb-6">
                 <div className="w-12 h-12 logo-blue-bg rounded-xl flex items-center justify-center shadow-lg">
                   <Target className="w-6 h-6 text-white" />
@@ -443,17 +354,10 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
                   </p>
                 </div>
               </div>
-            </motion.div>
+            </div>
 
             {/* Vision */}
-            <motion.div
-              initial={{ opacity: 0, x: 50, scale: 0.95 }}
-              whileInView={{ opacity: 1, x: 0, scale: 1 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.6, ease: "easeOut" }}
-              whileHover={{ scale: 1.02, y: -5 }}
-              className="bg-white rounded-2xl p-8 shadow-xl border border-gray-200 hover:shadow-2xl transition-all duration-300"
-            >
+            <div className="bg-white rounded-2xl p-8 shadow-xl border border-gray-200 hover:shadow-2xl transition-all duration-300">
               <div className="flex items-center gap-4 mb-6">
                 <div className="w-12 h-12 logo-orange-bg rounded-xl flex items-center justify-center shadow-lg">
                   <Eye className="w-6 h-6 text-white" />
@@ -468,7 +372,7 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
                 environmental harmony go hand in hand, creating a legacy that
                 lasts for generations.
               </p>
-            </motion.div>
+            </div>
           </div>
         </div>
       </section>
@@ -478,28 +382,16 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
         className="py-20 md:py-24 bg-white snap-start snap-always min-h-screen flex items-center"
         style={{ scrollSnapAlign: "start" }}
       >
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            className="text-center mb-12"
-          >
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+          <div className="text-center mb-12">
             <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
               Laying the Groundwork for{" "}
               <span className="logo-blue-gradient">Long-term Achievement</span>
             </h2>
             <div className="w-20 h-1 logo-orange-bg mx-auto mb-8" />
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 50, scale: 0.95 }}
-            whileInView={{ opacity: 1, y: 0, scale: 1 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
-            className="max-w-4xl mx-auto w-full"
-          >
+          <div className="max-w-4xl mx-auto w-full">
             <div
               className="relative bg-white rounded-3xl p-8 sm:p-10 shadow-xl border overflow-hidden"
               style={{
@@ -509,8 +401,6 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
             >
               {/* Decorative elements */}
               <div className="absolute top-0 left-0 w-full h-2 logo-primary-bg" />
-              <div className="absolute top-0 right-0 w-40 h-40 bg-blue-100/20 rounded-full blur-3xl -translate-y-20 translate-x-20" />
-              <div className="absolute bottom-0 left-0 w-40 h-40 bg-orange-100/20 rounded-full blur-3xl translate-y-20 -translate-x-20" />
 
               <div className="relative">
                 <div className="space-y-6 text-lg text-gray-700 leading-relaxed">
@@ -546,7 +436,7 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
                 </div>
               </div>
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
 
@@ -555,19 +445,13 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
         className="py-20 md:py-24 bg-gradient-to-b from-gray-50 to-white snap-start snap-always min-h-screen flex items-center"
         style={{ scrollSnapAlign: "start" }}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 30, scale: 0.95 }}
-            whileInView={{ opacity: 1, y: 0, scale: 1 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            className="text-center mb-16"
-          >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+          <div className="text-center mb-16">
             <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
               A1 in <span className="logo-blue-gradient">Numbers</span>
             </h2>
             <div className="w-20 h-1 logo-orange-bg mx-auto" />
-          </motion.div>
+          </div>
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
             {[
@@ -608,28 +492,10 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
                 color: "from-indigo-500 to-indigo-700",
               },
             ].map((stat, index) => (
-              <motion.div
+              <div
                 key={index}
-                initial={{ opacity: 0, y: 50, scale: 0.9, rotateY: -15 }}
-                whileInView={{ opacity: 1, y: 0, scale: 1, rotateY: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{
-                  duration: 0.6,
-                  delay: index * 0.08,
-                  ease: "easeOut",
-                  type: "spring",
-                  stiffness: 100,
-                }}
-                whileHover={{
-                  scale: 1.05,
-                  y: -8,
-                  rotateY: 5,
-                  transition: { duration: 0.3 },
-                }}
-                className="text-center bg-white rounded-2xl p-6 shadow-lg border border-gray-200 hover:shadow-2xl transition-all duration-300 relative overflow-hidden group"
+                className="text-center bg-white rounded-2xl p-6 shadow-lg border border-gray-200 hover:shadow-2xl transition-all duration-300"
               >
-                {/* Hover gradient effect */}
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-50/0 to-orange-50/0 group-hover:from-blue-50/50 group-hover:to-orange-50/50 transition-all duration-300" />
                 <div className="relative">
                   <div
                     className={`w-12 h-12 mx-auto mb-4 rounded-xl flex items-center justify-center shadow-md ${
@@ -647,7 +513,7 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
                     {stat.label}
                   </div>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -659,14 +525,8 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
         style={{ scrollSnapAlign: "start" }}
       >
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(241,133,46,0.05),transparent_70%)]" />
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 30, scale: 0.95 }}
-            whileInView={{ opacity: 1, y: 0, scale: 1 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            className="text-center mb-12"
-          >
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+          <div className="text-center mb-12">
             <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
               Get In <span className="logo-blue-gradient">Touch</span>
             </h2>
@@ -675,15 +535,9 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
               Thank you for choosing A1 Iron & Steel as your trusted partner in
               strength and progress!
             </p>
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 30, scale: 0.9 }}
-            whileInView={{ opacity: 1, y: 0, scale: 1 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
-            className="flex justify-center mb-12"
-          >
+          <div className="flex justify-center mb-12">
             <button
               onClick={() => router.push("/contactus")}
               className="logo-orange-bg text-white px-12 py-4 rounded-full font-bold text-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 flex items-center gap-2"
@@ -692,17 +546,17 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
               <Phone className="w-5 h-5" />
               Contact Us
             </button>
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 30, scale: 0.9 }}
-            whileInView={{ opacity: 1, y: 0, scale: 1 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center"
-          >
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button
-              onClick={handleClose}
+              onClick={() => {
+                const subject = encodeURIComponent("Product Quote Request");
+                const body = encodeURIComponent(
+                  `Hello,\n\nI am interested in getting a quote for your steel products.\n\nPlease provide me with pricing and availability information.\n\nThank you.`
+                );
+                window.location.href = `mailto:marketing@a1steelrwanda.com?subject=${subject}&body=${body}`;
+              }}
               className="logo-orange-bg text-white px-10 py-4 rounded-full font-bold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
             >
               Request Quote
@@ -722,9 +576,9 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
             >
               Learn More
             </button>
-          </motion.div>
+          </div>
         </div>
       </section>
-    </motion.div>
+    </div>
   );
 }

@@ -1,12 +1,9 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import AboutUsPage from "@/components/about-us-section/AboutUsPage";
 
 export default function AboutPage() {
-  const router = useRouter();
-
   useEffect(() => {
     document.title =
       "About Us - A1 Iron & Steel | Leading Steel Manufacturer in Rwanda";
@@ -19,5 +16,5 @@ export default function AboutPage() {
     }
   }, []);
 
-  return <AboutUsPage onClose={() => router.push("/")} />;
+  return <AboutUsPage />;
 }

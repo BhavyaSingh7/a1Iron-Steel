@@ -53,31 +53,73 @@ function HomeContent() {
   const videoRef1 = React.useRef<HTMLVideoElement>(null);
   const videoRef2 = React.useRef<HTMLVideoElement>(null);
 
-  // Check skipIntro - use useMemo to compute once
+  // Check if this is a fresh page load (no referrer) vs navigation from another page
+  const isFreshLoad = React.useMemo(() => {
+    if (typeof window === "undefined") return true;
+    // If there's no referrer or referrer is from a different origin, it's a fresh load
+    const referrer = document.referrer;
+    if (!referrer) return true;
+    try {
+      const referrerUrl = new URL(referrer);
+      const currentUrl = new URL(window.location.href);
+      // If referrer is from same origin, it's navigation (not fresh load)
+      return referrerUrl.origin !== currentUrl.origin;
+    } catch {
+      return true;
+    }
+  }, []);
+
+  // Check skipIntro - skip if navigating from another page with skipIntro=true, or if explicitly set
   const skipIntro = React.useMemo(() => {
     if (typeof window === "undefined") return false;
     const skipFromParams = searchParams?.get("skipIntro") === "true";
     const skipFromWindow =
       new URLSearchParams(window.location.search).get("skipIntro") === "true";
-    return skipFromParams || skipFromWindow;
-  }, [searchParams]);
+    const hasSkipIntro = skipFromParams || skipFromWindow;
+
+    // If skipIntro is in URL and we have a referrer from same origin, always skip
+    if (hasSkipIntro && !isFreshLoad) {
+      return true;
+    }
+
+    // On fresh load without skipIntro, always show video
+    if (isFreshLoad) return false;
+
+    return hasSkipIntro;
+  }, [searchParams, isFreshLoad]);
 
   // Removed unused videoPhase state for performance
   const [currentBgImage, setCurrentBgImage] = useState(0);
-  const [showVideoIntro, setShowVideoIntro] = useState(!skipIntro);
+  // Initialize showVideoIntro - always true on fresh load, otherwise check skipIntro
+  const [showVideoIntro, setShowVideoIntro] = useState(() => {
+    if (typeof window === "undefined") return true;
+    // On fresh load, always show video
+    const referrer = typeof document !== "undefined" ? document.referrer : "";
+    if (!referrer) return true;
+    try {
+      const referrerUrl = new URL(referrer);
+      const currentUrl = new URL(window.location.href);
+      // If referrer is from different origin, it's fresh load - show video
+      if (referrerUrl.origin !== currentUrl.origin) return true;
+    } catch {
+      return true;
+    }
+    // If navigating from same origin, check skipIntro
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get("skipIntro") !== "true";
+  });
   const [showAboutUs, setShowAboutUs] = useState(false);
   const [showProducts, setShowProducts] = useState(false);
   const [showContact, setShowContact] = useState(false);
   const [showSecondVideo, setShowSecondVideo] = useState(false);
   // Removed unused showBubbles state for performance
 
-  // Preload videos immediately on mount - create hidden video elements early
+  // Preload videos immediately on mount - aggressive preloading
   useEffect(() => {
     if (!skipIntro && typeof document !== "undefined") {
-      // Preload videos using link tags for better browser optimization
       const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
-      // Create preload links
+      // Create preload links for both videos
       const link1 = document.createElement("link");
       link1.rel = "preload";
       link1.href = `${basePath}/bg-video.mp4`;
@@ -92,39 +134,74 @@ function HomeContent() {
       link2.type = "video/mp4";
       document.head.appendChild(link2);
 
-      // Also create hidden video elements to start loading
-      const video1 = document.createElement("video");
-      video1.src = `${basePath}/bg-video.mp4`;
-      video1.preload = "auto";
-      video1.muted = true;
-      video1.style.display = "none";
-      document.body.appendChild(video1);
-      video1.load();
-
-      const video2 = document.createElement("video");
-      video2.src = `${basePath}/bg-video3.mp4`;
-      video2.preload = "auto";
-      video2.muted = true;
-      video2.style.display = "none";
-      document.body.appendChild(video2);
-      video2.load();
+      // Create hidden video element to force immediate loading
+      const preloadVideo = document.createElement("video");
+      preloadVideo.src = `${basePath}/bg-video.mp4`;
+      preloadVideo.preload = "auto";
+      preloadVideo.muted = true;
+      preloadVideo.style.display = "none";
+      preloadVideo.style.position = "absolute";
+      preloadVideo.style.width = "1px";
+      preloadVideo.style.height = "1px";
+      preloadVideo.style.opacity = "0";
+      preloadVideo.style.pointerEvents = "none";
+      document.body.appendChild(preloadVideo);
+      preloadVideo.load();
 
       return () => {
-        document.head.removeChild(link1);
-        document.head.removeChild(link2);
-        document.body.removeChild(video1);
-        document.body.removeChild(video2);
+        if (link1.parentNode) document.head.removeChild(link1);
+        if (link2.parentNode) document.head.removeChild(link2);
+        if (preloadVideo.parentNode) document.body.removeChild(preloadVideo);
       };
     }
   }, [skipIntro]);
 
-  // Ensure video intro is skipped if skipIntro is true (double check on mount)
+  // Ensure video intro is skipped if skipIntro is true (only when navigating, not fresh load)
   useEffect(() => {
-    if (skipIntro) {
-      setShowVideoIntro(false);
-      setShowSecondVideo(false);
+    // Only skip if this is NOT a fresh load
+    if (isFreshLoad) {
+      // On fresh load, remove skipIntro from URL and show video
+      if (typeof window !== "undefined") {
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get("skipIntro") === "true") {
+          urlParams.delete("skipIntro");
+          const newUrl =
+            window.location.pathname +
+            (urlParams.toString() ? `?${urlParams.toString()}` : "");
+          window.history.replaceState({}, "", newUrl);
+        }
+      }
+      return;
     }
-  }, [skipIntro]);
+
+    // Check URL parameter on navigation (not fresh load)
+    const checkSkipIntro = () => {
+      if (typeof window !== "undefined") {
+        const urlParams = new URLSearchParams(window.location.search);
+        const shouldSkip = urlParams.get("skipIntro") === "true";
+        if (shouldSkip) {
+          setShowVideoIntro(false);
+          setShowSecondVideo(false);
+          // Clean up URL after processing
+          urlParams.delete("skipIntro");
+          const newUrl =
+            window.location.pathname +
+            (urlParams.toString() ? `?${urlParams.toString()}` : "");
+          window.history.replaceState({}, "", newUrl);
+        }
+      }
+    };
+
+    // Check immediately on mount
+    checkSkipIntro();
+
+    // Also check on popstate (back/forward navigation)
+    window.addEventListener("popstate", checkSkipIntro);
+
+    return () => {
+      window.removeEventListener("popstate", checkSkipIntro);
+    };
+  }, [isFreshLoad, searchParams]);
 
   // Show second video after 5 seconds - lazy load it
   useEffect(() => {
@@ -193,7 +270,7 @@ function HomeContent() {
     const startTimer = setTimeout(() => {
       interval = setInterval(() => {
         setCurrentBgImage((prev) => (prev + 1) % 7); // Cycle through 7 images
-      }, 5000); // Change every 5 seconds for more moderate transitions
+      }, 6000); // Change every 6 seconds to reduce transitions
     }, 2000); // Wait 2 seconds after video intro ends for better performance
 
     return () => {
@@ -219,9 +296,10 @@ function HomeContent() {
               "linear-gradient(135deg, #1a5f82 0%, #113d59 50%, #0a2a3d 100%)",
           }}
         >
-          {/* Loading Background - Shows immediately */}
+          {/* Loading Background - Shows immediately, fades when video loads */}
           <div
-            className="absolute inset-0 w-full h-full"
+            id="video-intro-bg"
+            className="absolute inset-0 w-full h-full transition-opacity duration-300"
             style={{
               background:
                 "linear-gradient(135deg, #1a5f82 0%, #113d59 50%, #0a2a3d 100%)",
@@ -233,7 +311,6 @@ function HomeContent() {
             className="absolute inset-0 w-full h-full"
             animate={{ opacity: showSecondVideo ? 0 : 1 }}
             transition={{ duration: 0.3, ease: "easeOut" }}
-            style={{ willChange: showSecondVideo ? "auto" : "opacity" }}
           >
             <video
               ref={videoRef1}
@@ -246,9 +323,20 @@ function HomeContent() {
                 const videoElement = e.target as HTMLVideoElement;
                 videoElement.style.display = "none";
               }}
+              onCanPlay={() => {
+                if (videoRef1.current) {
+                  videoRef1.current.play().catch(() => {});
+                  // Hide background once video can play
+                  const bg = document.getElementById("video-intro-bg");
+                  if (bg) bg.style.opacity = "0";
+                }
+              }}
               onLoadedData={() => {
                 if (videoRef1.current) {
                   videoRef1.current.play().catch(() => {});
+                  // Hide background once video loads
+                  const bg = document.getElementById("video-intro-bg");
+                  if (bg) bg.style.opacity = "0";
                 }
               }}
               preload="auto"
@@ -267,7 +355,6 @@ function HomeContent() {
             initial={{ opacity: 0 }}
             animate={{ opacity: showSecondVideo ? 1 : 0 }}
             transition={{ duration: 0.3, ease: "easeOut" }}
-            style={{ willChange: showSecondVideo ? "opacity" : "auto" }}
           >
             <video
               ref={videoRef2}
@@ -279,6 +366,11 @@ function HomeContent() {
               onError={(e) => {
                 const videoElement = e.target as HTMLVideoElement;
                 videoElement.style.display = "none";
+              }}
+              onCanPlay={() => {
+                if (videoRef2.current && showSecondVideo) {
+                  videoRef2.current.play().catch(() => {});
+                }
               }}
               onLoadedData={() => {
                 if (videoRef2.current && showSecondVideo) {
@@ -497,12 +589,7 @@ export default function Home() {
               "linear-gradient(135deg, #1a5f82 0%, #113d59 50%, #0a2a3d 100%)",
           }}
         >
-          <div className="text-center">
-            <div className="text-4xl sm:text-6xl font-black text-white mb-4">
-              A1 IRON & STEEL
-            </div>
-            <div className="w-24 h-1 mx-auto bg-gradient-to-r from-transparent via-orange-400 to-transparent" />
-          </div>
+          {/* Minimal fallback - just background, no text to reduce flash */}
         </div>
       }
     >

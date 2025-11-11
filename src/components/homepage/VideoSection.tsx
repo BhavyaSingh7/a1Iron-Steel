@@ -95,7 +95,7 @@ export default function VideoSection() {
   return (
     <section
       ref={containerRef}
-      className="relative w-full overflow-hidden mb-8 sm:mb-12 lg:mb-16 snap-start snap-always"
+      className="relative w-full overflow-hidden mb-8 sm:mb-12 lg:mb-16"
       id="video-section"
       style={{ minHeight: "100vh" }}
     >

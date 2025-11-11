@@ -37,8 +37,19 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+
   return (
     <html lang="en">
+      <head>
+        {/* Preload critical video for immediate playback */}
+        <link
+          rel="preload"
+          href={`${basePath}/bg-video.mp4`}
+          as="video"
+          type="video/mp4"
+        />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >

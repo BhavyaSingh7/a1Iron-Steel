@@ -30,7 +30,7 @@ export default function Mission() {
   return (
     <motion.section
       id="about"
-      className="relative min-h-screen flex items-start justify-center overflow-y-auto pt-12 sm:pt-16 lg:pt-20 pb-16 sm:pb-20 lg:pb-24 snap-start snap-always"
+      className="relative min-h-screen flex items-start justify-center overflow-y-auto pt-12 sm:pt-16 lg:pt-20 pb-16 sm:pb-20 lg:pb-24"
       style={{
         background:
           "linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%)",
@@ -66,10 +66,8 @@ export default function Mission() {
           initial={{ opacity: 0, y: 100 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{
-            duration: 1.5,
-            type: "spring",
-            stiffness: 100,
-            damping: 20,
+            duration: 0.3,
+            ease: "easeOut",
           }}
           viewport={{ once: true, margin: "-100px" }}
           className="text-center mb-12 sm:mb-16 md:mb-20"
@@ -77,7 +75,7 @@ export default function Mission() {
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            transition={{ duration: 0.2 }}
             viewport={{ once: true }}
             className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-semibold text-white mb-4 sm:mb-6 tracking-wide"
             style={{
@@ -91,7 +89,7 @@ export default function Mission() {
           <motion.div
             initial={{ opacity: 0, scaleX: 0 }}
             whileInView={{ opacity: 1, scaleX: 1 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
+            transition={{ duration: 0.2 }}
             viewport={{ once: true }}
             className="w-20 sm:w-24 h-0.5 logo-orange-bg mx-auto mb-6 sm:mb-8"
           />
@@ -99,7 +97,7 @@ export default function Mission() {
           <motion.p
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.8 }}
+            transition={{ duration: 0.2 }}
             viewport={{ once: true }}
             className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-300 font-light"
             style={{
@@ -115,11 +113,10 @@ export default function Mission() {
           {items.map((mission, index) => (
             <motion.div
               key={mission.title}
-              initial={{ opacity: 0, y: 60, scale: 0.8 }}
-              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
               transition={{
-                duration: 0.3,
-                delay: index * 0.05,
+                duration: 0.2,
                 ease: "easeOut",
               }}
               viewport={{ once: true, margin: "-50px" }}
@@ -146,7 +143,7 @@ export default function Mission() {
 
                 {/* Icon */}
                 <motion.div
-                  whileHover={{ scale: 1.1, rotate: 5 }}
+                  whileHover={{ scale: 1.05 }}
                   className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 bg-gradient-to-r from-orange-500 to-orange-600 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4 md:mb-6"
                   style={{
                     boxShadow: "0 0 20px rgba(249, 115, 22, 0.5)",

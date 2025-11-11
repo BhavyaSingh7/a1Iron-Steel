@@ -77,7 +77,7 @@ export default function ContactSection() {
     <section
       id="contact"
       aria-label="Contact us section"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden py-8 sm:py-12 lg:py-16 snap-start snap-always"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden py-8 sm:py-12 lg:py-16"
     >
       {/* Animated Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-black">
@@ -116,14 +116,14 @@ export default function ContactSection() {
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3 }}
+          transition={{ duration: 0.2 }}
           viewport={{ once: true }}
           className="text-center mb-6 sm:mb-8 lg:mb-12"
         >
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3, delay: 0.2 }}
+            transition={{ duration: 0.2 }}
             viewport={{ once: true }}
             className="text-orange-500 font-semibold text-sm sm:text-base md:text-lg lg:text-xl mb-2 sm:mb-3"
           >
@@ -132,7 +132,7 @@ export default function ContactSection() {
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3, delay: 0.4 }}
+            transition={{ duration: 0.2 }}
             viewport={{ once: true }}
             className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-bold text-white mb-2 sm:mb-3"
             style={{
@@ -144,14 +144,14 @@ export default function ContactSection() {
           <motion.div
             initial={{ opacity: 0, scaleX: 0 }}
             whileInView={{ opacity: 1, scaleX: 1 }}
-            transition={{ duration: 0.3, delay: 0.6 }}
+            transition={{ duration: 0.2 }}
             viewport={{ once: true }}
             className="w-16 sm:w-20 h-1 bg-gradient-to-r from-orange-500 to-orange-600 mx-auto mb-2 sm:mb-3 md:mb-4"
           />
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3, delay: 0.8 }}
+            transition={{ duration: 0.2 }}
             viewport={{ once: true }}
             className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-300 max-w-xs sm:max-w-md md:max-w-lg lg:max-w-2xl mx-auto leading-relaxed px-4 sm:px-0"
           >
@@ -166,7 +166,7 @@ export default function ContactSection() {
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.3, delay: 0.2 }}
+            transition={{ duration: 0.2 }}
             viewport={{ once: true }}
             className="lg:col-span-1 space-y-3 sm:space-y-4"
           >
@@ -182,7 +182,7 @@ export default function ContactSection() {
                 key={contact.title}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, delay: 0.4 + index * 0.2 }}
+                transition={{ duration: 0.2 }}
                 viewport={{ once: true }}
                 className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm rounded-xl sm:rounded-2xl p-3 sm:p-4 shadow-xl border border-white/20 hover:shadow-2xl transition-all duration-300 hover:bg-white/15"
               >
@@ -212,7 +212,7 @@ export default function ContactSection() {
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.3, delay: 0.4 }}
+            transition={{ duration: 0.2 }}
             viewport={{ once: true }}
             className="lg:col-span-2"
           >
@@ -232,7 +232,7 @@ export default function ContactSection() {
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3, delay: 0.6 }}
+                    transition={{ duration: 0.2 }}
                     viewport={{ once: true }}
                   >
                     <label className="block text-white text-xs sm:text-sm font-medium mb-1 sm:mb-2">
@@ -253,7 +253,7 @@ export default function ContactSection() {
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3, delay: 0.8 }}
+                    transition={{ duration: 0.2 }}
                     viewport={{ once: true }}
                   >
                     <label className="block text-white text-xs sm:text-sm font-medium mb-1 sm:mb-2">
@@ -276,7 +276,7 @@ export default function ContactSection() {
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3, delay: 1.0 }}
+                  transition={{ duration: 0.2 }}
                   viewport={{ once: true }}
                 >
                   <label className="block text-white text-xs sm:text-sm font-medium mb-1 sm:mb-2">
@@ -296,7 +296,7 @@ export default function ContactSection() {
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3, delay: 1.2 }}
+                  transition={{ duration: 0.2 }}
                   viewport={{ once: true }}
                 >
                   <label className="block text-white text-xs sm:text-sm font-medium mb-1 sm:mb-2">
@@ -338,7 +338,7 @@ export default function ContactSection() {
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3, delay: 1.4 }}
+                  transition={{ duration: 0.2 }}
                   viewport={{ once: true }}
                   className="pt-1 sm:pt-2"
                 >

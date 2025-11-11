@@ -16,22 +16,22 @@ export default function AboutSection() {
   return (
     <section
       id="about"
-      className="relative min-h-screen flex items-center justify-center overflow-y-auto py-16 sm:py-20 lg:py-24 bg-white pb-0 snap-start snap-always"
+      className="relative min-h-screen flex items-center justify-center overflow-y-auto py-16 sm:py-20 lg:py-24 bg-white pb-0"
       aria-label="About A1 Iron and Steel company information"
     >
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3 }}
+          transition={{ duration: 0.2 }}
           viewport={{ once: true }}
           className="text-center mb-6 sm:mb-8 md:mb-12"
         >
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3, delay: 0.05 }}
+            transition={{ duration: 0.2 }}
             viewport={{ once: true }}
             className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-semibold logo-blue-gradient mb-4 sm:mb-6 tracking-wide"
             style={{ letterSpacing: "0.03em" }}
@@ -41,7 +41,7 @@ export default function AboutSection() {
           <motion.div
             initial={{ opacity: 0, scaleX: 0 }}
             whileInView={{ opacity: 1, scaleX: 1 }}
-            transition={{ duration: 0.3, delay: 0.1 }}
+            transition={{ duration: 0.2 }}
             viewport={{ once: true }}
             className="w-20 sm:w-24 h-0.5 logo-orange-bg mx-auto mb-6 sm:mb-8"
           />
@@ -53,14 +53,14 @@ export default function AboutSection() {
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3, delay: 0.05 }}
+            transition={{ duration: 0.2 }}
             viewport={{ once: true }}
             className="mb-6 sm:mb-8 md:mb-12"
           >
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.3, delay: 0.1 }}
+              transition={{ duration: 0.2 }}
               viewport={{ once: true }}
               className="bg-white rounded-lg p-6 sm:p-8 shadow-lg border border-gray-100"
               style={{
@@ -71,7 +71,7 @@ export default function AboutSection() {
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, delay: 0.15 }}
+                transition={{ duration: 0.2 }}
                 viewport={{ once: true }}
                 className="text-gray-700 text-sm sm:text-base md:text-lg leading-relaxed"
               >
@@ -91,7 +91,7 @@ export default function AboutSection() {
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3, delay: 0.2 }}
+            transition={{ duration: 0.2 }}
             viewport={{ once: true }}
             className="space-y-6 sm:space-y-8 md:space-y-12"
           >
@@ -171,7 +171,7 @@ export default function AboutSection() {
             id="sustainability"
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3, delay: 0.1 }}
+            transition={{ duration: 0.2 }}
             viewport={{ once: true }}
             className="relative mt-12 sm:mt-16 md:mt-20 py-8 sm:py-10 md:py-12 flex items-center justify-center overflow-hidden"
           >
