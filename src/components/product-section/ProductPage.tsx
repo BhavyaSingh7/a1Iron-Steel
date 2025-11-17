@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import {
@@ -8,10 +7,7 @@ import {
   ArrowRight,
   ArrowLeft,
   CheckCircle,
-  Star,
-  Zap,
   Shield,
-  Award,
 } from "lucide-react";
 import Image from "next/image";
 
@@ -665,83 +661,43 @@ export default function ProductPage({ onClose }: { onClose: () => void }) {
     },
   ];
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-        ease: "easeOut" as const,
-      },
-    },
-  };
 
   return (
-    <div className="fixed inset-0 z-50 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 overflow-y-auto">
+    <div className="fixed inset-0 z-50 bg-gray-50 overflow-y-auto">
       {/* Header */}
-      <motion.div
-        className="sticky top-0 z-10 bg-white/5 backdrop-blur-xl border-b border-white/10 shadow-2xl"
-        initial={{ y: -100, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-      >
+      <div className="sticky top-0 z-10 bg-white/98 backdrop-blur-md border-b border-gray-200 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex items-center justify-between">
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
-            >
-              <h1 className="text-4xl sm:text-5xl font-bold bg-gradient-to-r from-white via-orange-400 to-orange-600 bg-clip-text text-transparent">
-                Our Products
+            <div>
+              <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-2">
+                Our <span className="logo-blue-gradient">Products</span>
               </h1>
-              <p className="text-white/70 text-lg mt-2">
+              <p className="text-gray-600 text-lg font-light">
                 Premium Steel Solutions for Every Industry
               </p>
-            </motion.div>
+            </div>
             <div className="flex items-center gap-4">
-              <motion.button
+              <button
                 onClick={handleClose}
-                className="group flex items-center space-x-2 px-4 py-2 rounded-full bg-white/10 hover:bg-white/20 transition-all duration-300 border border-white/20 hover:border-orange-400/50 text-white"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, delay: 0.4 }}
+                className="flex items-center space-x-2 text-gray-700 hover:text-[#f1852e] transition-colors duration-200 font-medium px-4 py-2 rounded-lg hover:bg-gray-50"
                 aria-label="Back to home"
               >
                 <ArrowLeft className="w-5 h-5" />
-                <span className="font-medium">Back to Home</span>
-              </motion.button>
-              <motion.button
+                <span>Back to Home</span>
+              </button>
+              <button
                 onClick={handleClose}
-                className="group p-3 rounded-full bg-white/10 hover:bg-white/20 transition-all duration-300 border border-white/20 hover:border-orange-400/50"
-                whileHover={{ scale: 1.1, rotate: 90 }}
-                whileTap={{ scale: 0.9 }}
-                initial={{ opacity: 0, rotate: -90 }}
-                animate={{ opacity: 1, rotate: 0 }}
-                transition={{ duration: 0.6, delay: 0.5 }}
+                className="p-2 text-gray-700 hover:text-[#f1852e] transition-colors duration-200 rounded-lg hover:bg-gray-100"
                 aria-label="Close products page"
               >
-                <X className="w-6 h-6 text-white group-hover:text-orange-400 transition-colors duration-300" />
-              </motion.button>
-            </div>
+                <X className="w-6 h-6" />
+              </button>
           </div>
         </div>
-      </motion.div>
+        </div>
+      </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
         {/* Structured Data for Products */}
         <script
           type="application/ld+json"
@@ -761,29 +717,26 @@ export default function ProductPage({ onClose }: { onClose: () => void }) {
             }),
           }}
         />
+        
+        {/* Introduction Section */}
+        <div className="text-center mb-16 max-w-4xl mx-auto">
+          <div className="w-20 h-1 logo-orange-bg mx-auto mb-6 rounded-full" />
+          <p className="text-xl text-gray-700 leading-relaxed font-light">
+            Discover our comprehensive range of high-quality steel products, engineered to meet the diverse needs of construction, manufacturing, and infrastructure development across Rwanda and beyond.
+          </p>
+        </div>
+
         {/* Products Grid */}
-        <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
+        <div
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
           role="list"
           aria-label="Product catalog"
         >
-          {products.map((product, index) => (
-            <motion.div
+          {products.map((product) => (
+            <div
               key={product.id}
-              variants={itemVariants}
-              className="group relative bg-white/5 backdrop-blur-xl rounded-3xl p-6 border border-white/10 hover:border-orange-500/50 transition-all duration-500 cursor-pointer overflow-hidden flex flex-col"
-              whileHover={{
-                y: -8,
-                scale: 1.02,
-                boxShadow: "0 25px 50px rgba(249, 115, 22, 0.15)",
-              }}
+              className="group bg-white rounded-2xl shadow-md border border-gray-200 hover:shadow-xl transition-all duration-300 cursor-pointer overflow-hidden flex flex-col"
               onClick={() => setSelectedProduct(product)}
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
               role="listitem"
               aria-label={`View details for ${product.title}`}
               tabIndex={0}
@@ -794,315 +747,230 @@ export default function ProductPage({ onClose }: { onClose: () => void }) {
                 }
               }}
             >
-              {/* Background Gradient */}
-              <div className="absolute inset-0 bg-gradient-to-br from-orange-500/5 via-transparent to-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
               {/* Product Image */}
-              <div className="relative h-56 mb-6 rounded-2xl overflow-hidden">
+              <div className="relative h-48 overflow-hidden bg-gray-100">
                 <Image
                   src={product.image}
                   alt={product.title}
                   fill
-                  className="object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
+                  className="object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
                 {/* Arrow Icon */}
-                <div className="absolute top-4 right-4">
-                  <motion.div
-                    className="w-10 h-10 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center border border-white/30"
-                    whileHover={{
-                      scale: 1.2,
-                      rotate: 90,
-                      backgroundColor: "rgba(249, 115, 22, 0.2)",
-                    }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <ArrowRight className="w-5 h-5 text-white" />
-                  </motion.div>
+                <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div className="w-10 h-10 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg">
+                    <ArrowRight className="w-5 h-5 text-gray-700" />
+                  </div>
                 </div>
 
                 {/* Availability Badge */}
                 <div className="absolute bottom-4 right-4">
-                  <motion.span
-                    className="flex items-center px-3 py-1 bg-green-500/90 backdrop-blur-sm text-white text-xs font-semibold rounded-full"
-                    whileHover={{ scale: 1.05 }}
-                  >
+                  <span className="flex items-center px-3 py-1 bg-green-500 text-white text-xs font-semibold rounded-full shadow-md">
                     <CheckCircle className="w-3 h-3 mr-1" />
                     {product.availability}
-                  </motion.span>
+                  </span>
                 </div>
               </div>
 
               {/* Product Info */}
-              <div className="space-y-4 relative z-10 flex flex-col flex-1">
-                <div>
-                  <h3 className="text-xl font-bold text-white group-hover:text-orange-400 transition-colors duration-300 mb-2">
+              <div className="p-6 flex flex-col flex-1">
+                <div className="mb-4">
+                  <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-[#2084b1] transition-colors duration-300">
                     {product.title}
                   </h3>
-                  <p className="text-white/80 text-sm leading-relaxed line-clamp-2">
+                  <p className="text-gray-600 text-sm leading-relaxed line-clamp-2">
                     {product.shortDescription}
                   </p>
                 </div>
 
                 {/* Features Preview */}
-                <div className="flex flex-wrap gap-2">
-                  {product.features.slice(0, 3).map((feature, featureIndex) => (
-                    <motion.span
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {product.features.slice(0, 2).map((feature, featureIndex) => (
+                    <span
                       key={featureIndex}
-                      className="px-3 py-1 bg-white/10 text-white/90 text-xs rounded-full border border-white/20"
-                      whileHover={{
-                        scale: 1.05,
-                        backgroundColor: "rgba(249, 115, 22, 0.2)",
-                      }}
-                      transition={{ duration: 0.2 }}
+                      className="px-2.5 py-1 bg-gray-100 text-gray-700 text-xs rounded-md border border-gray-200"
                     >
                       {feature}
-                    </motion.span>
+                    </span>
                   ))}
-                  {product.features.length > 3 && (
-                    <span className="px-3 py-1 bg-orange-500/20 text-orange-300 text-xs rounded-full border border-orange-400/30">
-                      +{product.features.length - 3} more
+                  {product.features.length > 2 && (
+                    <span className="px-2.5 py-1 bg-[#2084b1]/10 text-[#2084b1] text-xs rounded-md border border-[#2084b1]/20">
+                      +{product.features.length - 2} more
                     </span>
                   )}
                 </div>
 
                 {/* Price - Pushed to bottom */}
-                <div className="pt-2 border-t border-white/10 mt-auto">
-                  <span className="text-orange-400 font-bold text-lg">
+                <div className="pt-4 border-t border-gray-200 mt-auto">
+                  <span className="text-[#f1852e] font-bold text-base">
                     {product.priceRange}
                   </span>
                 </div>
               </div>
-
-              {/* Hover Effect Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-orange-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl" />
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </div>
       </div>
 
       {/* Product Detail Modal */}
       {selectedProduct && (
-        <motion.div
-          className="fixed inset-0 z-50 bg-black/95 backdrop-blur-sm flex items-center justify-center p-4"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
+        <div
+          className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4"
           onClick={() => setSelectedProduct(null)}
         >
-          <motion.div
-            className="bg-white rounded-3xl max-w-6xl w-full max-h-[95vh] overflow-y-auto shadow-2xl border border-gray-200"
-            initial={{ scale: 0.7, opacity: 0, y: 50 }}
-            animate={{ scale: 1, opacity: 1, y: 0 }}
-            exit={{ scale: 0.7, opacity: 0, y: 50 }}
-            transition={{ duration: 0.4, ease: "easeOut" }}
+          <div
+            className="bg-white rounded-2xl max-w-6xl w-full max-h-[95vh] overflow-y-auto shadow-2xl border border-gray-200"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Modal Header */}
-            <div className="sticky top-0 bg-gradient-to-r from-gray-50 to-white border-b border-gray-200 p-8 rounded-t-3xl shadow-sm">
+            <div className="sticky top-0 bg-white border-b border-gray-200 p-6 sm:p-8 rounded-t-2xl shadow-sm z-10">
               <div className="flex items-center justify-between">
-                <motion.div
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.5, delay: 0.2 }}
-                >
-                  <h2 className="text-4xl font-bold bg-gradient-to-r from-gray-900 to-orange-600 bg-clip-text text-transparent">
+                <div>
+                  <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-2">
                     {selectedProduct.title}
                   </h2>
-                  <div className="flex items-center mt-2">
-                    <span className="flex items-center text-green-600 font-medium">
-                      <CheckCircle className="w-5 h-5 mr-2" />
+                  <div className="flex items-center">
+                    <span className="flex items-center text-green-600 font-medium text-sm">
+                      <CheckCircle className="w-4 h-4 mr-2" />
                       {selectedProduct.availability}
                     </span>
                   </div>
-                </motion.div>
-                <motion.button
+                </div>
+                <button
                   onClick={() => setSelectedProduct(null)}
-                  className="group p-3 rounded-full hover:bg-gray-100 transition-all duration-300 border border-gray-200 hover:border-orange-300"
-                  whileHover={{ scale: 1.1, rotate: 90 }}
-                  whileTap={{ scale: 0.9 }}
-                  initial={{ opacity: 0, rotate: -90 }}
-                  animate={{ opacity: 1, rotate: 0 }}
-                  transition={{ duration: 0.4, delay: 0.3 }}
+                  className="p-2 text-gray-500 hover:text-gray-700 transition-colors duration-200 rounded-lg hover:bg-gray-100"
                   aria-label="Close product details"
                 >
-                  <X className="w-6 h-6 text-gray-500 group-hover:text-orange-500 transition-colors duration-300" />
-                </motion.button>
+                  <X className="w-6 h-6" />
+                </button>
               </div>
             </div>
 
             {/* Modal Content */}
-            <div className="p-8">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            <div className="p-6 sm:p-8">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
                 {/* Product Image */}
-                <motion.div
-                  className="relative h-96 rounded-2xl overflow-hidden shadow-xl"
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.6, delay: 0.4 }}
-                >
+                <div className="relative h-80 lg:h-96 rounded-xl overflow-hidden bg-gray-100 shadow-lg">
                   <Image
                     src={selectedProduct.image}
                     alt={selectedProduct.title}
                     fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-700"
+                    className="object-cover"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
-                </motion.div>
+                </div>
 
                 {/* Product Details */}
-                <motion.div
-                  className="space-y-8"
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.6, delay: 0.5 }}
-                >
+                <div className="space-y-6">
                   <div>
-                    <h3 className="text-2xl font-bold text-gray-900 mb-4 flex items-center">
-                      <Zap className="w-6 h-6 text-orange-500 mr-3" />
+                    <h3 className="text-xl font-bold text-gray-900 mb-3 flex items-center">
+                      <div className="w-1 h-6 logo-blue-bg mr-3 rounded-full" />
                       Description
                     </h3>
-                    <p className="text-gray-600 leading-relaxed text-lg">
+                    <p className="text-gray-700 leading-relaxed">
                       {selectedProduct.description}
                     </p>
                   </div>
 
                   <div>
-                    <h3 className="text-2xl font-bold text-gray-900 mb-4 flex items-center">
-                      <Star className="w-6 h-6 text-orange-500 mr-3" />
+                    <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center">
+                      <div className="w-1 h-6 logo-orange-bg mr-3 rounded-full" />
                       Key Features
                     </h3>
-                    <div className="grid grid-cols-1 gap-3">
+                    <div className="space-y-2">
                       {selectedProduct.features.map((feature, index) => (
-                        <motion.div
+                        <div
                           key={index}
-                          className="flex items-center p-3 bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl border border-green-200"
-                          initial={{ opacity: 0, x: 20 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{
-                            duration: 0.4,
-                            delay: 0.6 + index * 0.1,
-                          }}
+                          className="flex items-start p-3 bg-gray-50 rounded-lg border border-gray-200"
                         >
-                          <CheckCircle className="w-5 h-5 text-green-500 mr-3 flex-shrink-0" />
-                          <span className="text-gray-700 font-medium">
+                          <CheckCircle className="w-5 h-5 text-green-600 mr-3 mt-0.5 flex-shrink-0" />
+                          <span className="text-gray-700 text-sm">
                             {feature}
                           </span>
-                        </motion.div>
+                        </div>
                       ))}
                     </div>
                   </div>
 
                   <div>
-                    <h3 className="text-2xl font-bold text-gray-900 mb-4 flex items-center">
-                      <Award className="w-6 h-6 text-orange-500 mr-3" />
+                    <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center">
+                      <div className="w-1 h-6 logo-blue-bg mr-3 rounded-full" />
                       Applications
                     </h3>
-                    <div className="flex flex-wrap gap-3">
+                    <div className="flex flex-wrap gap-2">
                       {selectedProduct.applications.map((app, index) => (
-                        <motion.span
+                        <span
                           key={index}
-                          className="px-4 py-2 bg-gradient-to-r from-orange-100 to-orange-200 text-orange-800 text-sm font-semibold rounded-full border border-orange-300 hover:from-orange-200 hover:to-orange-300 transition-all duration-300"
-                          initial={{ opacity: 0, scale: 0.8 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          transition={{
-                            duration: 0.3,
-                            delay: 0.7 + index * 0.05,
-                          }}
-                          whileHover={{ scale: 1.05, y: -2 }}
+                          className="px-3 py-1.5 bg-blue-50 text-blue-700 text-sm font-medium rounded-md border border-blue-200"
                         >
                           {app}
-                        </motion.span>
+                        </span>
                       ))}
                     </div>
                   </div>
-                </motion.div>
+                </div>
               </div>
 
               {/* Specifications & Certifications */}
-              <motion.div
-                className="mt-12 grid grid-cols-1 lg:grid-cols-2 gap-8"
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.8 }}
-              >
-                <div className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl p-6 border border-gray-200">
-                  <h3 className="text-2xl font-bold text-gray-900 mb-6 flex items-center">
-                    <Zap className="w-6 h-6 text-orange-500 mr-3" />
+              <div className="mt-10 grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
+                  <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center">
+                    <div className="w-1 h-6 logo-orange-bg mr-3 rounded-full" />
                     Specifications
                   </h3>
-                  <div className="space-y-4">
+                  <div className="space-y-3">
                     {selectedProduct.specifications.map((spec, index) => (
-                      <motion.div
+                      <div
                         key={index}
-                        className="flex justify-between items-center py-4 px-4 bg-white rounded-xl border border-gray-200 hover:border-orange-300 transition-all duration-300"
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.4, delay: 0.9 + index * 0.1 }}
-                        whileHover={{ scale: 1.02, x: 5 }}
+                        className="flex justify-between items-center py-3 px-4 bg-white rounded-lg border border-gray-200"
                       >
-                        <span className="text-gray-600 font-medium">
+                        <span className="text-gray-600 text-sm font-medium">
                           {spec.split(":")[0]}
                         </span>
-                        <span className="font-bold text-gray-900 text-right">
+                        <span className="font-semibold text-gray-900 text-right text-sm">
                           {spec.split(":")[1]}
                         </span>
-                      </motion.div>
+                      </div>
                     ))}
                   </div>
                 </div>
 
-                <div className="bg-gradient-to-br from-blue-50 to-indigo-100 rounded-2xl p-6 border border-blue-200">
-                  <h3 className="text-2xl font-bold text-gray-900 mb-6 flex items-center">
-                    <Award className="w-6 h-6 text-orange-500 mr-3" />
+                <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
+                  <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center">
+                    <div className="w-1 h-6 logo-blue-bg mr-3 rounded-full" />
                     Certifications
                   </h3>
-                  <div className="space-y-4">
+                  <div className="space-y-3">
                     {selectedProduct.certifications.map((cert, index) => (
-                      <motion.div
+                      <div
                         key={index}
-                        className="flex items-center p-4 bg-white rounded-xl border border-blue-200 hover:border-orange-300 transition-all duration-300"
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.4, delay: 0.9 + index * 0.1 }}
-                        whileHover={{ scale: 1.02, x: -5 }}
+                        className="flex items-center p-3 bg-white rounded-lg border border-gray-200"
                       >
-                        <Shield className="w-5 h-5 text-green-500 mr-3 flex-shrink-0" />
-                        <span className="text-gray-700 font-medium">
+                        <Shield className="w-5 h-5 text-green-600 mr-3 flex-shrink-0" />
+                        <span className="text-gray-700 text-sm font-medium">
                           {cert}
                         </span>
-                      </motion.div>
+                      </div>
                     ))}
                   </div>
                 </div>
-              </motion.div>
+              </div>
 
               {/* Price and CTA */}
-              <motion.div
-                className="mt-12 p-8 bg-gradient-to-r from-orange-50 to-orange-100 rounded-3xl border border-orange-200 shadow-lg"
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 1.0 }}
-              >
+              <div className="mt-10 p-6 bg-gray-50 rounded-xl border border-gray-200">
                 <div className="flex flex-col lg:flex-row items-center justify-between gap-6">
                   <div className="text-center lg:text-left">
-                    <motion.p
-                      className="text-3xl font-bold bg-gradient-to-r from-gray-900 to-orange-600 bg-clip-text text-transparent mb-2 text-center lg:text-left"
-                      initial={{ scale: 0.8 }}
-                      animate={{ scale: 1 }}
-                      transition={{ duration: 0.5, delay: 1.1 }}
-                    >
+                    <p className="text-2xl font-bold text-gray-900 mb-2">
                       {selectedProduct.priceRange}
-                    </motion.p>
+                    </p>
                     <div className="flex items-center justify-center lg:justify-start">
-                      <CheckCircle className="w-5 h-5 text-green-500 mr-2" />
-                      <p className="text-green-600 font-semibold text-lg">
+                      <CheckCircle className="w-4 h-4 text-green-600 mr-2" />
+                      <p className="text-green-600 font-medium text-sm">
                         {selectedProduct.availability}
                       </p>
                     </div>
                   </div>
-                  <motion.button
+                  <button
                     onClick={() => {
                       if (selectedProduct) {
                         const subject = encodeURIComponent(
@@ -1114,27 +982,16 @@ export default function ProductPage({ onClose }: { onClose: () => void }) {
                         window.location.href = `mailto:marketing@a1steelrwanda.com?subject=${subject}&body=${body}`;
                       }
                     }}
-                    className="group px-10 py-4 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-full font-bold text-lg hover:from-orange-600 hover:to-orange-700 transition-all duration-300 shadow-xl hover:shadow-2xl"
-                    whileHover={{
-                      scale: 1.05,
-                      y: -3,
-                      boxShadow: "0 20px 40px rgba(249, 115, 22, 0.3)",
-                    }}
-                    whileTap={{ scale: 0.95 }}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.5, delay: 1.2 }}
+                    className="logo-orange-bg text-white px-8 py-3 rounded-lg font-bold text-base hover:opacity-90 transition-opacity duration-200 shadow-md hover:shadow-lg flex items-center gap-2"
                   >
-                    <span className="flex items-center">
-                      Request Quote
-                      <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
-                    </span>
-                  </motion.button>
+                    Request Quote
+                    <ArrowRight className="w-5 h-5" />
+                  </button>
                 </div>
-              </motion.div>
+              </div>
             </div>
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
       )}
     </div>
   );

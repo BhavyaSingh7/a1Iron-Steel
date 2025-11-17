@@ -5,8 +5,7 @@ import CareerPage from "@/components/career/CareerPage";
 
 export default function CareerPageRoute() {
   useEffect(() => {
-    document.title =
-      "Careers - A1 Iron & Steel | Join Our Team in Rwanda";
+    document.title = "Careers - A1 Iron & Steel | Join Our Team in Rwanda";
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
       metaDescription.setAttribute(
@@ -18,4 +17,3 @@ export default function CareerPageRoute() {
 
   return <CareerPage />;
 }
-

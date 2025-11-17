@@ -301,7 +301,11 @@ function HomeContent() {
   }, [showVideoIntro]);
 
   return (
-    <main className={`min-h-screen snap-y snap-mandatory ${showVideoIntro ? "overflow-hidden" : ""}`}>
+    <main
+      className={`min-h-screen snap-y snap-mandatory ${
+        showVideoIntro ? "overflow-hidden" : ""
+      }`}
+    >
       {/* Video Intro Screen - Shows for 8 seconds then slides up */}
       {showVideoIntro && (
         <motion.section
