@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import React, { useState, useEffect, useCallback, useMemo } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
@@ -546,45 +545,25 @@ export default function ProductsSection() {
     >
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.15 }}
-          viewport={{ once: true }}
-          className="text-center mb-12 sm:mb-16 lg:mb-20"
-        >
-          <motion.h2
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.15 }}
-            viewport={{ once: true }}
+        <div className="text-center mb-12 sm:mb-16 lg:mb-20">
+          <h2
             className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold mb-6 tracking-wide"
             style={{ letterSpacing: "0.03em" }}
           >
             <span className="logo-blue-gradient">OUR</span>{" "}
             <span className="logo-orange-gradient">PRODUCTS</span>
-          </motion.h2>
+          </h2>
 
           {/* Underline */}
-          <motion.div
-            initial={{ opacity: 0, scaleX: 0 }}
-            whileInView={{ opacity: 1, scaleX: 1 }}
-            transition={{ duration: 0.15 }}
-            viewport={{ once: true }}
-            className="w-20 sm:w-24 h-0.5 logo-orange-bg mx-auto mb-6 sm:mb-8"
-          />
+          <div className="w-20 sm:w-24 h-0.5 logo-orange-bg mx-auto mb-6 sm:mb-8" />
 
-          <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.15 }}
-            viewport={{ once: true }}
+          <p
             className="text-base sm:text-lg text-gray-600 font-light tracking-wide"
             style={{ letterSpacing: "0.02em" }}
           >
             Premium Steel Solutions for Your Needs
-          </motion.p>
-        </motion.div>
+          </p>
+        </div>
 
         {/* Carousel Container */}
         <div className="relative">
@@ -644,11 +623,11 @@ export default function ProductsSection() {
                           alt={product.title}
                           fill
                           className="object-cover"
-                          quality={60}
+                          quality={50}
                           sizes="(max-width: 768px) 320px, 384px"
                           loading="lazy"
                           priority={
-                            index < 3 &&
+                            index < 2 &&
                             currentIndex % products.length === index
                           }
                         />
@@ -686,13 +665,7 @@ export default function ProductsSection() {
           </div>
 
           {/* Pagination Dots */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.2, delay: 0.1 }}
-            viewport={{ once: true }}
-            className="flex justify-center mt-8 space-x-2"
-          >
+          <div className="flex justify-center mt-8 space-x-2">
             {products.map((_, index) => {
               const isActive = index === currentIndex % products.length;
               return (
@@ -707,35 +680,23 @@ export default function ProductsSection() {
                 />
               );
             })}
-          </motion.div>
+          </div>
 
           {/* Instructions */}
-          <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.2, delay: 0.15 }}
-            viewport={{ once: true }}
-            className="text-center text-sm text-gray-500 mt-6"
-          >
+          <p className="text-center text-sm text-gray-500 mt-6">
             Drag to navigate • Use arrow buttons • Click dots to jump • Click on
             any product to learn more
-          </motion.p>
+          </p>
         </div>
       </div>
 
       {/* Product Detail Modal */}
       {isModalOpen && selectedProduct && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
+        <div
           className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
           onClick={closeModal}
         >
-          <motion.div
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0.8, opacity: 0 }}
+          <div
             className="bg-white rounded-xl shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto border border-gray-100"
             style={{
               boxShadow:
@@ -751,6 +712,8 @@ export default function ProductsSection() {
                   alt={selectedProduct.title}
                   fill
                   className="object-cover"
+                  quality={60}
+                  loading="eager"
                 />
                 <button
                   onClick={closeModal}
@@ -895,8 +858,8 @@ export default function ProductsSection() {
                 </button>
               </div>
             </div>
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
       )}
     </section>
   );

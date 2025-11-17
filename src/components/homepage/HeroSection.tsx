@@ -139,14 +139,12 @@ export default function HeroSection({
 
         {/* Always render all images with proper opacity and z-index for seamless transitions */}
         {/* hm1.png - handle wrap-around from image 6 */}
-        <motion.div
-          animate={{
-            opacity: currentBgImage === 0 ? 0.25 : 0,
-          }}
-          transition={{ duration: 0.3, ease: "easeInOut" }}
+        <div
           style={{
+            opacity: currentBgImage === 0 ? 0.25 : 0,
             zIndex: currentBgImage === 0 ? 2 : currentBgImage === 6 ? 1 : 0,
             pointerEvents: "none",
+            transition: "opacity 0.3s ease-in-out",
           }}
           className="absolute inset-0"
           aria-hidden="true"
@@ -156,24 +154,22 @@ export default function HeroSection({
             alt="Background Image 1"
             fill
             className="object-cover"
-            quality={30}
+            quality={40}
             priority={currentBgImage === 0 || currentBgImage === 6}
             loading={
               currentBgImage === 0 || currentBgImage === 6 ? "eager" : "lazy"
             }
             sizes="100vw"
           />
-        </motion.div>
+        </div>
 
         {/* hm2.jpeg */}
-        <motion.div
-          animate={{
-            opacity: currentBgImage === 1 ? 0.25 : 0,
-          }}
-          transition={{ duration: 0.3, ease: "easeInOut" }}
+        <div
           style={{
+            opacity: currentBgImage === 1 ? 0.25 : 0,
             zIndex: currentBgImage === 1 ? 2 : currentBgImage === 0 ? 1 : 0,
             pointerEvents: "none",
+            transition: "opacity 0.3s ease-in-out",
           }}
           className="absolute inset-0"
           aria-hidden="true"
@@ -183,24 +179,22 @@ export default function HeroSection({
             alt="Background Image 2"
             fill
             className="object-cover"
-            quality={30}
+            quality={40}
             sizes="100vw"
             priority={currentBgImage === 1 || currentBgImage === 0}
             loading={
               currentBgImage === 1 || currentBgImage === 0 ? "eager" : "lazy"
             }
           />
-        </motion.div>
+        </div>
 
         {/* hm3.jpeg */}
-        <motion.div
-          animate={{
-            opacity: currentBgImage === 2 ? 0.25 : 0,
-          }}
-          transition={{ duration: 0.3, ease: "easeInOut" }}
+        <div
           style={{
+            opacity: currentBgImage === 2 ? 0.25 : 0,
             zIndex: currentBgImage === 2 ? 2 : currentBgImage === 1 ? 1 : 0,
             pointerEvents: "none",
+            transition: "opacity 0.3s ease-in-out",
           }}
           className="absolute inset-0"
           aria-hidden="true"
@@ -210,24 +204,22 @@ export default function HeroSection({
             alt="Background Image 3"
             fill
             className="object-cover"
-            quality={30}
+            quality={40}
             sizes="100vw"
             priority={currentBgImage === 2 || currentBgImage === 1}
             loading={
               currentBgImage === 2 || currentBgImage === 1 ? "eager" : "lazy"
             }
           />
-        </motion.div>
+        </div>
 
         {/* hm4.jpeg */}
-        <motion.div
-          animate={{
-            opacity: currentBgImage === 3 ? 0.25 : 0,
-          }}
-          transition={{ duration: 0.3, ease: "easeInOut" }}
+        <div
           style={{
+            opacity: currentBgImage === 3 ? 0.25 : 0,
             zIndex: currentBgImage === 3 ? 2 : currentBgImage === 2 ? 1 : 0,
             pointerEvents: "none",
+            transition: "opacity 0.3s ease-in-out",
           }}
           className="absolute inset-0"
           aria-hidden="true"
@@ -237,24 +229,22 @@ export default function HeroSection({
             alt="Background Image 4"
             fill
             className="object-cover"
-            quality={30}
+            quality={40}
             sizes="100vw"
             priority={currentBgImage === 3 || currentBgImage === 2}
             loading={
               currentBgImage === 3 || currentBgImage === 2 ? "eager" : "lazy"
             }
           />
-        </motion.div>
+        </div>
 
         {/* hm5.jpeg */}
-        <motion.div
-          animate={{
-            opacity: currentBgImage === 4 ? 0.25 : 0,
-          }}
-          transition={{ duration: 0.3, ease: "easeInOut" }}
+        <div
           style={{
+            opacity: currentBgImage === 4 ? 0.25 : 0,
             zIndex: currentBgImage === 4 ? 2 : currentBgImage === 3 ? 1 : 0,
             pointerEvents: "none",
+            transition: "opacity 0.3s ease-in-out",
           }}
           className="absolute inset-0"
           aria-hidden="true"
@@ -264,24 +254,22 @@ export default function HeroSection({
             alt="Background Image 5"
             fill
             className="object-cover"
-            quality={30}
+            quality={40}
             sizes="100vw"
             priority={currentBgImage === 4 || currentBgImage === 3}
             loading={
               currentBgImage === 4 || currentBgImage === 3 ? "eager" : "lazy"
             }
           />
-        </motion.div>
+        </div>
 
         {/* hm6.jpeg */}
-        <motion.div
-          animate={{
-            opacity: currentBgImage === 5 ? 0.25 : 0,
-          }}
-          transition={{ duration: 0.3, ease: "easeInOut" }}
+        <div
           style={{
+            opacity: currentBgImage === 5 ? 0.25 : 0,
             zIndex: currentBgImage === 5 ? 2 : currentBgImage === 4 ? 1 : 0,
             pointerEvents: "none",
+            transition: "opacity 0.3s ease-in-out",
           }}
           className="absolute inset-0"
           aria-hidden="true"
@@ -291,24 +279,22 @@ export default function HeroSection({
             alt="Background Image 6"
             fill
             className="object-cover"
-            quality={30}
+            quality={40}
             sizes="100vw"
             priority={currentBgImage === 5 || currentBgImage === 4}
             loading={
               currentBgImage === 5 || currentBgImage === 4 ? "eager" : "lazy"
             }
           />
-        </motion.div>
+        </div>
 
         {/* hm7.jpeg */}
-        <motion.div
-          animate={{
-            opacity: currentBgImage === 6 ? 0.25 : 0,
-          }}
-          transition={{ duration: 0.3, ease: "easeInOut" }}
+        <div
           style={{
+            opacity: currentBgImage === 6 ? 0.25 : 0,
             zIndex: currentBgImage === 6 ? 2 : currentBgImage === 5 ? 1 : 0,
             pointerEvents: "none",
+            transition: "opacity 0.3s ease-in-out",
           }}
           className="absolute inset-0"
           aria-hidden="true"
@@ -318,38 +304,36 @@ export default function HeroSection({
             alt="Background Image 7"
             fill
             className="object-cover"
-            quality={30}
+            quality={40}
             sizes="100vw"
             priority={currentBgImage === 6 || currentBgImage === 5}
             loading={
               currentBgImage === 6 || currentBgImage === 5 ? "eager" : "lazy"
             }
           />
-        </motion.div>
+        </div>
       </div>
 
       {/* Removed white overlay to avoid tint on images */}
       {/* Navigation Bar - Only show when video intro is not showing */}
       {!showVideoIntro && (
-        <motion.div
-          initial={{ y: -100, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.3, delay: 0.1 }}
+        <div
           className="fixed top-0 left-0 right-0 z-50 bg-white/98 backdrop-blur-md shadow-sm border-b border-gray-100"
           style={{
             boxShadow:
               "0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.05)",
+            opacity: showVideoIntro ? 0 : 1,
+            transform: showVideoIntro ? "translateY(-100px)" : "translateY(0)",
+            transition: "opacity 0.2s ease-out, transform 0.2s ease-out",
           }}
         >
           <div className="max-w-6xl mx-auto px-2 sm:px-4 lg:px-6">
             <div className="flex items-center justify-between h-16 md:h-20 lg:h-20">
               {/* Logo */}
               <div className="flex items-center h-full -ml-4 md:-ml-6">
-                <motion.button
+                <button
                   onClick={handleHomeClick}
-                  className="flex items-center h-full cursor-pointer"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
+                  className="flex items-center h-full cursor-pointer hover:scale-105 active:scale-95 transition-transform duration-200"
                   aria-label="Navigate to home"
                 >
                   <div className="relative h-full w-auto py-2">
@@ -364,7 +348,7 @@ export default function HeroSection({
                       priority
                     />
                   </div>
-                </motion.button>
+                </button>
               </div>
 
               {/* Navigation Links */}
@@ -372,75 +356,72 @@ export default function HeroSection({
                 className="hidden md:flex items-center space-x-6"
                 aria-label="Main navigation"
               >
-                <motion.button
+                <button
                   onClick={handleHomeClick}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="text-gray-800 font-medium text-base md:text-lg hover:text-logo-orange-1 transition-all duration-200 cursor-pointer focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded px-2 tracking-wide"
+                  className="text-gray-800 font-medium text-base md:text-lg hover:text-logo-orange-1 transition-colors duration-200 cursor-pointer focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded px-2 tracking-wide hover:scale-105 active:scale-95"
                   aria-label="Navigate to home section"
                   tabIndex={0}
                 >
                   Home
-                </motion.button>
-                <motion.button
+                </button>
+                <button
                   onClick={handleAboutClick}
                   className="text-gray-700 font-bold text-base md:text-lg hover:text-logo-orange-1 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded px-2"
                   aria-label="Navigate to about section"
                   tabIndex={0}
                 >
                   About
-                </motion.button>
-                <motion.button
+                </button>
+                <button
                   onClick={onProductsClick}
                   className="text-gray-700 font-bold text-base md:text-lg hover:text-logo-orange-1 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded px-2"
                   aria-label="View our products"
                   tabIndex={0}
                 >
                   Products
-                </motion.button>
-                <motion.button
+                </button>
+                <button
                   onClick={handleMediaClick}
                   className="text-gray-700 font-bold text-base md:text-lg hover:text-logo-orange-1 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded px-2"
                   aria-label="View our media and social links"
                   tabIndex={0}
                 >
                   Media
-                </motion.button>
-                <motion.button
+                </button>
+                <button
                   onClick={handleCareerClick}
                   className="text-gray-700 font-bold text-base md:text-lg hover:text-logo-orange-1 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded px-2"
                   aria-label="View career opportunities"
                   tabIndex={0}
                 >
                   Career
-                </motion.button>
-                <motion.button
+                </button>
+                <button
                   onClick={handleContactClick}
                   className="text-gray-700 font-bold text-base md:text-lg hover:text-logo-orange-1 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded px-2"
                   aria-label="Contact us"
                   tabIndex={0}
                 >
                   Contact
-                </motion.button>
+                </button>
               </nav>
 
               {/* Mobile Menu Button */}
               <button
                 onClick={toggleMobileMenu}
-                className="md:hidden p-2 text-logo-gray-dark hover:text-logo-orange-medium transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded"
+                className="md:hidden p-2 text-logo-gray-dark hover:text-logo-orange-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded"
                 aria-label={
                   isMobileMenuOpen ? "Close mobile menu" : "Open mobile menu"
                 }
                 aria-expanded={isMobileMenuOpen}
                 tabIndex={0}
               >
-                <motion.svg
-                  className="w-6 h-6"
+                <svg
+                  className="w-6 h-6 transition-transform duration-200"
+                  style={{ transform: isMobileMenuOpen ? "rotate(90deg)" : "rotate(0deg)" }}
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
-                  animate={{ rotate: isMobileMenuOpen ? 90 : 0 }}
-                  transition={{ duration: 0.3 }}
                 >
                   {isMobileMenuOpen ? (
                     <path
@@ -457,24 +438,25 @@ export default function HeroSection({
                       d="M4 6h16M4 12h16M4 18h16"
                     />
                   )}
-                </motion.svg>
+                </svg>
               </button>
             </div>
           </div>
-        </motion.div>
+        </div>
       )}
 
       {/* Mobile Menu Overlay */}
       {isMobileMenuOpen && (
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          transition={{ duration: 0.3 }}
+        <div
           className="mobile-menu-container fixed top-16 left-0 right-0 z-40 bg-white backdrop-blur-sm shadow-lg border-b border-logo-orange-medium/30 md:hidden"
           role="dialog"
           aria-label="Mobile navigation menu"
           aria-modal="true"
+          style={{
+            opacity: isMobileMenuOpen ? 1 : 0,
+            transform: isMobileMenuOpen ? "translateY(0)" : "translateY(-20px)",
+            transition: "opacity 0.2s ease-out, transform 0.2s ease-out",
+          }}
         >
           <nav className="px-4 py-6 space-y-4" aria-label="Mobile navigation">
             <button
@@ -538,7 +520,7 @@ export default function HeroSection({
               Contact
             </button>
           </nav>
-        </motion.div>
+        </div>
       )}
 
       {/* Hero Content */}
@@ -552,17 +534,13 @@ export default function HeroSection({
         <div className="text-center max-w-5xl mx-auto px-6 sm:px-8 lg:px-12 relative z-10">
           {/* A1 IRON & STEEL Title */}
           <div className="flex justify-center items-center mb-4 sm:mb-6">
-            <motion.div
+            <div
               className="text-center"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{
+              style={{
                 opacity: showVideoIntro ? 0 : 1,
-                y: showVideoIntro ? 30 : 0,
-              }}
-              transition={{
-                duration: 0.4,
-                delay: showVideoIntro ? 0 : 0.1,
-                ease: "easeOut",
+                transform: showVideoIntro ? "translateY(30px)" : "translateY(0)",
+                transition: "opacity 0.3s ease-out, transform 0.3s ease-out",
+                transitionDelay: showVideoIntro ? "0s" : "0.1s",
               }}
             >
               <h1
@@ -585,39 +563,33 @@ export default function HeroSection({
                   aria-hidden="true"
                 ></span>
               </h1>
-            </motion.div>
+            </div>
           </div>
 
           {/* Subtitle */}
-          <motion.h2
-            initial={{ opacity: 0, y: 30 }}
-            animate={{
-              opacity: showVideoIntro ? 0 : 1,
-              y: showVideoIntro ? 30 : 0,
-            }}
-            transition={{
-              duration: 0.4,
-              delay: showVideoIntro ? 0 : 0.2,
-            }}
+          <h2
             className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold logo-blue-gradient mb-8 sm:mb-10 md:mb-12 tracking-wide"
-            style={{ letterSpacing: "0.03em" }}
+            style={{
+              letterSpacing: "0.03em",
+              opacity: showVideoIntro ? 0 : 1,
+              transform: showVideoIntro ? "translateY(30px)" : "translateY(0)",
+              transition: "opacity 0.3s ease-out, transform 0.3s ease-out",
+              transitionDelay: showVideoIntro ? "0s" : "0.2s",
+            }}
           >
             The Metal That Builds a Nation
-          </motion.h2>
+          </h2>
 
           {/* Description */}
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{
-              opacity: showVideoIntro ? 0 : 1,
-              y: showVideoIntro ? 30 : 0,
-            }}
-            transition={{
-              duration: 0.4,
-              delay: showVideoIntro ? 0 : 0.3,
-            }}
+          <p
             className="text-base sm:text-lg md:text-xl lg:text-2xl text-white mb-12 sm:mb-16 md:mb-20 leading-[1.8] max-w-3xl mx-auto font-light"
-            style={{ letterSpacing: "0.01em" }}
+            style={{
+              letterSpacing: "0.01em",
+              opacity: showVideoIntro ? 0 : 1,
+              transform: showVideoIntro ? "translateY(30px)" : "translateY(0)",
+              transition: "opacity 0.3s ease-out, transform 0.3s ease-out",
+              transitionDelay: showVideoIntro ? "0s" : "0.3s",
+            }}
           >
             Rwanda&apos;s premier steel manufacturer delivering{" "}
             <span className="logo-orange-gradient font-semibold">
@@ -625,22 +597,19 @@ export default function HeroSection({
               reliability.
             </span>{" "}
             Building the infrastructure that drives world forward.
-          </motion.p>
+          </p>
 
           {/* Buttons */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{
-              opacity: showVideoIntro ? 0 : 1,
-              y: showVideoIntro ? 30 : 0,
-            }}
-            transition={{
-              duration: 0.4,
-              delay: showVideoIntro ? 0 : 0.4,
-            }}
+          <div
             className="flex flex-col sm:flex-row items-center justify-center gap-5 sm:gap-6"
+            style={{
+              opacity: showVideoIntro ? 0 : 1,
+              transform: showVideoIntro ? "translateY(30px)" : "translateY(0)",
+              transition: "opacity 0.3s ease-out, transform 0.3s ease-out",
+              transitionDelay: showVideoIntro ? "0s" : "0.4s",
+            }}
           >
-            <motion.button
+            <button
               onClick={onProductsClick}
               className="relative w-52 sm:w-60 h-14 sm:h-16 logo-orange-bg text-white font-medium rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 text-sm sm:text-base tracking-wider overflow-hidden group flex items-center justify-center focus:outline-none focus:ring-4 focus:ring-orange-300 focus:ring-offset-2"
               aria-label="Explore our steel products and solutions"
@@ -667,10 +636,10 @@ export default function HeroSection({
                   />
                 </svg>
               </span>
-            </motion.button>
-            <motion.button
+            </button>
+            <button
               onClick={handleAboutClick}
-              className="relative w-52 sm:w-60 h-14 sm:h-16 bg-white border border-gray-200 text-gray-800 font-medium rounded-lg hover:border-gray-300 transition-all duration-300 text-sm sm:text-base tracking-wider group overflow-hidden shadow-sm hover:shadow-md flex items-center justify-center focus:outline-none focus:ring-4 focus:ring-blue-300 focus:ring-offset-2"
+              className="relative w-52 sm:w-60 h-14 sm:h-16 bg-white border border-gray-200 text-gray-800 font-medium rounded-lg hover:border-gray-300 transition-all duration-200 text-sm sm:text-base tracking-wider group overflow-hidden shadow-sm hover:shadow-md flex items-center justify-center focus:outline-none focus:ring-4 focus:ring-blue-300 focus:ring-offset-2"
               aria-label="Learn more about our company"
               tabIndex={0}
               style={{
@@ -693,16 +662,16 @@ export default function HeroSection({
                   />
                 </svg>
               </span>
-            </motion.button>
+            </button>
             {/* Interactive Slider CTA to Sustainability */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{
-                opacity: showVideoIntro ? 0 : 1,
-                y: showVideoIntro ? 30 : 0,
-              }}
-              transition={{ duration: 0.3, delay: showVideoIntro ? 0 : 0.5 }}
+            <div
               className="relative select-none"
+              style={{
+                opacity: showVideoIntro ? 0 : 1,
+                transform: showVideoIntro ? "translateY(30px)" : "translateY(0)",
+                transition: "opacity 0.3s ease-out, transform 0.3s ease-out",
+                transitionDelay: showVideoIntro ? "0s" : "0.5s",
+              }}
             >
               <div className="sustainability-slider w-48 sm:w-56 h-14 sm:h-16 bg-white/95 backdrop-blur-sm border-2 border-gray-200 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 relative overflow-hidden">
                 {/* Swipe indicator text - positioned on the left */}
@@ -727,31 +696,12 @@ export default function HeroSection({
                     className="flex items-center gap-0.5 z-10 transition-opacity duration-300"
                     style={{ opacity: sliderPosition > 15 ? 0 : 1 }}
                   >
-                    <motion.div
-                      animate={{
-                        x: [0, 4, 0],
-                      }}
-                      transition={{
-                        duration: 0.8,
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                      }}
-                    >
+                    <div className="animate-pulse">
                       <ChevronRight className="w-3 h-3 text-gray-500" />
-                    </motion.div>
-                    <motion.div
-                      animate={{
-                        x: [0, 4, 0],
-                      }}
-                      transition={{
-                        duration: 0.8,
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                        delay: 0.2,
-                      }}
-                    >
+                    </div>
+                    <div className="animate-pulse" style={{ animationDelay: "0.2s" }}>
                       <ChevronRight className="w-3 h-3 text-gray-500" />
-                    </motion.div>
+                    </div>
                   </div>
                 </div>
                 <motion.div
@@ -792,13 +742,11 @@ export default function HeroSection({
                     }
                   }}
                   style={{ left: `${Math.max(4, sliderPosition)}px` }}
-                  className={`absolute top-1/2 -translate-y-1/2 w-12 h-12 rounded-xl shadow-xl flex items-center justify-center cursor-grab active:cursor-grabbing z-20 hover:shadow-2xl transition-all duration-300 ${
+                  className={`absolute top-1/2 -translate-y-1/2 w-12 h-12 rounded-xl shadow-xl flex items-center justify-center cursor-grab active:cursor-grabbing z-20 hover:shadow-2xl transition-all duration-200 hover:scale-110 active:scale-95 ${
                     sliderPosition > 120
                       ? "bg-gradient-to-br from-green-500 to-emerald-600 border-2 border-green-400"
                       : "bg-white border-2 border-gray-300 shadow-lg"
                   }`}
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
                 >
                   <Trees
                     className={`w-6 h-6 ${
@@ -807,42 +755,39 @@ export default function HeroSection({
                   />
                 </motion.div>
                 {sliderPosition > 10 && (
-                  <motion.div
-                    initial={{ width: 0, opacity: 0 }}
-                    animate={{ width: sliderPosition + 4, opacity: 1 }}
-                    transition={{ type: "spring", stiffness: 150, damping: 15 }}
-                    className={`absolute left-0 top-0 h-full rounded-xl ${
+                  <div
+                    className={`absolute left-0 top-0 h-full rounded-xl transition-all duration-200 ${
                       sliderPosition > 120
                         ? "bg-gradient-to-r from-green-500 via-emerald-600 to-teal-600 shadow-inner"
                         : "bg-gradient-to-r from-blue-500 via-blue-600 to-cyan-600 shadow-sm"
                     }`}
+                    style={{
+                      width: `${sliderPosition + 4}px`,
+                      opacity: sliderPosition > 10 ? 1 : 0,
+                    }}
                   />
                 )}
               </div>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
         </div>
 
         {/* Scroll Indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.3, delay: 0.6 }}
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-center"
-        >
-          <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{
-              duration: 2,
-              repeat: Infinity,
-              ease: "easeInOut",
+        {!showVideoIntro && (
+          <div
+            className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-center"
+            style={{
+              opacity: showVideoIntro ? 0 : 1,
+              transition: "opacity 0.3s ease-out",
+              transitionDelay: "0.6s",
             }}
-            className="w-8 h-8 border-2 border-logo-orange-medium rounded-full flex items-center justify-center mx-auto mb-2"
           >
-            <ArrowUp className="w-4 h-4 text-logo-orange-medium rotate-180" />
-          </motion.div>
-          <p className="text-sm text-logo-gray-dark">Scroll</p>
-        </motion.div>
+            <div className="w-8 h-8 border-2 border-logo-orange-medium rounded-full flex items-center justify-center mx-auto mb-2 animate-bounce">
+              <ArrowUp className="w-4 h-4 text-logo-orange-medium rotate-180" />
+            </div>
+            <p className="text-sm text-logo-gray-dark">Scroll</p>
+          </div>
+        )}
       </div>
     </section>
   );

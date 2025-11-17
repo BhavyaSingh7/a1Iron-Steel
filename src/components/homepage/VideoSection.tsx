@@ -1,11 +1,5 @@
 "use client";
 
-import {
-  motion,
-  useScroll,
-  useTransform,
-  useMotionValueEvent,
-} from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
 export default function VideoSection() {
@@ -13,49 +7,19 @@ export default function VideoSection() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isInView, setIsInView] = useState(false);
+  const [opacity, setOpacity] = useState(0);
 
-  // Use scroll to control video visibility and playback
-  // Video should appear immediately when scrolling from About section
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"],
-  });
-
-  // Transform scroll progress to opacity
-  // Video appears when scrolling from About section (progress 0-0.5)
-  // Video stays visible in the middle (progress 0.5-0.7)
-  // Video fades out when scrolling to Mission section (progress 0.7-1)
-  const opacity = useTransform(
-    scrollYProgress,
-    [0, 0.2, 0.5, 0.8, 1],
-    [0, 1, 1, 1, 0]
-  );
-
-  // Watch scroll progress - but Intersection Observer is primary for video playback
-  // This is mainly for opacity animation
-  useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    // Update isInView for text animation, but video playback is controlled by Intersection Observer
-    if (latest > 0.1 && latest < 0.9) {
-      if (!isInView) {
-        setIsInView(true);
-      }
-    } else {
-      if (isInView) {
-        setIsInView(false);
-      }
-    }
-  });
-
-  // Intersection Observer - primary method to control video playback
-  // Video only plays when scrolled to (when section is visible)
+  // Intersection Observer - control video playback and opacity
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting && entry.intersectionRatio > 0.3) {
-            // Section is visible - play video
+          const ratio = entry.intersectionRatio;
+          if (entry.isIntersecting && ratio > 0.1) {
+            // Section is visible - play video and show
+            setIsInView(true);
+            setOpacity(Math.min(1, ratio * 1.5));
             if (videoRef.current && !isPlaying) {
-              setIsInView(true);
               videoRef.current
                 .play()
                 .then(() => {
@@ -65,10 +29,11 @@ export default function VideoSection() {
                   console.error("Video autoplay failed:", error);
                 });
             }
-          } else if (!entry.isIntersecting || entry.intersectionRatio < 0.3) {
-            // Section is not visible - pause video
+          } else {
+            // Section is not visible - pause video and hide
+            setIsInView(false);
+            setOpacity(0);
             if (videoRef.current && isPlaying) {
-              setIsInView(false);
               videoRef.current.pause();
               setIsPlaying(false);
             }
@@ -76,18 +41,19 @@ export default function VideoSection() {
         });
       },
       {
-        threshold: [0, 0.3, 0.5, 1],
+        threshold: [0, 0.1, 0.3, 0.5, 0.7, 1],
         rootMargin: "0px",
       }
     );
 
-    if (containerRef.current) {
-      observer.observe(containerRef.current);
+    const currentContainer = containerRef.current;
+    if (currentContainer) {
+      observer.observe(currentContainer);
     }
 
     return () => {
-      if (containerRef.current) {
-        observer.unobserve(containerRef.current);
+      if (currentContainer) {
+        observer.unobserve(currentContainer);
       }
     };
   }, [isPlaying]);
@@ -100,11 +66,12 @@ export default function VideoSection() {
       style={{ minHeight: "100vh" }}
     >
       {/* Fixed fullscreen video overlay */}
-      <motion.div
+      <div
         className="fixed inset-0 w-full h-screen z-40"
         style={{
           opacity,
           pointerEvents: isInView ? "auto" : "none",
+          transition: "opacity 0.3s ease-out",
         }}
       >
         <video
@@ -133,14 +100,17 @@ export default function VideoSection() {
         <div className="absolute inset-0 bg-black/10" />
 
         {/* Text Overlay - Positioned at bottom */}
-        <motion.div
+        <div
           className="absolute bottom-0 left-0 right-0 z-10 px-4 sm:px-6 md:px-8 pb-8 sm:pb-12 md:pb-16 lg:pb-20"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : 30 }}
-          transition={{ duration: 0.3, delay: 0.1 }}
+          style={{
+            opacity: isInView ? 1 : 0,
+            transform: isInView ? "translateY(0)" : "translateY(30px)",
+            transition: "opacity 0.3s ease-out, transform 0.3s ease-out",
+            transitionDelay: "0.1s",
+          }}
         >
           <div className="text-center max-w-4xl mx-auto">
-            <motion.p
+            <p
               className="text-base sm:text-lg md:text-xl lg:text-2xl text-white leading-relaxed"
               style={{
                 textShadow:
@@ -152,10 +122,10 @@ export default function VideoSection() {
               innovation, and rising opportunity. Our steel plant here reflects
               our belief in the nation&apos;s potential and its commitment to
               transforming vision into reality.
-            </motion.p>
+            </p>
           </div>
-        </motion.div>
-      </motion.div>
+        </div>
+      </div>
 
       {/* Minimal spacer - just enough for scroll detection */}
       <div className="relative h-1 w-full pointer-events-none" />

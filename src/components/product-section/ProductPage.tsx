@@ -2,13 +2,7 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import {
-  X,
-  ArrowRight,
-  ArrowLeft,
-  CheckCircle,
-  Shield,
-} from "lucide-react";
+import { X, ArrowRight, ArrowLeft, CheckCircle, Shield } from "lucide-react";
 import Image from "next/image";
 
 interface Product {
@@ -661,7 +655,6 @@ export default function ProductPage({ onClose }: { onClose: () => void }) {
     },
   ];
 
-
   return (
     <div className="fixed inset-0 z-50 bg-gray-50 overflow-y-auto">
       {/* Header */}
@@ -692,8 +685,8 @@ export default function ProductPage({ onClose }: { onClose: () => void }) {
               >
                 <X className="w-6 h-6" />
               </button>
+            </div>
           </div>
-        </div>
         </div>
       </div>
 
@@ -717,12 +710,14 @@ export default function ProductPage({ onClose }: { onClose: () => void }) {
             }),
           }}
         />
-        
+
         {/* Introduction Section */}
         <div className="text-center mb-16 max-w-4xl mx-auto">
           <div className="w-20 h-1 logo-orange-bg mx-auto mb-6 rounded-full" />
           <p className="text-xl text-gray-700 leading-relaxed font-light">
-            Discover our comprehensive range of high-quality steel products, engineered to meet the diverse needs of construction, manufacturing, and infrastructure development across Rwanda and beyond.
+            Discover our comprehensive range of high-quality steel products,
+            engineered to meet the diverse needs of construction, manufacturing,
+            and infrastructure development across Rwanda and beyond.
           </p>
         </div>
 

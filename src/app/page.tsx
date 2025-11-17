@@ -114,12 +114,12 @@ function HomeContent() {
   const [showSecondVideo, setShowSecondVideo] = useState(false);
   // Removed unused showBubbles state for performance
 
-  // Preload videos immediately on mount - aggressive preloading
+  // Optimized video preloading - only preload first video
   useEffect(() => {
     if (!skipIntro && typeof document !== "undefined") {
       const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
-      // Create preload links for both videos
+      // Only preload the first video to reduce initial load
       const link1 = document.createElement("link");
       link1.rel = "preload";
       link1.href = `${basePath}/bg-video.mp4`;
@@ -127,31 +127,8 @@ function HomeContent() {
       link1.type = "video/mp4";
       document.head.appendChild(link1);
 
-      const link2 = document.createElement("link");
-      link2.rel = "preload";
-      link2.href = `${basePath}/bg-video3.mp4`;
-      link2.as = "video";
-      link2.type = "video/mp4";
-      document.head.appendChild(link2);
-
-      // Create hidden video element to force immediate loading
-      const preloadVideo = document.createElement("video");
-      preloadVideo.src = `${basePath}/bg-video.mp4`;
-      preloadVideo.preload = "auto";
-      preloadVideo.muted = true;
-      preloadVideo.style.display = "none";
-      preloadVideo.style.position = "absolute";
-      preloadVideo.style.width = "1px";
-      preloadVideo.style.height = "1px";
-      preloadVideo.style.opacity = "0";
-      preloadVideo.style.pointerEvents = "none";
-      document.body.appendChild(preloadVideo);
-      preloadVideo.load();
-
       return () => {
         if (link1.parentNode) document.head.removeChild(link1);
-        if (link2.parentNode) document.head.removeChild(link2);
-        if (preloadVideo.parentNode) document.body.removeChild(preloadVideo);
       };
     }
   }, [skipIntro]);
