@@ -43,6 +43,16 @@ export default function CareerPage({ onClose }: CareerPageProps) {
     }
   };
 
+  // Disable body scroll when this page is open
+  React.useEffect(() => {
+    document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
+    };
+  }, []);
+
   const handleInputChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
@@ -188,8 +198,9 @@ export default function CareerPage({ onClose }: CareerPageProps) {
           </h1>
           <div className="w-20 h-1 logo-orange-bg mx-auto mb-6 rounded-full" />
           <p className="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto">
-            Be part of Rwanda&apos;s premier steel manufacturing company. We&apos;re
-            looking for talented individuals to help us build the future.
+            Be part of Rwanda&apos;s premier steel manufacturing company.
+            We&apos;re looking for talented individuals to help us build the
+            future.
           </p>
         </div>
 
@@ -402,7 +413,8 @@ export default function CareerPage({ onClose }: CareerPageProps) {
                 {resumeFile && (
                   <div className="mt-2 flex items-center text-sm text-green-600">
                     <CheckCircle className="w-4 h-4 mr-2" />
-                    File selected: {resumeFile.name} ({(resumeFile.size / 1024).toFixed(2)} KB)
+                    File selected: {resumeFile.name} (
+                    {(resumeFile.size / 1024).toFixed(2)} KB)
                   </div>
                 )}
               </div>
@@ -464,8 +476,8 @@ export default function CareerPage({ onClose }: CareerPageProps) {
                       Application submitted successfully!
                     </p>
                     <p className="text-xs text-green-600 mt-1">
-                      Please attach your resume to the email that opened and send
-                      it to hr@a1steelrwanda.com
+                      Please attach your resume to the email that opened and
+                      send it to hr@a1steelrwanda.com
                     </p>
                   </div>
                 </div>
@@ -515,4 +527,3 @@ export default function CareerPage({ onClose }: CareerPageProps) {
     </div>
   );
 }
-

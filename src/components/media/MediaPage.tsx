@@ -37,6 +37,16 @@ export default function MediaPage({ onClose }: MediaPageProps) {
     }
   };
 
+  // Disable body scroll when this page is open
+  React.useEffect(() => {
+    document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
+    };
+  }, []);
+
   const scrollToSection = (sectionName: string) => {
     const element = document.getElementById(
       `social-${sectionName.toLowerCase().replace(/\s+/g, "-")}`

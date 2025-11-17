@@ -47,6 +47,16 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onClose }) => {
     }));
   };
 
+  // Disable body scroll when this page is open
+  React.useEffect(() => {
+    document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
+    };
+  }, []);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -71,7 +81,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onClose }) => {
 
       // Reset success message after 5 seconds
       setTimeout(() => setSubmitStatus("idle"), 5000);
-    } catch (error) {
+    } catch {
       setIsSubmitting(false);
       setSubmitStatus("error");
       setTimeout(() => setSubmitStatus("idle"), 3000);

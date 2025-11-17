@@ -49,6 +49,17 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
       videoRef2.current.load();
     }
   }, []);
+
+  // Disable body scroll when this page is open
+  React.useEffect(() => {
+    document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
+    };
+  }, []);
+
   return (
     <div
       className="fixed inset-0 bg-gray-50 z-50 overflow-y-auto"

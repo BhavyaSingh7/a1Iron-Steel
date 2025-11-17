@@ -1,8 +1,7 @@
 "use client";
 
-import React, { useState, useEffect, Suspense } from "react";
+import { useState, useEffect, Suspense, useRef, useMemo } from "react";
 import { useSearchParams } from "next/navigation";
-import { motion } from "framer-motion";
 import dynamic from "next/dynamic";
 import HeroSection from "@/components/homepage/HeroSection";
 
@@ -50,11 +49,11 @@ const ContactPage = dynamic(() =>
 
 function HomeContent() {
   const searchParams = useSearchParams();
-  const videoRef1 = React.useRef<HTMLVideoElement>(null);
-  const videoRef2 = React.useRef<HTMLVideoElement>(null);
+  const videoRef1 = useRef<HTMLVideoElement>(null);
+  const videoRef2 = useRef<HTMLVideoElement>(null);
 
   // Check if this is a fresh page load (no referrer) vs navigation from another page
-  const isFreshLoad = React.useMemo(() => {
+  const isFreshLoad = useMemo(() => {
     if (typeof window === "undefined") return true;
     // If there's no referrer or referrer is from a different origin, it's a fresh load
     const referrer = document.referrer;
@@ -70,7 +69,7 @@ function HomeContent() {
   }, []);
 
   // Check skipIntro - skip if navigating from another page with skipIntro=true, or if explicitly set
-  const skipIntro = React.useMemo(() => {
+  const skipIntro = useMemo(() => {
     if (typeof window === "undefined") return false;
     const skipFromParams = searchParams?.get("skipIntro") === "true";
     const skipFromWindow =
@@ -88,8 +87,7 @@ function HomeContent() {
     return hasSkipIntro;
   }, [searchParams, isFreshLoad]);
 
-  // Removed unused videoPhase state for performance
-  const [currentBgImage, setCurrentBgImage] = useState(0);
+  // Background image carousel now handled in HeroSection component
   // Initialize showVideoIntro - always true on fresh load, otherwise check skipIntro
   const [showVideoIntro, setShowVideoIntro] = useState(() => {
     if (typeof window === "undefined") return true;
@@ -114,58 +112,53 @@ function HomeContent() {
   const [showSecondVideo, setShowSecondVideo] = useState(false);
   // Removed unused showBubbles state for performance
 
-  // Optimized video preloading - only preload first video
+  // Optimized video preloading - use fetchpriority and preload metadata only
   useEffect(() => {
-    if (!skipIntro && typeof document !== "undefined") {
+    if (!skipIntro && typeof document !== "undefined" && showVideoIntro) {
       const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+      const videoPath = `${basePath}/bg-video.mp4`;
 
-      // Only preload the first video to reduce initial load
-      const link1 = document.createElement("link");
-      link1.rel = "preload";
-      link1.href = `${basePath}/bg-video.mp4`;
-      link1.as = "video";
-      link1.type = "video/mp4";
-      document.head.appendChild(link1);
+      // Preload video metadata for faster start
+      const link = document.createElement("link");
+      link.rel = "preload";
+      link.href = videoPath;
+      link.as = "video";
+      link.type = "video/mp4";
+      link.setAttribute("fetchpriority", "high");
+      document.head.appendChild(link);
+
+      // Also start loading the video element immediately
+      if (videoRef1.current) {
+        videoRef1.current.load();
+      }
 
       return () => {
-        if (link1.parentNode) document.head.removeChild(link1);
+        if (link.parentNode) document.head.removeChild(link);
       };
     }
-  }, [skipIntro]);
+  }, [skipIntro, showVideoIntro]);
 
-  // Ensure video intro is skipped if skipIntro is true (only when navigating, not fresh load)
+  // Ensure video intro is skipped if skipIntro is true
   useEffect(() => {
-    // Only skip if this is NOT a fresh load
-    if (isFreshLoad) {
-      // On fresh load, remove skipIntro from URL and show video
-      if (typeof window !== "undefined") {
-        const urlParams = new URLSearchParams(window.location.search);
-        if (urlParams.get("skipIntro") === "true") {
-          urlParams.delete("skipIntro");
-          const newUrl =
-            window.location.pathname +
-            (urlParams.toString() ? `?${urlParams.toString()}` : "");
-          window.history.replaceState({}, "", newUrl);
-        }
-      }
-      return;
-    }
+    if (typeof window === "undefined") return;
 
-    // Check URL parameter on navigation (not fresh load)
     const checkSkipIntro = () => {
-      if (typeof window !== "undefined") {
-        const urlParams = new URLSearchParams(window.location.search);
-        const shouldSkip = urlParams.get("skipIntro") === "true";
-        if (shouldSkip) {
-          setShowVideoIntro(false);
-          setShowSecondVideo(false);
-          // Clean up URL after processing
-          urlParams.delete("skipIntro");
-          const newUrl =
-            window.location.pathname +
-            (urlParams.toString() ? `?${urlParams.toString()}` : "");
-          window.history.replaceState({}, "", newUrl);
-        }
+      const urlParams = new URLSearchParams(window.location.search);
+      const shouldSkip = urlParams.get("skipIntro") === "true";
+      
+      // If skipIntro is true, always skip video (even on fresh load if explicitly set)
+      if (shouldSkip) {
+        setShowVideoIntro(false);
+        setShowSecondVideo(false);
+        // Clean up URL after processing
+        urlParams.delete("skipIntro");
+        const newUrl =
+          window.location.pathname +
+          (urlParams.toString() ? `?${urlParams.toString()}` : "");
+        window.history.replaceState({}, "", newUrl);
+      } else if (isFreshLoad) {
+        // On fresh load without skipIntro, ensure video shows
+        setShowVideoIntro(true);
       }
     };
 
@@ -183,10 +176,10 @@ function HomeContent() {
   // Show second video after 5 seconds - lazy load it
   useEffect(() => {
     if (showVideoIntro && !skipIntro) {
-      const secondVideoTimer = setTimeout(() => {
-        setShowSecondVideo(true);
-      }, 5000);
-      return () => clearTimeout(secondVideoTimer);
+    const secondVideoTimer = setTimeout(() => {
+      setShowSecondVideo(true);
+    }, 5000);
+    return () => clearTimeout(secondVideoTimer);
     }
   }, [showVideoIntro, skipIntro]);
 
@@ -203,58 +196,10 @@ function HomeContent() {
       setShowVideoIntro(false);
     }, 10000); // 10 seconds total
 
-    // Check if video loads, if not show fallback image
-    const video = document.querySelector("video");
-    if (video) {
-      const fallback = document.getElementById("video-fallback") as HTMLElement;
-
-      const handleVideoError = () => {
-        // Video failed to load, fallback will be shown
-        if (fallback) {
-          fallback.style.display = "block";
-        }
-      };
-
-      const handleVideoLoad = () => {
-        // Video loaded successfully
-        if (fallback) {
-          fallback.style.display = "none";
-        }
-      };
-
-      video.addEventListener("error", handleVideoError);
-      video.addEventListener("loadeddata", handleVideoLoad);
-
-      return () => {
-        clearTimeout(timer);
-        video.removeEventListener("error", handleVideoError);
-        video.removeEventListener("loadeddata", handleVideoLoad);
-      };
-    }
-
     return () => clearTimeout(timer);
   }, [skipIntro]);
 
-  // Video phase logic removed for performance optimization
-
-  // Background image carousel effect - only start when video intro is done
-  useEffect(() => {
-    if (showVideoIntro) return; // Don't start carousel until video intro is done
-
-    let interval: NodeJS.Timeout | null = null;
-
-    // Add delay before starting carousel to reduce initial load
-    const startTimer = setTimeout(() => {
-      interval = setInterval(() => {
-        setCurrentBgImage((prev) => (prev + 1) % 7); // Cycle through 7 images
-      }, 8000); // Change every 8 seconds to reduce transitions and improve performance
-    }, 1000); // Wait 1 second after video intro ends for better performance
-
-    return () => {
-      clearTimeout(startTimer);
-      if (interval) clearInterval(interval);
-    };
-  }, [showVideoIntro]);
+  // Background image carousel now handled in HeroSection component
 
   // Disable scrolling and hide scrollbar when video intro is showing
   useEffect(() => {
@@ -285,17 +230,13 @@ function HomeContent() {
     >
       {/* Video Intro Screen - Shows for 8 seconds then slides up */}
       {showVideoIntro && (
-        <motion.section
+        <div
           className="fixed inset-0 z-50"
-          initial={{ y: 0 }}
-          animate={{ y: showVideoIntro ? 0 : "-100%" }}
-          transition={{
-            duration: 0.4,
-            ease: "easeOut",
-          }}
           style={{
             background:
               "linear-gradient(135deg, #1a5f82 0%, #113d59 50%, #0a2a3d 100%)",
+            transform: showVideoIntro ? "translateY(0)" : "translateY(-100%)",
+            transition: "transform 0.3s ease-out",
           }}
         >
           {/* Loading Background - Shows immediately, fades when video loads */}
@@ -308,182 +249,161 @@ function HomeContent() {
             }}
           />
 
-          {/* First Video Background */}
-          <motion.div
-            className="absolute inset-0 w-full h-full"
-            animate={{ opacity: showSecondVideo ? 0 : 1 }}
-            transition={{ duration: 0.3, ease: "easeOut" }}
-          >
-            <video
-              ref={videoRef1}
-              autoPlay
-              muted
-              loop
-              playsInline
-              className="w-full h-full object-cover"
-              onError={(e) => {
-                const videoElement = e.target as HTMLVideoElement;
-                videoElement.style.display = "none";
-              }}
-              onCanPlay={() => {
-                if (videoRef1.current) {
-                  videoRef1.current.play().catch(() => {});
-                  // Hide background once video can play
-                  const bg = document.getElementById("video-intro-bg");
-                  if (bg) bg.style.opacity = "0";
-                }
-              }}
-              onLoadedData={() => {
-                if (videoRef1.current) {
-                  videoRef1.current.play().catch(() => {});
-                  // Hide background once video loads
-                  const bg = document.getElementById("video-intro-bg");
-                  if (bg) bg.style.opacity = "0";
-                }
-              }}
-              preload="auto"
-            >
-              <source
-                src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/bg-video.mp4`}
-                type="video/mp4"
-              />
-              Your browser does not support the video tag.
-            </video>
-          </motion.div>
-
-          {/* Second Video Background */}
-          <motion.div
-            className="absolute inset-0 w-full h-full"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: showSecondVideo ? 1 : 0 }}
-            transition={{ duration: 0.3, ease: "easeOut" }}
-          >
-            <video
-              ref={videoRef2}
-              autoPlay
-              muted
-              loop
-              playsInline
-              className="w-full h-full object-cover"
-              onError={(e) => {
-                const videoElement = e.target as HTMLVideoElement;
-                videoElement.style.display = "none";
-              }}
-              onCanPlay={() => {
-                if (videoRef2.current && showSecondVideo) {
-                  videoRef2.current.play().catch(() => {});
-                }
-              }}
-              onLoadedData={() => {
-                if (videoRef2.current && showSecondVideo) {
-                  videoRef2.current.play().catch(() => {});
-                }
-              }}
-              preload="auto"
-              style={{ display: showSecondVideo ? "block" : "none" }}
-            >
-              <source
-                src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/bg-video3.mp4`}
-                type="video/mp4"
-              />
-              Your browser does not support the video tag.
-            </video>
-          </motion.div>
-
-          {/* Fallback background image */}
+        {/* First Video Background */}
           <div
-            className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
+          className="absolute inset-0 w-full h-full"
             style={{
-              backgroundImage:
-                "url(https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=2070&auto=format&fit=crop)",
-              display: "none",
+              opacity: showSecondVideo ? 0 : 1,
+              transition: "opacity 0.2s ease-out",
             }}
-            id="video-fallback"
-          />
+        >
+          <video
+              ref={videoRef1}
+            autoPlay
+            muted
+            loop
+            playsInline
+              className="w-full h-full object-cover"
+              preload="metadata"
+              onLoadedMetadata={() => {
+                // Start playing as soon as metadata is loaded
+                if (videoRef1.current) {
+                  videoRef1.current.play().catch(() => {});
+                  // Hide background immediately when metadata loads
+                  const bg = document.getElementById("video-intro-bg");
+                  if (bg) bg.style.opacity = "0";
+                }
+              }}
+              onLoadedData={() => {
+                // Hide background as soon as first frame loads
+                const bg = document.getElementById("video-intro-bg");
+                if (bg) bg.style.opacity = "0";
+              }}
+              onCanPlay={() => {
+                // Ensure video continues playing smoothly
+                if (videoRef1.current) {
+                  videoRef1.current.play().catch(() => {});
+                }
+              }}
+            onError={(e) => {
+              const videoElement = e.target as HTMLVideoElement;
+              videoElement.style.display = "none";
+                const bg = document.getElementById("video-intro-bg");
+                if (bg) bg.style.opacity = "1";
+            }}
+          >
+            <source
+              src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/bg-video.mp4`}
+              type="video/mp4"
+            />
+            Your browser does not support the video tag.
+          </video>
+          </div>
 
-          {/* Light overlay for better text readability without hiding video */}
-          <div className="absolute inset-0 bg-black/20" />
+        {/* Second Video Background */}
+          <div
+          className="absolute inset-0 w-full h-full"
+            style={{
+              opacity: showSecondVideo ? 1 : 0,
+              transition: "opacity 0.2s ease-out",
+            }}
+        >
+          <video
+              ref={videoRef2}
+            autoPlay
+            muted
+            loop
+            playsInline
+              className="w-full h-full object-cover"
+              preload="none"
+              onLoadedMetadata={() => {
+                if (videoRef2.current && showSecondVideo) {
+                  videoRef2.current.play().catch(() => {});
+                }
+              }}
+            onError={(e) => {
+              const videoElement = e.target as HTMLVideoElement;
+              videoElement.style.display = "none";
+            }}
+              style={{ display: showSecondVideo ? "block" : "none" }}
+          >
+            <source
+              src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/bg-video3.mp4`}
+              type="video/mp4"
+            />
+            Your browser does not support the video tag.
+          </video>
+          </div>
+
+        {/* Fallback background image */}
+        <div
+          className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage:
+              "url(https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=2070&auto=format&fit=crop)",
+            display: "none",
+          }}
+        />
+
+        {/* Light overlay for better text readability without hiding video */}
+        <div className="absolute inset-0 bg-black/20" />
 
           {/* Bouncing Bubbles - Disabled for performance */}
 
-          {/* A1 IRON & STEEL Text */}
-          <div className="relative z-10 h-full flex items-center justify-center">
-            <div className="text-center">
-              {/* Background Glow Effect */}
+        {/* A1 IRON & STEEL Text */}
+        <div className="relative z-10 h-full flex items-center justify-center">
+          <div className="text-center">
+            {/* Background Glow Effect */}
+            <div
+              className="absolute inset-0 blur-3xl opacity-10"
+              style={{
+                background:
+                  "linear-gradient(135deg, #f0ae28 0%, #f1852e 25%, #2084b1 60%, #1a5f82 100%)",
+                transform: "scale(1.8)",
+              }}
+            />
+
+              <h1
+              className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-black relative z-10 tracking-wide gradient-title"
+              style={{
+                background:
+                  "linear-gradient(135deg, #FFFFFF 0%, #f0ae28 25%, #2084b1 60%, #1a5f82 100%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+                backgroundSize: "200% auto",
+                textShadow: "0 0 80px rgba(32, 132, 177, 0.4)",
+                letterSpacing: "0.05em",
+                fontFamily: "'Helvetica Neue', 'Arial Black', sans-serif",
+              }}
+            >
+              A1 IRON & STEEL
+              </h1>
+
+            {/* Animated Underline */}
               <div
-                className="absolute inset-0 blur-3xl opacity-10"
-                style={{
-                  background:
-                    "linear-gradient(135deg, #f0ae28 0%, #f1852e 25%, #2084b1 60%, #1a5f82 100%)",
-                  transform: "scale(1.8)",
-                }}
-              />
-
-              <motion.h1
-                className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-black relative z-10 tracking-wide gradient-title"
-                initial={{ opacity: 0, y: 80, scale: 0.9 }}
-                animate={{
-                  opacity: 1,
-                  y: 0,
-                  scale: 1,
-                }}
-                transition={{
-                  duration: 1.8,
-                  delay: 0.3,
-                  ease: [0.215, 0.61, 0.355, 1],
-                }}
-                style={{
-                  background:
-                    "linear-gradient(135deg, #FFFFFF 0%, #f0ae28 25%, #2084b1 60%, #1a5f82 100%)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  backgroundClip: "text",
-                  backgroundSize: "200% auto",
-                  textShadow: "0 0 80px rgba(32, 132, 177, 0.4)",
-                  letterSpacing: "0.05em",
-                  fontFamily: "'Helvetica Neue', 'Arial Black', sans-serif",
-                }}
-              >
-                A1 IRON & STEEL
-              </motion.h1>
-
-              {/* Animated Underline */}
-              <motion.div
-                className="h-1 mt-4 mx-auto"
-                style={{
-                  background:
-                    "linear-gradient(90deg, transparent, #f0ae28 25%, #2084b1 50%, #1a5f82 75%, transparent)",
-                  maxWidth: "600px",
-                  boxShadow: "0 2px 20px rgba(32, 132, 177, 0.5)",
-                }}
-                initial={{ scaleX: 0, opacity: 0 }}
-                animate={{ scaleX: 1, opacity: 1 }}
-                transition={{ duration: 1.2, delay: 1.2, ease: "easeOut" }}
-              />
+              className="h-1 mt-4 mx-auto"
+              style={{
+                background:
+                  "linear-gradient(90deg, transparent, #f0ae28 25%, #2084b1 50%, #1a5f82 75%, transparent)",
+                maxWidth: "600px",
+                boxShadow: "0 2px 20px rgba(32, 132, 177, 0.5)",
+              }}
+            />
 
               {/* Info text that appears with second video */}
-              <motion.div
+              <div
                 className="mt-12 max-w-3xl mx-auto"
-                initial={{ opacity: 0, y: 50 }}
-                animate={{
+                style={{
                   opacity: showSecondVideo ? 1 : 0,
-                  y: showSecondVideo ? 0 : 50,
-                }}
-                transition={{
-                  duration: 1.5,
-                  delay: showSecondVideo ? 0.8 : 0,
-                  ease: "easeOut",
+                  transition: "opacity 0.3s ease-out",
                 }}
               >
-                <motion.p
+                <p
                   className="text-2xl sm:text-3xl md:text-4xl text-white font-bold leading-tight"
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{
-                    opacity: showSecondVideo ? 1 : 0,
-                    scale: showSecondVideo ? 1 : 0.95,
-                  }}
-                  transition={{ delay: 1.0, duration: 1.0 }}
                   style={{
+                    opacity: showSecondVideo ? 1 : 0,
+                    transition: "opacity 0.3s ease-out",
                     textShadow:
                       "2px 2px 10px rgba(0, 0, 0, 0.8), 0 0 30px rgba(32, 132, 177, 0.3)",
                     letterSpacing: "0.03em",
@@ -491,18 +411,16 @@ function HomeContent() {
                   }}
                 >
                   Forging Excellence in Steel Manufacturing
-                </motion.p>
-                <motion.div
+                </p>
+                <div
                   className="mt-6 flex items-center justify-center gap-3"
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{
+                  style={{
                     opacity: showSecondVideo ? 1 : 0,
-                    x: showSecondVideo ? 0 : -20,
+                    transition: "opacity 0.3s ease-out",
                   }}
-                  transition={{ delay: 1.3, duration: 0.8 }}
                 >
                   <div className="h-px w-12 bg-gradient-to-r from-transparent to-cyan-400" />
-                  <motion.p
+                  <p
                     className="text-lg sm:text-xl md:text-2xl text-white/90 font-semibold"
                     style={{
                       textShadow: "1px 1px 8px rgba(0, 0, 0, 0.7)",
@@ -510,47 +428,19 @@ function HomeContent() {
                     }}
                   >
                     Where Innovation Meets Industrial Strength
-                  </motion.p>
+                  </p>
                   <div className="h-px w-12 bg-gradient-to-l from-transparent to-cyan-400" />
-                </motion.div>
-
-                {/* Decorative Elements */}
-                <motion.div
-                  className="mt-8 flex items-center justify-center gap-2"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: showSecondVideo ? 1 : 0 }}
-                  transition={{ delay: 1.6, duration: 0.8 }}
-                >
-                  {[...Array(5)].map((_, i) => (
-                    <motion.div
-                      key={i}
-                      className="h-1.5 w-1.5 rounded-full bg-white/60"
-                      animate={{
-                        scale: [1, 1.5, 1],
-                        opacity: [0.6, 1, 0.6],
-                      }}
-                      transition={{
-                        duration: 2,
-                        repeat: Infinity,
-                        delay: i * 0.2,
-                        ease: "easeInOut",
-                      }}
-                    />
-                  ))}
-                </motion.div>
-              </motion.div>
+                </div>
+              </div>
             </div>
           </div>
-        </motion.section>
+        </div>
       )}
 
       {/* Hero Section */}
       <HeroSection
-        currentBgImage={currentBgImage}
         showVideoIntro={showVideoIntro}
-        onAboutClick={() => setShowAboutUs(true)}
         onProductsClick={() => setShowProducts(true)}
-        onContactClick={() => setShowContact(true)}
       />
 
       {/* About Section */}

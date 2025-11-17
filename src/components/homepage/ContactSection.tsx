@@ -51,7 +51,7 @@ export default function ContactSection() {
 
       // Reset success message after 5 seconds
       setTimeout(() => setSubmitStatus("idle"), 5000);
-    } catch (error) {
+    } catch {
       setIsSubmitting(false);
       setSubmitStatus("error");
       setTimeout(() => setSubmitStatus("idle"), 3000);
