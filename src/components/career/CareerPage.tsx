@@ -14,11 +14,11 @@ import {
   AlertCircle,
 } from "lucide-react";
 
-interface JobsPageProps {
+interface CareerPageProps {
   onClose?: () => void;
 }
 
-export default function JobsPage({ onClose }: JobsPageProps) {
+export default function CareerPage({ onClose }: CareerPageProps) {
   const router = useRouter();
   const [formData, setFormData] = useState({
     name: "",

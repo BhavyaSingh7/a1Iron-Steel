@@ -270,8 +270,8 @@ function HomeContent() {
     const startTimer = setTimeout(() => {
       interval = setInterval(() => {
         setCurrentBgImage((prev) => (prev + 1) % 7); // Cycle through 7 images
-      }, 6000); // Change every 6 seconds to reduce transitions
-    }, 2000); // Wait 2 seconds after video intro ends for better performance
+      }, 8000); // Change every 8 seconds to reduce transitions and improve performance
+    }, 1000); // Wait 1 second after video intro ends for better performance
 
     return () => {
       clearTimeout(startTimer);

@@ -11,8 +11,7 @@ html {
 
 /* Performance optimizations */
 * {
-  /* Reduce repaints and reflows */
-  will-change: auto;
+  /* Reduce repaints and reflows - removed will-change as it can cause performance issues */
 }
 
 /* Disable animations for users who prefer reduced motion */

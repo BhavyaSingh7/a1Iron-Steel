@@ -45,8 +45,8 @@ export default function HeroSection({
     router.push("/media");
   };
 
-  const handleJobsClick = () => {
-    router.push("/jobs");
+  const handleCareerClick = () => {
+    router.push("/career");
   };
 
   // Custom typing effect
@@ -143,7 +143,7 @@ export default function HeroSection({
           animate={{
             opacity: currentBgImage === 0 ? 0.25 : 0,
           }}
-          transition={{ duration: 0.5, ease: "easeInOut" }}
+          transition={{ duration: 0.3, ease: "easeInOut" }}
           style={{
             zIndex: currentBgImage === 0 ? 2 : currentBgImage === 6 ? 1 : 0,
             pointerEvents: "none",
@@ -170,9 +170,8 @@ export default function HeroSection({
           animate={{
             opacity: currentBgImage === 1 ? 0.25 : 0,
           }}
-          transition={{ duration: 0.5, ease: "easeInOut" }}
+          transition={{ duration: 0.3, ease: "easeInOut" }}
           style={{
-            willChange: "opacity",
             zIndex: currentBgImage === 1 ? 2 : currentBgImage === 0 ? 1 : 0,
             pointerEvents: "none",
           }}
@@ -198,9 +197,8 @@ export default function HeroSection({
           animate={{
             opacity: currentBgImage === 2 ? 0.25 : 0,
           }}
-          transition={{ duration: 0.5, ease: "easeInOut" }}
+          transition={{ duration: 0.3, ease: "easeInOut" }}
           style={{
-            willChange: "opacity",
             zIndex: currentBgImage === 2 ? 2 : currentBgImage === 1 ? 1 : 0,
             pointerEvents: "none",
           }}
@@ -226,9 +224,8 @@ export default function HeroSection({
           animate={{
             opacity: currentBgImage === 3 ? 0.25 : 0,
           }}
-          transition={{ duration: 0.5, ease: "easeInOut" }}
+          transition={{ duration: 0.3, ease: "easeInOut" }}
           style={{
-            willChange: "opacity",
             zIndex: currentBgImage === 3 ? 2 : currentBgImage === 2 ? 1 : 0,
             pointerEvents: "none",
           }}
@@ -254,9 +251,8 @@ export default function HeroSection({
           animate={{
             opacity: currentBgImage === 4 ? 0.25 : 0,
           }}
-          transition={{ duration: 0.5, ease: "easeInOut" }}
+          transition={{ duration: 0.3, ease: "easeInOut" }}
           style={{
-            willChange: "opacity",
             zIndex: currentBgImage === 4 ? 2 : currentBgImage === 3 ? 1 : 0,
             pointerEvents: "none",
           }}
@@ -282,9 +278,8 @@ export default function HeroSection({
           animate={{
             opacity: currentBgImage === 5 ? 0.25 : 0,
           }}
-          transition={{ duration: 0.5, ease: "easeInOut" }}
+          transition={{ duration: 0.3, ease: "easeInOut" }}
           style={{
-            willChange: "opacity",
             zIndex: currentBgImage === 5 ? 2 : currentBgImage === 4 ? 1 : 0,
             pointerEvents: "none",
           }}
@@ -310,9 +305,8 @@ export default function HeroSection({
           animate={{
             opacity: currentBgImage === 6 ? 0.25 : 0,
           }}
-          transition={{ duration: 0.5, ease: "easeInOut" }}
+          transition={{ duration: 0.3, ease: "easeInOut" }}
           style={{
-            willChange: "opacity",
             zIndex: currentBgImage === 6 ? 2 : currentBgImage === 5 ? 1 : 0,
             pointerEvents: "none",
           }}
@@ -390,9 +384,7 @@ export default function HeroSection({
                 </motion.button>
                 <motion.button
                   onClick={handleAboutClick}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="text-gray-700 font-bold text-base md:text-lg hover:text-logo-orange-1 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded px-2"
+                  className="text-gray-700 font-bold text-base md:text-lg hover:text-logo-orange-1 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded px-2"
                   aria-label="Navigate to about section"
                   tabIndex={0}
                 >
@@ -400,9 +392,7 @@ export default function HeroSection({
                 </motion.button>
                 <motion.button
                   onClick={onProductsClick}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="text-gray-700 font-bold text-base md:text-lg hover:text-logo-orange-1 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded px-2"
+                  className="text-gray-700 font-bold text-base md:text-lg hover:text-logo-orange-1 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded px-2"
                   aria-label="View our products"
                   tabIndex={0}
                 >
@@ -410,29 +400,23 @@ export default function HeroSection({
                 </motion.button>
                 <motion.button
                   onClick={handleMediaClick}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="text-gray-700 font-bold text-base md:text-lg hover:text-logo-orange-1 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded px-2"
+                  className="text-gray-700 font-bold text-base md:text-lg hover:text-logo-orange-1 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded px-2"
                   aria-label="View our media and social links"
                   tabIndex={0}
                 >
                   Media
                 </motion.button>
                 <motion.button
-                  onClick={handleJobsClick}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="text-gray-700 font-bold text-base md:text-lg hover:text-logo-orange-1 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded px-2"
-                  aria-label="View job opportunities"
+                  onClick={handleCareerClick}
+                  className="text-gray-700 font-bold text-base md:text-lg hover:text-logo-orange-1 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded px-2"
+                  aria-label="View career opportunities"
                   tabIndex={0}
                 >
-                  Jobs
+                  Career
                 </motion.button>
                 <motion.button
                   onClick={handleContactClick}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="text-gray-700 font-bold text-base md:text-lg hover:text-logo-orange-1 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded px-2"
+                  className="text-gray-700 font-bold text-base md:text-lg hover:text-logo-orange-1 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded px-2"
                   aria-label="Contact us"
                   tabIndex={0}
                 >
@@ -533,14 +517,14 @@ export default function HeroSection({
             </button>
             <button
               onClick={() => {
-                handleJobsClick();
+                handleCareerClick();
                 setIsMobileMenuOpen(false);
               }}
               className="block text-lg font-medium text-orange-500 hover:text-orange-600 transition-colors duration-300 py-2 w-full text-left focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded px-2"
-              aria-label="View job opportunities"
+              aria-label="View career opportunities"
               tabIndex={0}
             >
-              Jobs
+              Career
             </button>
             <button
               onClick={() => {
@@ -748,7 +732,7 @@ export default function HeroSection({
                         x: [0, 4, 0],
                       }}
                       transition={{
-                        duration: 0.5,
+                        duration: 0.8,
                         repeat: Infinity,
                         ease: "easeInOut",
                       }}
@@ -760,7 +744,7 @@ export default function HeroSection({
                         x: [0, 4, 0],
                       }}
                       transition={{
-                        duration: 0.5,
+                        duration: 0.8,
                         repeat: Infinity,
                         ease: "easeInOut",
                         delay: 0.2,

@@ -1,9 +1,9 @@
 "use client";
 
 import { useEffect } from "react";
-import JobsPage from "@/components/jobs/JobsPage";
+import CareerPage from "@/components/career/CareerPage";
 
-export default function JobsPageRoute() {
+export default function CareerPageRoute() {
   useEffect(() => {
     document.title =
       "Careers - A1 Iron & Steel | Join Our Team in Rwanda";
@@ -16,6 +16,6 @@ export default function JobsPageRoute() {
     }
   }, []);
 
-  return <JobsPage />;
+  return <CareerPage />;
 }
 

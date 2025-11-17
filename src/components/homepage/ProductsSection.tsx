@@ -549,14 +549,14 @@ export default function ProductsSection() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.2 }}
+          transition={{ duration: 0.15 }}
           viewport={{ once: true }}
           className="text-center mb-12 sm:mb-16 lg:mb-20"
         >
           <motion.h2
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.2 }}
+            transition={{ duration: 0.15 }}
             viewport={{ once: true }}
             className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold mb-6 tracking-wide"
             style={{ letterSpacing: "0.03em" }}
@@ -569,7 +569,7 @@ export default function ProductsSection() {
           <motion.div
             initial={{ opacity: 0, scaleX: 0 }}
             whileInView={{ opacity: 1, scaleX: 1 }}
-            transition={{ duration: 0.2 }}
+            transition={{ duration: 0.15 }}
             viewport={{ once: true }}
             className="w-20 sm:w-24 h-0.5 logo-orange-bg mx-auto mb-6 sm:mb-8"
           />
@@ -577,7 +577,7 @@ export default function ProductsSection() {
           <motion.p
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.2 }}
+            transition={{ duration: 0.15 }}
             viewport={{ once: true }}
             className="text-base sm:text-lg text-gray-600 font-light tracking-wide"
             style={{ letterSpacing: "0.02em" }}
@@ -689,7 +689,7 @@ export default function ProductsSection() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3, delay: 0.2 }}
+            transition={{ duration: 0.2, delay: 0.1 }}
             viewport={{ once: true }}
             className="flex justify-center mt-8 space-x-2"
           >
@@ -713,7 +713,7 @@ export default function ProductsSection() {
           <motion.p
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.3, delay: 0.25 }}
+            transition={{ duration: 0.2, delay: 0.15 }}
             viewport={{ once: true }}
             className="text-center text-sm text-gray-500 mt-6"
           >
