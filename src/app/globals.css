@@ -38,6 +38,24 @@ video {
   image-rendering: auto;
 }
 
+/* Hide scrollbar when video intro is showing */
+body.video-intro-active,
+html.video-intro-active {
+  overflow: hidden !important;
+}
+
+body.video-intro-active::-webkit-scrollbar,
+html.video-intro-active::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+body.video-intro-active {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 /* Custom scrollbar for fancy look */
 ::-webkit-scrollbar {
   width: 10px;

@@ -279,8 +279,29 @@ function HomeContent() {
     };
   }, [showVideoIntro]);
 
+  // Disable scrolling and hide scrollbar when video intro is showing
+  useEffect(() => {
+    if (showVideoIntro) {
+      document.body.style.overflow = "hidden";
+      document.documentElement.style.overflow = "hidden";
+      document.body.classList.add("video-intro-active");
+      document.documentElement.classList.add("video-intro-active");
+    } else {
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
+      document.body.classList.remove("video-intro-active");
+      document.documentElement.classList.remove("video-intro-active");
+    }
+    return () => {
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
+      document.body.classList.remove("video-intro-active");
+      document.documentElement.classList.remove("video-intro-active");
+    };
+  }, [showVideoIntro]);
+
   return (
-    <main className="min-h-screen snap-y snap-mandatory">
+    <main className={`min-h-screen snap-y snap-mandatory ${showVideoIntro ? "overflow-hidden" : ""}`}>
       {/* Video Intro Screen - Shows for 8 seconds then slides up */}
       {showVideoIntro && (
         <motion.section
