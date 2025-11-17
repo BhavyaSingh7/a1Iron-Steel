@@ -696,13 +696,13 @@ export default function HeroSection({
               className="relative select-none"
             >
               <div className="sustainability-slider w-48 sm:w-56 h-14 sm:h-16 bg-white/95 backdrop-blur-sm border-2 border-gray-200 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 relative overflow-hidden">
-                {/* Swipe indicator text */}
-                <div className="absolute inset-0 flex items-center justify-center">
+                {/* Swipe indicator text - positioned on the left */}
+                <div className="absolute inset-0 flex items-center justify-start pl-14 sm:pl-16">
                   <span
-                    className="text-[10px] sm:text-xs font-semibold text-gray-500 z-10 transition-opacity duration-300 tracking-widest uppercase"
+                    className="text-[9px] sm:text-[10px] font-semibold text-gray-400 z-10 transition-opacity duration-300 tracking-wider uppercase"
                     style={{ opacity: sliderPosition > 15 ? 0 : 1 }}
                   >
-                    Swipe →
+                    Swipe
                   </span>
                 </div>
                 {/* Text and arrows positioned on the right side to avoid tree handle */}
