@@ -112,7 +112,7 @@ export default function MediaPage({ onClose }: MediaPageProps) {
     },
     {
       name: "LinkedIn",
-      url: "https://www.linkedin.com/company/109063925",
+      url: "https://www.linkedin.com/company/a1-iron-steel-rwanda/?viewAsMember=true",
       icon: Linkedin,
       color: "from-blue-700 to-blue-600",
       hoverColor: "hover:from-blue-800 hover:to-blue-700",
@@ -325,7 +325,9 @@ export default function MediaPage({ onClose }: MediaPageProps) {
                     {/* Instagram Header */}
                     <div className="flex items-center justify-between px-4 py-3 border-b border-gray-200">
                       <div className="flex items-center space-x-3">
-                        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-pink-500 via-purple-500 to-orange-500 border-2 border-white"></div>
+                        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-pink-500 via-purple-500 to-orange-500 border-2 border-white flex items-center justify-center">
+                          <Instagram className="w-4 h-4 text-white" />
+                        </div>
                         <div>
                           <div className="text-sm font-semibold text-gray-900">
                             {social.username}
@@ -418,7 +420,9 @@ export default function MediaPage({ onClose }: MediaPageProps) {
                     {/* Facebook Header */}
                     <div className="px-4 py-3 border-b border-gray-200">
                       <div className="flex items-center space-x-3">
-                        <div className="w-10 h-10 rounded-full bg-blue-600"></div>
+                        <div className="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center">
+                          <Facebook className="w-5 h-5 text-white" />
+                        </div>
                         <div className="flex-1">
                           <div className="text-sm font-semibold text-gray-900">
                             {social.username}
@@ -506,7 +510,9 @@ export default function MediaPage({ onClose }: MediaPageProps) {
                     {/* Twitter Header */}
                     <div className="px-4 py-3 border-b border-gray-800">
                       <div className="flex items-center space-x-3">
-                        <div className="w-10 h-10 rounded-full bg-gray-700"></div>
+                        <div className="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center">
+                          <Twitter className="w-5 h-5 text-white" />
+                        </div>
                         <div className="flex-1">
                           <div className="text-sm font-semibold text-gray-300">
                             {social.username}
@@ -598,7 +604,9 @@ export default function MediaPage({ onClose }: MediaPageProps) {
                     {/* LinkedIn Header */}
                     <div className="px-4 py-3 border-b border-gray-200">
                       <div className="flex items-center space-x-3">
-                        <div className="w-10 h-10 rounded-full bg-blue-700"></div>
+                        <div className="w-10 h-10 rounded-full bg-blue-700 flex items-center justify-center">
+                          <Linkedin className="w-5 h-5 text-white" />
+                        </div>
                         <div className="flex-1">
                           <div className="text-sm font-semibold text-gray-900">
                             {social.username}
