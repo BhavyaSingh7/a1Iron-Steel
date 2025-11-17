@@ -45,6 +45,10 @@ export default function HeroSection({
     router.push("/media");
   };
 
+  const handleJobsClick = () => {
+    router.push("/jobs");
+  };
+
   // Custom typing effect
   useEffect(() => {
     if (showVideoIntro) {
@@ -415,6 +419,16 @@ export default function HeroSection({
                   Media
                 </motion.button>
                 <motion.button
+                  onClick={handleJobsClick}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="text-gray-700 font-bold text-base md:text-lg hover:text-logo-orange-1 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded px-2"
+                  aria-label="View job opportunities"
+                  tabIndex={0}
+                >
+                  Jobs
+                </motion.button>
+                <motion.button
                   onClick={handleContactClick}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
@@ -516,6 +530,17 @@ export default function HeroSection({
               tabIndex={0}
             >
               Media
+            </button>
+            <button
+              onClick={() => {
+                handleJobsClick();
+                setIsMobileMenuOpen(false);
+              }}
+              className="block text-lg font-medium text-orange-500 hover:text-orange-600 transition-colors duration-300 py-2 w-full text-left focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded px-2"
+              aria-label="View job opportunities"
+              tabIndex={0}
+            >
+              Jobs
             </button>
             <button
               onClick={() => {
