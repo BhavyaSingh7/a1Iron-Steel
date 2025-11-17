@@ -20,6 +20,11 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "images.pexels.com" },
     ],
   },
+  // Performance optimizations for GitHub Pages
+  compress: true,
+  poweredByHeader: false,
+  reactStrictMode: true,
+  swcMinify: true,
 };
 
 export default nextConfig;

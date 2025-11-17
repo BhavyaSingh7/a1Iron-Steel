@@ -260,64 +260,67 @@ export default function HeroSection({
 
       {/* Navigation Bar */}
       <div
-          className="fixed top-0 left-0 right-0 z-50 bg-white/98 backdrop-blur-md shadow-sm border-b border-gray-100"
-          style={{
-            boxShadow:
-              "0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.05)",
-          }}
-        >
-          <div className="max-w-6xl mx-auto px-2 sm:px-4 lg:px-6">
-            <div className="flex items-center justify-between h-16 md:h-20 lg:h-20">
-              {/* Logo */}
-              <div className="flex items-center h-full -ml-4 md:-ml-6">
+        className="fixed top-0 left-0 right-0 z-50 bg-white/98 backdrop-blur-md shadow-sm border-b border-gray-100"
+        style={{
+          boxShadow:
+            "0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.05)",
+        }}
+      >
+        <div className="max-w-6xl mx-auto px-2 sm:px-4 lg:px-6">
+          <div className="flex items-center justify-between h-16 md:h-20 lg:h-20">
+            {/* Logo */}
+            <div className="flex items-center h-full -ml-4 md:-ml-6">
               <button
                 onClick={handleHomeClick}
                 className="flex items-center h-full cursor-pointer hover:scale-105 active:scale-95 transition-transform duration-200"
                 aria-label="Navigate to home"
               >
-                <div className="relative w-auto py-2" style={{ height: "120%", minHeight: "80px" }}>
-                    <Image
-                      src={`${
-                        process.env.NEXT_PUBLIC_BASE_PATH || ""
-                      }/logo-1.png`}
-                      alt="A1 Iron & Steel Logo"
+                <div
+                  className="relative w-auto py-2"
+                  style={{ height: "120%", minHeight: "80px" }}
+                >
+                  <Image
+                    src={`${
+                      process.env.NEXT_PUBLIC_BASE_PATH || ""
+                    }/logo-1.png`}
+                    alt="A1 Iron & Steel Logo"
                     width={140}
                     height={140}
-                      className="h-full w-auto object-contain"
-                      priority
-                    />
-                  </div>
+                    className="h-full w-auto object-contain"
+                    priority
+                  />
+                </div>
               </button>
-              </div>
+            </div>
 
-              {/* Navigation Links */}
-              <nav
-                className="hidden md:flex items-center space-x-6"
-                aria-label="Main navigation"
-              >
+            {/* Navigation Links */}
+            <nav
+              className="hidden md:flex items-center space-x-6"
+              aria-label="Main navigation"
+            >
               <button
                 onClick={handleHomeClick}
                 className="text-gray-800 font-medium text-base md:text-lg hover:text-logo-orange-1 transition-colors duration-200 cursor-pointer focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded px-2 tracking-wide hover:scale-105 active:scale-95"
-                  aria-label="Navigate to home section"
-                  tabIndex={0}
-                >
-                  Home
+                aria-label="Navigate to home section"
+                tabIndex={0}
+              >
+                Home
               </button>
               <button
                 onClick={handleAboutClick}
                 className="text-gray-700 font-bold text-base md:text-lg hover:text-logo-orange-1 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded px-2"
-                  aria-label="Navigate to about section"
-                  tabIndex={0}
-                >
-                  About
+                aria-label="Navigate to about section"
+                tabIndex={0}
+              >
+                About
               </button>
               <button
-                  onClick={onProductsClick}
+                onClick={onProductsClick}
                 className="text-gray-700 font-bold text-base md:text-lg hover:text-logo-orange-1 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded px-2"
-                  aria-label="View our products"
-                  tabIndex={0}
-                >
-                  Products
+                aria-label="View our products"
+                tabIndex={0}
+              >
+                Products
               </button>
               <button
                 onClick={handleMediaClick}
@@ -346,23 +349,23 @@ export default function HeroSection({
               <button
                 onClick={handleContactClick}
                 className="text-gray-700 font-bold text-base md:text-lg hover:text-logo-orange-1 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded px-2"
-                  aria-label="Contact us"
-                  tabIndex={0}
-                >
-                  Contact
-              </button>
-              </nav>
-
-              {/* Mobile Menu Button */}
-              <button
-                onClick={toggleMobileMenu}
-              className="md:hidden p-2 text-logo-gray-dark hover:text-logo-orange-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded"
-                aria-label={
-                  isMobileMenuOpen ? "Close mobile menu" : "Open mobile menu"
-                }
-                aria-expanded={isMobileMenuOpen}
+                aria-label="Contact us"
                 tabIndex={0}
               >
+                Contact
+              </button>
+            </nav>
+
+            {/* Mobile Menu Button */}
+            <button
+              onClick={toggleMobileMenu}
+              className="md:hidden p-2 text-logo-gray-dark hover:text-logo-orange-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded"
+              aria-label={
+                isMobileMenuOpen ? "Close mobile menu" : "Open mobile menu"
+              }
+              aria-expanded={isMobileMenuOpen}
+              tabIndex={0}
+            >
               <svg
                 className="w-6 h-6 transition-transform duration-200"
                 style={{
@@ -370,29 +373,29 @@ export default function HeroSection({
                     ? "rotate(90deg)"
                     : "rotate(0deg)",
                 }}
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  {isMobileMenuOpen ? (
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M6 18L18 6M6 6l12 12"
-                    />
-                  ) : (
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M4 6h16M4 12h16M4 18h16"
-                    />
-                  )}
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                {isMobileMenuOpen ? (
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                ) : (
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
+                )}
               </svg>
-              </button>
-            </div>
+            </button>
           </div>
+        </div>
       </div>
 
       {/* Mobile Menu Overlay */}
@@ -548,9 +551,11 @@ export default function HeroSection({
                               strokeWidth="1.5"
                               strokeDasharray="2 4"
                               opacity="0.6"
-              style={{
+                              style={{
                                 transformOrigin: "12px 12px",
-                                transform: `rotate(${(progress / 100) * 360}deg)`,
+                                transform: `rotate(${
+                                  (progress / 100) * 360
+                                }deg)`,
                                 transition: "transform 0.05s linear",
                               }}
                             />
@@ -561,12 +566,12 @@ export default function HeroSection({
                               cx="12"
                               cy="12"
                               r="10"
-                  fill="none"
+                              fill="none"
                               stroke="#f1852e"
                               strokeWidth="2"
                               strokeDasharray={circumference}
                               strokeDashoffset={strokeDashoffset}
-                    strokeLinecap="round"
+                              strokeLinecap="round"
                               style={{
                                 transition: "stroke-dashoffset 0.05s linear",
                               }}
@@ -593,7 +598,7 @@ export default function HeroSection({
                         }`}
                       >
                         {industry.title}
-              </span>
+                      </span>
                     </button>
                   </li>
                 );
@@ -606,94 +611,94 @@ export default function HeroSection({
       {/* Sustainability Slider - Bottom Right */}
       <div className="absolute bottom-8 right-8 z-20 hidden lg:block">
         <div className="flex flex-col items-end gap-2">
-              <div className="sustainability-slider w-48 sm:w-56 h-14 sm:h-16 bg-white/95 backdrop-blur-sm border-2 border-gray-200 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 relative overflow-hidden">
+          <div className="sustainability-slider w-48 sm:w-56 h-14 sm:h-16 bg-white/95 backdrop-blur-sm border-2 border-gray-200 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 relative overflow-hidden">
             {/* Text and arrows positioned on the right side */}
-                <div className="absolute inset-0 flex items-center justify-end gap-1 pr-3 sm:pr-4">
-                  <span
-                    className="text-xs font-bold text-gray-700 z-10 transition-opacity duration-300 tracking-wider"
-                    style={{ opacity: sliderPosition > 15 ? 0 : 1 }}
-                  >
-                    Sustainability
-                  </span>
-                  {/* Animated arrow indicators */}
-                  <div
-                    className="flex items-center gap-0.5 z-10 transition-opacity duration-300"
-                    style={{ opacity: sliderPosition > 15 ? 0 : 1 }}
-                  >
+            <div className="absolute inset-0 flex items-center justify-end gap-1 pr-3 sm:pr-4">
+              <span
+                className="text-xs font-bold text-gray-700 z-10 transition-opacity duration-300 tracking-wider"
+                style={{ opacity: sliderPosition > 15 ? 0 : 1 }}
+              >
+                Sustainability
+              </span>
+              {/* Animated arrow indicators */}
+              <div
+                className="flex items-center gap-0.5 z-10 transition-opacity duration-300"
+                style={{ opacity: sliderPosition > 15 ? 0 : 1 }}
+              >
                 <div className="animate-pulse">
-                      <ChevronRight className="w-3 h-3 text-gray-500" />
+                  <ChevronRight className="w-3 h-3 text-gray-500" />
                 </div>
                 <div
                   className="animate-pulse"
                   style={{ animationDelay: "0.2s" }}
-                    >
-                      <ChevronRight className="w-3 h-3 text-gray-500" />
-                </div>
-                  </div>
-                </div>
-                <motion.div
-                  drag="x"
-                  dragConstraints={{ left: 0, right: 0 }}
-                  dragElastic={0}
-                  onDrag={(e, info) => {
-                const sliderElement = (e.target as HTMLElement).parentElement!;
-                    const buttonWidth = 40; // w-10 = 40px
-                    const maxWidth = sliderElement.offsetWidth - buttonWidth;
-                    const newPos = Math.max(
-                      0,
-                      Math.min(info.point.x - buttonWidth / 2, maxWidth)
-                    );
-                    setSliderPosition(newPos);
-
-                    if (newPos >= maxWidth * 0.9 && !slideTriggered) {
-                      setSlideTriggered(true);
-                      setTimeout(() => {
-                        const el = document.querySelector("#sustainability");
-                        if (el) {
-                          el.scrollIntoView({
-                            behavior: "smooth",
-                            block: "start",
-                          });
-                        }
-                        setTimeout(() => {
-                          setSliderPosition(0);
-                          setSlideTriggered(false);
-                        }, 1500);
-                      }, 300);
-                    }
-                  }}
-                  onDragEnd={() => {
-                    if (!slideTriggered) {
-                      setSliderPosition(0);
-                    }
-                  }}
-                  style={{ left: `${Math.max(4, sliderPosition)}px` }}
-              className={`absolute top-1/2 -translate-y-1/2 w-12 h-12 rounded-xl shadow-xl flex items-center justify-center cursor-grab active:cursor-grabbing z-20 hover:shadow-2xl transition-all duration-200 hover:scale-110 active:scale-95 ${
-                    sliderPosition > 120
-                      ? "bg-gradient-to-br from-green-500 to-emerald-600 border-2 border-green-400"
-                      : "bg-white border-2 border-gray-300 shadow-lg"
-                  }`}
                 >
-                  <Trees
-                    className={`w-6 h-6 ${
-                      sliderPosition > 120 ? "text-white" : "text-green-600"
-                    }`}
-                  />
-                </motion.div>
-                {sliderPosition > 10 && (
+                  <ChevronRight className="w-3 h-3 text-gray-500" />
+                </div>
+              </div>
+            </div>
+            <motion.div
+              drag="x"
+              dragConstraints={{ left: 0, right: 0 }}
+              dragElastic={0}
+              onDrag={(e, info) => {
+                const sliderElement = (e.target as HTMLElement).parentElement!;
+                const buttonWidth = 40; // w-10 = 40px
+                const maxWidth = sliderElement.offsetWidth - buttonWidth;
+                const newPos = Math.max(
+                  0,
+                  Math.min(info.point.x - buttonWidth / 2, maxWidth)
+                );
+                setSliderPosition(newPos);
+
+                if (newPos >= maxWidth * 0.9 && !slideTriggered) {
+                  setSlideTriggered(true);
+                  setTimeout(() => {
+                    const el = document.querySelector("#sustainability");
+                    if (el) {
+                      el.scrollIntoView({
+                        behavior: "smooth",
+                        block: "start",
+                      });
+                    }
+                    setTimeout(() => {
+                      setSliderPosition(0);
+                      setSlideTriggered(false);
+                    }, 1500);
+                  }, 300);
+                }
+              }}
+              onDragEnd={() => {
+                if (!slideTriggered) {
+                  setSliderPosition(0);
+                }
+              }}
+              style={{ left: `${Math.max(4, sliderPosition)}px` }}
+              className={`absolute top-1/2 -translate-y-1/2 w-12 h-12 rounded-xl shadow-xl flex items-center justify-center cursor-grab active:cursor-grabbing z-20 hover:shadow-2xl transition-all duration-200 hover:scale-110 active:scale-95 ${
+                sliderPosition > 120
+                  ? "bg-gradient-to-br from-green-500 to-emerald-600 border-2 border-green-400"
+                  : "bg-white border-2 border-gray-300 shadow-lg"
+              }`}
+            >
+              <Trees
+                className={`w-6 h-6 ${
+                  sliderPosition > 120 ? "text-white" : "text-green-600"
+                }`}
+              />
+            </motion.div>
+            {sliderPosition > 10 && (
               <div
                 className={`absolute left-0 top-0 h-full rounded-xl transition-all duration-200 ${
-                      sliderPosition > 120
-                        ? "bg-gradient-to-r from-green-500 via-emerald-600 to-teal-600 shadow-inner"
-                        : "bg-gradient-to-r from-blue-500 via-blue-600 to-cyan-600 shadow-sm"
-                    }`}
+                  sliderPosition > 120
+                    ? "bg-gradient-to-r from-green-500 via-emerald-600 to-teal-600 shadow-inner"
+                    : "bg-gradient-to-r from-blue-500 via-blue-600 to-cyan-600 shadow-sm"
+                }`}
                 style={{
                   width: `${sliderPosition + 4}px`,
                   opacity: sliderPosition > 10 ? 1 : 0,
                 }}
-                  />
-                )}
-              </div>
+              />
+            )}
+          </div>
           {/* Swipe indicator text - positioned below the button */}
           <span
             className="text-[9px] sm:text-[10px] font-semibold text-white/80 z-10 transition-opacity duration-300 tracking-wider uppercase"

@@ -12,6 +12,13 @@ html {
 /* Performance optimizations */
 * {
   /* Reduce repaints and reflows - removed will-change as it can cause performance issues */
+  box-sizing: border-box;
+}
+
+/* Optimize image rendering */
+img {
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
 }
 
 /* Disable animations for users who prefer reduced motion */

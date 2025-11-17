@@ -112,29 +112,13 @@ function HomeContent() {
   const [showSecondVideo, setShowSecondVideo] = useState(false);
   // Removed unused showBubbles state for performance
 
-  // Optimized video preloading - use fetchpriority and preload metadata only
+  // Optimized video preloading - only preload when needed
   useEffect(() => {
     if (!skipIntro && typeof document !== "undefined" && showVideoIntro) {
-      const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
-      const videoPath = `${basePath}/bg-video.mp4`;
-
-      // Preload video metadata for faster start
-      const link = document.createElement("link");
-      link.rel = "preload";
-      link.href = videoPath;
-      link.as = "video";
-      link.type = "video/mp4";
-      link.setAttribute("fetchpriority", "high");
-      document.head.appendChild(link);
-
-      // Also start loading the video element immediately
+      // Start loading the video element immediately for faster playback
       if (videoRef1.current) {
         videoRef1.current.load();
       }
-
-      return () => {
-        if (link.parentNode) document.head.removeChild(link);
-      };
     }
   }, [skipIntro, showVideoIntro]);
 
@@ -285,6 +269,16 @@ function HomeContent() {
                   videoRef1.current.play().catch(() => {});
                 }
               }}
+              onWaiting={() => {
+                // Show background if video is buffering
+                const bg = document.getElementById("video-intro-bg");
+                if (bg) bg.style.opacity = "0.3";
+              }}
+              onPlaying={() => {
+                // Hide background when video is playing
+                const bg = document.getElementById("video-intro-bg");
+                if (bg) bg.style.opacity = "0";
+              }}
             onError={(e) => {
               const videoElement = e.target as HTMLVideoElement;
               videoElement.style.display = "none";
@@ -335,15 +329,6 @@ function HomeContent() {
           </video>
           </div>
 
-        {/* Fallback background image */}
-        <div
-          className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
-          style={{
-            backgroundImage:
-              "url(https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=2070&auto=format&fit=crop)",
-            display: "none",
-          }}
-        />
 
         {/* Light overlay for better text readability without hiding video */}
         <div className="absolute inset-0 bg-black/20" />
