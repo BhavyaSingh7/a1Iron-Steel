@@ -51,6 +51,7 @@ function HomeContent() {
   const searchParams = useSearchParams();
   const videoRef1 = useRef<HTMLVideoElement>(null);
   const videoRef2 = useRef<HTMLVideoElement>(null);
+  const [mounted, setMounted] = useState(false);
 
   // Helper function to check skipIntro - used everywhere
   const checkSkipIntro = () => {
@@ -59,27 +60,22 @@ function HomeContent() {
     return urlParams.get("skipIntro") === "true";
   };
 
-  // Initialize showVideoIntro - show video on fresh load unless skipIntro is in URL
-  const [showVideoIntro, setShowVideoIntro] = useState(() => {
-    if (typeof window === "undefined") return false; // SSR: don't show video initially
-
-    // CRITICAL: Check skipIntro FIRST - if present, NEVER show video
-    if (checkSkipIntro()) {
-      return false; // Skip video - this is navigation from back/close button
-    }
-
-    // No skipIntro - this is a fresh load or reload, SHOW VIDEO
-    return true;
-  });
+  // Initialize showVideoIntro - always false initially to prevent hydration mismatch
+  const [showVideoIntro, setShowVideoIntro] = useState(false);
   const [showAboutUs, setShowAboutUs] = useState(false);
   const [showProducts, setShowProducts] = useState(false);
   const [showContact, setShowContact] = useState(false);
   const [showSecondVideo, setShowSecondVideo] = useState(false);
-  // Removed unused showBubbles state for performance
+
+  // Set mounted state after component mounts (client-side only)
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Ensure video intro is skipped if skipIntro is true, otherwise show it
+  // This runs after mount to prevent hydration mismatch
   useEffect(() => {
-    if (typeof window === "undefined") return;
+    if (!mounted || typeof window === "undefined") return;
 
     // CRITICAL: Check skipIntro FIRST - this takes absolute priority
     const hasSkipIntro = checkSkipIntro();
@@ -101,11 +97,8 @@ function HomeContent() {
     }
 
     // No skipIntro parameter - this is a fresh load or reload, SHOW VIDEO
-    // Only set to true if it's not already false (to avoid unnecessary updates)
-    if (!showVideoIntro) {
-      setShowVideoIntro(true);
-    }
-  }, [searchParams, showVideoIntro]);
+    setShowVideoIntro(true);
+  }, [mounted, searchParams]);
 
   // Optimized video preloading - only preload when needed
   useEffect(() => {
@@ -187,7 +180,8 @@ function HomeContent() {
     >
       {/* Video Intro Screen - Shows for 8 seconds then slides up */}
       {/* CRITICAL: Check skipIntro BEFORE rendering - if present, NEVER render video */}
-      {showVideoIntro && !checkSkipIntro() && (
+      {/* Only render after mount to prevent hydration mismatch */}
+      {mounted && showVideoIntro && !checkSkipIntro() && (
         <div
           className="fixed inset-0 z-50"
           style={{
