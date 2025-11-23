@@ -57,16 +57,12 @@ function HomeContent() {
     if (typeof window === "undefined") return false; // SSR: don't show video initially
 
     // CRITICAL: ONLY check skipIntro - if present, ALWAYS skip video
+    // Check URL immediately - don't clean it up yet, let useEffect handle that
     const urlParams = new URLSearchParams(window.location.search);
     const hasSkipIntro = urlParams.get("skipIntro") === "true";
 
     if (hasSkipIntro) {
-      // Clean up URL immediately but DON'T show video
-      urlParams.delete("skipIntro");
-      const newUrl =
-        window.location.pathname +
-        (urlParams.toString() ? `?${urlParams.toString()}` : "");
-      window.history.replaceState({}, "", newUrl);
+      // DON'T clean up URL here - let useEffect do it to ensure it's processed
       return false; // Skip video - this is navigation from back/close button
     }
 
@@ -189,7 +185,8 @@ function HomeContent() {
       }`}
     >
       {/* Video Intro Screen - Shows for 8 seconds then slides up */}
-      {showVideoIntro && (
+      {/* Final safety check: don't render video if skipIntro is in URL */}
+      {showVideoIntro && typeof window !== "undefined" && new URLSearchParams(window.location.search).get("skipIntro") !== "true" && (
         <div
           className="fixed inset-0 z-50"
           style={{
