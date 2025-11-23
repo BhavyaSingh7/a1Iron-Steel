@@ -186,7 +186,17 @@ function HomeContent() {
     >
       {/* Video Intro Screen - Shows for 8 seconds then slides up */}
       {/* Final safety check: don't render video if skipIntro is in URL */}
-      {showVideoIntro && typeof window !== "undefined" && new URLSearchParams(window.location.search).get("skipIntro") !== "true" && (
+      {(() => {
+        if (typeof window === "undefined") return showVideoIntro;
+        const hasSkipIntro = new URLSearchParams(window.location.search).get("skipIntro") === "true";
+        if (hasSkipIntro && showVideoIntro) {
+          // Force skip if skipIntro is detected
+          setShowVideoIntro(false);
+          setShowSecondVideo(false);
+          return false;
+        }
+        return showVideoIntro;
+      })() && (
         <div
           className="fixed inset-0 z-50"
           style={{
