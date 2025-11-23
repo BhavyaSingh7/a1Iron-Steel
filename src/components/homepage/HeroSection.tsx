@@ -222,26 +222,35 @@ export default function HeroSection({
     setIsMobileMenuOpen(false);
   };
 
-  // Scroll detection for navbar transparency
+  // Scroll detection for navbar transparency - debounced for performance
   useEffect(() => {
+    let ticking = false;
+
     const handleScroll = () => {
-      // Get the hero section element
-      const heroSection = document.getElementById("home");
-      if (!heroSection) {
-        setIsScrolled(window.scrollY > 50);
-        return;
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          // Get the hero section element
+          const heroSection = document.getElementById("home");
+          if (!heroSection) {
+            setIsScrolled(window.scrollY > 50);
+            ticking = false;
+            return;
+          }
+
+          // Get hero section height and position
+          const heroHeight = heroSection.offsetHeight;
+          const scrollY = window.scrollY;
+
+          // If scrolled past 80% of hero section, make navbar white
+          // Otherwise, keep it transparent
+          setIsScrolled(scrollY > heroHeight * 0.8);
+          ticking = false;
+        });
+        ticking = true;
       }
-
-      // Get hero section height and position
-      const heroHeight = heroSection.offsetHeight;
-      const scrollY = window.scrollY;
-
-      // If scrolled past 80% of hero section, make navbar white
-      // Otherwise, keep it transparent
-      setIsScrolled(scrollY > heroHeight * 0.8);
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     // Check initial scroll position
     handleScroll();
 
@@ -337,7 +346,7 @@ export default function HeroSection({
               alt={`${industry.title} background`}
               fill
               className="object-cover"
-              quality={90}
+              quality={75}
               priority={
                 currentIndex === index ||
                 currentIndex === (index + 1) % INDUSTRIES.length

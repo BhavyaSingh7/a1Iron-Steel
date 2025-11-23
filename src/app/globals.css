@@ -19,6 +19,8 @@ html {
 [class*="transition"],
 [class*="animate"] {
   will-change: transform, opacity;
+  /* Improve rendering performance */
+  content-visibility: auto;
 }
 
 /* Optimize images */
@@ -28,6 +30,10 @@ img {
   /* GPU acceleration for images */
   transform: translateZ(0);
   backface-visibility: hidden;
+  /* Lazy loading optimization */
+  content-visibility: auto;
+  /* Reduce layout shifts */
+  aspect-ratio: attr(width) / attr(height);
 }
 
 /* Disable animations for users who prefer reduced motion */
@@ -51,12 +57,15 @@ video {
   -webkit-backface-visibility: hidden;
   /* Reduce video processing overhead */
   image-rendering: auto;
-  /* GPU acceleration */
-  will-change: opacity, transform;
+  /* GPU acceleration - only when needed */
+  will-change: auto;
   /* Optimize compositing */
   contain: layout style paint;
   /* Smooth playback */
   -webkit-font-smoothing: antialiased;
+  /* Improve performance */
+  object-fit: cover;
+  object-position: center;
 }
 
 /* Hide scrollbar when video intro is showing */

@@ -138,45 +138,54 @@ function HomeContent() {
     if (typeof document === "undefined" || !showVideoIntro || !mounted) return;
 
     let videoStarted = false;
+    let loadingTimeout: NodeJS.Timeout | null = null;
 
-    // Use requestAnimationFrame for better performance
-    const rafId = requestAnimationFrame(() => {
-      // Start loading the video element immediately for faster playback
-      if (videoRef1.current) {
-        videoRef1.current.preload = "metadata"; // Changed from "auto" to "metadata" for better performance
-        videoRef1.current.load();
-        // Try to play immediately
-        const playPromise = videoRef1.current.play();
-        if (playPromise !== undefined) {
-          playPromise
-            .then(() => {
-              // Video started playing
-              videoStarted = true;
-            })
-            .catch(() => {
-              // Autoplay prevented - handled by user interaction
-            });
+    // Delay video loading slightly to improve initial page load
+    const loadTimer = setTimeout(() => {
+      // Use requestAnimationFrame for better performance
+      const rafId = requestAnimationFrame(() => {
+        // Start loading the video element immediately for faster playback
+        if (videoRef1.current) {
+          videoRef1.current.preload = "none"; // Changed to "none" for better initial performance
+          videoRef1.current.load();
+          // Try to play immediately
+          const playPromise = videoRef1.current.play();
+          if (playPromise !== undefined) {
+            playPromise
+              .then(() => {
+                // Video started playing
+                videoStarted = true;
+              })
+              .catch(() => {
+                // Autoplay prevented - handled by user interaction
+              });
+          }
         }
-      }
-    });
+      });
 
-    // If video doesn't start playing within 8 seconds, skip intro
-    const loadingTimeout = setTimeout(() => {
-      if (
-        !videoStarted &&
-        videoRef1.current &&
-        videoRef1.current.readyState < 2
-      ) {
-        // Video hasn't loaded enough, skip intro
-        setShowVideoIntro(false);
-        setShowSecondVideo(false);
-        setHasShownVideo(true); // Mark as shown so it never shows again
-      }
-    }, 8000);
+      // If video doesn't start playing within 8 seconds, skip intro
+      loadingTimeout = setTimeout(() => {
+        if (
+          !videoStarted &&
+          videoRef1.current &&
+          videoRef1.current.readyState < 2
+        ) {
+          // Video hasn't loaded enough, skip intro
+          setShowVideoIntro(false);
+          setShowSecondVideo(false);
+          setHasShownVideo(true); // Mark as shown so it never shows again
+        }
+      }, 8000);
+
+      return () => {
+        cancelAnimationFrame(rafId);
+        if (loadingTimeout) clearTimeout(loadingTimeout);
+      };
+    }, 100); // Small delay to improve initial page load
 
     return () => {
-      cancelAnimationFrame(rafId);
-      clearTimeout(loadingTimeout);
+      clearTimeout(loadTimer);
+      if (loadingTimeout) clearTimeout(loadingTimeout);
     };
   }, [showVideoIntro, mounted]);
 
@@ -301,7 +310,7 @@ function HomeContent() {
               loop
               playsInline
               className="w-full h-full object-cover"
-              preload="metadata"
+              preload="none"
               style={{
                 willChange: "opacity, transform",
                 transform: "translateZ(0)",
