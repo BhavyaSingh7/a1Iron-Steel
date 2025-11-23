@@ -625,10 +625,15 @@ export default function ProductsSection() {
                           className="object-cover"
                           quality={50}
                           sizes="(max-width: 768px) 320px, 384px"
-                          loading="lazy"
                           priority={
                             index < 2 &&
                             currentIndex % products.length === index
+                          }
+                          loading={
+                            index < 2 &&
+                            currentIndex % products.length === index
+                              ? "eager"
+                              : "lazy"
                           }
                         />
                         {/* Top right icon */}

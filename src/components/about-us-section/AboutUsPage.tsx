@@ -25,7 +25,7 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
   const router = useRouter();
 
   const handleClose = () => {
-    router.push("/?skipIntro=true");
+    router.replace("/?skipIntro=true");
     if (onClose) {
       onClose();
     }

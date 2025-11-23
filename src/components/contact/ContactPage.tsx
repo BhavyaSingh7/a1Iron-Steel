@@ -31,7 +31,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onClose }) => {
   >("idle");
 
   const handleClose = () => {
-    router.push("/?skipIntro=true");
+    router.replace("/?skipIntro=true");
     if (onClose) {
       onClose();
     }

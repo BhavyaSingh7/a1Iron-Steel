@@ -37,7 +37,7 @@ export default function CareerPage({ onClose }: CareerPageProps) {
   >("idle");
 
   const handleClose = () => {
-    router.push("/?skipIntro=true");
+    router.replace("/?skipIntro=true");
     if (onClose) {
       onClose();
     }

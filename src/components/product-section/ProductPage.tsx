@@ -688,7 +688,7 @@ export default function ProductPage({ onClose }: { onClose: () => void }) {
   });
 
   const handleClose = () => {
-    router.push("/?skipIntro=true");
+    router.replace("/?skipIntro=true");
     if (onClose) {
       onClose();
     }

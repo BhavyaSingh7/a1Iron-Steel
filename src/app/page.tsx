@@ -68,7 +68,7 @@ function HomeContent() {
     }
   }, []);
 
-  // Check skipIntro - skip if navigating from another page with skipIntro=true, or if explicitly set
+  // Check skipIntro - skip if skipIntro=true is in URL, regardless of fresh load
   const skipIntro = useMemo(() => {
     if (typeof window === "undefined") return false;
     const skipFromParams = searchParams?.get("skipIntro") === "true";
@@ -76,35 +76,45 @@ function HomeContent() {
       new URLSearchParams(window.location.search).get("skipIntro") === "true";
     const hasSkipIntro = skipFromParams || skipFromWindow;
 
-    // If skipIntro is in URL and we have a referrer from same origin, always skip
-    if (hasSkipIntro && !isFreshLoad) {
+    // If skipIntro is in URL, always skip video (even on fresh load)
+    if (hasSkipIntro) {
       return true;
     }
 
-    // On fresh load without skipIntro, always show video
+    // On fresh load without skipIntro, show video
     if (isFreshLoad) return false;
 
-    return hasSkipIntro;
+    return false;
   }, [searchParams, isFreshLoad]);
 
   // Background image carousel now handled in HeroSection component
-  // Initialize showVideoIntro - always true on fresh load, otherwise check skipIntro
+  // Initialize showVideoIntro - check skipIntro first, then check if fresh load
   const [showVideoIntro, setShowVideoIntro] = useState(() => {
     if (typeof window === "undefined") return true;
-    // On fresh load, always show video
-    const referrer = typeof document !== "undefined" ? document.referrer : "";
-    if (!referrer) return true;
-    try {
-      const referrerUrl = new URL(referrer);
-      const currentUrl = new URL(window.location.href);
-      // If referrer is from different origin, it's fresh load - show video
-      if (referrerUrl.origin !== currentUrl.origin) return true;
-    } catch {
-      return true;
-    }
-    // If navigating from same origin, check skipIntro
+
+    // First check if skipIntro is in URL - if yes, always skip video
     const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get("skipIntro") !== "true";
+    if (urlParams.get("skipIntro") === "true") {
+      return false;
+    }
+
+    // Check if we're navigating from same origin (not a fresh load)
+    const referrer = typeof document !== "undefined" ? document.referrer : "";
+    if (referrer) {
+      try {
+        const referrerUrl = new URL(referrer);
+        const currentUrl = new URL(window.location.href);
+        // If referrer is from same origin, it's navigation - don't show video by default
+        if (referrerUrl.origin === currentUrl.origin) {
+          return false;
+        }
+      } catch {
+        // If URL parsing fails, treat as fresh load
+      }
+    }
+    
+    // On fresh load without skipIntro, show video
+    return true;
   });
   const [showAboutUs, setShowAboutUs] = useState(false);
   const [showProducts, setShowProducts] = useState(false);
@@ -126,44 +136,39 @@ function HomeContent() {
   useEffect(() => {
     if (typeof window === "undefined") return;
 
-    const checkSkipIntro = () => {
-      const urlParams = new URLSearchParams(window.location.search);
-      const shouldSkip = urlParams.get("skipIntro") === "true";
-      
-      // If skipIntro is true, always skip video (even on fresh load if explicitly set)
-      if (shouldSkip) {
-        setShowVideoIntro(false);
-        setShowSecondVideo(false);
-        // Clean up URL after processing
+    // Check URL params directly for immediate response
+    const urlParams = new URLSearchParams(window.location.search);
+    const hasSkipIntro = urlParams.get("skipIntro") === "true";
+
+    // If skipIntro is true, always skip video immediately
+    if (hasSkipIntro || skipIntro) {
+      setShowVideoIntro(false);
+      setShowSecondVideo(false);
+
+      // Clean up URL after processing
+      if (hasSkipIntro) {
         urlParams.delete("skipIntro");
         const newUrl =
           window.location.pathname +
           (urlParams.toString() ? `?${urlParams.toString()}` : "");
         window.history.replaceState({}, "", newUrl);
-      } else if (isFreshLoad) {
-        // On fresh load without skipIntro, ensure video shows
-        setShowVideoIntro(true);
       }
-    };
+      return;
+    }
 
-    // Check immediately on mount
-    checkSkipIntro();
-
-    // Also check on popstate (back/forward navigation)
-    window.addEventListener("popstate", checkSkipIntro);
-
-    return () => {
-      window.removeEventListener("popstate", checkSkipIntro);
-    };
-  }, [isFreshLoad, searchParams]);
+    // If not skipping and it's a fresh load, show video
+    if (isFreshLoad && !skipIntro) {
+      setShowVideoIntro(true);
+    }
+  }, [skipIntro, isFreshLoad, searchParams]);
 
   // Show second video after 5 seconds - lazy load it
   useEffect(() => {
     if (showVideoIntro && !skipIntro) {
-    const secondVideoTimer = setTimeout(() => {
-      setShowSecondVideo(true);
-    }, 5000);
-    return () => clearTimeout(secondVideoTimer);
+      const secondVideoTimer = setTimeout(() => {
+        setShowSecondVideo(true);
+      }, 5000);
+      return () => clearTimeout(secondVideoTimer);
     }
   }, [showVideoIntro, skipIntro]);
 
@@ -233,20 +238,20 @@ function HomeContent() {
             }}
           />
 
-        {/* First Video Background */}
+          {/* First Video Background */}
           <div
-          className="absolute inset-0 w-full h-full"
+            className="absolute inset-0 w-full h-full"
             style={{
               opacity: showSecondVideo ? 0 : 1,
               transition: "opacity 0.2s ease-out",
             }}
-        >
-          <video
+          >
+            <video
               ref={videoRef1}
-            autoPlay
-            muted
-            loop
-            playsInline
+              autoPlay
+              muted
+              loop
+              playsInline
               className="w-full h-full object-cover"
               preload="metadata"
               onLoadedMetadata={() => {
@@ -279,35 +284,35 @@ function HomeContent() {
                 const bg = document.getElementById("video-intro-bg");
                 if (bg) bg.style.opacity = "0";
               }}
-            onError={(e) => {
-              const videoElement = e.target as HTMLVideoElement;
-              videoElement.style.display = "none";
+              onError={(e) => {
+                const videoElement = e.target as HTMLVideoElement;
+                videoElement.style.display = "none";
                 const bg = document.getElementById("video-intro-bg");
                 if (bg) bg.style.opacity = "1";
-            }}
-          >
-            <source
-              src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/bg-video.mp4`}
-              type="video/mp4"
-            />
-            Your browser does not support the video tag.
-          </video>
+              }}
+            >
+              <source
+                src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/bg-video.mp4`}
+                type="video/mp4"
+              />
+              Your browser does not support the video tag.
+            </video>
           </div>
 
-        {/* Second Video Background */}
+          {/* Second Video Background */}
           <div
-          className="absolute inset-0 w-full h-full"
+            className="absolute inset-0 w-full h-full"
             style={{
               opacity: showSecondVideo ? 1 : 0,
               transition: "opacity 0.2s ease-out",
             }}
-        >
-          <video
+          >
+            <video
               ref={videoRef2}
-            autoPlay
-            muted
-            loop
-            playsInline
+              autoPlay
+              muted
+              loop
+              playsInline
               className="w-full h-full object-cover"
               preload="none"
               onLoadedMetadata={() => {
@@ -315,66 +320,65 @@ function HomeContent() {
                   videoRef2.current.play().catch(() => {});
                 }
               }}
-            onError={(e) => {
-              const videoElement = e.target as HTMLVideoElement;
-              videoElement.style.display = "none";
-            }}
+              onError={(e) => {
+                const videoElement = e.target as HTMLVideoElement;
+                videoElement.style.display = "none";
+              }}
               style={{ display: showSecondVideo ? "block" : "none" }}
-          >
-            <source
-              src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/bg-video3.mp4`}
-              type="video/mp4"
-            />
-            Your browser does not support the video tag.
-          </video>
+            >
+              <source
+                src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/bg-video3.mp4`}
+                type="video/mp4"
+              />
+              Your browser does not support the video tag.
+            </video>
           </div>
 
-
-        {/* Light overlay for better text readability without hiding video */}
-        <div className="absolute inset-0 bg-black/20" />
+          {/* Light overlay for better text readability without hiding video */}
+          <div className="absolute inset-0 bg-black/20" />
 
           {/* Bouncing Bubbles - Disabled for performance */}
 
-        {/* A1 IRON & STEEL Text */}
-        <div className="relative z-10 h-full flex items-center justify-center">
-          <div className="text-center">
-            {/* Background Glow Effect */}
-            <div
-              className="absolute inset-0 blur-3xl opacity-10"
-              style={{
-                background:
-                  "linear-gradient(135deg, #f0ae28 0%, #f1852e 25%, #2084b1 60%, #1a5f82 100%)",
-                transform: "scale(1.8)",
-              }}
-            />
+          {/* A1 IRON & STEEL Text */}
+          <div className="relative z-10 h-full flex items-center justify-center">
+            <div className="text-center">
+              {/* Background Glow Effect */}
+              <div
+                className="absolute inset-0 blur-3xl opacity-10"
+                style={{
+                  background:
+                    "linear-gradient(135deg, #f0ae28 0%, #f1852e 25%, #2084b1 60%, #1a5f82 100%)",
+                  transform: "scale(1.8)",
+                }}
+              />
 
               <h1
-              className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-black relative z-10 tracking-wide gradient-title"
-              style={{
-                background:
-                  "linear-gradient(135deg, #FFFFFF 0%, #f0ae28 25%, #2084b1 60%, #1a5f82 100%)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
-                backgroundSize: "200% auto",
-                textShadow: "0 0 80px rgba(32, 132, 177, 0.4)",
-                letterSpacing: "0.05em",
-                fontFamily: "'Helvetica Neue', 'Arial Black', sans-serif",
-              }}
-            >
-              A1 IRON & STEEL
+                className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-black relative z-10 tracking-wide gradient-title"
+                style={{
+                  background:
+                    "linear-gradient(135deg, #FFFFFF 0%, #f0ae28 25%, #2084b1 60%, #1a5f82 100%)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  backgroundClip: "text",
+                  backgroundSize: "200% auto",
+                  textShadow: "0 0 80px rgba(32, 132, 177, 0.4)",
+                  letterSpacing: "0.05em",
+                  fontFamily: "'Helvetica Neue', 'Arial Black', sans-serif",
+                }}
+              >
+                A1 IRON & STEEL
               </h1>
 
-            {/* Animated Underline */}
+              {/* Animated Underline */}
               <div
-              className="h-1 mt-4 mx-auto"
-              style={{
-                background:
-                  "linear-gradient(90deg, transparent, #f0ae28 25%, #2084b1 50%, #1a5f82 75%, transparent)",
-                maxWidth: "600px",
-                boxShadow: "0 2px 20px rgba(32, 132, 177, 0.5)",
-              }}
-            />
+                className="h-1 mt-4 mx-auto"
+                style={{
+                  background:
+                    "linear-gradient(90deg, transparent, #f0ae28 25%, #2084b1 50%, #1a5f82 75%, transparent)",
+                  maxWidth: "600px",
+                  boxShadow: "0 2px 20px rgba(32, 132, 177, 0.5)",
+                }}
+              />
 
               {/* Info text that appears with second video */}
               <div

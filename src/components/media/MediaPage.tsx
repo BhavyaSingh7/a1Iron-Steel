@@ -31,7 +31,7 @@ export default function MediaPage({ onClose }: MediaPageProps) {
   const router = useRouter();
 
   const handleClose = () => {
-    router.push("/?skipIntro=true");
+    router.replace("/?skipIntro=true");
     if (onClose) {
       onClose();
     }

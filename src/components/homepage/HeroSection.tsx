@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { motion } from "framer-motion";
-import { Trees, ChevronRight } from "lucide-react";
+import { Trees, ChevronRight, ChevronDown } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
@@ -71,6 +71,7 @@ export default function HeroSection({
 }: HeroSectionProps) {
   const router = useRouter();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isAboutDropdownOpen, setIsAboutDropdownOpen] = useState(false);
   const [sliderPosition, setSliderPosition] = useState(0);
   const [slideTriggered, setSlideTriggered] = useState(false);
 
@@ -85,6 +86,12 @@ export default function HeroSection({
 
   const handleAboutClick = useCallback(() => {
     router.push("/about");
+    setIsAboutDropdownOpen(false);
+  }, [router]);
+
+  const handleMakingSteelClick = useCallback(() => {
+    router.push("/about/making-steel");
+    setIsAboutDropdownOpen(false);
   }, [router]);
 
   const handleContactClick = useCallback(() => {
@@ -205,6 +212,27 @@ export default function HeroSection({
     };
   }, [isMobileMenuOpen]);
 
+  // Close About dropdown when clicking outside (for desktop)
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (isAboutDropdownOpen) {
+        const target = event.target as Element;
+        const aboutDropdown = target.closest(".about-dropdown-container");
+        if (!aboutDropdown) {
+          setIsAboutDropdownOpen(false);
+        }
+      }
+    };
+
+    if (isAboutDropdownOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isAboutDropdownOpen]);
+
   if (showVideoIntro) {
     return null; // Don't render hero section during video intro
   }
@@ -306,14 +334,56 @@ export default function HeroSection({
               >
                 Home
               </button>
-              <button
-                onClick={handleAboutClick}
-                className="text-gray-700 font-bold text-base md:text-lg hover:text-logo-orange-1 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded px-2"
-                aria-label="Navigate to about section"
-                tabIndex={0}
+              {/* About Dropdown */}
+              <div
+                className="relative group about-dropdown-container"
+                onMouseEnter={() => setIsAboutDropdownOpen(true)}
+                onMouseLeave={() => setIsAboutDropdownOpen(false)}
               >
-                About
-              </button>
+                <button
+                  onClick={() => setIsAboutDropdownOpen(!isAboutDropdownOpen)}
+                  className="text-gray-700 font-bold text-base md:text-lg hover:text-logo-orange-1 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded px-2 flex items-center gap-1"
+                  aria-label="About menu"
+                  aria-expanded={isAboutDropdownOpen}
+                  tabIndex={0}
+                >
+                  About
+                  <ChevronDown
+                    className={`w-4 h-4 transition-transform duration-200 ${
+                      isAboutDropdownOpen ? "rotate-180" : ""
+                    }`}
+                  />
+                </button>
+                {isAboutDropdownOpen && (
+                  <div
+                    className="absolute top-full left-0 pt-1 w-48 z-50"
+                    onMouseEnter={() => setIsAboutDropdownOpen(true)}
+                  >
+                    <div className="bg-white rounded-lg shadow-xl border border-gray-200 py-2">
+                      <button
+                        onClick={() => {
+                          handleAboutClick();
+                          setIsAboutDropdownOpen(false);
+                        }}
+                        className="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-logo-orange-1 transition-colors duration-200 text-sm font-medium"
+                        aria-label="About Us"
+                      >
+                        About Us
+                      </button>
+                      <button
+                        onClick={() => {
+                          handleMakingSteelClick();
+                          setIsAboutDropdownOpen(false);
+                        }}
+                        className="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-logo-orange-1 transition-colors duration-200 text-sm font-medium"
+                        aria-label="Making Steel"
+                      >
+                        Making Steel
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
               <button
                 onClick={onProductsClick}
                 className="text-gray-700 font-bold text-base md:text-lg hover:text-logo-orange-1 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded px-2"
@@ -423,14 +493,24 @@ export default function HeroSection({
             >
               Home
             </button>
-            <button
-              onClick={() => handleMobileNavClick(handleAboutClick)}
-              className="block text-lg font-medium text-orange-500 hover:text-orange-600 transition-colors duration-300 py-2 w-full text-left focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded px-2"
-              aria-label="Navigate to about section"
-              tabIndex={0}
-            >
-              About
-            </button>
+            <div className="space-y-2">
+              <button
+                onClick={() => handleMobileNavClick(handleAboutClick)}
+                className="block text-lg font-medium text-orange-500 hover:text-orange-600 transition-colors duration-300 py-2 w-full text-left focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded px-2"
+                aria-label="About Us"
+                tabIndex={0}
+              >
+                About Us
+              </button>
+              <button
+                onClick={() => handleMobileNavClick(handleMakingSteelClick)}
+                className="block text-base font-medium text-gray-600 hover:text-orange-600 transition-colors duration-300 py-2 w-full text-left focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded px-2 pl-6"
+                aria-label="Making Steel"
+                tabIndex={0}
+              >
+                Making Steel
+              </button>
+            </div>
             <button
               onClick={() => handleMobileNavClick(onProductsClick)}
               className="block text-lg font-medium text-orange-500 hover:text-orange-600 transition-colors duration-300 py-2 w-full text-left focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded px-2"
