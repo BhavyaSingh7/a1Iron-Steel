@@ -56,8 +56,7 @@ function HomeContent() {
   const [showVideoIntro, setShowVideoIntro] = useState(() => {
     if (typeof window === "undefined") return false; // SSR: don't show video initially
 
-    // CRITICAL: Check skipIntro FIRST - if present, ALWAYS skip video
-    // Check both window.location.search and searchParams to catch all cases
+    // CRITICAL: ONLY check skipIntro - if present, ALWAYS skip video
     const urlParams = new URLSearchParams(window.location.search);
     const hasSkipIntro = urlParams.get("skipIntro") === "true";
 
@@ -71,23 +70,7 @@ function HomeContent() {
       return false; // Skip video - this is navigation from back/close button
     }
 
-    // No skipIntro - check if this is a navigation from same site
-    // If referrer exists and is from same origin, it's navigation (skip video)
-    const referrer = document.referrer;
-    if (referrer) {
-      try {
-        const referrerUrl = new URL(referrer);
-        const currentUrl = new URL(window.location.href);
-        // If navigating from same origin, skip video
-        if (referrerUrl.origin === currentUrl.origin && referrerUrl.pathname !== currentUrl.pathname) {
-          return false; // Navigation from another page on same site
-        }
-      } catch (e) {
-        // Invalid referrer URL, treat as fresh load
-      }
-    }
-
-    // Fresh load or reload - show video
+    // No skipIntro - this is a fresh load or reload, SHOW VIDEO
     return true;
   });
   const [showAboutUs, setShowAboutUs] = useState(false);
@@ -122,24 +105,8 @@ function HomeContent() {
       return; // Exit early - don't check anything else
     }
 
-    // No skipIntro parameter - check if this is navigation from same site
-    const referrer = document.referrer;
-    if (referrer) {
-      try {
-        const referrerUrl = new URL(referrer);
-        const currentUrl = new URL(window.location.href);
-        // If navigating from same origin but different path, skip video
-        if (referrerUrl.origin === currentUrl.origin && referrerUrl.pathname !== currentUrl.pathname) {
-          setShowVideoIntro(false);
-          setShowSecondVideo(false);
-          return; // Navigation from another page on same site
-        }
-      } catch (e) {
-        // Invalid referrer URL, treat as fresh load
-      }
-    }
-
-    // Fresh load or reload - show video
+    // No skipIntro parameter - this is a fresh load or reload, SHOW VIDEO
+    // Don't check referrer - only skipIntro matters
     setShowVideoIntro(true);
   }, [searchParams]);
 
@@ -222,8 +189,7 @@ function HomeContent() {
       }`}
     >
       {/* Video Intro Screen - Shows for 8 seconds then slides up */}
-      {/* Double-check skipIntro before rendering video to prevent flash */}
-      {showVideoIntro && !(typeof window !== "undefined" && new URLSearchParams(window.location.search).get("skipIntro") === "true") && (
+      {showVideoIntro && (
         <div
           className="fixed inset-0 z-50"
           style={{
