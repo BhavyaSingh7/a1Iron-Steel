@@ -101,7 +101,8 @@ export default function HeroSection({
   const TRANSITION_DURATION = 5000; // 5 seconds per industry
 
   const handleHomeClick = () => {
-    router.push("/?skipIntro=true");
+    const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+    router.push(`${basePath}/?skipIntro=true`);
   };
 
   const handleAboutClick = useCallback(() => {

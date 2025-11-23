@@ -32,7 +32,8 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onClose }) => {
 
   const handleClose = () => {
     // Use window.location for immediate navigation with skipIntro parameter
-    window.location.href = `/?skipIntro=true`;
+    const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+    window.location.href = `${basePath}/?skipIntro=true`;
     if (onClose) {
       onClose();
     }
