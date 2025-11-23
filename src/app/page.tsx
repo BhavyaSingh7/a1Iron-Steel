@@ -52,17 +52,19 @@ function HomeContent() {
   const videoRef1 = useRef<HTMLVideoElement>(null);
   const videoRef2 = useRef<HTMLVideoElement>(null);
 
+  // Helper function to check skipIntro - used everywhere
+  const checkSkipIntro = () => {
+    if (typeof window === "undefined") return false;
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get("skipIntro") === "true";
+  };
+
   // Initialize showVideoIntro - show video on fresh load unless skipIntro is in URL
   const [showVideoIntro, setShowVideoIntro] = useState(() => {
     if (typeof window === "undefined") return false; // SSR: don't show video initially
 
-    // CRITICAL: ONLY check skipIntro - if present, ALWAYS skip video
-    // Check URL immediately - don't clean it up yet, let useEffect handle that
-    const urlParams = new URLSearchParams(window.location.search);
-    const hasSkipIntro = urlParams.get("skipIntro") === "true";
-
-    if (hasSkipIntro) {
-      // DON'T clean up URL here - let useEffect do it to ensure it's processed
+    // CRITICAL: Check skipIntro FIRST - if present, NEVER show video
+    if (checkSkipIntro()) {
       return false; // Skip video - this is navigation from back/close button
     }
 
@@ -80,11 +82,7 @@ function HomeContent() {
     if (typeof window === "undefined") return;
 
     // CRITICAL: Check skipIntro FIRST - this takes absolute priority
-    // Check both window.location.search and searchParams to catch all cases
-    const urlParams = new URLSearchParams(window.location.search);
-    const searchParamsSkipIntro = searchParams?.get("skipIntro") === "true";
-    const urlSkipIntro = urlParams.get("skipIntro") === "true";
-    const hasSkipIntro = searchParamsSkipIntro || urlSkipIntro;
+    const hasSkipIntro = checkSkipIntro();
 
     // If skipIntro is true, ALWAYS skip video immediately (this handles back/close button navigation)
     if (hasSkipIntro) {
@@ -93,6 +91,7 @@ function HomeContent() {
       setShowSecondVideo(false);
 
       // Clean up URL after processing
+      const urlParams = new URLSearchParams(window.location.search);
       urlParams.delete("skipIntro");
       const newUrl =
         window.location.pathname +
@@ -102,9 +101,11 @@ function HomeContent() {
     }
 
     // No skipIntro parameter - this is a fresh load or reload, SHOW VIDEO
-    // Don't check referrer - only skipIntro matters
-    setShowVideoIntro(true);
-  }, [searchParams]);
+    // Only set to true if it's not already false (to avoid unnecessary updates)
+    if (!showVideoIntro) {
+      setShowVideoIntro(true);
+    }
+  }, [searchParams, showVideoIntro]);
 
   // Optimized video preloading - only preload when needed
   useEffect(() => {
@@ -185,18 +186,8 @@ function HomeContent() {
       }`}
     >
       {/* Video Intro Screen - Shows for 8 seconds then slides up */}
-      {/* Final safety check: don't render video if skipIntro is in URL */}
-      {(() => {
-        if (typeof window === "undefined") return showVideoIntro;
-        const hasSkipIntro = new URLSearchParams(window.location.search).get("skipIntro") === "true";
-        if (hasSkipIntro && showVideoIntro) {
-          // Force skip if skipIntro is detected
-          setShowVideoIntro(false);
-          setShowSecondVideo(false);
-          return false;
-        }
-        return showVideoIntro;
-      })() && (
+      {/* CRITICAL: Check skipIntro BEFORE rendering - if present, NEVER render video */}
+      {showVideoIntro && !checkSkipIntro() && (
         <div
           className="fixed inset-0 z-50"
           style={{
