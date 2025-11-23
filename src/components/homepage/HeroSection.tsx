@@ -51,10 +51,10 @@ const INDUSTRIES: Industry[] = [
   },
   {
     id: 4,
-    title: "Our Impact",
+    title: "Sustainability",
     description:
-      "Building the infrastructure that drives Rwanda forward with sustainable steel solutions.",
-    image: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/homepage/hm5.jpeg`,
+      "Committed to environmental responsibility and sustainable manufacturing practices that protect our planet for future generations.",
+    image: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/homepage/sustainable.png`,
   },
   {
     id: 5,
