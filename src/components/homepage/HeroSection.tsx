@@ -26,42 +26,61 @@ const INDUSTRIES: Industry[] = [
     title: "Our Company",
     description:
       "Rwanda's premier steel manufacturer delivering exceptional quality, sustainable solutions, and unwavering reliability.",
-    image: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/homepage/hm1.png`,
+    image: `${
+      process.env.NEXT_PUBLIC_BASE_PATH || ""
+    }/homepage/our-company.jpeg`,
   },
   {
     id: 1,
     title: "Our Products",
     description:
       "Premium steel solutions for construction, manufacturing, and infrastructure development.",
-    image: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/homepage/hm2.jpeg`,
+    image: `${
+      process.env.NEXT_PUBLIC_BASE_PATH || ""
+    }/homepage/our-product.png`,
   },
   {
     id: 2,
     title: "Our Manufacturing",
     description:
       "State-of-the-art facilities producing high-quality steel with precision and excellence.",
-    image: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/homepage/hm3.jpeg`,
+    image: `${
+      process.env.NEXT_PUBLIC_BASE_PATH || ""
+    }/homepage/our-manufacturing.png`,
   },
   {
     id: 3,
     title: "Our Quality",
     description:
       "Rigorous quality control ensuring every product meets international standards.",
-    image: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/homepage/hm4.jpeg`,
+    image: `${
+      process.env.NEXT_PUBLIC_BASE_PATH || ""
+    }/homepage/our-quality.png`,
   },
   {
     id: 4,
-    title: "Sustainability",
+    title: "Our Impact",
     description:
-      "Committed to environmental responsibility and sustainable manufacturing practices that protect our planet for future generations.",
-    image: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/homepage/sustainable.png`,
+      "Making a meaningful difference in Rwanda and beyond through excellence in steel manufacturing and sustainable practices.",
+    image: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/homepage/our-impact.png`,
   },
   {
     id: 5,
+    title: "Sustainability",
+    description:
+      "Committed to environmental responsibility and sustainable manufacturing practices that protect our planet for future generations.",
+    image: `${
+      process.env.NEXT_PUBLIC_BASE_PATH || ""
+    }/homepage/sustainability.png`,
+  },
+  {
+    id: 6,
     title: "Get in Touch",
     description:
       "Connect with us to discuss your steel requirements and discover how we can help.",
-    image: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/homepage/hm6.jpeg`,
+    image: `${
+      process.env.NEXT_PUBLIC_BASE_PATH || ""
+    }/homepage/get-in-touch.png`,
   },
 ];
 
@@ -74,6 +93,7 @@ export default function HeroSection({
   const [isAboutDropdownOpen, setIsAboutDropdownOpen] = useState(false);
   const [sliderPosition, setSliderPosition] = useState(0);
   const [slideTriggered, setSlideTriggered] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   // ArcelorMittal-style carousel state
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -92,6 +112,10 @@ export default function HeroSection({
   const handleMakingSteelClick = useCallback(() => {
     router.push("/about/making-steel");
     setIsAboutDropdownOpen(false);
+  }, [router]);
+
+  const handleQualityClick = useCallback(() => {
+    router.push("/about/our-quality");
   }, [router]);
 
   const handleContactClick = useCallback(() => {
@@ -161,14 +185,30 @@ export default function HeroSection({
   // Handle industry action
   const handleIndustryAction = useCallback(() => {
     const industry = INDUSTRIES[currentIndex];
-    if (industry.id === 1) {
-      onProductsClick();
-    } else if (industry.id === 0) {
+    if (industry.id === 0) {
+      // Our Company -> About Us page
       handleAboutClick();
-    } else if (industry.id === 5) {
+    } else if (industry.id === 1) {
+      // Our Products -> Products page
+      onProductsClick();
+    } else if (industry.id === 2) {
+      // Our Manufacturing -> Making Steel page
+      handleMakingSteelClick();
+    } else if (industry.id === 3) {
+      // Our Quality -> Our Quality page
+      handleQualityClick();
+    } else if (industry.id === 6) {
+      // Get in Touch -> Contact Us page
       handleContactClick();
     }
-  }, [currentIndex, onProductsClick, handleAboutClick, handleContactClick]);
+  }, [
+    currentIndex,
+    onProductsClick,
+    handleAboutClick,
+    handleContactClick,
+    handleMakingSteelClick,
+    handleQualityClick,
+  ]);
 
   // Mobile menu toggle function
   const toggleMobileMenu = () => {
@@ -180,6 +220,34 @@ export default function HeroSection({
     action();
     setIsMobileMenuOpen(false);
   };
+
+  // Scroll detection for navbar transparency
+  useEffect(() => {
+    const handleScroll = () => {
+      // Get the hero section element
+      const heroSection = document.getElementById("home");
+      if (!heroSection) {
+        setIsScrolled(window.scrollY > 50);
+        return;
+      }
+
+      // Get hero section height and position
+      const heroHeight = heroSection.offsetHeight;
+      const scrollY = window.scrollY;
+
+      // If scrolled past 80% of hero section, make navbar white
+      // Otherwise, keep it transparent
+      setIsScrolled(scrollY > heroHeight * 0.8);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    // Check initial scroll position
+    handleScroll();
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   // Close mobile menu when clicking outside or pressing escape
   useEffect(() => {
@@ -268,7 +336,7 @@ export default function HeroSection({
               alt={`${industry.title} background`}
               fill
               className="object-cover"
-              quality={40}
+              quality={90}
               priority={
                 currentIndex === index ||
                 currentIndex === (index + 1) % INDUSTRIES.length
@@ -288,16 +356,21 @@ export default function HeroSection({
 
       {/* Navigation Bar */}
       <div
-        className="fixed top-0 left-0 right-0 z-50 bg-white/98 backdrop-blur-md shadow-sm border-b border-gray-100"
+        className={`fixed top-0 left-0 right-0 z-50 backdrop-blur-md transition-all duration-300 ${
+          isScrolled
+            ? "bg-white/98 shadow-sm border-b border-gray-100"
+            : "bg-transparent shadow-none border-b border-transparent"
+        }`}
         style={{
-          boxShadow:
-            "0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.05)",
+          boxShadow: isScrolled
+            ? "0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.05)"
+            : "none",
         }}
       >
-        <div className="max-w-6xl mx-auto px-2 sm:px-4 lg:px-6">
+        <div className="max-w-6xl mx-auto pl-0 pr-2 sm:pr-4 lg:pr-6">
           <div className="flex items-center justify-between h-16 md:h-20 lg:h-20">
             {/* Logo */}
-            <div className="flex items-center h-full -ml-4 md:-ml-6">
+            <div className="flex items-center h-full">
               <button
                 onClick={handleHomeClick}
                 className="flex items-center h-full cursor-pointer hover:scale-105 active:scale-95 transition-transform duration-200"
@@ -328,7 +401,11 @@ export default function HeroSection({
             >
               <button
                 onClick={handleHomeClick}
-                className="text-gray-800 font-medium text-base md:text-lg hover:text-logo-orange-1 transition-colors duration-200 cursor-pointer focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded px-2 tracking-wide hover:scale-105 active:scale-95"
+                className={`font-medium text-base md:text-lg transition-colors duration-200 cursor-pointer focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded px-2 tracking-wide hover:scale-105 active:scale-95 ${
+                  isScrolled
+                    ? "text-gray-800 hover:text-logo-orange-1"
+                    : "text-white hover:text-orange-300"
+                }`}
                 aria-label="Navigate to home section"
                 tabIndex={0}
               >
@@ -342,7 +419,11 @@ export default function HeroSection({
               >
                 <button
                   onClick={() => setIsAboutDropdownOpen(!isAboutDropdownOpen)}
-                  className="text-gray-700 font-bold text-base md:text-lg hover:text-logo-orange-1 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded px-2 flex items-center gap-1"
+                  className={`font-bold text-base md:text-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded px-2 flex items-center gap-1 ${
+                    isScrolled
+                      ? "text-gray-700 hover:text-logo-orange-1"
+                      : "text-white hover:text-orange-300"
+                  }`}
                   aria-label="About menu"
                   aria-expanded={isAboutDropdownOpen}
                   tabIndex={0}
@@ -386,7 +467,11 @@ export default function HeroSection({
               </div>
               <button
                 onClick={onProductsClick}
-                className="text-gray-700 font-bold text-base md:text-lg hover:text-logo-orange-1 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded px-2"
+                className={`font-bold text-base md:text-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded px-2 ${
+                  isScrolled
+                    ? "text-gray-700 hover:text-logo-orange-1"
+                    : "text-white hover:text-orange-300"
+                }`}
                 aria-label="View our products"
                 tabIndex={0}
               >
@@ -394,7 +479,11 @@ export default function HeroSection({
               </button>
               <button
                 onClick={handleMediaClick}
-                className="text-gray-700 font-bold text-base md:text-lg hover:text-logo-orange-1 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded px-2"
+                className={`font-bold text-base md:text-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded px-2 ${
+                  isScrolled
+                    ? "text-gray-700 hover:text-logo-orange-1"
+                    : "text-white hover:text-orange-300"
+                }`}
                 aria-label="View our media and social links"
                 tabIndex={0}
               >
@@ -402,7 +491,11 @@ export default function HeroSection({
               </button>
               <button
                 onClick={handleCareerClick}
-                className="text-gray-700 font-bold text-base md:text-lg hover:text-logo-orange-1 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded px-2"
+                className={`font-bold text-base md:text-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded px-2 ${
+                  isScrolled
+                    ? "text-gray-700 hover:text-logo-orange-1"
+                    : "text-white hover:text-orange-300"
+                }`}
                 aria-label="View career opportunities"
                 tabIndex={0}
               >
@@ -410,7 +503,11 @@ export default function HeroSection({
               </button>
               <button
                 onClick={handleSustainabilityClick}
-                className="text-gray-700 font-bold text-base md:text-lg hover:text-logo-orange-1 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded px-2"
+                className={`font-bold text-base md:text-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded px-2 ${
+                  isScrolled
+                    ? "text-gray-700 hover:text-logo-orange-1"
+                    : "text-white hover:text-orange-300"
+                }`}
                 aria-label="View sustainability section"
                 tabIndex={0}
               >
@@ -418,7 +515,11 @@ export default function HeroSection({
               </button>
               <button
                 onClick={handleContactClick}
-                className="text-gray-700 font-bold text-base md:text-lg hover:text-logo-orange-1 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded px-2"
+                className={`font-bold text-base md:text-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded px-2 ${
+                  isScrolled
+                    ? "text-gray-700 hover:text-logo-orange-1"
+                    : "text-white hover:text-orange-300"
+                }`}
                 aria-label="Contact us"
                 tabIndex={0}
               >
@@ -429,7 +530,11 @@ export default function HeroSection({
             {/* Mobile Menu Button */}
             <button
               onClick={toggleMobileMenu}
-              className="md:hidden p-2 text-logo-gray-dark hover:text-logo-orange-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded"
+              className={`md:hidden p-2 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded ${
+                isScrolled
+                  ? "text-logo-gray-dark hover:text-logo-orange-medium"
+                  : "text-white hover:text-orange-300"
+              }`}
               aria-label={
                 isMobileMenuOpen ? "Close mobile menu" : "Open mobile menu"
               }
@@ -578,13 +683,16 @@ export default function HeroSection({
             <p className="text-lg sm:text-xl md:text-2xl text-white/90 mb-8 leading-relaxed max-w-2xl">
               {INDUSTRIES[currentIndex].description}
             </p>
-            <button
-              onClick={handleIndustryAction}
-              className="px-8 py-4 border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-gray-900 transition-all duration-300 flex items-center gap-2 group"
-            >
-              <span>Find out more</span>
-              <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </button>
+            {/* Hide button for Our Impact (id: 4) */}
+            {INDUSTRIES[currentIndex].id !== 4 && (
+              <button
+                onClick={handleIndustryAction}
+                className="px-8 py-4 border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-gray-900 transition-all duration-300 flex items-center gap-2 group"
+              >
+                <span>Find out more</span>
+                <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </button>
+            )}
           </div>
 
           {/* Right Side - Industries List */}
@@ -595,7 +703,7 @@ export default function HeroSection({
             <ul className="space-y-4">
               {INDUSTRIES.map((industry, index) => {
                 const isActive = currentIndex === index;
-                const circumference = 2 * Math.PI * 12; // radius = 12
+                const circumference = 2 * Math.PI * 10; // radius = 10 (matches circle r="10")
                 const strokeDashoffset =
                   circumference - (progress / 100) * circumference;
 
@@ -636,7 +744,7 @@ export default function HeroSection({
                                 transform: `rotate(${
                                   (progress / 100) * 360
                                 }deg)`,
-                                transition: "transform 0.05s linear",
+                                transition: "transform 0.1s ease-out",
                               }}
                             />
                           )}
@@ -648,12 +756,12 @@ export default function HeroSection({
                               r="10"
                               fill="none"
                               stroke="#f1852e"
-                              strokeWidth="2"
+                              strokeWidth="2.5"
                               strokeDasharray={circumference}
                               strokeDashoffset={strokeDashoffset}
                               strokeLinecap="round"
                               style={{
-                                transition: "stroke-dashoffset 0.05s linear",
+                                transformOrigin: "12px 12px",
                               }}
                             />
                           )}

@@ -11,14 +11,23 @@ html {
 
 /* Performance optimizations */
 * {
-  /* Reduce repaints and reflows - removed will-change as it can cause performance issues */
+  /* Reduce repaints and reflows */
   box-sizing: border-box;
 }
 
-/* Optimize image rendering */
+/* Optimize animations and transitions */
+[class*="transition"],
+[class*="animate"] {
+  will-change: transform, opacity;
+}
+
+/* Optimize images */
 img {
   image-rendering: -webkit-optimize-contrast;
   image-rendering: crisp-edges;
+  /* GPU acceleration for images */
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 /* Disable animations for users who prefer reduced motion */
@@ -42,6 +51,12 @@ video {
   -webkit-backface-visibility: hidden;
   /* Reduce video processing overhead */
   image-rendering: auto;
+  /* GPU acceleration */
+  will-change: opacity, transform;
+  /* Optimize compositing */
+  contain: layout style paint;
+  /* Smooth playback */
+  -webkit-font-smoothing: antialiased;
 }
 
 /* Hide scrollbar when video intro is showing */
@@ -78,6 +93,72 @@ body.video-intro-active {
 
 ::-webkit-scrollbar-thumb:hover {
   background: linear-gradient(135deg, #f09b30 0%, #1a5f82 100%);
+}
+
+/* Modern scrollbar for product list carousel - Enhanced visibility */
+.product-list-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #f1852e rgba(255, 255, 255, 0.2);
+  position: relative;
+}
+
+.product-list-scrollbar::-webkit-scrollbar {
+  width: 12px;
+}
+
+.product-list-scrollbar::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+  margin: 8px 0;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.product-list-scrollbar::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #f1852e 0%, #2084b1 100%);
+  border-radius: 10px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 
+    0 2px 8px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  min-height: 40px;
+}
+
+.product-list-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #f09b30 0%, #1a5f82 100%);
+  box-shadow: 
+    0 4px 16px rgba(241, 133, 46, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.3);
+  transform: scaleX(1.2);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.product-list-scrollbar::-webkit-scrollbar-thumb:active {
+  background: linear-gradient(180deg, #de8d45 0%, #113d59 100%);
+  box-shadow: 
+    0 2px 8px rgba(0, 0, 0, 0.5),
+    inset 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Add a subtle scroll indicator */
+.product-list-scrollbar::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 12px;
+  background: linear-gradient(
+    to bottom,
+    rgba(241, 133, 46, 0.1) 0%,
+    transparent 10%,
+    transparent 90%,
+    rgba(241, 133, 46, 0.1) 100%
+  );
+  pointer-events: none;
+  border-radius: 10px;
 }
 
 :root {

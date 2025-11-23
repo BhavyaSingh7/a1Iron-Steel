@@ -656,6 +656,7 @@ export default function ProductPage({ onClose }: { onClose: () => void }) {
   const [progress, setProgress] = useState(0);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
+  const [isScrolled, setIsScrolled] = useState(false);
   const products = PRODUCTS_DATA;
   const TRANSITION_DURATION = 5000; // 5 seconds per product
 
@@ -730,6 +731,43 @@ export default function ProductPage({ onClose }: { onClose: () => void }) {
     // Progress will reset automatically via useEffect when currentIndex changes
   }, []);
 
+  // Scroll detection for navbar transparency
+  useEffect(() => {
+    const handleScroll = () => {
+      // Get carousel section height (h-screen = 100vh)
+      const carouselHeight = window.innerHeight;
+
+      // Get scroll position from the container
+      const container = document.querySelector(
+        ".fixed.inset-0.z-50.bg-gray-50.overflow-y-auto"
+      ) as HTMLElement;
+      if (!container) {
+        setIsScrolled(false);
+        return;
+      }
+
+      const scrollY = container.scrollTop;
+
+      // If scrolled past 30% of carousel height, make navbar white
+      // This ensures navbar becomes white early as user scrolls down
+      setIsScrolled(scrollY > carouselHeight * 0.3);
+    };
+
+    // Use the container's scroll event since it's overflow-y-auto
+    const container = document.querySelector(
+      ".fixed.inset-0.z-50.bg-gray-50.overflow-y-auto"
+    );
+    if (container) {
+      container.addEventListener("scroll", handleScroll);
+      // Check initial scroll position (should be 0, so navbar is transparent)
+      handleScroll();
+
+      return () => {
+        container.removeEventListener("scroll", handleScroll);
+      };
+    }
+  }, []);
+
   // Disable body scroll when this page is open to prevent double scrollbars
   useEffect(() => {
     // Store original overflow values
@@ -749,35 +787,78 @@ export default function ProductPage({ onClose }: { onClose: () => void }) {
 
   return (
     <div className="fixed inset-0 z-50 bg-gray-50 overflow-y-auto">
-      {/* Header */}
-      <div className="sticky top-0 z-20 bg-white/98 backdrop-blur-md border-b border-gray-200 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">
-                Our <span className="logo-blue-gradient">Products</span>
-              </h1>
-            </div>
-            <div className="flex items-center gap-4">
-              <button
-                onClick={handleClose}
-                className="flex items-center space-x-2 text-gray-700 hover:text-[#f1852e] transition-colors duration-200 font-medium px-4 py-2 rounded-lg hover:bg-gray-50"
-                aria-label="Back to home"
-              >
-                <ArrowLeft className="w-5 h-5" />
-                <span className="hidden sm:inline">Back to Home</span>
-              </button>
-              <button
-                onClick={handleClose}
-                className="p-2 text-gray-700 hover:text-[#f1852e] transition-colors duration-200 rounded-lg hover:bg-gray-100"
-                aria-label="Close products page"
-              >
-                <X className="w-6 h-6" />
-              </button>
+      {/* Header - Only show when scrolled past carousel */}
+      {isScrolled && (
+        <div
+          className="sticky top-0 z-20 backdrop-blur-md transition-all duration-300 bg-white/98 border-b border-gray-200 shadow-sm"
+          style={{
+            boxShadow:
+              "0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.05)",
+          }}
+        >
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 relative z-30">
+                  Our <span className="logo-blue-gradient">Products</span>
+                </h1>
+              </div>
+              <div className="flex items-center gap-4">
+                <button
+                  onClick={handleClose}
+                  className="flex items-center space-x-2 transition-all duration-200 font-medium px-4 py-2 rounded-lg text-gray-700 hover:text-[#f1852e] hover:bg-gray-50"
+                  aria-label="Back to home"
+                >
+                  <ArrowLeft className="w-5 h-5" />
+                  <span className="hidden sm:inline">Back to Home</span>
+                </button>
+                <button
+                  onClick={handleClose}
+                  className="p-2 transition-all duration-200 rounded-lg text-gray-700 hover:text-[#f1852e] hover:bg-gray-100"
+                  aria-label="Close products page"
+                >
+                  <X className="w-6 h-6" />
+                </button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
+
+      {/* Floating Back/Close Buttons - Only show when navbar is hidden (on carousel) */}
+      {!isScrolled && (
+        <div className="fixed top-4 right-4 z-30 flex items-center gap-3">
+          <button
+            onClick={handleClose}
+            className="flex items-center space-x-2 transition-all duration-200 font-medium px-4 py-2 rounded-lg text-white hover:text-orange-300 hover:bg-white/20 backdrop-blur-sm border border-white/20"
+            style={{
+              textShadow:
+                "2px 2px 8px rgba(0, 0, 0, 0.8), 0 0 20px rgba(0, 0, 0, 0.5)",
+              boxShadow: "0 4px 12px rgba(0, 0, 0, 0.3)",
+            }}
+            aria-label="Back to home"
+          >
+            <ArrowLeft
+              className="w-5 h-5"
+              style={{
+                filter: "drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.8))",
+              }}
+            />
+            <span className="hidden sm:inline">Back to Home</span>
+          </button>
+          <button
+            onClick={handleClose}
+            className="p-2 transition-all duration-200 rounded-lg text-white hover:text-orange-300 hover:bg-white/20 backdrop-blur-sm border border-white/20"
+            style={{
+              filter: "drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.8))",
+              boxShadow: "0 4px 12px rgba(0, 0, 0, 0.3)",
+            }}
+            aria-label="Close products page"
+          >
+            <X className="w-6 h-6" />
+          </button>
+        </div>
+      )}
 
       {/* ArcelorMittal Style Layout - Hero Carousel */}
       <div className="relative h-screen w-full overflow-hidden">
@@ -846,7 +927,7 @@ export default function ProductPage({ onClose }: { onClose: () => void }) {
 
         {/* Main Content - ArcelorMittal Style */}
         <div className="relative h-full flex items-center pt-16">
-          <div className="max-w-7xl mx-auto w-full px-6 sm:px-8 lg:px-12 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center relative z-10">
+          <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center relative z-10">
             {/* Left Side - Main Content */}
             <div className="text-left">
               <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white mb-6 leading-tight">
@@ -865,22 +946,22 @@ export default function ProductPage({ onClose }: { onClose: () => void }) {
             </div>
 
             {/* Right Side - Products List */}
-            <div className="lg:pl-8">
+            <div className="lg:pl-8 max-w-full">
               <h2 className="text-2xl sm:text-3xl font-semibold text-white mb-6">
                 Our Products
               </h2>
-              <ul className="space-y-4">
+              <ul className="space-y-4 max-h-[60vh] overflow-y-auto pr-2 product-list-scrollbar">
                 {products.map((product, index) => {
                   const isActive = currentIndex === index;
-                  const circumference = 2 * Math.PI * 12; // radius = 12
+                  const circumference = 2 * Math.PI * 10; // radius = 10 (matches circle r="10")
                   const strokeDashoffset =
                     circumference - (progress / 100) * circumference;
 
                   return (
-                    <li key={product.id}>
+                    <li key={product.id} className="min-w-0">
                       <button
                         onClick={() => handleProductClick(index)}
-                        className="relative flex items-center gap-4 w-full text-left group"
+                        className="relative flex items-center gap-3 w-full text-left group min-w-0"
                       >
                         {/* Circular Progress Indicator */}
                         <div className="relative w-8 h-8 flex-shrink-0">
@@ -913,7 +994,7 @@ export default function ProductPage({ onClose }: { onClose: () => void }) {
                                   transform: `rotate(${
                                     (progress / 100) * 360
                                   }deg)`,
-                                  transition: "transform 0.05s linear",
+                                  transition: "transform 0.1s ease-out",
                                 }}
                               />
                             )}
@@ -925,12 +1006,12 @@ export default function ProductPage({ onClose }: { onClose: () => void }) {
                                 r="10"
                                 fill="none"
                                 stroke="#f1852e"
-                                strokeWidth="2"
+                                strokeWidth="2.5"
                                 strokeDasharray={circumference}
                                 strokeDashoffset={strokeDashoffset}
                                 strokeLinecap="round"
                                 style={{
-                                  transition: "stroke-dashoffset 0.05s linear",
+                                  transformOrigin: "12px 12px",
                                 }}
                               />
                             )}
@@ -950,11 +1031,12 @@ export default function ProductPage({ onClose }: { onClose: () => void }) {
                         </div>
                         {/* Product Name */}
                         <span
-                          className={`text-lg sm:text-xl text-white transition-colors duration-300 ${
+                          className={`text-base sm:text-lg text-white transition-colors duration-300 truncate flex-1 min-w-0 ${
                             isActive
                               ? "font-semibold"
                               : "font-normal opacity-70 group-hover:opacity-100"
                           }`}
+                          title={product.title}
                         >
                           {product.title}
                         </span>

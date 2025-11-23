@@ -13,7 +13,10 @@ import {
   Cog,
   CheckCircle,
   ArrowRight,
+  Shield,
+  Award,
 } from "lucide-react";
+import Image from "next/image";
 
 interface MakingSteelPageProps {
   onClose?: () => void;
@@ -42,25 +45,6 @@ export default function MakingSteelPage({ onClose }: MakingSteelPageProps) {
       onClose();
     }
   };
-
-  // Disable body scroll when this page is open
-  React.useEffect(() => {
-    document.body.style.overflow = "hidden";
-    document.documentElement.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = "";
-      document.documentElement.style.overflow = "";
-    };
-  }, []);
-
-  // Auto-advance through steps
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveStep((prev) => (prev + 1) % processes.length);
-    }, 4000);
-
-    return () => clearInterval(interval);
-  }, [processes.length]);
 
   const processes: ProcessStep[] = [
     {
@@ -119,6 +103,25 @@ export default function MakingSteelPage({ onClose }: MakingSteelPageProps) {
     },
   ];
 
+  // Disable body scroll when this page is open
+  React.useEffect(() => {
+    document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
+    };
+  }, []);
+
+  // Auto-advance through steps
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveStep((prev) => (prev + 1) % processes.length);
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, [processes.length]);
+
   return (
     <div className="fixed inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 z-50 overflow-y-auto">
       {/* Header */}
@@ -158,7 +161,7 @@ export default function MakingSteelPage({ onClose }: MakingSteelPageProps) {
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             <span className="bg-gradient-to-r from-blue-400 via-orange-400 to-blue-400 bg-clip-text text-transparent">
-              Making Steel
+              Our Manufacturing
             </span>
           </motion.h1>
           <motion.p
@@ -464,6 +467,153 @@ export default function MakingSteelPage({ onClose }: MakingSteelPageProps) {
                     {stat.value}
                   </div>
                   <div className="text-sm text-white/60">{stat.label}</div>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Our Quality Section */}
+      <section className="py-16 md:py-24 bg-gray-800/50">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-12"
+          >
+            <motion.h2
+              className="text-4xl md:text-5xl font-bold text-white mb-4"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+            >
+              Uncompromising <span className="text-orange-400">Quality</span>
+            </motion.h2>
+            <motion.p
+              className="text-xl text-white/70 max-w-3xl mx-auto"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.4 }}
+            >
+              At A1 Iron & Steel, quality is not just a metric; it&apos;s a
+              foundational principle embedded in every stage of our
+              manufacturing process.
+            </motion.p>
+          </motion.div>
+
+          {/* Quality Image and Content */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
+            <motion.div
+              className="relative w-full aspect-video rounded-xl overflow-hidden shadow-2xl"
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.3 }}
+            >
+              <Image
+                src={`${
+                  process.env.NEXT_PUBLIC_BASE_PATH || ""
+                }/homepage/our-quality.png`}
+                alt="Quality Control at A1 Iron & Steel"
+                fill
+                className="object-cover"
+                quality={90}
+                priority
+                sizes="(max-width: 1024px) 100vw, 50vw"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.5 }}
+            >
+              <h3 className="text-3xl md:text-4xl font-bold text-white mb-6">
+                Our Commitment to{" "}
+                <span className="text-orange-400">Quality Excellence</span>
+              </h3>
+              <p className="text-lg text-white/70 mb-6">
+                From the careful selection of raw materials to the final
+                inspection of finished products, we adhere to the most stringent
+                international standards to ensure unparalleled durability,
+                reliability, and performance.
+              </p>
+              <p className="text-lg text-white/70">
+                Our state-of-the-art facilities and highly skilled team are
+                dedicated to delivering steel products that not only meet but
+                exceed customer expectations, contributing to safer and more
+                resilient infrastructure across Rwanda and beyond.
+              </p>
+            </motion.div>
+          </div>
+
+          {/* Quality Pillars */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[
+              {
+                icon: Award,
+                title: "International Standards",
+                description:
+                  "Adhering to global benchmarks like ISO 9001, ASTM, and local regulatory standards for superior product integrity.",
+                color: "text-orange-400",
+              },
+              {
+                icon: CheckCircle,
+                title: "Rigorous Testing",
+                description:
+                  "Each batch undergoes comprehensive mechanical, chemical, and visual inspections to guarantee performance and safety.",
+                color: "text-green-400",
+              },
+              {
+                icon: Cog,
+                title: "Precision Manufacturing",
+                description:
+                  "Utilizing advanced technology for exact specifications and consistent quality across all production lines.",
+                color: "text-blue-400",
+              },
+              {
+                icon: Shield,
+                title: "Quality Assurance",
+                description:
+                  "Comprehensive quality control protocols ensuring every product meets our exacting standards before delivery.",
+                color: "text-purple-400",
+              },
+              {
+                icon: Factory,
+                title: "State-of-the-Art Facilities",
+                description:
+                  "Modern manufacturing equipment and processes designed to maintain the highest quality standards.",
+                color: "text-cyan-400",
+              },
+              {
+                icon: CheckCircle,
+                title: "Continuous Improvement",
+                description:
+                  "Ongoing monitoring and enhancement of our processes to ensure we remain at the forefront of quality.",
+                color: "text-yellow-400",
+              },
+            ].map((pillar, index) => {
+              const IconComponent = pillar.icon;
+              return (
+                <motion.div
+                  key={index}
+                  className="bg-white/5 backdrop-blur-sm rounded-xl p-8 border border-white/10 shadow-lg"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.6 + index * 0.1 }}
+                  whileHover={{
+                    scale: 1.05,
+                    backgroundColor: "rgba(255,255,255,0.08)",
+                    borderColor: "rgba(241, 133, 46, 0.3)",
+                  }}
+                >
+                  <IconComponent className={`w-12 h-12 ${pillar.color} mb-6`} />
+                  <h3 className="text-2xl font-semibold text-white mb-4">
+                    {pillar.title}
+                  </h3>
+                  <p className="text-white/70">{pillar.description}</p>
                 </motion.div>
               );
             })}

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, Suspense, useRef, useMemo } from "react";
+import { useState, useEffect, Suspense, useRef } from "react";
 import { useSearchParams } from "next/navigation";
 import dynamic from "next/dynamic";
 import HeroSection from "@/components/homepage/HeroSection";
@@ -52,68 +52,25 @@ function HomeContent() {
   const videoRef1 = useRef<HTMLVideoElement>(null);
   const videoRef2 = useRef<HTMLVideoElement>(null);
 
-  // Check if this is a fresh page load (no referrer) vs navigation from another page
-  const isFreshLoad = useMemo(() => {
-    if (typeof window === "undefined") return true;
-    // If there's no referrer or referrer is from a different origin, it's a fresh load
-    const referrer = document.referrer;
-    if (!referrer) return true;
-    try {
-      const referrerUrl = new URL(referrer);
-      const currentUrl = new URL(window.location.href);
-      // If referrer is from same origin, it's navigation (not fresh load)
-      return referrerUrl.origin !== currentUrl.origin;
-    } catch {
-      return true;
-    }
-  }, []);
-
-  // Check skipIntro - skip if skipIntro=true is in URL, regardless of fresh load
-  const skipIntro = useMemo(() => {
-    if (typeof window === "undefined") return false;
-    const skipFromParams = searchParams?.get("skipIntro") === "true";
-    const skipFromWindow =
-      new URLSearchParams(window.location.search).get("skipIntro") === "true";
-    const hasSkipIntro = skipFromParams || skipFromWindow;
-
-    // If skipIntro is in URL, always skip video (even on fresh load)
-    if (hasSkipIntro) {
-      return true;
-    }
-
-    // On fresh load without skipIntro, show video
-    if (isFreshLoad) return false;
-
-    return false;
-  }, [searchParams, isFreshLoad]);
-
-  // Background image carousel now handled in HeroSection component
-  // Initialize showVideoIntro - check skipIntro first, then check if fresh load
+  // Initialize showVideoIntro - show video on fresh load unless skipIntro is in URL
   const [showVideoIntro, setShowVideoIntro] = useState(() => {
-    if (typeof window === "undefined") return true;
+    if (typeof window === "undefined") return false; // SSR: don't show video initially
 
-    // First check if skipIntro is in URL - if yes, always skip video
+    // CRITICAL: Check skipIntro FIRST - if present, ALWAYS skip video
     const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get("skipIntro") === "true") {
-      return false;
+    const hasSkipIntro = urlParams.get("skipIntro") === "true";
+
+    if (hasSkipIntro) {
+      // Clean up URL immediately
+      urlParams.delete("skipIntro");
+      const newUrl =
+        window.location.pathname +
+        (urlParams.toString() ? `?${urlParams.toString()}` : "");
+      window.history.replaceState({}, "", newUrl);
+      return false; // Skip video - this is navigation from back/close button
     }
 
-    // Check if we're navigating from same origin (not a fresh load)
-    const referrer = typeof document !== "undefined" ? document.referrer : "";
-    if (referrer) {
-      try {
-        const referrerUrl = new URL(referrer);
-        const currentUrl = new URL(window.location.href);
-        // If referrer is from same origin, it's navigation - don't show video by default
-        if (referrerUrl.origin === currentUrl.origin) {
-          return false;
-        }
-      } catch {
-        // If URL parsing fails, treat as fresh load
-      }
-    }
-    
-    // On fresh load without skipIntro, show video
+    // No skipIntro - this is a fresh load or reload, show video
     return true;
   });
   const [showAboutUs, setShowAboutUs] = useState(false);
@@ -122,63 +79,74 @@ function HomeContent() {
   const [showSecondVideo, setShowSecondVideo] = useState(false);
   // Removed unused showBubbles state for performance
 
-  // Optimized video preloading - only preload when needed
-  useEffect(() => {
-    if (!skipIntro && typeof document !== "undefined" && showVideoIntro) {
-      // Start loading the video element immediately for faster playback
-      if (videoRef1.current) {
-        videoRef1.current.load();
-      }
-    }
-  }, [skipIntro, showVideoIntro]);
-
-  // Ensure video intro is skipped if skipIntro is true
+  // Ensure video intro is skipped if skipIntro is true, otherwise show it
   useEffect(() => {
     if (typeof window === "undefined") return;
 
-    // Check URL params directly for immediate response
+    // CRITICAL: Check skipIntro FIRST - this takes absolute priority
     const urlParams = new URLSearchParams(window.location.search);
-    const hasSkipIntro = urlParams.get("skipIntro") === "true";
+    const hasSkipIntro =
+      urlParams.get("skipIntro") === "true" ||
+      searchParams?.get("skipIntro") === "true";
 
-    // If skipIntro is true, always skip video immediately
-    if (hasSkipIntro || skipIntro) {
+    // If skipIntro is true, ALWAYS skip video immediately (this handles back/close button navigation)
+    if (hasSkipIntro) {
       setShowVideoIntro(false);
       setShowSecondVideo(false);
 
       // Clean up URL after processing
-      if (hasSkipIntro) {
-        urlParams.delete("skipIntro");
-        const newUrl =
-          window.location.pathname +
-          (urlParams.toString() ? `?${urlParams.toString()}` : "");
-        window.history.replaceState({}, "", newUrl);
-      }
-      return;
+      urlParams.delete("skipIntro");
+      const newUrl =
+        window.location.pathname +
+        (urlParams.toString() ? `?${urlParams.toString()}` : "");
+      window.history.replaceState({}, "", newUrl);
+      return; // Exit early - don't check anything else
     }
 
-    // If not skipping and it's a fresh load, show video
-    if (isFreshLoad && !skipIntro) {
-      setShowVideoIntro(true);
-    }
-  }, [skipIntro, isFreshLoad, searchParams]);
+    // No skipIntro parameter - this is a fresh load or reload, show video
+    setShowVideoIntro(true);
+  }, [searchParams]);
+
+  // Optimized video preloading - only preload when needed
+  useEffect(() => {
+    if (typeof document === "undefined" || !showVideoIntro) return;
+
+    // Use requestAnimationFrame for better performance
+    const rafId = requestAnimationFrame(() => {
+      // Start loading the video element immediately for faster playback
+      if (videoRef1.current) {
+        videoRef1.current.preload = "metadata"; // Changed from "auto" to "metadata" for better performance
+        videoRef1.current.load();
+        // Try to play immediately
+        const playPromise = videoRef1.current.play();
+        if (playPromise !== undefined) {
+          playPromise
+            .then(() => {
+              // Video started playing
+            })
+            .catch(() => {
+              // Autoplay prevented - handled by user interaction
+            });
+        }
+      }
+    });
+
+    return () => cancelAnimationFrame(rafId);
+  }, [showVideoIntro]);
 
   // Show second video after 5 seconds - lazy load it
   useEffect(() => {
-    if (showVideoIntro && !skipIntro) {
+    if (showVideoIntro) {
       const secondVideoTimer = setTimeout(() => {
         setShowSecondVideo(true);
       }, 5000);
       return () => clearTimeout(secondVideoTimer);
     }
-  }, [showVideoIntro, skipIntro]);
+  }, [showVideoIntro]);
 
   // Auto-slide to home screen after 10 seconds (5s first video + 5s second video)
-  // Skip this if skipIntro is true
   useEffect(() => {
-    if (skipIntro) {
-      setShowVideoIntro(false);
-      return;
-    }
+    if (!showVideoIntro) return;
 
     const timer = setTimeout(() => {
       // Hide the video intro with slide-up animation
@@ -186,7 +154,7 @@ function HomeContent() {
     }, 10000); // 10 seconds total
 
     return () => clearTimeout(timer);
-  }, [skipIntro]);
+  }, [showVideoIntro]);
 
   // Background image carousel now handled in HeroSection component
 
@@ -231,10 +199,11 @@ function HomeContent() {
           {/* Loading Background - Shows immediately, fades when video loads */}
           <div
             id="video-intro-bg"
-            className="absolute inset-0 w-full h-full transition-opacity duration-300"
+            className="absolute inset-0 w-full h-full transition-opacity duration-500 z-10"
             style={{
               background:
                 "linear-gradient(135deg, #1a5f82 0%, #113d59 50%, #0a2a3d 100%)",
+              opacity: 1,
             }}
           />
 
@@ -254,41 +223,51 @@ function HomeContent() {
               playsInline
               className="w-full h-full object-cover"
               preload="metadata"
+              style={{
+                willChange: "opacity, transform",
+                transform: "translateZ(0)",
+                backfaceVisibility: "hidden",
+              }}
               onLoadedMetadata={() => {
                 // Start playing as soon as metadata is loaded
-                if (videoRef1.current) {
-                  videoRef1.current.play().catch(() => {});
-                  // Hide background immediately when metadata loads
-                  const bg = document.getElementById("video-intro-bg");
-                  if (bg) bg.style.opacity = "0";
-                }
-              }}
-              onLoadedData={() => {
-                // Hide background as soon as first frame loads
-                const bg = document.getElementById("video-intro-bg");
-                if (bg) bg.style.opacity = "0";
+                requestAnimationFrame(() => {
+                  if (videoRef1.current) {
+                    videoRef1.current.play().catch(() => {});
+                    // Hide background immediately when metadata loads
+                    const bg = document.getElementById("video-intro-bg");
+                    if (bg) bg.style.opacity = "0";
+                  }
+                });
               }}
               onCanPlay={() => {
                 // Ensure video continues playing smoothly
-                if (videoRef1.current) {
-                  videoRef1.current.play().catch(() => {});
-                }
+                requestAnimationFrame(() => {
+                  if (videoRef1.current) {
+                    videoRef1.current.play().catch(() => {});
+                  }
+                });
               }}
               onWaiting={() => {
                 // Show background if video is buffering
-                const bg = document.getElementById("video-intro-bg");
-                if (bg) bg.style.opacity = "0.3";
+                requestAnimationFrame(() => {
+                  const bg = document.getElementById("video-intro-bg");
+                  if (bg) bg.style.opacity = "0.3";
+                });
               }}
               onPlaying={() => {
                 // Hide background when video is playing
-                const bg = document.getElementById("video-intro-bg");
-                if (bg) bg.style.opacity = "0";
+                requestAnimationFrame(() => {
+                  const bg = document.getElementById("video-intro-bg");
+                  if (bg) bg.style.opacity = "0";
+                });
               }}
               onError={(e) => {
-                const videoElement = e.target as HTMLVideoElement;
-                videoElement.style.display = "none";
-                const bg = document.getElementById("video-intro-bg");
-                if (bg) bg.style.opacity = "1";
+                requestAnimationFrame(() => {
+                  const videoElement = e.target as HTMLVideoElement;
+                  videoElement.style.display = "none";
+                  const bg = document.getElementById("video-intro-bg");
+                  if (bg) bg.style.opacity = "1";
+                });
               }}
             >
               <source
@@ -315,16 +294,25 @@ function HomeContent() {
               playsInline
               className="w-full h-full object-cover"
               preload="none"
+              style={{
+                display: showSecondVideo ? "block" : "none",
+                willChange: "opacity, transform",
+                transform: "translateZ(0)",
+                backfaceVisibility: "hidden",
+              }}
               onLoadedMetadata={() => {
-                if (videoRef2.current && showSecondVideo) {
-                  videoRef2.current.play().catch(() => {});
-                }
+                requestAnimationFrame(() => {
+                  if (videoRef2.current && showSecondVideo) {
+                    videoRef2.current.play().catch(() => {});
+                  }
+                });
               }}
               onError={(e) => {
-                const videoElement = e.target as HTMLVideoElement;
-                videoElement.style.display = "none";
+                requestAnimationFrame(() => {
+                  const videoElement = e.target as HTMLVideoElement;
+                  videoElement.style.display = "none";
+                });
               }}
-              style={{ display: showSecondVideo ? "block" : "none" }}
             >
               <source
                 src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/bg-video3.mp4`}

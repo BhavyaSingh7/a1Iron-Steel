@@ -81,6 +81,11 @@ export default function VideoSection() {
           playsInline
           loop
           preload="none"
+          style={{
+            willChange: "opacity, transform",
+            transform: "translateZ(0)",
+            backfaceVisibility: "hidden",
+          }}
           onPlay={() => setIsPlaying(true)}
           onPause={() => setIsPlaying(false)}
           onError={(e) => {
