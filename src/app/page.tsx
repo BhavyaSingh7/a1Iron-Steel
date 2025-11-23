@@ -133,58 +133,52 @@ function HomeContent() {
     }
   }, [mounted, searchParams]); // Removed showVideoIntro from dependencies to prevent loop
 
-  // Optimized video preloading - only preload when needed
+  // Optimized video preloading - start loading immediately when video intro shows
   useEffect(() => {
     if (typeof document === "undefined" || !showVideoIntro || !mounted) return;
 
     let videoStarted = false;
     let loadingTimeout: NodeJS.Timeout | null = null;
 
-    // Delay video loading slightly to improve initial page load
-    const loadTimer = setTimeout(() => {
-      // Use requestAnimationFrame for better performance
-      const rafId = requestAnimationFrame(() => {
-        // Start loading the video element immediately for faster playback
-        if (videoRef1.current) {
-          videoRef1.current.preload = "none"; // Changed to "none" for better initial performance
-          videoRef1.current.load();
-          // Try to play immediately
-          const playPromise = videoRef1.current.play();
-          if (playPromise !== undefined) {
-            playPromise
-              .then(() => {
-                // Video started playing
-                videoStarted = true;
-              })
-              .catch(() => {
-                // Autoplay prevented - handled by user interaction
-              });
-          }
+    // Start loading video immediately (no delay) for faster playback
+    // Use requestAnimationFrame for better performance
+    const rafId = requestAnimationFrame(() => {
+      // Start loading the video element immediately for faster playback
+      if (videoRef1.current) {
+        // Use "metadata" to start loading early but not the entire video
+        videoRef1.current.preload = "metadata";
+        videoRef1.current.load();
+        // Try to play immediately
+        const playPromise = videoRef1.current.play();
+        if (playPromise !== undefined) {
+          playPromise
+            .then(() => {
+              // Video started playing
+              videoStarted = true;
+            })
+            .catch(() => {
+              // Autoplay prevented - handled by user interaction
+            });
         }
-      });
+      }
+    });
 
-      // If video doesn't start playing within 8 seconds, skip intro
-      loadingTimeout = setTimeout(() => {
-        if (
-          !videoStarted &&
-          videoRef1.current &&
-          videoRef1.current.readyState < 2
-        ) {
-          // Video hasn't loaded enough, skip intro
-          setShowVideoIntro(false);
-          setShowSecondVideo(false);
-          setHasShownVideo(true); // Mark as shown so it never shows again
-        }
-      }, 8000);
-
-      return () => {
-        cancelAnimationFrame(rafId);
-        if (loadingTimeout) clearTimeout(loadingTimeout);
-      };
-    }, 100); // Small delay to improve initial page load
+    // If video doesn't start playing within 12 seconds, skip intro
+    loadingTimeout = setTimeout(() => {
+      if (
+        !videoStarted &&
+        videoRef1.current &&
+        videoRef1.current.readyState < 2
+      ) {
+        // Video hasn't loaded enough, skip intro
+        setShowVideoIntro(false);
+        setShowSecondVideo(false);
+        setHasShownVideo(true); // Mark as shown so it never shows again
+      }
+    }, 12000);
 
     return () => {
-      clearTimeout(loadTimer);
+      cancelAnimationFrame(rafId);
       if (loadingTimeout) clearTimeout(loadingTimeout);
     };
   }, [showVideoIntro, mounted]);
@@ -284,16 +278,32 @@ function HomeContent() {
           role="button"
           aria-label="Click to skip intro video"
         >
-          {/* Loading Background - Shows immediately, fades when video loads */}
+          {/* Loading Background - Shows immediately, fades when video plays */}
           <div
             id="video-intro-bg"
-            className="absolute inset-0 w-full h-full transition-opacity duration-500 z-10"
+            className="absolute inset-0 w-full h-full transition-opacity duration-700 z-10"
             style={{
               background:
                 "linear-gradient(135deg, #1a5f82 0%, #113d59 50%, #0a2a3d 100%)",
               opacity: 1,
+              zIndex: 10,
             }}
           />
+          
+          {/* Loading indicator */}
+          <div
+            id="video-loading-indicator"
+            className="absolute inset-0 flex items-center justify-center z-20"
+            style={{
+              opacity: 1,
+              transition: "opacity 0.5s ease-out",
+            }}
+          >
+            <div className="text-center">
+              <div className="w-16 h-16 border-4 border-white/30 border-t-white rounded-full animate-spin mx-auto mb-4"></div>
+              <p className="text-white/80 text-sm">Loading...</p>
+            </div>
+          </div>
 
           {/* First Video Background */}
           <div
@@ -310,7 +320,7 @@ function HomeContent() {
               loop
               playsInline
               className="w-full h-full object-cover"
-              preload="none"
+              preload="metadata"
               style={{
                 willChange: "opacity, transform",
                 transform: "translateZ(0)",
@@ -321,9 +331,6 @@ function HomeContent() {
                 requestAnimationFrame(() => {
                   if (videoRef1.current) {
                     videoRef1.current.play().catch(() => {});
-                    // Hide background immediately when metadata loads
-                    const bg = document.getElementById("video-intro-bg");
-                    if (bg) bg.style.opacity = "0";
                   }
                 });
               }}
@@ -332,6 +339,11 @@ function HomeContent() {
                 requestAnimationFrame(() => {
                   if (videoRef1.current) {
                     videoRef1.current.play().catch(() => {});
+                    // Hide background and loading indicator when video can play
+                    const bg = document.getElementById("video-intro-bg");
+                    if (bg) bg.style.opacity = "0";
+                    const indicator = document.getElementById("video-loading-indicator");
+                    if (indicator) indicator.style.opacity = "0";
                   }
                 });
               }}
@@ -339,14 +351,23 @@ function HomeContent() {
                 // Show background if video is buffering
                 requestAnimationFrame(() => {
                   const bg = document.getElementById("video-intro-bg");
-                  if (bg) bg.style.opacity = "0.3";
+                  if (bg) bg.style.opacity = "0.5";
                 });
               }}
               onPlaying={() => {
-                // Hide background when video is playing
+                // Hide background and loading indicator when video is playing
                 requestAnimationFrame(() => {
                   const bg = document.getElementById("video-intro-bg");
                   if (bg) bg.style.opacity = "0";
+                  const indicator = document.getElementById("video-loading-indicator");
+                  if (indicator) indicator.style.opacity = "0";
+                });
+              }}
+              onLoadStart={() => {
+                // Keep background visible while loading starts
+                requestAnimationFrame(() => {
+                  const bg = document.getElementById("video-intro-bg");
+                  if (bg) bg.style.opacity = "1";
                 });
               }}
               onError={(e) => {
