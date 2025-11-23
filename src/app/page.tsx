@@ -67,9 +67,30 @@ function HomeContent() {
   const [showContact, setShowContact] = useState(false);
   const [showSecondVideo, setShowSecondVideo] = useState(false);
 
-  // Set mounted state after component mounts (client-side only)
+  // Set mounted state and check skipIntro IMMEDIATELY on mount
   useEffect(() => {
     setMounted(true);
+    
+    // CRITICAL: Check skipIntro IMMEDIATELY when component mounts
+    // This must happen synchronously to prevent video from showing
+    if (typeof window !== "undefined") {
+      const hasSkipIntro = checkSkipIntro();
+      
+      if (hasSkipIntro) {
+        // Skip video immediately - don't wait
+        setShowVideoIntro(false);
+        setShowSecondVideo(false);
+        
+        // Clean up URL after processing
+        const urlParams = new URLSearchParams(window.location.search);
+        urlParams.delete("skipIntro");
+        const newUrl =
+          window.location.pathname +
+          (urlParams.toString() ? `?${urlParams.toString()}` : "");
+        window.history.replaceState({}, "", newUrl);
+        return; // Exit early - don't set video to true
+      }
+    }
   }, []);
 
   // Ensure video intro is skipped if skipIntro is true, otherwise show it
@@ -97,8 +118,11 @@ function HomeContent() {
     }
 
     // No skipIntro parameter - this is a fresh load or reload, SHOW VIDEO
-    setShowVideoIntro(true);
-  }, [mounted, searchParams]);
+    // Only set to true if it's currently false (to avoid unnecessary updates)
+    if (!showVideoIntro) {
+      setShowVideoIntro(true);
+    }
+  }, [mounted, searchParams, showVideoIntro]);
 
   // Optimized video preloading - only preload when needed
   useEffect(() => {
@@ -179,9 +203,9 @@ function HomeContent() {
       }`}
     >
       {/* Video Intro Screen - Shows for 8 seconds then slides up */}
-      {/* CRITICAL: Check skipIntro BEFORE rendering - if present, NEVER render video */}
+      {/* CRITICAL: Check skipIntro FIRST - if present, NEVER render video, even if showVideoIntro is true */}
       {/* Only render after mount to prevent hydration mismatch */}
-      {mounted && showVideoIntro && !checkSkipIntro() && (
+      {mounted && !checkSkipIntro() && showVideoIntro && (
         <div
           className="fixed inset-0 z-50"
           style={{
