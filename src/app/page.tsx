@@ -66,21 +66,23 @@ function HomeContent() {
   const [showProducts, setShowProducts] = useState(false);
   const [showContact, setShowContact] = useState(false);
   const [showSecondVideo, setShowSecondVideo] = useState(false);
+  const [hasShownVideo, setHasShownVideo] = useState(false); // Track if video has been shown once
 
   // Set mounted state and check skipIntro IMMEDIATELY on mount
   useEffect(() => {
     setMounted(true);
-    
+
     // CRITICAL: Check skipIntro IMMEDIATELY when component mounts
     // This must happen synchronously to prevent video from showing
     if (typeof window !== "undefined") {
       const hasSkipIntro = checkSkipIntro();
-      
+
       if (hasSkipIntro) {
         // Skip video immediately - don't wait
         setShowVideoIntro(false);
         setShowSecondVideo(false);
-        
+        setHasShownVideo(true); // Mark as shown so it never shows again
+
         // Clean up URL after processing
         const urlParams = new URLSearchParams(window.location.search);
         urlParams.delete("skipIntro");
@@ -93,10 +95,16 @@ function HomeContent() {
     }
   }, []);
 
-  // Ensure video intro is skipped if skipIntro is true, otherwise show it
+  // Ensure video intro is skipped if skipIntro is true, otherwise show it ONCE
   // This runs after mount to prevent hydration mismatch
   useEffect(() => {
     if (!mounted || typeof window === "undefined") return;
+
+    // If we've already shown the video once, never show it again
+    if (hasShownVideo) {
+      setShowVideoIntro(false);
+      return;
+    }
 
     // CRITICAL: Check skipIntro FIRST - this takes absolute priority
     const hasSkipIntro = checkSkipIntro();
@@ -106,6 +114,7 @@ function HomeContent() {
       // Set to false immediately - don't wait
       setShowVideoIntro(false);
       setShowSecondVideo(false);
+      setHasShownVideo(true); // Mark as shown so it never shows again
 
       // Clean up URL after processing
       const urlParams = new URLSearchParams(window.location.search);
@@ -117,16 +126,18 @@ function HomeContent() {
       return; // Exit early - don't check anything else
     }
 
-    // No skipIntro parameter - this is a fresh load or reload, SHOW VIDEO
-    // Only set to true if it's currently false (to avoid unnecessary updates)
-    if (!showVideoIntro) {
+    // No skipIntro parameter - this is a fresh load or reload, SHOW VIDEO ONCE
+    // Only set to true if we haven't shown it yet
+    if (!hasShownVideo && !showVideoIntro) {
       setShowVideoIntro(true);
     }
-  }, [mounted, searchParams, showVideoIntro]);
+  }, [mounted, searchParams]); // Removed showVideoIntro from dependencies to prevent loop
 
   // Optimized video preloading - only preload when needed
   useEffect(() => {
-    if (typeof document === "undefined" || !showVideoIntro) return;
+    if (typeof document === "undefined" || !showVideoIntro || !mounted) return;
+
+    let videoStarted = false;
 
     // Use requestAnimationFrame for better performance
     const rafId = requestAnimationFrame(() => {
@@ -140,6 +151,7 @@ function HomeContent() {
           playPromise
             .then(() => {
               // Video started playing
+              videoStarted = true;
             })
             .catch(() => {
               // Autoplay prevented - handled by user interaction
@@ -148,8 +160,25 @@ function HomeContent() {
       }
     });
 
-    return () => cancelAnimationFrame(rafId);
-  }, [showVideoIntro]);
+    // If video doesn't start playing within 8 seconds, skip intro
+    const loadingTimeout = setTimeout(() => {
+      if (
+        !videoStarted &&
+        videoRef1.current &&
+        videoRef1.current.readyState < 2
+      ) {
+        // Video hasn't loaded enough, skip intro
+        setShowVideoIntro(false);
+        setShowSecondVideo(false);
+        setHasShownVideo(true); // Mark as shown so it never shows again
+      }
+    }, 8000);
+
+    return () => {
+      cancelAnimationFrame(rafId);
+      clearTimeout(loadingTimeout);
+    };
+  }, [showVideoIntro, mounted]);
 
   // Show second video after 5 seconds - lazy load it
   useEffect(() => {
@@ -162,16 +191,29 @@ function HomeContent() {
   }, [showVideoIntro]);
 
   // Auto-slide to home screen after 10 seconds (5s first video + 5s second video)
+  // Also add a maximum timeout to ensure video always transitions
   useEffect(() => {
-    if (!showVideoIntro) return;
+    if (!showVideoIntro || !mounted) return;
 
     const timer = setTimeout(() => {
       // Hide the video intro with slide-up animation
       setShowVideoIntro(false);
+      setShowSecondVideo(false);
+      setHasShownVideo(true); // Mark as shown so it never shows again
     }, 10000); // 10 seconds total
 
-    return () => clearTimeout(timer);
-  }, [showVideoIntro]);
+    // Safety fallback: force hide after 12 seconds if still showing
+    const fallbackTimer = setTimeout(() => {
+      setShowVideoIntro(false);
+      setShowSecondVideo(false);
+      setHasShownVideo(true); // Mark as shown so it never shows again
+    }, 12000);
+
+    return () => {
+      clearTimeout(timer);
+      clearTimeout(fallbackTimer);
+    };
+  }, [showVideoIntro, mounted]);
 
   // Background image carousel now handled in HeroSection component
 
@@ -202,7 +244,7 @@ function HomeContent() {
         showVideoIntro ? "overflow-hidden" : ""
       }`}
     >
-      {/* Video Intro Screen - Shows for 8 seconds then slides up */}
+      {/* Video Intro Screen - Shows for 10 seconds then slides up */}
       {/* CRITICAL: Check skipIntro FIRST - if present, NEVER render video, even if showVideoIntro is true */}
       {/* Only render after mount to prevent hydration mismatch */}
       {mounted && !checkSkipIntro() && showVideoIntro && (
@@ -212,8 +254,26 @@ function HomeContent() {
             background:
               "linear-gradient(135deg, #1a5f82 0%, #113d59 50%, #0a2a3d 100%)",
             transform: showVideoIntro ? "translateY(0)" : "translateY(-100%)",
-            transition: "transform 0.3s ease-out",
+            transition: "transform 0.5s ease-out",
+            pointerEvents: showVideoIntro ? "auto" : "none",
           }}
+          onClick={() => {
+            // Allow clicking to skip video
+            setShowVideoIntro(false);
+            setShowSecondVideo(false);
+            setHasShownVideo(true); // Mark as shown so it never shows again
+          }}
+          onKeyDown={(e) => {
+            // Allow ESC key to skip video
+            if (e.key === "Escape") {
+              setShowVideoIntro(false);
+              setShowSecondVideo(false);
+              setHasShownVideo(true); // Mark as shown so it never shows again
+            }
+          }}
+          tabIndex={0}
+          role="button"
+          aria-label="Click to skip intro video"
         >
           {/* Loading Background - Shows immediately, fades when video loads */}
           <div
@@ -286,6 +346,12 @@ function HomeContent() {
                   videoElement.style.display = "none";
                   const bg = document.getElementById("video-intro-bg");
                   if (bg) bg.style.opacity = "1";
+                  // If video fails to load, skip intro after 2 seconds
+                  setTimeout(() => {
+                    setShowVideoIntro(false);
+                    setShowSecondVideo(false);
+                    setHasShownVideo(true); // Mark as shown so it never shows again
+                  }, 2000);
                 });
               }}
             >
@@ -330,6 +396,17 @@ function HomeContent() {
                 requestAnimationFrame(() => {
                   const videoElement = e.target as HTMLVideoElement;
                   videoElement.style.display = "none";
+                  // If second video fails, just continue with first video or skip
+                  if (
+                    !videoRef1.current ||
+                    videoRef1.current.readyState === 0
+                  ) {
+                    setTimeout(() => {
+                      setShowVideoIntro(false);
+                      setShowSecondVideo(false);
+                      setHasShownVideo(true); // Mark as shown so it never shows again
+                    }, 2000);
+                  }
                 });
               }}
             >
@@ -433,7 +510,7 @@ function HomeContent() {
         </div>
       )}
 
-      {/* Hero Section */}
+      {/* Hero Section - Always rendered, just behind video overlay */}
       <HeroSection
         showVideoIntro={showVideoIntro}
         onProductsClick={() => setShowProducts(true)}
