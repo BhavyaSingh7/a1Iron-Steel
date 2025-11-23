@@ -35,7 +35,6 @@ interface ProcessStep {
 export default function MakingSteelPage({ onClose }: MakingSteelPageProps) {
   const router = useRouter();
   const [activeStep, setActiveStep] = useState(0);
-  const [isAnimating, setIsAnimating] = useState(false);
 
   const handleClose = () => {
     router.replace("/?skipIntro=true");
@@ -57,15 +56,11 @@ export default function MakingSteelPage({ onClose }: MakingSteelPageProps) {
   // Auto-advance through steps
   useEffect(() => {
     const interval = setInterval(() => {
-      setIsAnimating(true);
-      setTimeout(() => {
-        setActiveStep((prev) => (prev + 1) % processes.length);
-        setIsAnimating(false);
-      }, 300);
+      setActiveStep((prev) => (prev + 1) % processes.length);
     }, 4000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [processes.length]);
 
   const processes: ProcessStep[] = [
     {
