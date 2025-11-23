@@ -31,7 +31,8 @@ export default function MediaPage({ onClose }: MediaPageProps) {
   const router = useRouter();
 
   const handleClose = () => {
-    router.replace("/?skipIntro=true");
+    // Use window.location for immediate navigation with skipIntro parameter
+    window.location.href = `/?skipIntro=true`;
     if (onClose) {
       onClose();
     }

@@ -37,7 +37,8 @@ export default function CareerPage({ onClose }: CareerPageProps) {
   >("idle");
 
   const handleClose = () => {
-    router.replace("/?skipIntro=true");
+    // Use window.location for immediate navigation with skipIntro parameter
+    window.location.href = `/?skipIntro=true`;
     if (onClose) {
       onClose();
     }

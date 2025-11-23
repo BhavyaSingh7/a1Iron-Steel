@@ -34,7 +34,8 @@ export default function OurQualityPage({ onClose }: OurQualityPageProps) {
   const [activeStandard, setActiveStandard] = useState(0);
 
   const handleClose = () => {
-    router.replace("/?skipIntro=true");
+    // Use window.location for immediate navigation with skipIntro parameter
+    window.location.href = `/?skipIntro=true`;
     if (onClose) {
       onClose();
     }
