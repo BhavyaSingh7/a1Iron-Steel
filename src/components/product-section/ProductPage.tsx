@@ -685,7 +685,6 @@ export default function ProductPage({ onClose }: { onClose: () => void }) {
   const [progress, setProgress] = useState(0);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
-  const [isScrolled, setIsScrolled] = useState(false);
   const products = PRODUCTS_DATA;
   const TRANSITION_DURATION = 5000; // 5 seconds per product
 
@@ -762,42 +761,6 @@ export default function ProductPage({ onClose }: { onClose: () => void }) {
     // Progress will reset automatically via useEffect when currentIndex changes
   }, []);
 
-  // Scroll detection for navbar transparency
-  useEffect(() => {
-    const handleScroll = () => {
-      // Get carousel section height (h-screen = 100vh)
-      const carouselHeight = window.innerHeight;
-
-      // Get scroll position from the container
-      const container = document.querySelector(
-        ".fixed.inset-0.z-50.bg-gray-50.overflow-y-auto"
-      ) as HTMLElement;
-      if (!container) {
-        setIsScrolled(false);
-        return;
-      }
-
-      const scrollY = container.scrollTop;
-
-      // If scrolled past 30% of carousel height, make navbar white
-      // This ensures navbar becomes white early as user scrolls down
-      setIsScrolled(scrollY > carouselHeight * 0.3);
-    };
-
-    // Use the container's scroll event since it's overflow-y-auto
-    const container = document.querySelector(
-      ".fixed.inset-0.z-50.bg-gray-50.overflow-y-auto"
-    );
-    if (container) {
-      container.addEventListener("scroll", handleScroll);
-      // Check initial scroll position (should be 0, so navbar is transparent)
-      handleScroll();
-
-      return () => {
-        container.removeEventListener("scroll", handleScroll);
-      };
-    }
-  }, []);
 
   // Disable body scroll when this page is open to prevent double scrollbars
   useEffect(() => {
@@ -818,63 +781,18 @@ export default function ProductPage({ onClose }: { onClose: () => void }) {
 
   return (
     <div className="fixed inset-0 z-50 bg-gray-50 overflow-y-auto">
-      {/* Header - Only show when scrolled past carousel */}
-      {isScrolled && (
-        <div
-          className="sticky top-0 z-20 backdrop-blur-md transition-all duration-300 bg-white/98 border-b border-gray-200 shadow-sm"
-          style={{
-            boxShadow:
-              "0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.05)",
-          }}
-        >
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 relative z-30">
-                  Our <span className="logo-blue-gradient">Products</span>
-                </h1>
-              </div>
-              <div className="flex items-center gap-4">
-                <button
-                  onClick={handleClose}
-                  className="flex items-center space-x-2 transition-all duration-200 font-medium px-4 py-2 rounded-lg text-gray-700 hover:text-[#f1852e] hover:bg-gray-50"
-                  aria-label="Back to home"
-                >
-                  <ArrowLeft className="w-5 h-5" />
-                  <span className="hidden sm:inline">Back to Home</span>
-                </button>
-                <button
-                  onClick={handleClose}
-                  className="p-2 transition-all duration-200 rounded-lg text-gray-700 hover:text-[#f1852e] hover:bg-gray-100"
-                  aria-label="Close products page"
-                >
-                  <X className="w-6 h-6" />
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Floating Back/Close Buttons - Always visible on carousel */}
+      {/* Floating Back/Close Buttons - Always visible */}
       <div 
         className="fixed top-4 right-4 flex items-center gap-3"
         style={{ zIndex: 10000 }}
       >
         <button
           onClick={handleClose}
-          className={`flex items-center space-x-2 transition-all duration-200 font-medium px-4 py-2 rounded-lg backdrop-blur-sm border ${
-            isScrolled
-              ? "text-gray-700 hover:text-[#f1852e] hover:bg-gray-50 bg-white/90 border-gray-200"
-              : "text-white hover:text-orange-300 hover:bg-white/20 border-white/20"
-          }`}
+          className="flex items-center space-x-2 transition-all duration-200 font-medium px-4 py-2 rounded-lg text-white hover:text-orange-300 hover:bg-white/20 backdrop-blur-sm border border-white/20"
           style={{
-            textShadow: !isScrolled
-              ? "2px 2px 8px rgba(0, 0, 0, 0.8), 0 0 20px rgba(0, 0, 0, 0.5)"
-              : "none",
-            boxShadow: isScrolled
-              ? "0 2px 8px rgba(0, 0, 0, 0.1)"
-              : "0 4px 12px rgba(0, 0, 0, 0.3)",
+            textShadow:
+              "2px 2px 8px rgba(0, 0, 0, 0.8), 0 0 20px rgba(0, 0, 0, 0.5)",
+            boxShadow: "0 4px 12px rgba(0, 0, 0, 0.3)",
             zIndex: 10000,
           }}
           aria-label="Back to home"
@@ -882,27 +800,17 @@ export default function ProductPage({ onClose }: { onClose: () => void }) {
           <ArrowLeft
             className="w-5 h-5"
             style={{
-              filter: !isScrolled
-                ? "drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.8))"
-                : "none",
+              filter: "drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.8))",
             }}
           />
           <span className="hidden sm:inline">Back to Home</span>
         </button>
         <button
           onClick={handleClose}
-          className={`p-2 transition-all duration-200 rounded-lg backdrop-blur-sm border ${
-            isScrolled
-              ? "text-gray-700 hover:text-[#f1852e] hover:bg-gray-100 bg-white/90 border-gray-200"
-              : "text-white hover:text-orange-300 hover:bg-white/20 border-white/20"
-          }`}
+          className="p-2 transition-all duration-200 rounded-lg text-white hover:text-orange-300 hover:bg-white/20 backdrop-blur-sm border border-white/20"
           style={{
-            filter: !isScrolled
-              ? "drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.8))"
-              : "none",
-            boxShadow: isScrolled
-              ? "0 2px 8px rgba(0, 0, 0, 0.1)"
-              : "0 4px 12px rgba(0, 0, 0, 0.3)",
+            filter: "drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.8))",
+            boxShadow: "0 4px 12px rgba(0, 0, 0, 0.3)",
             zIndex: 10000,
           }}
           aria-label="Close products page"
