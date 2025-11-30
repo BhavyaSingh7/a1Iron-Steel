@@ -20,6 +20,7 @@ interface Product {
   category: string;
   description: string;
   shortDescription: string;
+  carouselDescription: string;
   image: string;
   specifications: string[];
   applications: string[];
@@ -40,6 +41,8 @@ const PRODUCTS_DATA: Product[] = [
       "Thermo Mechanical Treatment (TMT) Steel bars used in Earthquake-resistant construction. The backbone of modern construction, providing superior strength, durability, and safety for projects that demand exceptional resistance to seismic forces, corrosion, and high temperatures. Manufactured using state-of-the-art technology, our TMT bars are designed to meet the highest industry standards, ensuring both structural integrity and long-lasting performance.",
     shortDescription:
       "Thermo Mechanical Treatment (TMT) Steel bars used in Earthquake-resistant construction",
+    carouselDescription:
+      "High-performance TMT bars crafted with advanced technology for unmatched strength, corrosion resistance, and seismic safety.",
     image: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/products/tmt bars.jpg`,
     specifications: [
       "Grade: Fe500",
@@ -83,6 +86,8 @@ const PRODUCTS_DATA: Product[] = [
     description:
       "Precision and Strength for Diverse Applications. At A1 Iron & Steel, we specialize in the production of high-quality round bars, engineered to meet the needs of a wide range of industries, including construction, manufacturing, automotive, and more. Our round bars are crafted with precision and durability in mind, offering superior strength and reliability for both standard and customized applications. With advanced manufacturing processes and strict quality control, our round bars meet the highest industry standards.",
     shortDescription: "Precision and Strength for Diverse Applications",
+    carouselDescription:
+      "Precision-engineered round bars built to meet the highest standards for construction, manufacturing, automotive, and more.",
     image: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/products/Round bars.jpg`,
     specifications: [
       "Diameter: 6mm-100mm",
@@ -125,6 +130,8 @@ const PRODUCTS_DATA: Product[] = [
     description:
       "A low-carbon general-purpose manufacturing wire used in a wide range of industries. Versatile and reliable for multiple applications, our wire rods are manufactured with precision, ensuring uniformity and superior mechanical properties. Ideal for construction, automotive, fencing, and engineering applications.",
     shortDescription: "A low-carbon general-purpose manufacturing wire",
+    carouselDescription:
+      "Durable, general-purpose wire rods crafted for diverse industrial applications with excellent mechanical properties.",
     image: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/products/5.5mm.webp`,
     specifications: [
       "Diameter: 5.5mm",
@@ -167,6 +174,8 @@ const PRODUCTS_DATA: Product[] = [
     description:
       "Versatile stainless steel structural connector designed to meet the demands of the most rigorous construction and industrial applications. Perfect for structural framing, support brackets, and reinforcement work.",
     shortDescription: "Versatile stainless steel structural connector",
+    carouselDescription:
+      "Versatile stainless steel connectors engineered for high-demand structural and industrial applications.",
     image: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/products/V-ANGLES.jpg`,
     specifications: [
       "Size: 25x25mm to 200x200mm",
@@ -210,6 +219,8 @@ const PRODUCTS_DATA: Product[] = [
     description:
       "Corrosion-resistant hot-dip galvanized channel steel engineered to provide outstanding structural support, stability, and versatility. Ideal for structural support, framing systems, and industrial applications.",
     shortDescription: "Corrosion-resistant hot-dip galvanized channel steel",
+    carouselDescription:
+      "Long-lasting, corrosion-proof channel steel ideal for stable, versatile structural and industrial solutions.",
     image: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/products/C-Chanel.jpg`,
     specifications: [
       "Size: 75x40mm to 200x75mm",
@@ -253,6 +264,8 @@ const PRODUCTS_DATA: Product[] = [
     description:
       "Corrosion-resistant galvanized I-beam steel specifically designed to provide maximum structural strength, stability, and reliability. Perfect for structural framing, bridge construction, and heavy load support applications.",
     shortDescription: "Corrosion-resistant galvanized I-beam steel",
+    carouselDescription:
+      "Durable I-beam steel built to deliver exceptional stability and performance in demanding applications.",
     image: `${
       process.env.NEXT_PUBLIC_BASE_PATH || ""
     }/products/STEEL-BEAMS.jpg`,
@@ -298,6 +311,8 @@ const PRODUCTS_DATA: Product[] = [
     description:
       "Steel flat bar for versatile industrial applications. Crafted to provide reliable strength and versatility for a range of manufacturing, construction, and fabrication needs.",
     shortDescription: "Steel flat bar for versatile industrial applications",
+    carouselDescription:
+      "Steel flat bar for versatile industrial applications. Crafted to provide reliable strength and versatility for a range of manufacturing, construction, and fabrication needs.",
     image: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/products/Flat-Bars.jpg`,
     specifications: [
       "Width: 10mm-200mm",
@@ -341,6 +356,8 @@ const PRODUCTS_DATA: Product[] = [
     description:
       "High-strength hot-rolled construction material engineered to meet the diverse needs of various industries. Strong hot-rolled strip perfect for automotive, construction, manufacturing, and fabrication applications.",
     shortDescription: "High-strength hot-rolled construction material",
+    carouselDescription:
+      "High-strength hot-rolled strips engineered for versatile performance across automotive, construction, manufacturing, and fabrication industries.",
     image: `${
       process.env.NEXT_PUBLIC_BASE_PATH || ""
     }/products/HOT-ROLLED-STRIP.webp`,
@@ -386,6 +403,8 @@ const PRODUCTS_DATA: Product[] = [
     description:
       "Versatile hollow section for structural construction with exceptional strength. Perfect for construction, structural, and engineering applications, offering an excellent strength-to-weight ratio.",
     shortDescription: "Versatile hollow section for structural construction",
+    carouselDescription:
+      "High-strength hollow sections offering an excellent strength-to-weight ratio for structural and engineering applications.",
     image: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/products/HS.jpg`,
     specifications: [
       "Size: 20x20mm to 400x400mm",
@@ -430,6 +449,8 @@ const PRODUCTS_DATA: Product[] = [
       "Wire nails: versatile, durable fasteners for construction. Perfect for both industrial and construction applications, offering reliable fastening solutions with superior quality and performance.",
     shortDescription:
       "Wire nails: versatile, durable fasteners for construction",
+    carouselDescription:
+      "Reliable, long-lasting wire nails engineered for superior grip in construction and industrial use.",
     image: `${
       process.env.NEXT_PUBLIC_BASE_PATH || ""
     }/products/Wire-Nails (1).avif`,
@@ -475,6 +496,8 @@ const PRODUCTS_DATA: Product[] = [
     description:
       "Durable, corrosion-resistant galvanized binding wire that delivers reliable performance in a range of applications, from construction to general industrial use. Essential for concrete reinforcement and construction tying.",
     shortDescription: "Durable, corrosion-resistant galvanized binding wire",
+    carouselDescription:
+      "Corrosion-resistant binding wire designed for dependable reinforcement and versatile fastening applications.",
     image: `${
       process.env.NEXT_PUBLIC_BASE_PATH || ""
     }/products/Binding-Wire (1).jpg`,
@@ -521,6 +544,8 @@ const PRODUCTS_DATA: Product[] = [
       "British Reinforcement Concrete (BRC) reinforcement mesh for concrete strengthening. High-quality mesh designed to enhance the structural integrity and durability of concrete structures.",
     shortDescription:
       "British Reinforcement Concrete mesh for concrete strengthening",
+    carouselDescription:
+      "Reliable BRC mesh designed for superior concrete reinforcement and long-lasting structural performance.",
     image: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/products/brc.jpg`,
     specifications: [
       "Mesh Size: 100x100mm to 200x200mm",
@@ -564,6 +589,8 @@ const PRODUCTS_DATA: Product[] = [
     description:
       "Durable galvanized chain-link fencing material. GI (Galvanized Iron) Chain Link fencing that provides a strong, durable, and cost-effective solution for securing properties and enclosures.",
     shortDescription: "Durable galvanized chain-link fencing material",
+    carouselDescription:
+      "Corrosion-resistant GI chain-link fencing providing robust and affordable protection for all types of properties.",
     image: `${
       process.env.NEXT_PUBLIC_BASE_PATH || ""
     }/products/gi chain link.jpg`,
@@ -609,6 +636,8 @@ const PRODUCTS_DATA: Product[] = [
     description:
       "Secure, cost-effective barbed wire fencing solution. Widely used in various security applications to deter trespassers and enhance safety. Known for its sharpness, durability, and effectiveness as a security deterrent.",
     shortDescription: "Secure, cost-effective barbed wire fencing solution",
+    carouselDescription:
+      "Effective and long-lasting barbed wire fencing engineered for robust security applications.",
     image: `${
       process.env.NEXT_PUBLIC_BASE_PATH || ""
     }/products/barbed-wires.jpg`,
@@ -936,7 +965,7 @@ export default function ProductPage({ onClose }: { onClose: () => void }) {
                 {products[currentIndex].title}
               </h1>
               <p className="text-lg sm:text-xl md:text-2xl text-white/90 mb-8 leading-relaxed max-w-2xl">
-                {products[currentIndex].description}
+                {products[currentIndex].carouselDescription}
               </p>
               <button
                 onClick={() => setSelectedProduct(products[currentIndex])}
