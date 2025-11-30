@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
+import { createPortal } from "react-dom";
 import { motion } from "framer-motion";
 import { Trees, ChevronRight, ChevronDown } from "lucide-react";
 import Image from "next/image";
@@ -91,6 +92,9 @@ export default function HeroSection({
   const router = useRouter();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isAboutDropdownOpen, setIsAboutDropdownOpen] = useState(false);
+  const aboutButtonRef = useRef<HTMLButtonElement>(null);
+  const [dropdownPosition, setDropdownPosition] = useState({ top: 0, left: 0 });
+  const [mounted, setMounted] = useState(false);
   const [sliderPosition, setSliderPosition] = useState(0);
   const [slideTriggered, setSlideTriggered] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -221,6 +225,36 @@ export default function HeroSection({
     action();
     setIsMobileMenuOpen(false);
   };
+
+  // Set mounted state for portal
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Update dropdown position when it opens or on scroll
+  useEffect(() => {
+    const updatePosition = () => {
+      if (isAboutDropdownOpen && aboutButtonRef.current) {
+        const rect = aboutButtonRef.current.getBoundingClientRect();
+        setDropdownPosition({
+          top: rect.bottom + window.scrollY + 8,
+          left: rect.left + window.scrollX,
+        });
+      }
+    };
+
+    updatePosition();
+
+    if (isAboutDropdownOpen) {
+      window.addEventListener("scroll", updatePosition, { passive: true });
+      window.addEventListener("resize", updatePosition, { passive: true });
+    }
+
+    return () => {
+      window.removeEventListener("scroll", updatePosition);
+      window.removeEventListener("resize", updatePosition);
+    };
+  }, [isAboutDropdownOpen]);
 
   // Scroll detection for navbar transparency - debounced for performance
   useEffect(() => {
@@ -432,6 +466,7 @@ export default function HeroSection({
                 style={{ zIndex: 10002, position: "relative" }}
               >
                 <button
+                  ref={aboutButtonRef}
                   onClick={() => setIsAboutDropdownOpen(!isAboutDropdownOpen)}
                   className={`font-bold text-base md:text-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded px-2 flex items-center gap-1 ${
                     isScrolled
@@ -455,16 +490,18 @@ export default function HeroSection({
                     }`}
                   />
                 </button>
-                {isAboutDropdownOpen && (
+                {isAboutDropdownOpen && mounted && typeof document !== "undefined" && createPortal(
                   <motion.div
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
                     transition={{ duration: 0.2 }}
-                    className="absolute top-full left-0 pt-2 w-56"
+                    className="fixed w-56"
                     onMouseEnter={() => setIsAboutDropdownOpen(true)}
+                    onMouseLeave={() => setIsAboutDropdownOpen(false)}
                     style={{
-                      position: "absolute",
+                      top: `${dropdownPosition.top}px`,
+                      left: `${dropdownPosition.left}px`,
                       zIndex: 10003,
                       pointerEvents: "auto",
                     }}
@@ -475,8 +512,6 @@ export default function HeroSection({
                         boxShadow:
                           "0 20px 60px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(0, 0, 0, 0.1)",
                         backdropFilter: "blur(12px)",
-                        zIndex: 10003,
-                        position: "relative",
                       }}
                     >
                       <button
@@ -503,7 +538,8 @@ export default function HeroSection({
                         <span>Making Steel</span>
                       </button>
                     </div>
-                  </motion.div>
+                  </motion.div>,
+                  document.body
                 )}
               </div>
               <button
