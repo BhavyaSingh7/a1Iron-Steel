@@ -93,8 +93,10 @@ export default function HeroSection({
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isAboutDropdownOpen, setIsAboutDropdownOpen] = useState(false);
   const aboutButtonRef = useRef<HTMLButtonElement>(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
   const [dropdownPosition, setDropdownPosition] = useState({ top: 0, left: 0 });
   const [mounted, setMounted] = useState(false);
+  const closeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const [sliderPosition, setSliderPosition] = useState(0);
   const [slideTriggered, setSlideTriggered] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -229,6 +231,15 @@ export default function HeroSection({
   // Set mounted state for portal
   useEffect(() => {
     setMounted(true);
+  }, []);
+
+  // Cleanup timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (closeTimeoutRef.current) {
+        clearTimeout(closeTimeoutRef.current);
+      }
+    };
   }, []);
 
   // Update dropdown position when it opens or on scroll
@@ -461,8 +472,19 @@ export default function HeroSection({
               {/* About Dropdown - Enhanced */}
               <div
                 className="relative group about-dropdown-container"
-                onMouseEnter={() => setIsAboutDropdownOpen(true)}
-                onMouseLeave={() => setIsAboutDropdownOpen(false)}
+                onMouseEnter={() => {
+                  if (closeTimeoutRef.current) {
+                    clearTimeout(closeTimeoutRef.current);
+                    closeTimeoutRef.current = null;
+                  }
+                  setIsAboutDropdownOpen(true);
+                }}
+                onMouseLeave={() => {
+                  // Delay closing to allow mouse to move to dropdown
+                  closeTimeoutRef.current = setTimeout(() => {
+                    setIsAboutDropdownOpen(false);
+                  }, 200);
+                }}
                 style={{ zIndex: 10002, position: "relative" }}
               >
                 <button
@@ -492,13 +514,22 @@ export default function HeroSection({
                 </button>
                 {isAboutDropdownOpen && mounted && typeof document !== "undefined" && createPortal(
                   <motion.div
+                    ref={dropdownRef}
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
                     transition={{ duration: 0.2 }}
                     className="fixed w-56"
-                    onMouseEnter={() => setIsAboutDropdownOpen(true)}
-                    onMouseLeave={() => setIsAboutDropdownOpen(false)}
+                    onMouseEnter={() => {
+                      if (closeTimeoutRef.current) {
+                        clearTimeout(closeTimeoutRef.current);
+                        closeTimeoutRef.current = null;
+                      }
+                      setIsAboutDropdownOpen(true);
+                    }}
+                    onMouseLeave={() => {
+                      setIsAboutDropdownOpen(false);
+                    }}
                     style={{
                       top: `${dropdownPosition.top}px`,
                       left: `${dropdownPosition.left}px`,
@@ -515,11 +546,13 @@ export default function HeroSection({
                       }}
                     >
                       <button
-                        onClick={() => {
-                          handleAboutClick();
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
                           setIsAboutDropdownOpen(false);
+                          handleAboutClick();
                         }}
-                        className="w-full text-left px-5 py-3.5 text-gray-800 hover:bg-gradient-to-r hover:from-orange-50 hover:to-orange-100 hover:text-logo-orange-1 transition-all duration-200 text-sm font-semibold flex items-center gap-3 group/item"
+                        className="w-full text-left px-5 py-3.5 text-gray-800 hover:bg-gradient-to-r hover:from-orange-50 hover:to-orange-100 hover:text-logo-orange-1 transition-all duration-200 text-sm font-semibold flex items-center gap-3 group/item cursor-pointer"
                         aria-label="About Us"
                       >
                         <span className="w-2 h-2 rounded-full bg-gray-400 group-hover/item:bg-logo-orange-1 transition-colors duration-200"></span>
@@ -527,11 +560,13 @@ export default function HeroSection({
                       </button>
                       <div className="h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent mx-3 my-1"></div>
                       <button
-                        onClick={() => {
-                          handleMakingSteelClick();
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
                           setIsAboutDropdownOpen(false);
+                          handleMakingSteelClick();
                         }}
-                        className="w-full text-left px-5 py-3.5 text-gray-800 hover:bg-gradient-to-r hover:from-orange-50 hover:to-orange-100 hover:text-logo-orange-1 transition-all duration-200 text-sm font-semibold flex items-center gap-3 group/item"
+                        className="w-full text-left px-5 py-3.5 text-gray-800 hover:bg-gradient-to-r hover:from-orange-50 hover:to-orange-100 hover:text-logo-orange-1 transition-all duration-200 text-sm font-semibold flex items-center gap-3 group/item cursor-pointer"
                         aria-label="Making Steel"
                       >
                         <span className="w-2 h-2 rounded-full bg-gray-400 group-hover/item:bg-logo-orange-1 transition-colors duration-200"></span>
