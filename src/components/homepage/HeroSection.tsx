@@ -366,7 +366,7 @@ export default function HeroSection({
 
       {/* Navigation Bar */}
       <div
-        className={`fixed top-0 left-0 right-0 z-50 backdrop-blur-md transition-all duration-300 ${
+        className={`fixed top-0 left-0 right-0 z-50 backdrop-blur-md transition-all duration-300 overflow-visible ${
           isScrolled
             ? "bg-white/98 shadow-sm border-b border-gray-100"
             : "bg-transparent shadow-none border-b border-transparent"
@@ -377,8 +377,8 @@ export default function HeroSection({
             : "none",
         }}
       >
-        <div className="max-w-6xl mx-auto pl-0 pr-2 sm:pr-4 lg:pr-6">
-          <div className="flex items-center justify-between h-16 md:h-20 lg:h-20">
+        <div className="max-w-6xl mx-auto pl-0 pr-2 sm:pr-4 lg:pr-6 overflow-visible">
+          <div className="flex items-center justify-between h-16 md:h-20 lg:h-20 overflow-visible">
             {/* Logo */}
             <div className="flex items-center h-full">
               <button
@@ -406,8 +406,9 @@ export default function HeroSection({
 
             {/* Navigation Links */}
             <nav
-              className="hidden md:flex items-center space-x-6"
+              className="hidden md:flex items-center space-x-6 relative"
               aria-label="Main navigation"
+              style={{ zIndex: 60 }}
             >
               <button
                 onClick={handleHomeClick}
@@ -426,6 +427,7 @@ export default function HeroSection({
                 className="relative group about-dropdown-container"
                 onMouseEnter={() => setIsAboutDropdownOpen(true)}
                 onMouseLeave={() => setIsAboutDropdownOpen(false)}
+                style={{ zIndex: 60 }}
               >
                 <button
                   onClick={() => setIsAboutDropdownOpen(!isAboutDropdownOpen)}
@@ -447,12 +449,14 @@ export default function HeroSection({
                 </button>
                 {isAboutDropdownOpen && (
                   <div
-                    className="absolute top-full left-0 pt-2 w-56 z-[60]"
+                    className="absolute top-full left-0 pt-2 w-56"
                     onMouseEnter={() => setIsAboutDropdownOpen(true)}
                     style={{
                       opacity: isAboutDropdownOpen ? 1 : 0,
                       transform: isAboutDropdownOpen ? "translateY(0)" : "translateY(-10px)",
                       transition: "opacity 0.2s ease-out, transform 0.2s ease-out",
+                      zIndex: 100,
+                      position: "absolute",
                     }}
                   >
                     <div className="bg-white/98 backdrop-blur-md rounded-xl shadow-2xl border border-gray-200/50 py-2 overflow-hidden"

@@ -133,12 +133,24 @@ function HomeContent() {
     }
   }, [mounted, searchParams]); // Removed showVideoIntro from dependencies to prevent loop
 
+  // Track video play state to prevent race conditions
+  const videoPlayStateRef = useRef<{
+    isPlaying: boolean;
+    playPromise: Promise<void> | null;
+  }>({
+    isPlaying: false,
+    playPromise: null,
+  });
+
   // Optimized video preloading - start loading immediately when video intro shows
   useEffect(() => {
     if (typeof document === "undefined" || !showVideoIntro || !mounted) return;
 
     let videoStarted = false;
     let loadingTimeout: NodeJS.Timeout | null = null;
+
+    // Reset play state when video intro shows
+    videoPlayStateRef.current = { isPlaying: false, playPromise: null };
 
     // Start loading video immediately (no delay) for faster playback
     // Use requestAnimationFrame for better performance
@@ -148,18 +160,8 @@ function HomeContent() {
         // Use "metadata" to start loading early but not the entire video
         videoRef1.current.preload = "metadata";
         videoRef1.current.load();
-        // Try to play immediately
-        const playPromise = videoRef1.current.play();
-        if (playPromise !== undefined) {
-          playPromise
-            .then(() => {
-              // Video started playing
-              videoStarted = true;
-            })
-            .catch(() => {
-              // Autoplay prevented - handled by user interaction
-            });
-        }
+        // Don't call play() here - let the video element's autoPlay handle it
+        // This prevents race conditions
       }
     });
 
@@ -289,7 +291,7 @@ function HomeContent() {
               zIndex: 10,
             }}
           />
-          
+
           {/* Loading indicator */}
           <div
             id="video-loading-indicator"
@@ -327,23 +329,42 @@ function HomeContent() {
                 backfaceVisibility: "hidden",
               }}
               onLoadedMetadata={() => {
-                // Start playing as soon as metadata is loaded
-                requestAnimationFrame(() => {
-                  if (videoRef1.current) {
-                    videoRef1.current.play().catch(() => {});
-                  }
-                });
+                // Video metadata loaded - let autoPlay handle playback
+                // Don't call play() here to avoid race conditions
               }}
               onCanPlay={() => {
-                // Ensure video continues playing smoothly
+                // Video can play - hide loading indicators
                 requestAnimationFrame(() => {
-                  if (videoRef1.current) {
-                    videoRef1.current.play().catch(() => {});
-                    // Hide background and loading indicator when video can play
-                    const bg = document.getElementById("video-intro-bg");
-                    if (bg) bg.style.opacity = "0";
-                    const indicator = document.getElementById("video-loading-indicator");
-                    if (indicator) indicator.style.opacity = "0";
+                  const bg = document.getElementById("video-intro-bg");
+                  if (bg) bg.style.opacity = "0";
+                  const indicator = document.getElementById(
+                    "video-loading-indicator"
+                  );
+                  if (indicator) indicator.style.opacity = "0";
+
+                  // Only call play() if video is not already playing and no play promise exists
+                  if (
+                    videoRef1.current &&
+                    !videoPlayStateRef.current.isPlaying &&
+                    !videoPlayStateRef.current.playPromise
+                  ) {
+                    if (videoRef1.current.paused) {
+                      const playPromise = videoRef1.current.play();
+                      if (playPromise !== undefined) {
+                        videoPlayStateRef.current.playPromise = playPromise;
+                        playPromise
+                          .then(() => {
+                            videoPlayStateRef.current.isPlaying = true;
+                            videoPlayStateRef.current.playPromise = null;
+                          })
+                          .catch(() => {
+                            // Autoplay prevented or interrupted - reset state
+                            videoPlayStateRef.current.playPromise = null;
+                          });
+                      }
+                    } else {
+                      videoPlayStateRef.current.isPlaying = true;
+                    }
                   }
                 });
               }}
@@ -355,13 +376,22 @@ function HomeContent() {
                 });
               }}
               onPlaying={() => {
-                // Hide background and loading indicator when video is playing
+                // Video is playing - update state and hide loading indicators
+                videoPlayStateRef.current.isPlaying = true;
+                videoPlayStateRef.current.playPromise = null;
                 requestAnimationFrame(() => {
                   const bg = document.getElementById("video-intro-bg");
                   if (bg) bg.style.opacity = "0";
-                  const indicator = document.getElementById("video-loading-indicator");
+                  const indicator = document.getElementById(
+                    "video-loading-indicator"
+                  );
                   if (indicator) indicator.style.opacity = "0";
                 });
+              }}
+              onPause={() => {
+                // Video paused - update state
+                videoPlayStateRef.current.isPlaying = false;
+                videoPlayStateRef.current.playPromise = null;
               }}
               onLoadStart={() => {
                 // Keep background visible while loading starts
@@ -416,9 +446,23 @@ function HomeContent() {
                 backfaceVisibility: "hidden",
               }}
               onLoadedMetadata={() => {
+                // Video metadata loaded - let autoPlay handle playback
+                // Don't call play() here to avoid race conditions
+              }}
+              onCanPlay={() => {
+                // Video can play - ensure it's playing if autoPlay didn't work
                 requestAnimationFrame(() => {
-                  if (videoRef2.current && showSecondVideo) {
-                    videoRef2.current.play().catch(() => {});
+                  if (
+                    videoRef2.current &&
+                    showSecondVideo &&
+                    videoRef2.current.paused
+                  ) {
+                    const playPromise = videoRef2.current.play();
+                    if (playPromise !== undefined) {
+                      playPromise.catch(() => {
+                        // Autoplay prevented or interrupted - ignore
+                      });
+                    }
                   }
                 });
               }}
