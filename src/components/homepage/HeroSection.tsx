@@ -318,7 +318,8 @@ export default function HeroSection({
   return (
     <section
       id="home"
-      className="relative h-screen flex items-center justify-center overflow-hidden"
+      className="relative h-screen flex items-center justify-center"
+      style={{ overflow: "hidden" }}
       aria-label="Hero section with company introduction"
     >
       {/* Background Image Carousel - Based on selected industry */}
@@ -409,7 +410,7 @@ export default function HeroSection({
             <nav
               className="hidden md:flex items-center space-x-6 relative"
               aria-label="Main navigation"
-              style={{ zIndex: 10000 }}
+              style={{ zIndex: 10002, position: "relative" }}
             >
               <button
                 onClick={handleHomeClick}
@@ -428,7 +429,7 @@ export default function HeroSection({
                 className="relative group about-dropdown-container"
                 onMouseEnter={() => setIsAboutDropdownOpen(true)}
                 onMouseLeave={() => setIsAboutDropdownOpen(false)}
-                style={{ zIndex: 10001, position: "relative" }}
+                style={{ zIndex: 10002, position: "relative" }}
               >
                 <button
                   onClick={() => setIsAboutDropdownOpen(!isAboutDropdownOpen)}
@@ -464,15 +465,18 @@ export default function HeroSection({
                     onMouseEnter={() => setIsAboutDropdownOpen(true)}
                     style={{
                       position: "absolute",
-                      zIndex: 10001,
+                      zIndex: 10003,
+                      pointerEvents: "auto",
                     }}
                   >
                     <div
-                      className="bg-white rounded-xl shadow-2xl border border-gray-300 py-2 overflow-hidden"
+                      className="bg-white rounded-xl shadow-2xl border-2 border-gray-300 py-2 overflow-hidden"
                       style={{
                         boxShadow:
                           "0 20px 60px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(0, 0, 0, 0.1)",
                         backdropFilter: "blur(12px)",
+                        zIndex: 10003,
+                        position: "relative",
                       }}
                     >
                       <button
