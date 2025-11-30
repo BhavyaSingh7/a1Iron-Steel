@@ -366,12 +366,13 @@ export default function HeroSection({
 
       {/* Navigation Bar */}
       <div
-        className={`fixed top-0 left-0 right-0 z-50 backdrop-blur-md transition-all duration-300 overflow-visible ${
+        className={`fixed top-0 left-0 right-0 backdrop-blur-md transition-all duration-300 overflow-visible ${
           isScrolled
             ? "bg-white/98 shadow-sm border-b border-gray-100"
             : "bg-transparent shadow-none border-b border-transparent"
         }`}
         style={{
+          zIndex: 9999,
           boxShadow: isScrolled
             ? "0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.05)"
             : "none",
@@ -408,7 +409,7 @@ export default function HeroSection({
             <nav
               className="hidden md:flex items-center space-x-6 relative"
               aria-label="Main navigation"
-              style={{ zIndex: 60 }}
+              style={{ zIndex: 10000 }}
             >
               <button
                 onClick={handleHomeClick}
@@ -427,7 +428,7 @@ export default function HeroSection({
                 className="relative group about-dropdown-container"
                 onMouseEnter={() => setIsAboutDropdownOpen(true)}
                 onMouseLeave={() => setIsAboutDropdownOpen(false)}
-                style={{ zIndex: 60 }}
+                style={{ zIndex: 10000 }}
               >
                 <button
                   onClick={() => setIsAboutDropdownOpen(!isAboutDropdownOpen)}
@@ -459,10 +460,11 @@ export default function HeroSection({
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
                     transition={{ duration: 0.2 }}
-                    className="absolute top-full left-0 pt-2 w-56 z-[100]"
+                    className="absolute top-full left-0 pt-2 w-56"
                     onMouseEnter={() => setIsAboutDropdownOpen(true)}
                     style={{
                       position: "absolute",
+                      zIndex: 10000,
                     }}
                   >
                     <div
