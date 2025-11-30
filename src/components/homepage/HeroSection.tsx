@@ -112,14 +112,16 @@ export default function HeroSection({
   };
 
   const handleAboutClick = useCallback(() => {
-    router.push("/about");
+    const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+    window.location.href = `${basePath}/about/`;
     setIsAboutDropdownOpen(false);
-  }, [router]);
+  }, []);
 
   const handleMakingSteelClick = useCallback(() => {
-    router.push("/about/making-steel");
+    const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+    window.location.href = `${basePath}/about/making-steel/`;
     setIsAboutDropdownOpen(false);
-  }, [router]);
+  }, []);
 
   const handleQualityClick = useCallback(() => {
     router.push("/about/our-quality");
