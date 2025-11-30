@@ -856,40 +856,60 @@ export default function ProductPage({ onClose }: { onClose: () => void }) {
         </div>
       )}
 
-      {/* Floating Back/Close Buttons - Only show when navbar is hidden (on carousel) */}
-      {!isScrolled && (
-        <div className="fixed top-4 right-4 z-30 flex items-center gap-3">
-          <button
-            onClick={handleClose}
-            className="flex items-center space-x-2 transition-all duration-200 font-medium px-4 py-2 rounded-lg text-white hover:text-orange-300 hover:bg-white/20 backdrop-blur-sm border border-white/20"
+      {/* Floating Back/Close Buttons - Always visible on carousel */}
+      <div 
+        className="fixed top-4 right-4 flex items-center gap-3"
+        style={{ zIndex: 10000 }}
+      >
+        <button
+          onClick={handleClose}
+          className={`flex items-center space-x-2 transition-all duration-200 font-medium px-4 py-2 rounded-lg backdrop-blur-sm border ${
+            isScrolled
+              ? "text-gray-700 hover:text-[#f1852e] hover:bg-gray-50 bg-white/90 border-gray-200"
+              : "text-white hover:text-orange-300 hover:bg-white/20 border-white/20"
+          }`}
+          style={{
+            textShadow: !isScrolled
+              ? "2px 2px 8px rgba(0, 0, 0, 0.8), 0 0 20px rgba(0, 0, 0, 0.5)"
+              : "none",
+            boxShadow: isScrolled
+              ? "0 2px 8px rgba(0, 0, 0, 0.1)"
+              : "0 4px 12px rgba(0, 0, 0, 0.3)",
+            zIndex: 10000,
+          }}
+          aria-label="Back to home"
+        >
+          <ArrowLeft
+            className="w-5 h-5"
             style={{
-              textShadow:
-                "2px 2px 8px rgba(0, 0, 0, 0.8), 0 0 20px rgba(0, 0, 0, 0.5)",
-              boxShadow: "0 4px 12px rgba(0, 0, 0, 0.3)",
+              filter: !isScrolled
+                ? "drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.8))"
+                : "none",
             }}
-            aria-label="Back to home"
-          >
-            <ArrowLeft
-              className="w-5 h-5"
-              style={{
-                filter: "drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.8))",
-              }}
-            />
-            <span className="hidden sm:inline">Back to Home</span>
-          </button>
-          <button
-            onClick={handleClose}
-            className="p-2 transition-all duration-200 rounded-lg text-white hover:text-orange-300 hover:bg-white/20 backdrop-blur-sm border border-white/20"
-            style={{
-              filter: "drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.8))",
-              boxShadow: "0 4px 12px rgba(0, 0, 0, 0.3)",
-            }}
-            aria-label="Close products page"
-          >
-            <X className="w-6 h-6" />
-          </button>
-        </div>
-      )}
+          />
+          <span className="hidden sm:inline">Back to Home</span>
+        </button>
+        <button
+          onClick={handleClose}
+          className={`p-2 transition-all duration-200 rounded-lg backdrop-blur-sm border ${
+            isScrolled
+              ? "text-gray-700 hover:text-[#f1852e] hover:bg-gray-100 bg-white/90 border-gray-200"
+              : "text-white hover:text-orange-300 hover:bg-white/20 border-white/20"
+          }`}
+          style={{
+            filter: !isScrolled
+              ? "drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.8))"
+              : "none",
+            boxShadow: isScrolled
+              ? "0 2px 8px rgba(0, 0, 0, 0.1)"
+              : "0 4px 12px rgba(0, 0, 0, 0.3)",
+            zIndex: 10000,
+          }}
+          aria-label="Close products page"
+        >
+          <X className="w-6 h-6" />
+        </button>
+      </div>
 
       {/* ArcelorMittal Style Layout - Hero Carousel */}
       <div className="relative h-screen w-full overflow-hidden">
