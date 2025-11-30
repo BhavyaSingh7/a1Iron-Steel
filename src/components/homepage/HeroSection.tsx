@@ -322,7 +322,7 @@ export default function HeroSection({
       aria-label="Hero section with company introduction"
     >
       {/* Background Image Carousel - Based on selected industry */}
-      <div className="absolute inset-0 w-full h-full" aria-hidden="true">
+      <div className="absolute inset-0 w-full h-full" aria-hidden="true" style={{ zIndex: 1 }}>
         <div className="absolute inset-0 bg-gray-900" />
         {INDUSTRIES.map((industry, index) => (
           <div
@@ -428,7 +428,7 @@ export default function HeroSection({
                 className="relative group about-dropdown-container"
                 onMouseEnter={() => setIsAboutDropdownOpen(true)}
                 onMouseLeave={() => setIsAboutDropdownOpen(false)}
-                style={{ zIndex: 10000 }}
+                style={{ zIndex: 10001, position: "relative" }}
               >
                 <button
                   onClick={() => setIsAboutDropdownOpen(!isAboutDropdownOpen)}
@@ -464,7 +464,7 @@ export default function HeroSection({
                     onMouseEnter={() => setIsAboutDropdownOpen(true)}
                     style={{
                       position: "absolute",
-                      zIndex: 10000,
+                      zIndex: 10001,
                     }}
                   >
                     <div

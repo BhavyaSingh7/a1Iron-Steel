@@ -780,7 +780,7 @@ export default function ProductPage({ onClose }: { onClose: () => void }) {
   }, []);
 
   return (
-    <div className="fixed inset-0 z-50 bg-gray-50 overflow-y-auto">
+    <div className="fixed inset-0 bg-gray-50 overflow-y-auto" style={{ zIndex: 10001 }}>
       {/* Floating Back/Close Buttons - Always visible */}
       <div 
         className="fixed top-4 right-4 flex items-center gap-3"
@@ -820,7 +820,7 @@ export default function ProductPage({ onClose }: { onClose: () => void }) {
       </div>
 
       {/* ArcelorMittal Style Layout - Hero Carousel */}
-      <div className="relative h-screen w-full overflow-hidden">
+      <div className="relative h-screen w-full overflow-hidden" style={{ zIndex: 1 }}>
         {/* Structured Data for Products */}
         <script
           type="application/ld+json"

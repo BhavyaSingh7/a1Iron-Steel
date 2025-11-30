@@ -585,10 +585,12 @@ function HomeContent() {
       )}
 
       {/* Hero Section - Always rendered, just behind video overlay */}
-      <HeroSection
-        showVideoIntro={showVideoIntro}
-        onProductsClick={() => setShowProducts(true)}
-      />
+      {!showProducts && (
+        <HeroSection
+          showVideoIntro={showVideoIntro}
+          onProductsClick={() => setShowProducts(true)}
+        />
+      )}
 
       {/* About Section */}
       <AboutSection />
