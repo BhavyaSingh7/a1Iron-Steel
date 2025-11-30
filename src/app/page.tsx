@@ -146,7 +146,7 @@ function HomeContent() {
   useEffect(() => {
     if (typeof document === "undefined" || !showVideoIntro || !mounted) return;
 
-    let videoStarted = false;
+    const videoStarted = false;
     let loadingTimeout: NodeJS.Timeout | null = null;
 
     // Reset play state when video intro shows

@@ -435,7 +435,13 @@ export default function HeroSection({
                     isScrolled
                       ? "text-gray-700 hover:text-logo-orange-1"
                       : "text-white hover:text-orange-300"
-                  } ${isAboutDropdownOpen ? (isScrolled ? "text-logo-orange-1" : "text-orange-300") : ""}`}
+                  } ${
+                    isAboutDropdownOpen
+                      ? isScrolled
+                        ? "text-logo-orange-1"
+                        : "text-orange-300"
+                      : ""
+                  }`}
                   aria-label="About menu"
                   aria-expanded={isAboutDropdownOpen}
                   tabIndex={0}
@@ -448,20 +454,23 @@ export default function HeroSection({
                   />
                 </button>
                 {isAboutDropdownOpen && (
-                  <div
-                    className="absolute top-full left-0 pt-2 w-56"
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.2 }}
+                    className="absolute top-full left-0 pt-2 w-56 z-[100]"
                     onMouseEnter={() => setIsAboutDropdownOpen(true)}
                     style={{
-                      opacity: isAboutDropdownOpen ? 1 : 0,
-                      transform: isAboutDropdownOpen ? "translateY(0)" : "translateY(-10px)",
-                      transition: "opacity 0.2s ease-out, transform 0.2s ease-out",
-                      zIndex: 100,
                       position: "absolute",
                     }}
                   >
-                    <div className="bg-white/98 backdrop-blur-md rounded-xl shadow-2xl border border-gray-200/50 py-2 overflow-hidden"
+                    <div
+                      className="bg-white rounded-xl shadow-2xl border border-gray-300 py-2 overflow-hidden"
                       style={{
-                        boxShadow: "0 10px 40px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.05)",
+                        boxShadow:
+                          "0 20px 60px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(0, 0, 0, 0.1)",
+                        backdropFilter: "blur(12px)",
                       }}
                     >
                       <button
@@ -469,26 +478,26 @@ export default function HeroSection({
                           handleAboutClick();
                           setIsAboutDropdownOpen(false);
                         }}
-                        className="w-full text-left px-5 py-3 text-gray-700 hover:bg-gradient-to-r hover:from-orange-50 hover:to-orange-100/50 hover:text-logo-orange-1 transition-all duration-200 text-sm font-semibold flex items-center gap-2 group/item"
+                        className="w-full text-left px-5 py-3.5 text-gray-800 hover:bg-gradient-to-r hover:from-orange-50 hover:to-orange-100 hover:text-logo-orange-1 transition-all duration-200 text-sm font-semibold flex items-center gap-3 group/item"
                         aria-label="About Us"
                       >
-                        <span className="w-1.5 h-1.5 rounded-full bg-gray-300 group-hover/item:bg-logo-orange-1 transition-colors duration-200"></span>
-                        About Us
+                        <span className="w-2 h-2 rounded-full bg-gray-400 group-hover/item:bg-logo-orange-1 transition-colors duration-200"></span>
+                        <span>About Us</span>
                       </button>
-                      <div className="h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent mx-2 my-1"></div>
+                      <div className="h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent mx-3 my-1"></div>
                       <button
                         onClick={() => {
                           handleMakingSteelClick();
                           setIsAboutDropdownOpen(false);
                         }}
-                        className="w-full text-left px-5 py-3 text-gray-700 hover:bg-gradient-to-r hover:from-orange-50 hover:to-orange-100/50 hover:text-logo-orange-1 transition-all duration-200 text-sm font-semibold flex items-center gap-2 group/item"
+                        className="w-full text-left px-5 py-3.5 text-gray-800 hover:bg-gradient-to-r hover:from-orange-50 hover:to-orange-100 hover:text-logo-orange-1 transition-all duration-200 text-sm font-semibold flex items-center gap-3 group/item"
                         aria-label="Making Steel"
                       >
-                        <span className="w-1.5 h-1.5 rounded-full bg-gray-300 group-hover/item:bg-logo-orange-1 transition-colors duration-200"></span>
-                        Making Steel
+                        <span className="w-2 h-2 rounded-full bg-gray-400 group-hover/item:bg-logo-orange-1 transition-colors duration-200"></span>
+                        <span>Making Steel</span>
                       </button>
                     </div>
-                  </div>
+                  </motion.div>
                 )}
               </div>
               <button
