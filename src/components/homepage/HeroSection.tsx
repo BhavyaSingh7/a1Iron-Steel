@@ -421,7 +421,7 @@ export default function HeroSection({
               >
                 Home
               </button>
-              {/* About Dropdown */}
+              {/* About Dropdown - Enhanced */}
               <div
                 className="relative group about-dropdown-container"
                 onMouseEnter={() => setIsAboutDropdownOpen(true)}
@@ -433,42 +433,54 @@ export default function HeroSection({
                     isScrolled
                       ? "text-gray-700 hover:text-logo-orange-1"
                       : "text-white hover:text-orange-300"
-                  }`}
+                  } ${isAboutDropdownOpen ? (isScrolled ? "text-logo-orange-1" : "text-orange-300") : ""}`}
                   aria-label="About menu"
                   aria-expanded={isAboutDropdownOpen}
                   tabIndex={0}
                 >
                   About
                   <ChevronDown
-                    className={`w-4 h-4 transition-transform duration-200 ${
+                    className={`w-4 h-4 transition-transform duration-300 ${
                       isAboutDropdownOpen ? "rotate-180" : ""
                     }`}
                   />
                 </button>
                 {isAboutDropdownOpen && (
                   <div
-                    className="absolute top-full left-0 pt-1 w-48 z-50"
+                    className="absolute top-full left-0 pt-2 w-56 z-[60]"
                     onMouseEnter={() => setIsAboutDropdownOpen(true)}
+                    style={{
+                      opacity: isAboutDropdownOpen ? 1 : 0,
+                      transform: isAboutDropdownOpen ? "translateY(0)" : "translateY(-10px)",
+                      transition: "opacity 0.2s ease-out, transform 0.2s ease-out",
+                    }}
                   >
-                    <div className="bg-white rounded-lg shadow-xl border border-gray-200 py-2">
+                    <div className="bg-white/98 backdrop-blur-md rounded-xl shadow-2xl border border-gray-200/50 py-2 overflow-hidden"
+                      style={{
+                        boxShadow: "0 10px 40px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.05)",
+                      }}
+                    >
                       <button
                         onClick={() => {
                           handleAboutClick();
                           setIsAboutDropdownOpen(false);
                         }}
-                        className="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-logo-orange-1 transition-colors duration-200 text-sm font-medium"
+                        className="w-full text-left px-5 py-3 text-gray-700 hover:bg-gradient-to-r hover:from-orange-50 hover:to-orange-100/50 hover:text-logo-orange-1 transition-all duration-200 text-sm font-semibold flex items-center gap-2 group/item"
                         aria-label="About Us"
                       >
+                        <span className="w-1.5 h-1.5 rounded-full bg-gray-300 group-hover/item:bg-logo-orange-1 transition-colors duration-200"></span>
                         About Us
                       </button>
+                      <div className="h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent mx-2 my-1"></div>
                       <button
                         onClick={() => {
                           handleMakingSteelClick();
                           setIsAboutDropdownOpen(false);
                         }}
-                        className="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-logo-orange-1 transition-colors duration-200 text-sm font-medium"
+                        className="w-full text-left px-5 py-3 text-gray-700 hover:bg-gradient-to-r hover:from-orange-50 hover:to-orange-100/50 hover:text-logo-orange-1 transition-all duration-200 text-sm font-semibold flex items-center gap-2 group/item"
                         aria-label="Making Steel"
                       >
+                        <span className="w-1.5 h-1.5 rounded-full bg-gray-300 group-hover/item:bg-logo-orange-1 transition-colors duration-200"></span>
                         Making Steel
                       </button>
                     </div>
