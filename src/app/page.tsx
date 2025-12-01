@@ -60,20 +60,28 @@ function HomeContent() {
     return urlParams.get("skipIntro") === "true";
   };
 
-  // Initialize showVideoIntro - always false initially to prevent hydration mismatch
-  const [showVideoIntro, setShowVideoIntro] = useState(false);
+  // Initialize showVideoIntro - show immediately on fresh loads, false only if skipIntro
+  const [showVideoIntro, setShowVideoIntro] = useState(() => {
+    // On server, always false to prevent hydration mismatch
+    if (typeof window === "undefined") return false;
+    // On client, check skipIntro immediately
+    return !checkSkipIntro();
+  });
   const [showAboutUs, setShowAboutUs] = useState(false);
   const [showProducts, setShowProducts] = useState(false);
   const [showContact, setShowContact] = useState(false);
   const [showSecondVideo, setShowSecondVideo] = useState(false);
-  const [hasShownVideo, setHasShownVideo] = useState(false); // Track if video has been shown once
+  const [hasShownVideo, setHasShownVideo] = useState(() => {
+    // Check if we should skip video on initial render
+    if (typeof window === "undefined") return false;
+    return checkSkipIntro();
+  });
 
-  // Set mounted state and check skipIntro IMMEDIATELY on mount
+  // Set mounted state and ensure video shows immediately on fresh loads
   useEffect(() => {
     setMounted(true);
 
     // CRITICAL: Check skipIntro IMMEDIATELY when component mounts
-    // This must happen synchronously to prevent video from showing
     if (typeof window !== "undefined") {
       const hasSkipIntro = checkSkipIntro();
 
@@ -81,7 +89,7 @@ function HomeContent() {
         // Skip video immediately - don't wait
         setShowVideoIntro(false);
         setShowSecondVideo(false);
-        setHasShownVideo(true); // Mark as shown so it never shows again
+        setHasShownVideo(true);
 
         // Clean up URL after processing
         const urlParams = new URLSearchParams(window.location.search);
@@ -90,13 +98,17 @@ function HomeContent() {
           window.location.pathname +
           (urlParams.toString() ? `?${urlParams.toString()}` : "");
         window.history.replaceState({}, "", newUrl);
-        return; // Exit early - don't set video to true
+        return;
+      }
+
+      // Fresh load - show video immediately if not already shown
+      if (!hasShownVideo && !showVideoIntro) {
+        setShowVideoIntro(true);
       }
     }
   }, []);
 
   // Ensure video intro is skipped if skipIntro is true, otherwise show it ONCE
-  // This runs after mount to prevent hydration mismatch
   useEffect(() => {
     if (!mounted || typeof window === "undefined") return;
 
@@ -109,12 +121,11 @@ function HomeContent() {
     // CRITICAL: Check skipIntro FIRST - this takes absolute priority
     const hasSkipIntro = checkSkipIntro();
 
-    // If skipIntro is true, ALWAYS skip video immediately (this handles back/close button navigation)
+    // If skipIntro is true, ALWAYS skip video immediately
     if (hasSkipIntro) {
-      // Set to false immediately - don't wait
       setShowVideoIntro(false);
       setShowSecondVideo(false);
-      setHasShownVideo(true); // Mark as shown so it never shows again
+      setHasShownVideo(true);
 
       // Clean up URL after processing
       const urlParams = new URLSearchParams(window.location.search);
@@ -123,15 +134,14 @@ function HomeContent() {
         window.location.pathname +
         (urlParams.toString() ? `?${urlParams.toString()}` : "");
       window.history.replaceState({}, "", newUrl);
-      return; // Exit early - don't check anything else
+      return;
     }
 
     // No skipIntro parameter - this is a fresh load or reload, SHOW VIDEO ONCE
-    // Only set to true if we haven't shown it yet
     if (!hasShownVideo && !showVideoIntro) {
       setShowVideoIntro(true);
     }
-  }, [mounted, searchParams]); // Removed showVideoIntro from dependencies to prevent loop
+  }, [mounted, searchParams]);
 
   // Track video play state to prevent race conditions
   const videoPlayStateRef = useRef<{
@@ -157,8 +167,8 @@ function HomeContent() {
     const rafId = requestAnimationFrame(() => {
       // Start loading the video element immediately for faster playback
       if (videoRef1.current) {
-        // Use "metadata" to start loading early but not the entire video
-        videoRef1.current.preload = "metadata";
+        // Use "auto" to start loading the entire video immediately
+        videoRef1.current.preload = "auto";
         videoRef1.current.load();
         // Don't call play() here - let the video element's autoPlay handle it
         // This prevents race conditions
@@ -251,8 +261,8 @@ function HomeContent() {
     >
       {/* Video Intro Screen - Shows for 10 seconds then slides up */}
       {/* CRITICAL: Check skipIntro FIRST - if present, NEVER render video, even if showVideoIntro is true */}
-      {/* Only render after mount to prevent hydration mismatch */}
-      {mounted && !checkSkipIntro() && showVideoIntro && (
+      {/* Show immediately on client, but only after mount check to prevent hydration mismatch */}
+      {mounted && !checkSkipIntro() && showVideoIntro ? (
         <div
           className="fixed inset-0 z-50"
           style={{
@@ -322,7 +332,7 @@ function HomeContent() {
               loop
               playsInline
               className="w-full h-full object-cover"
-              preload="metadata"
+              preload="auto"
               style={{
                 willChange: "opacity, transform",
                 transform: "translateZ(0)",
@@ -582,6 +592,24 @@ function HomeContent() {
             </div>
           </div>
         </div>
+      ) : (
+        // Show background immediately while checking, to prevent blank screen
+        !mounted && (
+          <div
+            className="fixed inset-0 z-50"
+            style={{
+              background:
+                "linear-gradient(135deg, #1a5f82 0%, #113d59 50%, #0a2a3d 100%)",
+            }}
+          >
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="text-center">
+                <div className="w-16 h-16 border-4 border-white/30 border-t-white rounded-full animate-spin mx-auto mb-4"></div>
+                <p className="text-white/80 text-sm">Loading...</p>
+              </div>
+            </div>
+          </div>
+        )
       )}
 
       {/* Hero Section - Always rendered, just behind video overlay */}
