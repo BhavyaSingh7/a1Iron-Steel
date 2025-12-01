@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useEffect } from "react";
-import { motion } from "framer-motion";
+import React, { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   ArrowLeft,
   X,
@@ -15,6 +15,8 @@ import {
   Sun,
   TrendingUp,
   ArrowRight,
+  ChevronDown,
+  CheckCircle,
 } from "lucide-react";
 
 interface SustainabilityPageProps {
@@ -24,6 +26,9 @@ interface SustainabilityPageProps {
 export default function SustainabilityPage({
   onClose,
 }: SustainabilityPageProps) {
+  const [activeSection, setActiveSection] = useState(0);
+  const [isScrolled, setIsScrolled] = useState(false);
+
   const handleClose = () => {
     const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
     window.location.href = `${basePath}/?skipIntro=true`;
@@ -32,10 +37,39 @@ export default function SustainabilityPage({
     }
   };
 
+  // Handle scroll for section navigation
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      setIsScrolled(scrollPosition > 50);
+
+      // Determine active section based on scroll position
+      const sections = document.querySelectorAll(".sustainability-section");
+      sections.forEach((section, index) => {
+        const rect = section.getBoundingClientRect();
+        if (rect.top <= 200 && rect.bottom >= 200) {
+          setActiveSection(index);
+        }
+      });
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Scroll to section
+  const scrollToSection = (index: number) => {
+    const sections = document.querySelectorAll(".sustainability-section");
+    if (sections[index]) {
+      sections[index].scrollIntoView({ behavior: "smooth", block: "start" });
+      setActiveSection(index);
+    }
+  };
+
   // Disable body scroll when this page is open
   useEffect(() => {
-    document.body.style.overflow = "hidden";
-    document.documentElement.style.overflow = "hidden";
+    document.body.style.overflow = "";
+    document.documentElement.style.overflow = "";
     return () => {
       document.body.style.overflow = "";
       document.documentElement.style.overflow = "";
@@ -128,29 +162,66 @@ export default function SustainabilityPage({
     },
   ];
 
+  const sections = [
+    { id: 0, title: "Overview", icon: Globe },
+    { id: 1, title: "Our Target", icon: Trees },
+    { id: 2, title: "Impact", icon: TrendingUp },
+    { id: 3, title: "Initiatives", icon: Sprout },
+    { id: 4, title: "Join Us", icon: ArrowRight },
+  ];
+
   return (
     <div className="fixed inset-0 bg-gradient-to-br from-gray-50 via-green-50/30 to-white z-50 overflow-y-auto">
-      {/* Animated Background Elements */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-green-500/10 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "1s" }} />
-        <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-cyan-500/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "2s" }} />
-      </div>
-
-      {/* Header */}
-      <div className="sticky top-0 bg-white/80 backdrop-blur-xl border-b border-gray-200/50 shadow-lg z-20">
+      {/* Floating Navigation Header */}
+      <div
+        className={`fixed top-0 left-0 right-0 z-30 transition-all duration-300 ${
+          isScrolled
+            ? "bg-white/95 backdrop-blur-xl shadow-lg border-b border-gray-200/50"
+            : "bg-transparent"
+        }`}
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <button
               onClick={handleClose}
-              className="flex items-center space-x-2 text-gray-700 hover:text-[#f1852e] transition-all duration-200 font-medium group"
+              className={`flex items-center space-x-2 transition-colors duration-200 font-medium group ${
+                isScrolled ? "text-gray-700 hover:text-[#f1852e]" : "text-white"
+              }`}
             >
               <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
-              <span>Back to Home</span>
+              <span className="hidden sm:inline">Back to Home</span>
             </button>
+
+            {/* Section Navigation Dots */}
+            <div className="hidden md:flex items-center gap-2">
+              {sections.map((section, index) => {
+                const Icon = section.icon;
+                return (
+                  <button
+                    key={section.id}
+                    onClick={() => scrollToSection(index)}
+                    className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-300 ${
+                      activeSection === index
+                        ? "bg-green-600 text-white shadow-lg scale-110"
+                        : isScrolled
+                        ? "text-gray-600 hover:bg-gray-100"
+                        : "text-white/80 hover:bg-white/20"
+                    }`}
+                  >
+                    <Icon className="w-4 h-4" />
+                    <span>{section.title}</span>
+                  </button>
+                );
+              })}
+            </div>
+
             <button
               onClick={handleClose}
-              className="p-2 text-gray-700 hover:text-[#f1852e] transition-all duration-200 rounded-lg hover:bg-gray-100 hover:scale-110"
+              className={`p-2 transition-all duration-200 rounded-lg hover:scale-110 ${
+                isScrolled
+                  ? "text-gray-700 hover:text-[#f1852e] hover:bg-gray-100"
+                  : "text-white hover:bg-white/20"
+              }`}
             >
               <X className="w-6 h-6" />
             </button>
@@ -158,11 +229,39 @@ export default function SustainabilityPage({
         </div>
       </div>
 
-      {/* Hero Section */}
-      <section className="relative py-16 sm:py-24 md:py-32 overflow-hidden min-h-[60vh] flex items-center">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-green-50/50 to-transparent" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(34,197,94,0.1),transparent_70%)]" />
-        
+      {/* Section 1: Hero Overview */}
+      <section className="sustainability-section relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
+        <div className="absolute inset-0 bg-gradient-to-br from-green-600 via-emerald-600 to-green-700">
+          <div 
+            className="absolute inset-0 opacity-30" 
+            style={{
+              backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+            }}
+          />
+        </div>
+
+        {/* Animated Background Elements */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <motion.div
+            className="absolute top-1/4 left-1/4 w-96 h-96 bg-white/10 rounded-full blur-3xl"
+            animate={{
+              scale: [1, 1.2, 1],
+              x: [0, 50, 0],
+              y: [0, 30, 0],
+            }}
+            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+          />
+          <motion.div
+            className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-emerald-300/20 rounded-full blur-3xl"
+            animate={{
+              scale: [1, 1.3, 1],
+              x: [0, -50, 0],
+              y: [0, -30, 0],
+            }}
+            transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+          />
+        </div>
+
         <motion.div
           className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full text-center z-10"
           initial={{ opacity: 0, y: 30 }}
@@ -171,13 +270,15 @@ export default function SustainabilityPage({
         >
           {/* Badge */}
           <motion.div
-            className="inline-flex items-center gap-2 px-4 py-2 bg-green-100/80 backdrop-blur-md rounded-full border border-green-200/50 mb-6"
+            className="inline-flex items-center gap-2 px-4 py-2 bg-white/20 backdrop-blur-md rounded-full border border-white/30 mb-6"
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <Sprout className="w-4 h-4 text-green-600" />
-            <span className="text-sm font-semibold text-green-700">Environmental Stewardship</span>
+            <Sprout className="w-4 h-4 text-white" />
+            <span className="text-sm font-semibold text-white">
+              Environmental Stewardship
+            </span>
           </motion.div>
 
           <motion.h1
@@ -186,43 +287,58 @@ export default function SustainabilityPage({
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.3 }}
           >
-            <span className="bg-gradient-to-r from-green-600 via-emerald-600 to-green-600 bg-clip-text text-transparent">
-              Our Green
-            </span>
+            <span className="text-white drop-shadow-2xl">Our Green</span>
             <br />
-            <span className="bg-gradient-to-r from-emerald-600 via-green-600 to-emerald-600 bg-clip-text text-transparent">
+            <span className="text-emerald-100 drop-shadow-2xl">
               Commitment
             </span>
           </motion.h1>
-          
+
           <motion.p
-            className="text-xl sm:text-2xl md:text-3xl text-gray-700 max-w-4xl mx-auto leading-relaxed font-light"
+            className="text-xl sm:text-2xl md:text-3xl text-white/90 max-w-4xl mx-auto leading-relaxed font-light mb-8 drop-shadow-lg"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.5 }}
           >
             Building a sustainable future through{" "}
-            <span className="text-green-600 font-semibold">responsible manufacturing</span> and{" "}
-            <span className="text-emerald-600 font-semibold">environmental stewardship</span>
+            <span className="font-semibold text-white">responsible manufacturing</span> and{" "}
+            <span className="font-semibold text-emerald-100">environmental stewardship</span>
           </motion.p>
+
+          {/* Scroll Indicator */}
+          <motion.div
+            className="flex flex-col items-center gap-2 mt-12"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1 }}
+          >
+            <span className="text-white/70 text-sm">Scroll to explore</span>
+            <motion.div
+              animate={{ y: [0, 10, 0] }}
+              transition={{ duration: 1.5, repeat: Infinity }}
+            >
+              <ChevronDown className="w-6 h-6 text-white/70" />
+            </motion.div>
+          </motion.div>
         </motion.div>
       </section>
 
-      {/* Main Target Section */}
-      <section className="py-16 sm:py-20 relative">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+      {/* Section 2: Our Target - 100,000 Trees */}
+      <section className="sustainability-section relative min-h-screen flex items-center justify-center py-20 bg-gradient-to-b from-white via-green-50/30 to-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             {/* Left: Target Card */}
             <motion.div
-              className="bg-gradient-to-br from-green-50 via-emerald-50 to-green-50 rounded-3xl p-8 sm:p-10 shadow-2xl border-2 border-green-200/50 relative overflow-hidden"
+              className="bg-gradient-to-br from-green-50 via-emerald-50 to-green-50 rounded-3xl p-8 sm:p-10 lg:p-12 shadow-2xl border-2 border-green-200/50 relative overflow-hidden"
               initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.8 }}
             >
               {/* Decorative background elements */}
               <div className="absolute top-0 right-0 w-64 h-64 bg-green-200/20 rounded-full blur-3xl -mr-32 -mt-32" />
               <div className="absolute bottom-0 left-0 w-48 h-48 bg-emerald-200/20 rounded-full blur-2xl -ml-24 -mb-24" />
-              
+
               <div className="relative z-10">
                 <div className="flex items-center gap-4 mb-6">
                   <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl flex items-center justify-center shadow-xl">
@@ -234,14 +350,16 @@ export default function SustainabilityPage({
                 </div>
 
                 <div className="mb-6">
-                  <div className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-black bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent mb-4 leading-tight">
+                  <div className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent mb-4 leading-tight">
                     100,000
                   </div>
                   <p className="text-2xl sm:text-3xl font-bold text-gray-800 mb-3">
                     Trees at Our Facility
                   </p>
                   <p className="text-lg text-gray-600 leading-relaxed">
-                    Creating a sustainable future for generations to come through our commitment to reforestation and environmental responsibility.
+                    Creating a sustainable future for generations to come through
+                    our commitment to reforestation and environmental
+                    responsibility.
                   </p>
                 </div>
 
@@ -251,16 +369,15 @@ export default function SustainabilityPage({
                     <span className="text-sm font-semibold text-gray-700">
                       Environmental Impact
                     </span>
-                    <span className="text-sm font-bold text-green-600">
-                      100%
-                    </span>
+                    <span className="text-sm font-bold text-green-600">100%</span>
                   </div>
                   <div className="w-full bg-gray-200 rounded-full h-4 overflow-hidden shadow-inner">
                     <motion.div
                       className="h-full bg-gradient-to-r from-green-500 via-emerald-500 to-green-500 rounded-full"
                       initial={{ width: 0 }}
-                      animate={{ width: "100%" }}
-                      transition={{ duration: 1.5, delay: 0.8, ease: "easeOut" }}
+                      whileInView={{ width: "100%" }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 1.5, ease: "easeOut" }}
                     />
                   </div>
                 </div>
@@ -276,11 +393,14 @@ export default function SustainabilityPage({
                     key={index}
                     className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 hover:shadow-xl hover:border-green-200 transition-all duration-300 group hover:scale-105"
                     initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.4 + index * 0.1 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-50px" }}
+                    transition={{ delay: 0.2 + index * 0.1 }}
                   >
                     <div className="flex items-start gap-4">
-                      <div className={`w-14 h-14 bg-gradient-to-br ${feature.color} rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300 flex-shrink-0`}>
+                      <div
+                        className={`w-14 h-14 bg-gradient-to-br ${feature.color} rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300 flex-shrink-0`}
+                      >
                         <Icon className="w-7 h-7 text-white" />
                       </div>
                       <div className="flex-1">
@@ -300,14 +420,15 @@ export default function SustainabilityPage({
         </div>
       </section>
 
-      {/* Impact Metrics Section */}
-      <section className="py-16 sm:py-24 bg-gradient-to-b from-white via-green-50/30 to-white relative">
+      {/* Section 3: Impact Metrics */}
+      <section className="sustainability-section relative min-h-screen flex items-center justify-center py-20 bg-gradient-to-b from-white via-emerald-50/20 to-white">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(34,197,94,0.05),transparent_70%)]" />
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
           <motion.div
             className="text-center mb-16"
             initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
             <div className="inline-block mb-4">
@@ -329,25 +450,28 @@ export default function SustainabilityPage({
                   key={index}
                   className="group relative bg-white rounded-3xl p-8 border border-gray-200 hover:border-green-300 transition-all duration-300 hover:scale-105 hover:shadow-2xl overflow-hidden"
                   initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
                   transition={{ delay: 0.2 + index * 0.1 }}
                 >
                   {/* Background Gradient */}
-                  <div className={`absolute inset-0 bg-gradient-to-br ${metric.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
-                  
+                  <div
+                    className={`absolute inset-0 bg-gradient-to-br ${metric.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
+                  />
+
                   <div className="relative z-10 text-center">
-                    <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${metric.color} flex items-center justify-center mb-6 mx-auto shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                    <div
+                      className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${metric.color} flex items-center justify-center mb-6 mx-auto shadow-lg group-hover:scale-110 transition-transform duration-300`}
+                    >
                       <Icon className="w-8 h-8 text-white" />
                     </div>
-                    <div className="text-5xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent mb-2">
+                    <div className="text-4xl sm:text-5xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent mb-2">
                       {metric.value}
                     </div>
                     <div className="text-xl font-semibold text-gray-800 mb-2">
                       {metric.label}
                     </div>
-                    <div className="text-sm text-gray-600">
-                      {metric.description}
-                    </div>
+                    <div className="text-sm text-gray-600">{metric.description}</div>
                   </div>
                 </motion.div>
               );
@@ -356,20 +480,22 @@ export default function SustainabilityPage({
         </div>
       </section>
 
-      {/* All Sustainability Features */}
-      <section className="py-16 sm:py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Section 4: All Sustainability Initiatives */}
+      <section className="sustainability-section relative min-h-screen flex items-center justify-center py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
           <motion.div
             className="text-center mb-16"
             initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
               Our <span className="bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">Sustainability</span> Initiatives
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Comprehensive environmental programs integrated throughout our operations
+              Comprehensive environmental programs integrated throughout our
+              operations
             </p>
           </motion.div>
 
@@ -381,14 +507,19 @@ export default function SustainabilityPage({
                   key={index}
                   className="relative bg-white rounded-3xl p-8 border border-gray-200 hover:border-green-300 transition-all duration-300 hover:scale-105 hover:shadow-2xl overflow-hidden group"
                   initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
                   transition={{ delay: 0.1 * index }}
                 >
                   {/* Animated Background Gradient */}
-                  <div className={`absolute inset-0 bg-gradient-to-br ${feature.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
-                  
+                  <div
+                    className={`absolute inset-0 bg-gradient-to-br ${feature.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
+                  />
+
                   <div className="relative z-10">
-                    <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${feature.color} flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                    <div
+                      className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${feature.color} flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300`}
+                    >
                       <Icon className="w-8 h-8 text-white" />
                     </div>
                     <h3 className="text-2xl font-bold text-gray-900 mb-4">
@@ -405,13 +536,32 @@ export default function SustainabilityPage({
         </div>
       </section>
 
-      {/* Call to Action */}
-      <section className="py-20 md:py-28 relative">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-green-50/50 to-white" />
+      {/* Section 5: Call to Action */}
+      <section className="sustainability-section relative min-h-screen flex items-center justify-center py-20 bg-gradient-to-br from-green-600 via-emerald-600 to-green-700">
+        <div 
+          className="absolute inset-0 opacity-30"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+          }}
+        />
+        
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <motion.div
+            className="absolute top-1/4 left-1/4 w-96 h-96 bg-white/10 rounded-full blur-3xl"
+            animate={{
+              scale: [1, 1.2, 1],
+              x: [0, 50, 0],
+              y: [0, 30, 0],
+            }}
+            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+          />
+        </div>
+
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
             <motion.div
@@ -419,16 +569,15 @@ export default function SustainabilityPage({
               animate={{ rotate: [0, 10, -10, 0] }}
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
             >
-              <Globe className="w-16 h-16 text-green-600" />
+              <Globe className="w-16 h-16 text-white" />
             </motion.div>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 drop-shadow-lg">
               Join Us in Building a{" "}
-              <span className="bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
-                Sustainable Future
-              </span>
+              <span className="text-emerald-100">Sustainable Future</span>
             </h2>
-            <p className="text-xl text-gray-600 mb-10 max-w-2xl mx-auto">
-              Together, we can create a greener planet for future generations through responsible manufacturing and environmental stewardship.
+            <p className="text-xl text-white/90 mb-10 max-w-2xl mx-auto drop-shadow-md">
+              Together, we can create a greener planet for future generations
+              through responsible manufacturing and environmental stewardship.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <motion.button
@@ -436,7 +585,7 @@ export default function SustainabilityPage({
                   const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
                   window.location.href = `${basePath}/contactus/`;
                 }}
-                className="group bg-gradient-to-r from-green-600 to-emerald-600 text-white px-10 py-4 rounded-full font-bold shadow-2xl hover:shadow-green-500/50 transition-all duration-300 hover:scale-110 flex items-center justify-center gap-2"
+                className="group bg-white text-green-600 px-10 py-4 rounded-full font-bold shadow-2xl hover:shadow-white/50 transition-all duration-300 hover:scale-110 flex items-center justify-center gap-2"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -448,7 +597,7 @@ export default function SustainabilityPage({
                   const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
                   window.location.href = `${basePath}/about/`;
                 }}
-                className="group border-2 border-green-600 text-green-700 px-10 py-4 rounded-full font-bold hover:bg-green-50 transition-all duration-300 hover:scale-110 flex items-center justify-center gap-2"
+                className="group border-2 border-white text-white px-10 py-4 rounded-full font-bold hover:bg-white/10 transition-all duration-300 hover:scale-110 flex items-center justify-center gap-2"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -462,4 +611,3 @@ export default function SustainabilityPage({
     </div>
   );
 }
-
