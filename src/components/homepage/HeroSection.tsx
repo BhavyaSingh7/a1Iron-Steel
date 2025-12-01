@@ -106,6 +106,18 @@ export default function HeroSection({
   const [progress, setProgress] = useState(0);
   const TRANSITION_DURATION = 5000; // 5 seconds per industry
 
+  // Get basePath at runtime
+  const getBasePath = () => {
+    if (typeof window !== "undefined") {
+      // Check if we're on GitHub Pages by looking at the pathname
+      const pathname = window.location.pathname;
+      if (pathname.startsWith("/a1Iron-Steel")) {
+        return "/a1Iron-Steel";
+      }
+    }
+    return process.env.NEXT_PUBLIC_BASE_PATH || "";
+  };
+
   const handleHomeClick = () => {
     const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
     router.push(`${basePath}/?skipIntro=true`);
@@ -548,10 +560,11 @@ export default function HeroSection({
                       }}
                     >
                       <a
-                        href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/about/`}
+                        href={`${getBasePath()}/about/`}
                         onClick={(e) => {
                           e.stopPropagation();
                           setIsAboutDropdownOpen(false);
+                          // Allow default navigation - don't preventDefault
                         }}
                         className="w-full text-left px-5 py-3.5 text-gray-800 hover:bg-gradient-to-r hover:from-orange-50 hover:to-orange-100 hover:text-logo-orange-1 transition-all duration-200 text-sm font-semibold flex items-center gap-3 group/item cursor-pointer block"
                         aria-label="About Us"
@@ -561,10 +574,11 @@ export default function HeroSection({
                       </a>
                       <div className="h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent mx-3 my-1"></div>
                       <a
-                        href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/about/making-steel/`}
+                        href={`${getBasePath()}/about/making-steel/`}
                         onClick={(e) => {
                           e.stopPropagation();
                           setIsAboutDropdownOpen(false);
+                          // Allow default navigation - don't preventDefault
                         }}
                         className="w-full text-left px-5 py-3.5 text-gray-800 hover:bg-gradient-to-r hover:from-orange-50 hover:to-orange-100 hover:text-logo-orange-1 transition-all duration-200 text-sm font-semibold flex items-center gap-3 group/item cursor-pointer block"
                         aria-label="Making Steel"
