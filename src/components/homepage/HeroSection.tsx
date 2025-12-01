@@ -124,14 +124,18 @@ export default function HeroSection({
   };
 
   const handleAboutClick = useCallback(() => {
+    console.log("handleAboutClick called");
     const basePath = getBasePath();
     const url = `${basePath}/about/`;
+    console.log("Navigating to:", url);
     window.location.href = url;
   }, [getBasePath]);
 
   const handleMakingSteelClick = useCallback(() => {
+    console.log("handleMakingSteelClick called");
     const basePath = getBasePath();
     const url = `${basePath}/about/making-steel/`;
+    console.log("Navigating to:", url);
     window.location.href = url;
   }, [getBasePath]);
 
@@ -542,7 +546,10 @@ export default function HeroSection({
                       setIsAboutDropdownOpen(true);
                     }}
                     onMouseLeave={() => {
-                      setIsAboutDropdownOpen(false);
+                      // Delay closing to allow clicks to register
+                      closeTimeoutRef.current = setTimeout(() => {
+                        setIsAboutDropdownOpen(false);
+                      }, 300);
                     }}
                     style={{
                       top: `${dropdownPosition.top}px`,
@@ -563,8 +570,20 @@ export default function HeroSection({
                         onClick={(e) => {
                           e.preventDefault();
                           e.stopPropagation();
+                          // Clear any pending close timeout
+                          if (closeTimeoutRef.current) {
+                            clearTimeout(closeTimeoutRef.current);
+                            closeTimeoutRef.current = null;
+                          }
                           setIsAboutDropdownOpen(false);
-                          handleAboutClick();
+                          // Use setTimeout to ensure state update completes
+                          setTimeout(() => {
+                            handleAboutClick();
+                          }, 0);
+                        }}
+                        onMouseDown={(e) => {
+                          // Prevent dropdown from closing on mousedown
+                          e.stopPropagation();
                         }}
                         className="w-full text-left px-5 py-3.5 text-gray-800 hover:bg-gradient-to-r hover:from-orange-50 hover:to-orange-100 hover:text-logo-orange-1 transition-all duration-200 text-sm font-semibold flex items-center gap-3 group/item cursor-pointer"
                         aria-label="About Us"
@@ -578,8 +597,20 @@ export default function HeroSection({
                         onClick={(e) => {
                           e.preventDefault();
                           e.stopPropagation();
+                          // Clear any pending close timeout
+                          if (closeTimeoutRef.current) {
+                            clearTimeout(closeTimeoutRef.current);
+                            closeTimeoutRef.current = null;
+                          }
                           setIsAboutDropdownOpen(false);
-                          handleMakingSteelClick();
+                          // Use setTimeout to ensure state update completes
+                          setTimeout(() => {
+                            handleMakingSteelClick();
+                          }, 0);
+                        }}
+                        onMouseDown={(e) => {
+                          // Prevent dropdown from closing on mousedown
+                          e.stopPropagation();
                         }}
                         className="w-full text-left px-5 py-3.5 text-gray-800 hover:bg-gradient-to-r hover:from-orange-50 hover:to-orange-100 hover:text-logo-orange-1 transition-all duration-200 text-sm font-semibold flex items-center gap-3 group/item cursor-pointer"
                         aria-label="Making Steel"
