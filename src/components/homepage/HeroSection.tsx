@@ -140,8 +140,10 @@ export default function HeroSection({
   }, [getBasePath]);
 
   const handleQualityClick = useCallback(() => {
-    router.push("/about/our-quality");
-  }, [router]);
+    const basePath = getBasePath();
+    const url = `${basePath}/about/our-quality/`;
+    window.location.href = url;
+  }, [getBasePath]);
 
   const handleContactClick = useCallback(() => {
     router.push("/contactus");
@@ -617,7 +619,7 @@ export default function HeroSection({
                         
                         {/* Text */}
                         <span className="relative z-10 flex-1 group-hover/item:translate-x-1 transition-transform duration-300">
-                          About Us
+                        About Us
                         </span>
                         
                         {/* Arrow indicator */}
@@ -687,7 +689,7 @@ export default function HeroSection({
                         
                         {/* Text */}
                         <span className="relative z-10 flex-1 group-hover/item:translate-x-1 transition-transform duration-300">
-                          Making Steel
+                        Making Steel
                         </span>
                         
                         {/* Arrow indicator */}
@@ -707,7 +709,78 @@ export default function HeroSection({
                           <path d="m12 5 7 7-7 7"></path>
                         </svg>
                       </button>
+                      
+                      {/* Divider */}
+                      <div className="h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent mx-4 my-2"></div>
+                      
+                      <button
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          // Clear any pending close timeout
+                          if (closeTimeoutRef.current) {
+                            clearTimeout(closeTimeoutRef.current);
+                            closeTimeoutRef.current = null;
+                          }
+                          setIsAboutDropdownOpen(false);
+                          // Use setTimeout to ensure state update completes
+                          setTimeout(() => {
+                            handleQualityClick();
+                          }, 0);
+                        }}
+                        onMouseDown={(e) => {
+                          // Prevent dropdown from closing on mousedown
+                          e.stopPropagation();
+                        }}
+                        className="w-full text-left px-6 py-4 text-gray-800 hover:bg-gradient-to-r hover:from-[#2084b1]/10 hover:to-[#f1852e]/10 hover:text-[#2084b1] transition-all duration-300 text-sm font-semibold flex items-center gap-4 group/item cursor-pointer relative overflow-hidden"
+                        aria-label="Our Quality"
+                        type="button"
+                      >
+                        {/* Hover effect background */}
+                        <div className="absolute inset-0 bg-gradient-to-r from-[#2084b1]/5 to-[#f1852e]/5 opacity-0 group-hover/item:opacity-100 transition-opacity duration-300"></div>
+                        
+                        {/* Icon */}
+                        <div className="relative z-10 w-8 h-8 rounded-lg bg-gradient-to-br from-[#2084b1]/10 to-[#2084b1]/5 flex items-center justify-center group-hover/item:from-[#2084b1]/20 group-hover/item:to-[#2084b1]/10 transition-all duration-300">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            className="text-[#2084b1] group-hover/item:scale-110 transition-transform duration-300"
+                          >
+                            <path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526"></path>
+                            <circle cx="12" cy="8" r="6"></circle>
+                          </svg>
                     </div>
+                        
+                        {/* Text */}
+                        <span className="relative z-10 flex-1 group-hover/item:translate-x-1 transition-transform duration-300">
+                          Our Quality
+                        </span>
+                        
+                        {/* Arrow indicator */}
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="16"
+                          height="16"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="relative z-10 text-gray-400 group-hover/item:text-[#2084b1] group-hover/item:translate-x-1 opacity-0 group-hover/item:opacity-100 transition-all duration-300"
+                        >
+                          <path d="M5 12h14"></path>
+                          <path d="m12 5 7 7-7 7"></path>
+                        </svg>
+                      </button>
+                  </div>
                   </motion.div>,
                   document.body
                 )}
@@ -932,13 +1005,13 @@ export default function HeroSection({
             </p>
             {/* Hide button for Our Impact (id: 4) */}
             {INDUSTRIES[currentIndex].id !== 4 && (
-              <button
-                onClick={handleIndustryAction}
-                className="px-8 py-4 border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-gray-900 transition-all duration-300 flex items-center gap-2 group"
-              >
-                <span>Find out more</span>
-                <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </button>
+            <button
+              onClick={handleIndustryAction}
+              className="px-8 py-4 border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-gray-900 transition-all duration-300 flex items-center gap-2 group"
+            >
+              <span>Find out more</span>
+              <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </button>
             )}
           </div>
 
