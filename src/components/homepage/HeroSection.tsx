@@ -507,7 +507,6 @@ export default function HeroSection({
               >
                 <button
                   ref={aboutButtonRef}
-                  onClick={() => setIsAboutDropdownOpen(!isAboutDropdownOpen)}
                   className={`font-bold text-base md:text-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded px-2 flex items-center gap-1 ${
                     isScrolled
                       ? "text-gray-700 hover:text-logo-orange-1"
@@ -559,13 +558,16 @@ export default function HeroSection({
                     }}
                   >
                     <div
-                      className="bg-white rounded-xl shadow-2xl border-2 border-gray-300 py-2 overflow-hidden"
+                      className="bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-gray-200/50 py-3 overflow-hidden"
                       style={{
                         boxShadow:
-                          "0 20px 60px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(0, 0, 0, 0.1)",
-                        backdropFilter: "blur(12px)",
+                          "0 25px 70px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.9)",
+                        backdropFilter: "blur(20px) saturate(180%)",
                       }}
                     >
+                      {/* Top accent line */}
+                      <div className="h-1 bg-gradient-to-r from-[#2084b1] via-[#f1852e] to-[#2084b1] mb-2"></div>
+                      
                       <button
                         onClick={(e) => {
                           e.preventDefault();
@@ -585,14 +587,60 @@ export default function HeroSection({
                           // Prevent dropdown from closing on mousedown
                           e.stopPropagation();
                         }}
-                        className="w-full text-left px-5 py-3.5 text-gray-800 hover:bg-gradient-to-r hover:from-orange-50 hover:to-orange-100 hover:text-logo-orange-1 transition-all duration-200 text-sm font-semibold flex items-center gap-3 group/item cursor-pointer"
+                        className="w-full text-left px-6 py-4 text-gray-800 hover:bg-gradient-to-r hover:from-[#2084b1]/10 hover:to-[#f1852e]/10 hover:text-[#2084b1] transition-all duration-300 text-sm font-semibold flex items-center gap-4 group/item cursor-pointer relative overflow-hidden"
                         aria-label="About Us"
                         type="button"
                       >
-                        <span className="w-2 h-2 rounded-full bg-gray-400 group-hover/item:bg-logo-orange-1 transition-colors duration-200"></span>
-                        <span>About Us</span>
+                        {/* Hover effect background */}
+                        <div className="absolute inset-0 bg-gradient-to-r from-[#2084b1]/5 to-[#f1852e]/5 opacity-0 group-hover/item:opacity-100 transition-opacity duration-300"></div>
+                        
+                        {/* Icon */}
+                        <div className="relative z-10 w-8 h-8 rounded-lg bg-gradient-to-br from-[#2084b1]/10 to-[#2084b1]/5 flex items-center justify-center group-hover/item:from-[#2084b1]/20 group-hover/item:to-[#2084b1]/10 transition-all duration-300">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            className="text-[#2084b1] group-hover/item:scale-110 transition-transform duration-300"
+                          >
+                            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="9" cy="7" r="4"></circle>
+                            <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                          </svg>
+                        </div>
+                        
+                        {/* Text */}
+                        <span className="relative z-10 flex-1 group-hover/item:translate-x-1 transition-transform duration-300">
+                          About Us
+                        </span>
+                        
+                        {/* Arrow indicator */}
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="16"
+                          height="16"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="relative z-10 text-gray-400 group-hover/item:text-[#2084b1] group-hover/item:translate-x-1 opacity-0 group-hover/item:opacity-100 transition-all duration-300"
+                        >
+                          <path d="M5 12h14"></path>
+                          <path d="m12 5 7 7-7 7"></path>
+                        </svg>
                       </button>
-                      <div className="h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent mx-3 my-1"></div>
+                      
+                      {/* Divider */}
+                      <div className="h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent mx-4 my-2"></div>
+                      
                       <button
                         onClick={(e) => {
                           e.preventDefault();
@@ -612,12 +660,52 @@ export default function HeroSection({
                           // Prevent dropdown from closing on mousedown
                           e.stopPropagation();
                         }}
-                        className="w-full text-left px-5 py-3.5 text-gray-800 hover:bg-gradient-to-r hover:from-orange-50 hover:to-orange-100 hover:text-logo-orange-1 transition-all duration-200 text-sm font-semibold flex items-center gap-3 group/item cursor-pointer"
+                        className="w-full text-left px-6 py-4 text-gray-800 hover:bg-gradient-to-r hover:from-[#2084b1]/10 hover:to-[#f1852e]/10 hover:text-[#f1852e] transition-all duration-300 text-sm font-semibold flex items-center gap-4 group/item cursor-pointer relative overflow-hidden"
                         aria-label="Making Steel"
                         type="button"
                       >
-                        <span className="w-2 h-2 rounded-full bg-gray-400 group-hover/item:bg-logo-orange-1 transition-colors duration-200"></span>
-                        <span>Making Steel</span>
+                        {/* Hover effect background */}
+                        <div className="absolute inset-0 bg-gradient-to-r from-[#f1852e]/5 to-[#2084b1]/5 opacity-0 group-hover/item:opacity-100 transition-opacity duration-300"></div>
+                        
+                        {/* Icon */}
+                        <div className="relative z-10 w-8 h-8 rounded-lg bg-gradient-to-br from-[#f1852e]/10 to-[#f1852e]/5 flex items-center justify-center group-hover/item:from-[#f1852e]/20 group-hover/item:to-[#f1852e]/10 transition-all duration-300">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            className="text-[#f1852e] group-hover/item:scale-110 transition-transform duration-300"
+                          >
+                            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                          </svg>
+                        </div>
+                        
+                        {/* Text */}
+                        <span className="relative z-10 flex-1 group-hover/item:translate-x-1 transition-transform duration-300">
+                          Making Steel
+                        </span>
+                        
+                        {/* Arrow indicator */}
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="16"
+                          height="16"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="relative z-10 text-gray-400 group-hover/item:text-[#f1852e] group-hover/item:translate-x-1 opacity-0 group-hover/item:opacity-100 transition-all duration-300"
+                        >
+                          <path d="M5 12h14"></path>
+                          <path d="m12 5 7 7-7 7"></path>
+                        </svg>
                       </button>
                     </div>
                   </motion.div>,
