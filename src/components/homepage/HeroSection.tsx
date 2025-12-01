@@ -113,14 +113,14 @@ export default function HeroSection({
 
   const handleAboutClick = useCallback(() => {
     const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
-    window.location.href = `${basePath}/about/`;
-    setIsAboutDropdownOpen(false);
+    const url = `${basePath}/about/`;
+    window.location.href = url;
   }, []);
 
   const handleMakingSteelClick = useCallback(() => {
     const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
-    window.location.href = `${basePath}/about/making-steel/`;
-    setIsAboutDropdownOpen(false);
+    const url = `${basePath}/about/making-steel/`;
+    window.location.href = url;
   }, []);
 
   const handleQualityClick = useCallback(() => {
@@ -547,33 +547,31 @@ export default function HeroSection({
                         backdropFilter: "blur(12px)",
                       }}
                     >
-                      <button
+                      <a
+                        href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/about/`}
                         onClick={(e) => {
-                          e.preventDefault();
                           e.stopPropagation();
                           setIsAboutDropdownOpen(false);
-                          handleAboutClick();
                         }}
-                        className="w-full text-left px-5 py-3.5 text-gray-800 hover:bg-gradient-to-r hover:from-orange-50 hover:to-orange-100 hover:text-logo-orange-1 transition-all duration-200 text-sm font-semibold flex items-center gap-3 group/item cursor-pointer"
+                        className="w-full text-left px-5 py-3.5 text-gray-800 hover:bg-gradient-to-r hover:from-orange-50 hover:to-orange-100 hover:text-logo-orange-1 transition-all duration-200 text-sm font-semibold flex items-center gap-3 group/item cursor-pointer block"
                         aria-label="About Us"
                       >
                         <span className="w-2 h-2 rounded-full bg-gray-400 group-hover/item:bg-logo-orange-1 transition-colors duration-200"></span>
                         <span>About Us</span>
-                      </button>
+                      </a>
                       <div className="h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent mx-3 my-1"></div>
-                      <button
+                      <a
+                        href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/about/making-steel/`}
                         onClick={(e) => {
-                          e.preventDefault();
                           e.stopPropagation();
                           setIsAboutDropdownOpen(false);
-                          handleMakingSteelClick();
                         }}
-                        className="w-full text-left px-5 py-3.5 text-gray-800 hover:bg-gradient-to-r hover:from-orange-50 hover:to-orange-100 hover:text-logo-orange-1 transition-all duration-200 text-sm font-semibold flex items-center gap-3 group/item cursor-pointer"
+                        className="w-full text-left px-5 py-3.5 text-gray-800 hover:bg-gradient-to-r hover:from-orange-50 hover:to-orange-100 hover:text-logo-orange-1 transition-all duration-200 text-sm font-semibold flex items-center gap-3 group/item cursor-pointer block"
                         aria-label="Making Steel"
                       >
                         <span className="w-2 h-2 rounded-full bg-gray-400 group-hover/item:bg-logo-orange-1 transition-colors duration-200"></span>
                         <span>Making Steel</span>
-                      </button>
+                      </a>
                     </div>
                   </motion.div>,
                   document.body
