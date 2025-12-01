@@ -145,6 +145,12 @@ export default function HeroSection({
     window.location.href = url;
   }, [getBasePath]);
 
+  const handleSustainabilityPageClick = useCallback(() => {
+    const basePath = getBasePath();
+    const url = `${basePath}/about/sustainability/`;
+    window.location.href = url;
+  }, [getBasePath]);
+
   const handleContactClick = useCallback(() => {
     router.push("/contactus");
   }, [router]);
@@ -239,6 +245,7 @@ export default function HeroSection({
     handleMakingSteelClick,
     handleQualityClick,
     handleSustainabilityClick,
+    handleSustainabilityPageClick,
   ]);
 
   // Mobile menu toggle function
@@ -779,6 +786,75 @@ export default function HeroSection({
                           strokeLinecap="round"
                           strokeLinejoin="round"
                           className="relative z-10 text-gray-400 group-hover/item:text-[#2084b1] group-hover/item:translate-x-1 opacity-0 group-hover/item:opacity-100 transition-all duration-300"
+                        >
+                          <path d="M5 12h14"></path>
+                          <path d="m12 5 7 7-7 7"></path>
+                        </svg>
+                      </button>
+
+                      {/* Divider */}
+                      <div className="h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent mx-4 my-2"></div>
+
+                      {/* Sustainability */}
+                      <button
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          if (closeTimeoutRef.current) {
+                            clearTimeout(closeTimeoutRef.current);
+                            closeTimeoutRef.current = null;
+                          }
+                          setIsAboutDropdownOpen(false);
+                          setTimeout(() => {
+                            handleSustainabilityPageClick();
+                          }, 0);
+                        }}
+                        onMouseDown={(e) => {
+                          e.stopPropagation();
+                        }}
+                        className="w-full text-left px-6 py-4 text-gray-800 hover:bg-gradient-to-r hover:from-green-50 hover:to-emerald-50 hover:text-green-700 transition-all duration-300 text-sm font-semibold flex items-center gap-4 group/item cursor-pointer relative overflow-hidden"
+                        aria-label="Sustainability"
+                        type="button"
+                      >
+                        {/* Hover effect background */}
+                        <div className="absolute inset-0 bg-gradient-to-r from-green-50/50 to-emerald-50/50 opacity-0 group-hover/item:opacity-100 transition-opacity duration-300"></div>
+                        
+                        {/* Icon */}
+                        <div className="relative z-10 w-8 h-8 rounded-lg bg-gradient-to-br from-green-500/20 to-emerald-600/20 flex items-center justify-center group-hover/item:from-green-500/30 group-hover/item:to-emerald-600/30 transition-all duration-300">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            className="text-green-600 group-hover/item:scale-110 transition-transform duration-300"
+                          >
+                            <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"></path>
+                            <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"></path>
+                          </svg>
+                        </div>
+                        
+                        {/* Text */}
+                        <span className="relative z-10 flex-1 group-hover/item:translate-x-1 transition-transform duration-300">
+                          Sustainability
+                        </span>
+                        
+                        {/* Arrow indicator */}
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="16"
+                          height="16"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="relative z-10 text-gray-400 group-hover/item:text-green-600 group-hover/item:translate-x-1 opacity-0 group-hover/item:opacity-100 transition-all duration-300"
                         >
                           <path d="M5 12h14"></path>
                           <path d="m12 5 7 7-7 7"></path>
