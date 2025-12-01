@@ -157,7 +157,7 @@ export default function HeroSection({
     router.push("/career");
   };
 
-  const handleSustainabilityClick = () => {
+  const handleSustainabilityClick = useCallback(() => {
     // Scroll to sustainability section
     const el = document.querySelector("#sustainability");
     if (el) {
@@ -166,7 +166,7 @@ export default function HeroSection({
         block: "start",
       });
     }
-  };
+  }, []);
 
   // Auto-advance industries with progress indicator
   useEffect(() => {
@@ -224,6 +224,9 @@ export default function HeroSection({
     } else if (industry.id === 3) {
       // Our Quality -> Our Quality page
       handleQualityClick();
+    } else if (industry.id === 5) {
+      // Sustainability -> Scroll to sustainability section
+      handleSustainabilityClick();
     } else if (industry.id === 6) {
       // Get in Touch -> Contact Us page
       handleContactClick();
@@ -235,6 +238,7 @@ export default function HeroSection({
     handleContactClick,
     handleMakingSteelClick,
     handleQualityClick,
+    handleSustainabilityClick,
   ]);
 
   // Mobile menu toggle function
