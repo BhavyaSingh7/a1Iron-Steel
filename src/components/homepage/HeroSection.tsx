@@ -281,6 +281,56 @@ export default function HeroSection({
     };
   }, []);
 
+  // Update About dropdown position
+  useEffect(() => {
+    const updateAboutPosition = () => {
+      if (aboutButtonRef.current && isAboutDropdownOpen) {
+        const rect = aboutButtonRef.current.getBoundingClientRect();
+        setAboutDropdownPosition({
+          top: rect.bottom + window.scrollY + 8,
+          left: rect.left + window.scrollX,
+        });
+      }
+    };
+
+    updateAboutPosition();
+
+    if (isAboutDropdownOpen) {
+      window.addEventListener("scroll", updateAboutPosition, { passive: true });
+      window.addEventListener("resize", updateAboutPosition);
+    }
+
+    return () => {
+      window.removeEventListener("scroll", updateAboutPosition);
+      window.removeEventListener("resize", updateAboutPosition);
+    };
+  }, [isAboutDropdownOpen]);
+
+  // Update Products dropdown position
+  useEffect(() => {
+    const updateProductsPosition = () => {
+      if (productsButtonRef.current && isProductsDropdownOpen) {
+        const rect = productsButtonRef.current.getBoundingClientRect();
+        setProductsDropdownPosition({
+          top: rect.bottom + window.scrollY + 8,
+          left: rect.left + window.scrollX,
+        });
+      }
+    };
+
+    updateProductsPosition();
+
+    if (isProductsDropdownOpen) {
+      window.addEventListener("scroll", updateProductsPosition, { passive: true });
+      window.addEventListener("resize", updateProductsPosition);
+    }
+
+    return () => {
+      window.removeEventListener("scroll", updateProductsPosition);
+      window.removeEventListener("resize", updateProductsPosition);
+    };
+  }, [isProductsDropdownOpen]);
+
 
   // Scroll detection for navbar transparency - debounced for performance
   useEffect(() => {
