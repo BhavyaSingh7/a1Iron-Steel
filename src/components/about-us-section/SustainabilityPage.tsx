@@ -176,7 +176,7 @@ export default function SustainabilityPage({
         className={`fixed top-0 left-0 right-0 z-30 transition-all duration-300 ${
           isScrolled
             ? "bg-white/95 backdrop-blur-xl shadow-lg border-b border-gray-200/50"
-            : "bg-transparent"
+            : "bg-green-900/80 backdrop-blur-md"
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -184,8 +184,13 @@ export default function SustainabilityPage({
             <button
               onClick={handleClose}
               className={`flex items-center space-x-2 transition-colors duration-200 font-medium group ${
-                isScrolled ? "text-gray-700 hover:text-[#f1852e]" : "text-white"
+                isScrolled 
+                  ? "text-gray-700 hover:text-[#f1852e]" 
+                  : "text-white hover:text-green-200"
               }`}
+              style={{
+                textShadow: isScrolled ? "none" : "0 2px 4px rgba(0, 0, 0, 0.3)",
+              }}
             >
               <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
               <span className="hidden sm:inline">Back to Home</span>
@@ -203,9 +208,12 @@ export default function SustainabilityPage({
                       activeSection === index
                         ? "bg-green-600 text-white shadow-lg scale-110"
                         : isScrolled
-                        ? "text-green-600 hover:bg-green-50 hover:text-green-700 border border-green-200"
-                        : "text-white/80 hover:bg-white/20"
+                        ? "text-green-600 hover:bg-green-50 hover:text-green-700 border border-green-200 bg-white"
+                        : "text-white hover:bg-white/30 border border-white/30 bg-green-800/50"
                     }`}
+                    style={{
+                      textShadow: !isScrolled && activeSection !== index ? "0 1px 2px rgba(0, 0, 0, 0.5)" : "none",
+                    }}
                   >
                     <Icon className="w-4 h-4" />
                     <span>{section.title}</span>
@@ -221,6 +229,9 @@ export default function SustainabilityPage({
                   ? "text-gray-700 hover:text-[#f1852e] hover:bg-gray-100"
                   : "text-white hover:bg-white/20"
               }`}
+              style={{
+                filter: isScrolled ? "none" : "drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))",
+              }}
             >
               <X className="w-6 h-6" />
             </button>
