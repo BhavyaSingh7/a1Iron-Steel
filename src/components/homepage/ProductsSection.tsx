@@ -25,7 +25,7 @@ export default function ProductsSection() {
         id: 1,
         title: "TMT Bars",
         description:
-          "Thermo Mechanical Treatment (TMT) Steel bars used in Earthquake-resistant construction. The backbone of modern construction, providing superior strength, durability, and safety for projects that demand exceptional resistance to seismic forces, corrosion, and high temperatures.",
+          "High-performance TMT bars crafted with advanced technology for unmatched strength, corrosion resistance, and seismic safety.",
         image: `${
           process.env.NEXT_PUBLIC_BASE_PATH || ""
         }/products/tmt bars.jpg`,
@@ -58,7 +58,7 @@ export default function ProductsSection() {
         id: 2,
         title: "Round Bar",
         description:
-          "Precision and Strength for Diverse Applications. At A1 Iron & Steel, we specialize in the production of high-quality round bars, engineered to meet the needs of a wide range of industries, including construction, manufacturing, automotive, and more. Our round bars are crafted with precision and durability in mind, offering superior strength and reliability for both standard and customized applications.",
+          "Precision-engineered round bars built to meet the highest standards for construction, manufacturing, automotive, and more.",
         image: `${
           process.env.NEXT_PUBLIC_BASE_PATH || ""
         }/products/Round bars.jpg`,
@@ -89,7 +89,7 @@ export default function ProductsSection() {
         id: 3,
         title: "5.5MM Wire Rod",
         description:
-          "A low-carbon general-purpose manufacturing wire used in a wide range of industries. Versatile and reliable for multiple applications, our wire rods are manufactured with precision, ensuring uniformity and superior mechanical properties. Ideal for construction, automotive, fencing, and engineering applications.",
+          "Durable, general-purpose wire rods crafted for diverse industrial applications with excellent mechanical properties.",
         image: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/products/5.5mm.webp`,
         specifications: [
           "Diameter: 5.5mm",
@@ -119,7 +119,7 @@ export default function ProductsSection() {
         id: 4,
         title: "V Angle",
         description:
-          "Versatile stainless steel structural connector designed to meet the demands of the most rigorous construction and industrial applications. Perfect for structural framing, support brackets, and reinforcement work.",
+          "Versatile stainless steel connectors engineered for high-demand structural and industrial applications.",
         image: `${
           process.env.NEXT_PUBLIC_BASE_PATH || ""
         }/products/V-ANGLES.jpg`,
@@ -151,7 +151,7 @@ export default function ProductsSection() {
         id: 5,
         title: "C Channel",
         description:
-          "Corrosion-resistant hot-dip galvanized channel steel engineered to provide outstanding structural support, stability, and versatility. Ideal for structural support, framing systems, and industrial applications.",
+          "Long-lasting, corrosion-proof channel steel ideal for stable, versatile structural and industrial solutions.",
         image: `${
           process.env.NEXT_PUBLIC_BASE_PATH || ""
         }/products/C-Chanel.jpg`,
@@ -183,7 +183,7 @@ export default function ProductsSection() {
         id: 6,
         title: "I-Beam",
         description:
-          "Corrosion-resistant galvanized I-beam steel specifically designed to provide maximum structural strength, stability, and reliability. Perfect for structural framing, bridge construction, and heavy load support applications.",
+          "Durable I-beam steel built to deliver exceptional stability and performance in demanding applications.",
         image: `${
           process.env.NEXT_PUBLIC_BASE_PATH || ""
         }/products/STEEL-BEAMS.jpg`,
@@ -248,7 +248,7 @@ export default function ProductsSection() {
         id: 8,
         title: "Hot Rolled Strip",
         description:
-          "High-strength hot-rolled construction material engineered to meet the diverse needs of various industries. Strong hot-rolled strip perfect for automotive, construction, manufacturing, and fabrication applications.",
+          "High-strength hot-rolled strips engineered for versatile performance across automotive, construction, manufacturing, and fabrication industries.",
         image: `${
           process.env.NEXT_PUBLIC_BASE_PATH || ""
         }/products/HOT-ROLLED-STRIP.webp`,
@@ -281,7 +281,7 @@ export default function ProductsSection() {
         id: 9,
         title: "Hollow Section",
         description:
-          "Versatile hollow section for structural construction with exceptional strength. Perfect for construction, structural, and engineering applications, offering an excellent strength-to-weight ratio.",
+          "High-strength hollow sections offering an excellent strength-to-weight ratio for structural and engineering applications.",
         image: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/products/HS.jpg`,
         specifications: [
           "Size: 20x20mm to 400x400mm",
@@ -312,7 +312,7 @@ export default function ProductsSection() {
         id: 10,
         title: "Wire Nails",
         description:
-          "Wire nails: versatile, durable fasteners for construction. Perfect for both industrial and construction applications, offering reliable fastening solutions with superior quality and performance.",
+          "Reliable, long-lasting wire nails engineered for superior grip in construction and industrial use.",
         image: `${
           process.env.NEXT_PUBLIC_BASE_PATH || ""
         }/products/Wire-Nails (1).avif`,
@@ -344,7 +344,7 @@ export default function ProductsSection() {
         id: 11,
         title: "Binding Wire",
         description:
-          "Durable, corrosion-resistant galvanized binding wire that delivers reliable performance in a range of applications, from construction to general industrial use. Essential for concrete reinforcement and construction tying.",
+          "Corrosion-resistant binding wire designed for dependable reinforcement and versatile fastening applications.",
         image: `${
           process.env.NEXT_PUBLIC_BASE_PATH || ""
         }/products/Binding-Wire (1).jpg`,
@@ -376,7 +376,7 @@ export default function ProductsSection() {
         id: 12,
         title: "BRC",
         description:
-          "British Reinforcement Concrete (BRC) reinforcement mesh for concrete strengthening. High-quality mesh designed to enhance the structural integrity and durability of concrete structures.",
+          "Reliable BRC mesh designed for superior concrete reinforcement and long-lasting structural performance.",
         image: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/products/brc.jpg`,
         specifications: [
           "Mesh Size: 100x100mm to 200x200mm",
@@ -406,7 +406,7 @@ export default function ProductsSection() {
         id: 13,
         title: "GI Chain Link",
         description:
-          "Durable galvanized chain-link fencing material. GI (Galvanized Iron) Chain Link fencing that provides a strong, durable, and cost-effective solution for securing properties and enclosures.",
+          "Corrosion-resistant GI chain-link fencing providing robust and affordable protection for all types of properties.",
         image: `${
           process.env.NEXT_PUBLIC_BASE_PATH || ""
         }/products/gi chain link.jpg`,
@@ -438,7 +438,7 @@ export default function ProductsSection() {
         id: 14,
         title: "Barbed Wire",
         description:
-          "Secure, cost-effective barbed wire fencing solution. Widely used in various security applications to deter trespassers and enhance safety. Known for its sharpness, durability, and effectiveness as a security deterrent.",
+          "Effective and long-lasting barbed wire fencing engineered for robust security applications.",
         image: `${
           process.env.NEXT_PUBLIC_BASE_PATH || ""
         }/products/barbed-wires.jpg`,
