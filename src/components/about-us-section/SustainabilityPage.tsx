@@ -203,7 +203,7 @@ export default function SustainabilityPage({
                       activeSection === index
                         ? "bg-green-600 text-white shadow-lg scale-110"
                         : isScrolled
-                        ? "text-gray-600 hover:bg-gray-100"
+                        ? "text-green-600 hover:bg-green-50 hover:text-green-700 border border-green-200"
                         : "text-white/80 hover:bg-white/20"
                     }`}
                   >
