@@ -176,7 +176,7 @@ export default function SustainabilityPage({
         className={`fixed top-0 left-0 right-0 z-30 transition-all duration-300 ${
           isScrolled
             ? "bg-white/95 backdrop-blur-xl shadow-lg border-b border-gray-200/50"
-            : "bg-green-900/80 backdrop-blur-md"
+            : "bg-transparent"
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -209,7 +209,7 @@ export default function SustainabilityPage({
                         ? "bg-green-600 text-white shadow-lg scale-110"
                         : isScrolled
                         ? "text-green-600 hover:bg-green-50 hover:text-green-700 border border-green-200 bg-white"
-                        : "text-white hover:bg-white/30 border border-white/30 bg-green-800/50"
+                        : "text-white hover:bg-white/20 border border-white/20"
                     }`}
                     style={{
                       textShadow: !isScrolled && activeSection !== index ? "0 1px 2px rgba(0, 0, 0, 0.5)" : "none",
