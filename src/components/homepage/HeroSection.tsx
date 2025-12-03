@@ -92,11 +92,16 @@ export default function HeroSection({
   const router = useRouter();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isAboutDropdownOpen, setIsAboutDropdownOpen] = useState(false);
+  const [isProductsDropdownOpen, setIsProductsDropdownOpen] = useState(false);
   const aboutButtonRef = useRef<HTMLButtonElement>(null);
-  const dropdownRef = useRef<HTMLDivElement>(null);
-  const [dropdownPosition, setDropdownPosition] = useState({ top: 0, left: 0 });
+  const productsButtonRef = useRef<HTMLButtonElement>(null);
+  const aboutDropdownRef = useRef<HTMLDivElement>(null);
+  const productsDropdownRef = useRef<HTMLDivElement>(null);
+  const [aboutDropdownPosition, setAboutDropdownPosition] = useState({ top: 0, left: 0 });
+  const [productsDropdownPosition, setProductsDropdownPosition] = useState({ top: 0, left: 0 });
   const [mounted, setMounted] = useState(false);
-  const closeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const aboutCloseTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const productsCloseTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const [sliderPosition, setSliderPosition] = useState(0);
   const [slideTriggered, setSlideTriggered] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -267,36 +272,15 @@ export default function HeroSection({
   // Cleanup timeout on unmount
   useEffect(() => {
     return () => {
-      if (closeTimeoutRef.current) {
-        clearTimeout(closeTimeoutRef.current);
+      if (aboutCloseTimeoutRef.current) {
+        clearTimeout(aboutCloseTimeoutRef.current);
+      }
+      if (productsCloseTimeoutRef.current) {
+        clearTimeout(productsCloseTimeoutRef.current);
       }
     };
   }, []);
 
-  // Update dropdown position when it opens or on scroll
-  useEffect(() => {
-    const updatePosition = () => {
-      if (isAboutDropdownOpen && aboutButtonRef.current) {
-        const rect = aboutButtonRef.current.getBoundingClientRect();
-        setDropdownPosition({
-          top: rect.bottom + window.scrollY + 8,
-          left: rect.left + window.scrollX,
-        });
-      }
-    };
-
-    updatePosition();
-
-    if (isAboutDropdownOpen) {
-      window.addEventListener("scroll", updatePosition, { passive: true });
-      window.addEventListener("resize", updatePosition, { passive: true });
-    }
-
-    return () => {
-      window.removeEventListener("scroll", updatePosition);
-      window.removeEventListener("resize", updatePosition);
-    };
-  }, [isAboutDropdownOpen]);
 
   // Scroll detection for navbar transparency - debounced for performance
   useEffect(() => {
@@ -504,15 +488,15 @@ export default function HeroSection({
               <div
                 className="relative group about-dropdown-container"
                 onMouseEnter={() => {
-                  if (closeTimeoutRef.current) {
-                    clearTimeout(closeTimeoutRef.current);
-                    closeTimeoutRef.current = null;
+                  if (aboutCloseTimeoutRef.current) {
+                    clearTimeout(aboutCloseTimeoutRef.current);
+                    aboutCloseTimeoutRef.current = null;
                   }
                   setIsAboutDropdownOpen(true);
                 }}
                 onMouseLeave={() => {
                   // Delay closing to allow mouse to move to dropdown
-                  closeTimeoutRef.current = setTimeout(() => {
+                  aboutCloseTimeoutRef.current = setTimeout(() => {
                     setIsAboutDropdownOpen(false);
                   }, 200);
                 }}
@@ -544,28 +528,28 @@ export default function HeroSection({
                 </button>
                 {isAboutDropdownOpen && mounted && typeof document !== "undefined" && createPortal(
                   <motion.div
-                    ref={dropdownRef}
+                    ref={aboutDropdownRef}
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
                     transition={{ duration: 0.2 }}
                     className="fixed w-56"
                     onMouseEnter={() => {
-                      if (closeTimeoutRef.current) {
-                        clearTimeout(closeTimeoutRef.current);
-                        closeTimeoutRef.current = null;
+                      if (aboutCloseTimeoutRef.current) {
+                        clearTimeout(aboutCloseTimeoutRef.current);
+                        aboutCloseTimeoutRef.current = null;
                       }
                       setIsAboutDropdownOpen(true);
                     }}
                     onMouseLeave={() => {
                       // Delay closing to allow clicks to register
-                      closeTimeoutRef.current = setTimeout(() => {
+                      aboutCloseTimeoutRef.current = setTimeout(() => {
                         setIsAboutDropdownOpen(false);
                       }, 300);
                     }}
                     style={{
-                      top: `${dropdownPosition.top}px`,
-                      left: `${dropdownPosition.left}px`,
+                      top: `${aboutDropdownPosition.top}px`,
+                      left: `${aboutDropdownPosition.left}px`,
                       zIndex: 10003,
                       pointerEvents: "auto",
                     }}
@@ -586,9 +570,9 @@ export default function HeroSection({
                           e.preventDefault();
                           e.stopPropagation();
                           // Clear any pending close timeout
-                          if (closeTimeoutRef.current) {
-                            clearTimeout(closeTimeoutRef.current);
-                            closeTimeoutRef.current = null;
+                          if (aboutCloseTimeoutRef.current) {
+                            clearTimeout(aboutCloseTimeoutRef.current);
+                            aboutCloseTimeoutRef.current = null;
                           }
                           setIsAboutDropdownOpen(false);
                           // Use setTimeout to ensure state update completes
@@ -659,9 +643,9 @@ export default function HeroSection({
                           e.preventDefault();
                           e.stopPropagation();
                           // Clear any pending close timeout
-                          if (closeTimeoutRef.current) {
-                            clearTimeout(closeTimeoutRef.current);
-                            closeTimeoutRef.current = null;
+                          if (aboutCloseTimeoutRef.current) {
+                            clearTimeout(aboutCloseTimeoutRef.current);
+                            aboutCloseTimeoutRef.current = null;
                           }
                           setIsAboutDropdownOpen(false);
                           // Use setTimeout to ensure state update completes
@@ -721,36 +705,175 @@ export default function HeroSection({
                         </svg>
                       </button>
                       
-                      {/* Divider */}
-                      <div className="h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent mx-4 my-2"></div>
+                  </div>
+                  </motion.div>,
+                  document.body
+                )}
+              </div>
+              {/* Products Dropdown */}
+              <div
+                className="relative group products-dropdown-container"
+                onMouseEnter={() => {
+                  if (productsCloseTimeoutRef.current) {
+                    clearTimeout(productsCloseTimeoutRef.current);
+                    productsCloseTimeoutRef.current = null;
+                  }
+                  setIsProductsDropdownOpen(true);
+                }}
+                onMouseLeave={() => {
+                  productsCloseTimeoutRef.current = setTimeout(() => {
+                    setIsProductsDropdownOpen(false);
+                  }, 200);
+                }}
+                style={{ zIndex: 10002, position: "relative" }}
+              >
+                <button
+                  ref={productsButtonRef}
+                  className={`font-bold text-base md:text-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded px-2 flex items-center gap-1 ${
+                    isScrolled
+                      ? "text-gray-700 hover:text-logo-orange-1"
+                      : "text-white hover:text-orange-300"
+                  } ${
+                    isProductsDropdownOpen
+                      ? isScrolled
+                        ? "text-logo-orange-1"
+                        : "text-orange-300"
+                      : ""
+                  }`}
+                  aria-label="Products menu"
+                  aria-expanded={isProductsDropdownOpen}
+                  tabIndex={0}
+                >
+                  Products
+                  <ChevronDown
+                    className={`w-4 h-4 transition-transform duration-300 ${
+                      isProductsDropdownOpen ? "rotate-180" : ""
+                    }`}
+                  />
+                </button>
+                {isProductsDropdownOpen && mounted && typeof document !== "undefined" && createPortal(
+                  <motion.div
+                    ref={productsDropdownRef}
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.2 }}
+                    className="fixed w-56"
+                    onMouseEnter={() => {
+                      if (productsCloseTimeoutRef.current) {
+                        clearTimeout(productsCloseTimeoutRef.current);
+                        productsCloseTimeoutRef.current = null;
+                      }
+                      setIsProductsDropdownOpen(true);
+                    }}
+                    onMouseLeave={() => {
+                      productsCloseTimeoutRef.current = setTimeout(() => {
+                        setIsProductsDropdownOpen(false);
+                      }, 300);
+                    }}
+                    style={{
+                      top: `${productsDropdownPosition.top}px`,
+                      left: `${productsDropdownPosition.left}px`,
+                      zIndex: 10003,
+                      pointerEvents: "auto",
+                    }}
+                  >
+                    <div
+                      className="bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-gray-200/50 py-3 overflow-hidden"
+                      style={{
+                        boxShadow:
+                          "0 25px 70px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.9)",
+                        backdropFilter: "blur(20px) saturate(180%)",
+                      }}
+                    >
+                      {/* Top accent line */}
+                      <div className="h-1 bg-gradient-to-r from-[#f1852e] via-[#2084b1] to-[#f1852e] mb-2"></div>
                       
+                      {/* Our Products */}
                       <button
                         onClick={(e) => {
                           e.preventDefault();
                           e.stopPropagation();
-                          // Clear any pending close timeout
-                          if (closeTimeoutRef.current) {
-                            clearTimeout(closeTimeoutRef.current);
-                            closeTimeoutRef.current = null;
+                          if (productsCloseTimeoutRef.current) {
+                            clearTimeout(productsCloseTimeoutRef.current);
+                            productsCloseTimeoutRef.current = null;
                           }
-                          setIsAboutDropdownOpen(false);
-                          // Use setTimeout to ensure state update completes
+                          setIsProductsDropdownOpen(false);
+                          setTimeout(() => {
+                            onProductsClick();
+                          }, 0);
+                        }}
+                        onMouseDown={(e) => {
+                          e.stopPropagation();
+                        }}
+                        className="w-full text-left px-6 py-4 text-gray-800 hover:bg-gradient-to-r hover:from-[#f1852e]/10 hover:to-[#2084b1]/10 hover:text-[#f1852e] transition-all duration-300 text-sm font-semibold flex items-center gap-4 group/item cursor-pointer relative overflow-hidden"
+                        aria-label="Our Products"
+                        type="button"
+                      >
+                        <div className="absolute inset-0 bg-gradient-to-r from-[#f1852e]/5 to-[#2084b1]/5 opacity-0 group-hover/item:opacity-100 transition-opacity duration-300"></div>
+                        <div className="relative z-10 w-8 h-8 rounded-lg bg-gradient-to-br from-[#f1852e]/10 to-[#f1852e]/5 flex items-center justify-center group-hover/item:from-[#f1852e]/20 group-hover/item:to-[#f1852e]/10 transition-all duration-300">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            className="text-[#f1852e] group-hover/item:scale-110 transition-transform duration-300"
+                          >
+                            <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path>
+                            <path d="M3 6h18"></path>
+                            <path d="M16 10a4 4 0 0 1-8 0"></path>
+                          </svg>
+                        </div>
+                        <span className="relative z-10 flex-1 group-hover/item:translate-x-1 transition-transform duration-300">
+                          Our Products
+                        </span>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="16"
+                          height="16"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="relative z-10 text-gray-400 group-hover/item:text-[#f1852e] group-hover/item:translate-x-1 opacity-0 group-hover/item:opacity-100 transition-all duration-300"
+                        >
+                          <path d="M5 12h14"></path>
+                          <path d="m12 5 7 7-7 7"></path>
+                        </svg>
+                      </button>
+                      
+                      {/* Divider */}
+                      <div className="h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent mx-4 my-2"></div>
+                      
+                      {/* Our Quality */}
+                      <button
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          if (productsCloseTimeoutRef.current) {
+                            clearTimeout(productsCloseTimeoutRef.current);
+                            productsCloseTimeoutRef.current = null;
+                          }
+                          setIsProductsDropdownOpen(false);
                           setTimeout(() => {
                             handleQualityClick();
                           }, 0);
                         }}
                         onMouseDown={(e) => {
-                          // Prevent dropdown from closing on mousedown
                           e.stopPropagation();
                         }}
                         className="w-full text-left px-6 py-4 text-gray-800 hover:bg-gradient-to-r hover:from-[#2084b1]/10 hover:to-[#f1852e]/10 hover:text-[#2084b1] transition-all duration-300 text-sm font-semibold flex items-center gap-4 group/item cursor-pointer relative overflow-hidden"
                         aria-label="Our Quality"
                         type="button"
                       >
-                        {/* Hover effect background */}
                         <div className="absolute inset-0 bg-gradient-to-r from-[#2084b1]/5 to-[#f1852e]/5 opacity-0 group-hover/item:opacity-100 transition-opacity duration-300"></div>
-                        
-                        {/* Icon */}
                         <div className="relative z-10 w-8 h-8 rounded-lg bg-gradient-to-br from-[#2084b1]/10 to-[#2084b1]/5 flex items-center justify-center group-hover/item:from-[#2084b1]/20 group-hover/item:to-[#2084b1]/10 transition-all duration-300">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -767,14 +890,10 @@ export default function HeroSection({
                             <path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526"></path>
                             <circle cx="12" cy="8" r="6"></circle>
                           </svg>
-                    </div>
-                        
-                        {/* Text */}
+                        </div>
                         <span className="relative z-10 flex-1 group-hover/item:translate-x-1 transition-transform duration-300">
                           Our Quality
                         </span>
-                        
-                        {/* Arrow indicator */}
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           width="16"
@@ -791,92 +910,11 @@ export default function HeroSection({
                           <path d="m12 5 7 7-7 7"></path>
                         </svg>
                       </button>
-
-                      {/* Divider */}
-                      <div className="h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent mx-4 my-2"></div>
-
-                      {/* Sustainability */}
-                      <button
-                        onClick={(e) => {
-                          e.preventDefault();
-                          e.stopPropagation();
-                          if (closeTimeoutRef.current) {
-                            clearTimeout(closeTimeoutRef.current);
-                            closeTimeoutRef.current = null;
-                          }
-                          setIsAboutDropdownOpen(false);
-                          setTimeout(() => {
-                            handleSustainabilityPageClick();
-                          }, 0);
-                        }}
-                        onMouseDown={(e) => {
-                          e.stopPropagation();
-                        }}
-                        className="w-full text-left px-6 py-4 text-gray-800 hover:bg-gradient-to-r hover:from-green-50 hover:to-emerald-50 hover:text-green-700 transition-all duration-300 text-sm font-semibold flex items-center gap-4 group/item cursor-pointer relative overflow-hidden"
-                        aria-label="Sustainability"
-                        type="button"
-                      >
-                        {/* Hover effect background */}
-                        <div className="absolute inset-0 bg-gradient-to-r from-green-50/50 to-emerald-50/50 opacity-0 group-hover/item:opacity-100 transition-opacity duration-300"></div>
-                        
-                        {/* Icon */}
-                        <div className="relative z-10 w-8 h-8 rounded-lg bg-gradient-to-br from-green-500/20 to-emerald-600/20 flex items-center justify-center group-hover/item:from-green-500/30 group-hover/item:to-emerald-600/30 transition-all duration-300">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="16"
-                            height="16"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            className="text-green-600 group-hover/item:scale-110 transition-transform duration-300"
-                          >
-                            <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"></path>
-                            <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"></path>
-                          </svg>
-                        </div>
-                        
-                        {/* Text */}
-                        <span className="relative z-10 flex-1 group-hover/item:translate-x-1 transition-transform duration-300">
-                          Sustainability
-                        </span>
-                        
-                        {/* Arrow indicator */}
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="16"
-                          height="16"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          className="relative z-10 text-gray-400 group-hover/item:text-green-600 group-hover/item:translate-x-1 opacity-0 group-hover/item:opacity-100 transition-all duration-300"
-                        >
-                          <path d="M5 12h14"></path>
-                          <path d="m12 5 7 7-7 7"></path>
-                        </svg>
-                      </button>
-                  </div>
+                    </div>
                   </motion.div>,
                   document.body
                 )}
               </div>
-              <button
-                onClick={onProductsClick}
-                className={`font-bold text-base md:text-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded px-2 ${
-                  isScrolled
-                    ? "text-gray-700 hover:text-logo-orange-1"
-                    : "text-white hover:text-orange-300"
-                }`}
-                aria-label="View our products"
-                tabIndex={0}
-              >
-                Products
-              </button>
               <button
                 onClick={handleMediaClick}
                 className={`font-bold text-base md:text-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded px-2 ${
@@ -902,13 +940,13 @@ export default function HeroSection({
                 Career
               </button>
               <button
-                onClick={handleSustainabilityClick}
+                onClick={handleSustainabilityPageClick}
                 className={`font-bold text-base md:text-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded px-2 ${
                   isScrolled
                     ? "text-gray-700 hover:text-logo-orange-1"
                     : "text-white hover:text-orange-300"
                 }`}
-                aria-label="View sustainability section"
+                aria-label="View sustainability page"
                 tabIndex={0}
               >
                 Sustainability
@@ -1048,7 +1086,7 @@ export default function HeroSection({
             </button>
             <button
               onClick={() => {
-                handleSustainabilityClick();
+                handleSustainabilityPageClick();
                 setIsMobileMenuOpen(false);
               }}
               className="block text-lg font-medium text-orange-500 hover:text-orange-600 transition-colors duration-300 py-2 w-full text-left focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded px-2"
