@@ -376,7 +376,7 @@ export default function ProductsSection() {
         id: 12,
         title: "BRC",
         description:
-          "Reliable BRC mesh designed for superior concrete reinforcement and long-lasting structural performance.",
+          "Premium BRC reinforcement mesh crafted to strengthen concrete structures and deliver durable, high-performance results.",
         image: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/products/brc.jpg`,
         specifications: [
           "Mesh Size: 100x100mm to 200x200mm",

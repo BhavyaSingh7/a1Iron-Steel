@@ -541,11 +541,11 @@ const PRODUCTS_DATA: Product[] = [
     title: "BRC",
     category: "Construction",
     description:
-      "British Reinforcement Concrete (BRC) reinforcement mesh for concrete strengthening. High-quality mesh designed to enhance the structural integrity and durability of concrete structures.",
+      "Premium BRC reinforcement mesh crafted to strengthen concrete structures and deliver durable, high-performance results.",
     shortDescription:
-      "British Reinforcement Concrete mesh for concrete strengthening",
+      "Premium BRC reinforcement mesh for concrete strengthening",
     carouselDescription:
-      "Reliable BRC mesh designed for superior concrete reinforcement and long-lasting structural performance.",
+      "Premium BRC reinforcement mesh crafted to strengthen concrete structures and deliver durable, high-performance results.",
     image: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/products/brc.jpg`,
     specifications: [
       "Mesh Size: 100x100mm to 200x200mm",
@@ -761,7 +761,6 @@ export default function ProductPage({ onClose }: { onClose: () => void }) {
     // Progress will reset automatically via useEffect when currentIndex changes
   }, []);
 
-
   // Disable body scroll when this page is open to prevent double scrollbars
   useEffect(() => {
     // Store original overflow values
@@ -780,9 +779,12 @@ export default function ProductPage({ onClose }: { onClose: () => void }) {
   }, []);
 
   return (
-    <div className="fixed inset-0 bg-gray-50 overflow-y-auto" style={{ zIndex: 10001 }}>
+    <div
+      className="fixed inset-0 bg-gray-50 overflow-y-auto"
+      style={{ zIndex: 10001 }}
+    >
       {/* Floating Back/Close Buttons - Always visible */}
-      <div 
+      <div
         className="fixed top-4 right-4 flex items-center gap-3"
         style={{ zIndex: 10000 }}
       >
@@ -820,7 +822,10 @@ export default function ProductPage({ onClose }: { onClose: () => void }) {
       </div>
 
       {/* ArcelorMittal Style Layout - Hero Carousel */}
-      <div className="relative h-screen w-full overflow-hidden" style={{ zIndex: 1 }}>
+      <div
+        className="relative h-screen w-full overflow-hidden"
+        style={{ zIndex: 1 }}
+      >
         {/* Structured Data for Products */}
         <script
           type="application/ld+json"
