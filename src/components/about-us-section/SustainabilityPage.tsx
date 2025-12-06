@@ -200,6 +200,7 @@ export default function SustainabilityPage({
             <div className="hidden md:flex items-center gap-2">
               {sections.map((section, index) => {
                 const Icon = section.icon;
+                const isTreeButton = section.icon === Trees;
                 return (
                   <button
                     key={section.id}
@@ -215,7 +216,23 @@ export default function SustainabilityPage({
                       textShadow: !isScrolled && activeSection !== index ? "0 1px 2px rgba(0, 0, 0, 0.5)" : "none",
                     }}
                   >
-                    <Icon className="w-4 h-4" />
+                    {isTreeButton ? (
+                      <motion.div
+                        className="relative"
+                        animate={{
+                          x: [0, 8, 0],
+                        }}
+                        transition={{
+                          duration: 2,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                        }}
+                      >
+                        <Icon className="w-4 h-4" />
+                      </motion.div>
+                    ) : (
+                      <Icon className="w-4 h-4" />
+                    )}
                     <span>{section.title}</span>
                   </button>
                 );
