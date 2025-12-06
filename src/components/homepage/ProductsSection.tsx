@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useCallback, useMemo } from "react";
+import React, { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
 import { CarouselSkeleton } from "@/components/LoadingSkeleton";
@@ -17,18 +17,15 @@ type Product = {
 };
 
 export default function ProductsSection() {
-  // Products data for homepage carousel - ordered as requested
+  // All 14 products from ProductPage with carouselDescription as description
   const products: Product[] = useMemo(
     () => [
-      // 1. TMT Bars
       {
         id: 1,
         title: "TMT Bars",
         description:
           "High-performance TMT bars crafted with advanced technology for unmatched strength, corrosion resistance, and seismic safety.",
-        image: `${
-          process.env.NEXT_PUBLIC_BASE_PATH || ""
-        }/products/tmt bars.jpg`,
+        image: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/products/tmt bars.jpg`,
         specifications: [
           "Grade: Fe500",
           "Diameter: 8mm-32mm",
@@ -53,15 +50,12 @@ export default function ProductsSection() {
           "Sustainable Manufacturing",
         ],
       },
-      // 2. Round Bars
       {
         id: 2,
         title: "Round Bar",
         description:
           "Precision-engineered round bars built to meet the highest standards for construction, manufacturing, automotive, and more.",
-        image: `${
-          process.env.NEXT_PUBLIC_BASE_PATH || ""
-        }/products/Round bars.jpg`,
+        image: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/products/Round bars.jpg`,
         specifications: [
           "Diameter: 6mm-100mm",
           "Grade: Carbon Steel",
@@ -84,7 +78,6 @@ export default function ProductsSection() {
           "Sustainable Production",
         ],
       },
-      // 3. Wire Rods
       {
         id: 3,
         title: "5.5MM Wire Rod",
@@ -114,15 +107,12 @@ export default function ProductsSection() {
           "Environmentally Sustainable",
         ],
       },
-      // 4. Section Products (V Angle, C Channel, I-Beam, Flat Bar)
       {
         id: 4,
         title: "V Angle",
         description:
           "Versatile structural steel connectors engineered for high-demand structural and industrial applications.",
-        image: `${
-          process.env.NEXT_PUBLIC_BASE_PATH || ""
-        }/products/V-ANGLES.jpg`,
+        image: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/products/V-ANGLES.jpg`,
         specifications: [
           "Size: 25x25mm to 200x200mm",
           "Thickness: 3mm-20mm",
@@ -152,9 +142,7 @@ export default function ProductsSection() {
         title: "C Channel",
         description:
           "Long-lasting, corrosion-proof channel steel ideal for stable, versatile structural and industrial solutions.",
-        image: `${
-          process.env.NEXT_PUBLIC_BASE_PATH || ""
-        }/products/C-Chanel.jpg`,
+        image: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/products/C-Chanel.jpg`,
         specifications: [
           "Size: 75x40mm to 200x75mm",
           "Thickness: 2mm-8mm",
@@ -184,9 +172,7 @@ export default function ProductsSection() {
         title: "I-Beam",
         description:
           "Durable I-beam steel built to deliver exceptional stability and performance in demanding applications.",
-        image: `${
-          process.env.NEXT_PUBLIC_BASE_PATH || ""
-        }/products/STEEL-BEAMS.jpg`,
+        image: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/products/STEEL-BEAMS.jpg`,
         specifications: [
           "Size: 100x50mm to 600x200mm",
           "Thickness: 3mm-25mm",
@@ -216,9 +202,7 @@ export default function ProductsSection() {
         title: "Flat Bar",
         description:
           "Steel flat bar for versatile industrial applications. Crafted to provide reliable strength and versatility for a range of manufacturing, construction, and fabrication needs.",
-        image: `${
-          process.env.NEXT_PUBLIC_BASE_PATH || ""
-        }/products/Flat-Bars.jpg`,
+        image: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/products/Flat-Bars.jpg`,
         specifications: [
           "Width: 10mm-200mm",
           "Thickness: 3mm-50mm",
@@ -243,15 +227,12 @@ export default function ProductsSection() {
           "Cost-effective Solution",
         ],
       },
-      // 5. Hot Rolled Strip
       {
         id: 8,
         title: "Hot Rolled Strip",
         description:
           "High-strength hot-rolled strips engineered for versatile performance across automotive, construction, manufacturing, and fabrication industries.",
-        image: `${
-          process.env.NEXT_PUBLIC_BASE_PATH || ""
-        }/products/HOT-ROLLED-STRIP.webp`,
+        image: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/products/HOT-ROLLED-STRIP.webp`,
         specifications: [
           "Thickness: 1.5mm-12mm",
           "Width: 25mm-200mm",
@@ -276,7 +257,6 @@ export default function ProductsSection() {
           "Consistent Quality",
         ],
       },
-      // 6. Hollow Sections
       {
         id: 9,
         title: "Hollow Section",
@@ -307,15 +287,12 @@ export default function ProductsSection() {
           "Aesthetic Appeal",
         ],
       },
-      // 7. Wire Products
       {
         id: 10,
         title: "Wire Nails",
         description:
           "Reliable, long-lasting wire nails engineered for superior grip in construction and industrial use.",
-        image: `${
-          process.env.NEXT_PUBLIC_BASE_PATH || ""
-        }/products/Wire-Nails (1).avif`,
+        image: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/products/Wire-Nails (1).avif`,
         specifications: [
           "Length: 25mm-150mm",
           "Diameter: 2mm-6mm",
@@ -345,9 +322,7 @@ export default function ProductsSection() {
         title: "Binding Wire",
         description:
           "Corrosion-resistant binding wire designed for dependable reinforcement and versatile fastening applications.",
-        image: `${
-          process.env.NEXT_PUBLIC_BASE_PATH || ""
-        }/products/Binding-Wire (1).jpg`,
+        image: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/products/Binding-Wire (1).jpg`,
         specifications: [
           "Diameter: 0.8mm-2.5mm",
           "Material: Galvanized Steel",
@@ -407,9 +382,7 @@ export default function ProductsSection() {
         title: "GI Chain Link",
         description:
           "Corrosion-resistant GI chain-link fencing providing robust and affordable protection for all types of properties.",
-        image: `${
-          process.env.NEXT_PUBLIC_BASE_PATH || ""
-        }/products/gi chain link.jpg`,
+        image: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/products/gi chain link.jpg`,
         specifications: [
           "Mesh Size: 50mm-100mm",
           "Wire Gauge: 8-12 gauge",
@@ -439,9 +412,7 @@ export default function ProductsSection() {
         title: "Barbed Wire",
         description:
           "Effective and long-lasting barbed wire fencing engineered for robust security applications.",
-        image: `${
-          process.env.NEXT_PUBLIC_BASE_PATH || ""
-        }/products/barbed-wires.jpg`,
+        image: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/products/barbed-wires.jpg`,
         specifications: [
           "Wire Gauge: 12-14 gauge",
           "Barb Spacing: 75mm-150mm",
@@ -476,51 +447,78 @@ export default function ProductsSection() {
   const [carouselItems, setCarouselItems] = useState<Product[]>([]);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const carouselRef = useRef<HTMLDivElement>(null);
+  const [cardWidth, setCardWidth] = useState(352); // Default: 320px (w-80) + 32px (px-4 padding)
+  const visibleCards = 3; // Always show 3 cards at a time
 
   useEffect(() => {
     setIsClient(true);
-    // Create infinite carousel by duplicating products only twice (was 3x)
-    setCarouselItems([...products, ...products]);
-    // Initialize to show the first product (index 0)
-    setCurrentIndex(0);
+    // Create infinite carousel by duplicating products multiple times for seamless loop
+    setCarouselItems([...products, ...products, ...products]);
+    // Start in the middle set for infinite scroll
+    setCurrentIndex(products.length);
   }, [products]);
+
+  // Calculate card width based on screen size
+  useEffect(() => {
+    const updateCardWidth = () => {
+      if (carouselRef.current) {
+        const firstCard = carouselRef.current.querySelector(".carousel-card");
+        if (firstCard) {
+          const rect = firstCard.getBoundingClientRect();
+          setCardWidth(rect.width);
+        }
+      }
+    };
+
+    if (isClient) {
+      // Wait for next frame to ensure DOM is ready
+      requestAnimationFrame(() => {
+        updateCardWidth();
+      });
+    }
+
+    window.addEventListener("resize", updateCardWidth);
+    return () => window.removeEventListener("resize", updateCardWidth);
+  }, [isClient]);
 
   const navigateLeft = useCallback(() => {
     if (isTransitioning) return;
     setIsTransitioning(true);
     setCurrentIndex((prev) => {
-      const newIndex = prev - 1;
+      const newIndex = prev - visibleCards;
       if (newIndex < 0) {
-        // Jump to the end of the second set (seamless loop)
-        return products.length * 2 - 1;
+        // Jump to the end of the last set (seamless loop)
+        return products.length * 3 - visibleCards;
       }
       return newIndex;
     });
     setTimeout(() => setIsTransitioning(false), 300);
-  }, [products.length, isTransitioning]);
+  }, [products.length, isTransitioning, visibleCards]);
 
   const navigateRight = useCallback(() => {
     if (isTransitioning) return;
     setIsTransitioning(true);
     setCurrentIndex((prev) => {
-      const newIndex = prev + 1;
-      if (newIndex >= products.length * 2) {
+      const newIndex = prev + visibleCards;
+      if (newIndex >= products.length * 3) {
         // Jump to the beginning of the first set (seamless loop)
-        return 0;
+        return products.length;
       }
       return newIndex;
     });
     setTimeout(() => setIsTransitioning(false), 300);
-  }, [products.length, isTransitioning]);
+  }, [products.length, isTransitioning, visibleCards]);
 
   const goToSlide = useCallback(
     (index: number) => {
       if (isTransitioning) return;
       setIsTransitioning(true);
-      setCurrentIndex(index);
+      // Adjust index to account for starting in the middle set
+      setCurrentIndex(index + products.length);
       setTimeout(() => setIsTransitioning(false), 300);
     },
-    [isTransitioning]
+    [isTransitioning, products.length]
   );
 
   const openProductModal = useCallback((product: Product) => {
@@ -596,9 +594,10 @@ export default function ProductsSection() {
               <CarouselSkeleton />
             ) : (
               <div
+                ref={carouselRef}
                 className="flex transition-transform duration-300 ease-out"
                 style={{
-                  transform: `translateX(-${currentIndex * 320}px)`,
+                  transform: `translateX(calc(-${currentIndex} * ${cardWidth}px + (100% - ${visibleCards * cardWidth}px) / 2 - 64px))`,
                   willChange: "transform",
                 }}
               >
@@ -606,7 +605,7 @@ export default function ProductsSection() {
                 {carouselItems.map((product, index) => (
                   <div
                     key={`${product.id}-${index}`}
-                    className="flex-shrink-0 w-80 md:w-96 px-4"
+                    className="carousel-card flex-shrink-0 w-80 md:w-96 px-4"
                   >
                     <div
                       className="bg-white rounded-lg overflow-hidden shadow-md border border-gray-100 h-full hover:border-gray-200 hover:shadow-lg transition-all duration-200 ease-out hover:-translate-y-2 flex flex-col cursor-pointer group"
@@ -626,12 +625,12 @@ export default function ProductsSection() {
                           quality={50}
                           sizes="(max-width: 768px) 320px, 384px"
                           priority={
-                            index < 2 &&
-                            currentIndex % products.length === index
+                            index >= currentIndex &&
+                            index < currentIndex + visibleCards
                           }
                           loading={
-                            index < 2 &&
-                            currentIndex % products.length === index
+                            index >= currentIndex &&
+                            index < currentIndex + visibleCards
                               ? "eager"
                               : "lazy"
                           }
@@ -669,10 +668,15 @@ export default function ProductsSection() {
             )}
           </div>
 
-          {/* Pagination Dots */}
-          <div className="flex justify-center mt-8 space-x-2">
+          {/* Pagination Dots - One dot per product (14 dots) */}
+          <div className="flex justify-center mt-8 space-x-2 flex-wrap gap-2">
             {products.map((_, index) => {
-              const isActive = index === currentIndex % products.length;
+              // Calculate which product is currently centered/active
+              const normalizedIndex =
+                ((currentIndex % products.length) + products.length) %
+                products.length;
+              const isActive = normalizedIndex === index;
+
               return (
                 <button
                   key={index}
@@ -682,6 +686,8 @@ export default function ProductsSection() {
                       ? "bg-orange-500 scale-125"
                       : "bg-gray-300 hover:bg-gray-400"
                   }`}
+                  title={products[index].title}
+                  aria-label={`Go to ${products[index].title}`}
                 />
               );
             })}
