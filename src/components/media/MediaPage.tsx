@@ -21,6 +21,9 @@ import {
   Bookmark,
   ThumbsUp,
   Send,
+  Sparkles,
+  Zap,
+  Globe,
 } from "lucide-react";
 
 interface MediaPageProps {
@@ -31,7 +34,6 @@ export default function MediaPage({ onClose }: MediaPageProps) {
   const router = useRouter();
 
   const handleClose = () => {
-    // Use window.location for immediate navigation with skipIntro parameter
     const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
     window.location.href = `${basePath}/?skipIntro=true`;
     if (onClose) {
@@ -66,7 +68,8 @@ export default function MediaPage({ onClose }: MediaPageProps) {
       description:
         "Rwanda's First steel manufacturing plant through metal ores to be constructed",
       icon: Newspaper,
-      color: "from-blue-600 to-blue-700",
+      color: "from-blue-500 to-blue-600",
+      hoverColor: "hover:from-blue-600 hover:to-blue-700",
       url: "https://www.youtube.com/watch?v=3Hhj5RCXhVA",
     },
     {
@@ -76,7 +79,8 @@ export default function MediaPage({ onClose }: MediaPageProps) {
       description:
         "How Rwanda's first steel processing plant will impact the economy",
       icon: FileText,
-      color: "from-green-600 to-green-700",
+      color: "from-green-500 to-green-600",
+      hoverColor: "hover:from-green-600 hover:to-green-700",
       url: "https://www.newtimes.co.rw/article/21687/news/rwanda/how-rwandas-first-steel-processing-plant-will-impact-economy",
     },
     {
@@ -86,7 +90,8 @@ export default function MediaPage({ onClose }: MediaPageProps) {
       description:
         "Rwanda's industrial growth takes a step forward with the groundbreaking of A1 Iron and Steel Rwanda Ltd. in @MusanzeDistrict",
       icon: TrendingUp,
-      color: "from-orange-600 to-orange-700",
+      color: "from-orange-500 to-orange-600",
+      hoverColor: "hover:from-orange-600 hover:to-orange-700",
       url: "https://x.com/RDBrwanda/status/1854648216265830683",
     },
   ];
@@ -140,114 +145,198 @@ export default function MediaPage({ onClose }: MediaPageProps) {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.3 }}
-      className="fixed inset-0 bg-gray-50 z-50 overflow-y-auto"
+      className="fixed inset-0 z-50 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 overflow-y-auto"
       style={{
         scrollBehavior: "smooth",
         scrollSnapType: "y mandatory",
       }}
     >
+      {/* Animated Background Elements */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+        <motion.div
+          className="absolute top-1/4 left-1/4 w-96 h-96 bg-orange-500/10 rounded-full blur-3xl"
+          animate={{
+            scale: [1, 1.2, 1],
+            x: [0, 50, 0],
+            y: [0, 30, 0],
+          }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div
+          className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"
+          animate={{
+            scale: [1, 1.3, 1],
+            x: [0, -50, 0],
+            y: [0, -30, 0],
+          }}
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+        />
+      </div>
+
       {/* Header */}
-      <div className="sticky top-0 bg-white/98 backdrop-blur-md border-b border-gray-200 shadow-sm z-10">
+      <motion.div
+        className="sticky top-0 z-10 bg-white/5 backdrop-blur-xl border-b border-white/10 shadow-2xl"
+        initial={{ y: -100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
-            <button
+            <motion.button
               onClick={handleClose}
-              className="flex items-center space-x-2 text-gray-700 hover:text-[#f1852e] transition-colors duration-200 font-medium"
+              className="group flex items-center space-x-2 px-4 py-2 rounded-full bg-white/10 hover:bg-white/20 transition-all duration-300 border border-white/20 hover:border-orange-400/50 text-white"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
             >
-              <ArrowLeft className="w-5 h-5" />
+              <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
               <span>Back to Home</span>
-            </button>
-            <button
+            </motion.button>
+            <motion.button
               onClick={handleClose}
-              className="p-2 text-gray-700 hover:text-[#f1852e] transition-colors duration-200 rounded-lg hover:bg-gray-100"
+              className="group p-3 rounded-full bg-white/10 hover:bg-white/20 transition-all duration-300 border border-white/20 hover:border-orange-400/50"
+              whileHover={{ scale: 1.1, rotate: 90 }}
+              whileTap={{ scale: 0.9 }}
+              initial={{ opacity: 0, rotate: -90 }}
+              animate={{ opacity: 1, rotate: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
             >
-              <X className="w-6 h-6" />
-            </button>
+              <X className="w-6 h-6 text-white group-hover:text-orange-400 transition-colors duration-300" />
+            </motion.button>
           </div>
         </div>
-      </div>
+      </motion.div>
 
       {/* Hero Section with Articles */}
       <section
         className="relative min-h-screen flex items-center justify-center py-20 sm:py-24 md:py-32 overflow-hidden"
         style={{ scrollSnapAlign: "start" }}
       >
-        {/* Background with subtle gradient */}
-        <div className="absolute inset-0 bg-gradient-to-br from-white via-blue-50/30 to-gray-50" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(32,132,177,0.05),transparent_50%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(241,133,46,0.05),transparent_50%)]" />
-
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+          {/* Hero Header */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="text-center max-w-4xl mx-auto mb-12"
+            transition={{ duration: 0.8 }}
+            className="text-center max-w-4xl mx-auto mb-16"
           >
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-              Highlights from A1 Iron & Steel Rwanda
+            <motion.div
+              className="inline-flex items-center gap-2 px-4 py-2 bg-orange-500/20 backdrop-blur-md rounded-full border border-orange-500/30 mb-6"
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              <Sparkles className="w-4 h-4 text-orange-400" />
+              <span className="text-sm font-semibold text-orange-300">
+                Media & News
+              </span>
+            </motion.div>
+            <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6">
+              <span className="bg-gradient-to-r from-white via-orange-400 to-orange-600 bg-clip-text text-transparent">
+                Highlights from
+              </span>
+              <br />
+              <span className="bg-gradient-to-r from-orange-400 via-white to-blue-400 bg-clip-text text-transparent">
+                A1 Iron & Steel
+              </span>
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            <div className="w-24 h-1 bg-gradient-to-r from-transparent via-orange-500 to-transparent mx-auto mb-6 rounded-full" />
+            <p className="text-xl sm:text-2xl text-white/80 max-w-3xl mx-auto leading-relaxed">
               Follow our journey, get the latest updates, and connect with our
               community across all our social media platforms.
             </p>
           </motion.div>
 
-          {/* Articles Section */}
+          {/* Enhanced Articles Section */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="mb-12"
           >
-            <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-8 text-center">
-              Pioneering Perspectives
-            </h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {articles.map((article, index) => (
-                <motion.a
-                  key={article.title}
-                  href={article.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.3, delay: 0.3 + index * 0.1 }}
-                  className="group relative bg-white rounded-2xl p-6 border border-gray-200 hover:border-[#f1852e] transition-all duration-300 cursor-pointer shadow-lg hover:shadow-xl"
-                  whileHover={{ scale: 1.02, y: -5 }}
-                >
-                  <div
-                    className={`w-12 h-12 rounded-xl bg-gradient-to-br ${article.color} flex items-center justify-center mb-4`}
+            <div className="flex items-center justify-center gap-3 mb-10">
+              <Zap className="w-6 h-6 text-orange-400" />
+              <h3 className="text-3xl md:text-4xl font-bold text-white">
+                Pioneering Perspectives
+              </h3>
+              <Globe className="w-6 h-6 text-blue-400" />
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {articles.map((article, index) => {
+                const Icon = article.icon;
+                return (
+                  <motion.a
+                    key={article.title}
+                    href={article.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    initial={{ opacity: 0, y: 50, scale: 0.9 }}
+                    whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{
+                      duration: 0.5,
+                      delay: 0.4 + index * 0.15,
+                      type: "spring",
+                      stiffness: 100,
+                    }}
+                    whileHover={{ y: -10, scale: 1.02 }}
+                    className="group relative bg-white/5 backdrop-blur-xl rounded-3xl p-8 border border-white/10 hover:border-orange-500/50 transition-all duration-500 cursor-pointer shadow-2xl overflow-hidden"
                   >
-                    <article.icon className="w-6 h-6 text-white" />
-                  </div>
-                  <h4 className="text-sm font-semibold text-[#f1852e] mb-2">
-                    {article.source}
-                  </h4>
-                  <h5 className="text-lg font-bold text-gray-900 mb-2 line-clamp-2">
-                    {article.title}
-                  </h5>
-                  <p className="text-gray-600 text-sm line-clamp-3">
-                    {article.description}
-                  </p>
-                  <div className="mt-4 flex items-center text-[#f1852e] text-sm font-semibold">
-                    <span>Read More</span>
-                    <motion.span
-                      className="ml-2"
-                      animate={{ x: [0, 5, 0] }}
-                      transition={{
-                        duration: 1.5,
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                      }}
-                    >
-                      →
-                    </motion.span>
-                  </div>
-                </motion.a>
-              ))}
+                    {/* Animated gradient background */}
+                    <div
+                      className={`absolute inset-0 bg-gradient-to-br ${article.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}
+                    />
+                    {/* Shine effect */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+
+                    {/* Content */}
+                    <div className="relative z-10">
+                      <motion.div
+                        className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${article.color} flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 group-hover:rotate-3 transition-all duration-300`}
+                        whileHover={{ rotate: 5 }}
+                      >
+                        <Icon className="w-8 h-8 text-white" />
+                      </motion.div>
+                      <div className="mb-4">
+                        <span className="inline-block px-3 py-1 bg-orange-500/20 backdrop-blur-sm rounded-full text-xs font-semibold text-orange-300 border border-orange-500/30">
+                          {article.source}
+                        </span>
+                      </div>
+                      <h5 className="text-xl font-bold text-white mb-3 line-clamp-2 group-hover:text-orange-300 transition-colors duration-300">
+                        {article.title}
+                      </h5>
+                      <p className="text-white/70 text-sm line-clamp-3 mb-6 leading-relaxed">
+                        {article.description}
+                      </p>
+                      <div className="flex items-center justify-between">
+                        <motion.div
+                          className="flex items-center text-orange-400 text-sm font-semibold"
+                          whileHover={{ x: 5 }}
+                        >
+                          <span>Read More</span>
+                          <motion.span
+                            className="ml-2"
+                            animate={{ x: [0, 5, 0] }}
+                            transition={{
+                              duration: 1.5,
+                              repeat: Infinity,
+                              ease: "easeInOut",
+                            }}
+                          >
+                            →
+                          </motion.span>
+                        </motion.div>
+                        <ExternalLink className="w-5 h-5 text-white/50 group-hover:text-orange-400 transition-colors duration-300" />
+                      </div>
+                    </div>
+                  </motion.a>
+                );
+              })}
             </div>
           </motion.div>
         </div>
@@ -261,11 +350,6 @@ export default function MediaPage({ onClose }: MediaPageProps) {
           className="relative min-h-screen flex items-center justify-center py-20 sm:py-24 md:py-32 overflow-hidden"
           style={{ scrollSnapAlign: "start" }}
         >
-          {/* Background with subtle gradient */}
-          <div className="absolute inset-0 bg-gradient-to-br from-white via-blue-50/30 to-gray-50" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(32,132,177,0.05),transparent_50%)]" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(241,133,46,0.05),transparent_50%)]" />
-
           <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               {/* Left Side - Info */}
@@ -287,7 +371,7 @@ export default function MediaPage({ onClose }: MediaPageProps) {
                     href={social.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center space-x-2 text-[#f1852e] hover:text-[#2084b1] transition-colors font-semibold"
+                    className="flex items-center space-x-2 text-orange-400 hover:text-blue-400 transition-colors font-semibold"
                     whileHover={{ x: 5 }}
                   >
                     <span>Visit</span>
@@ -296,18 +380,18 @@ export default function MediaPage({ onClose }: MediaPageProps) {
                 </div>
 
                 <div>
-                  <h3 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+                  <h3 className="text-4xl md:text-5xl font-bold text-white mb-4">
                     {social.name}
                   </h3>
-                  <p className="text-gray-600 mb-6 leading-relaxed text-lg">
+                  <p className="text-white/80 mb-6 leading-relaxed text-lg">
                     {social.description}
                   </p>
                   <div className="flex items-center space-x-4 mb-6">
-                    <span className="text-[#f1852e] font-semibold text-lg">
+                    <span className="text-orange-400 font-semibold text-lg">
                       {social.followers}
                     </span>
-                    <span className="text-gray-400">•</span>
-                    <span className="text-gray-700">{social.username}</span>
+                    <span className="text-white/40">•</span>
+                    <span className="text-white/70">{social.username}</span>
                   </div>
                 </div>
 
@@ -333,23 +417,23 @@ export default function MediaPage({ onClose }: MediaPageProps) {
                 className="relative"
               >
                 {social.name === "Instagram" && (
-                  <div className="bg-white rounded-2xl shadow-2xl overflow-hidden border border-gray-200">
+                  <div className="bg-white/10 backdrop-blur-xl rounded-2xl shadow-2xl overflow-hidden border border-white/20">
                     {/* Instagram Header */}
-                    <div className="flex items-center justify-between px-4 py-3 border-b border-gray-200">
+                    <div className="flex items-center justify-between px-4 py-3 border-b border-white/10">
                       <div className="flex items-center space-x-3">
                         <div className="w-8 h-8 rounded-full bg-gradient-to-br from-pink-500 via-purple-500 to-orange-500 border-2 border-white flex items-center justify-center">
                           <Instagram className="w-4 h-4 text-white" />
                         </div>
                         <div>
-                          <div className="text-sm font-semibold text-gray-900">
+                          <div className="text-sm font-semibold text-white">
                             {social.username}
                           </div>
                         </div>
                       </div>
-                      <div className="w-1 h-1 bg-gray-400 rounded-full"></div>
+                      <div className="w-1 h-1 bg-white/40 rounded-full"></div>
                     </div>
                     {/* Instagram Image Grid */}
-                    <div className="grid grid-cols-3 gap-0.5 p-0.5 bg-gray-200">
+                    <div className="grid grid-cols-3 gap-0.5 p-0.5 bg-black/20">
                       {[1, 2, 3, 5, 6].map((num) => (
                         <div
                           key={num}
@@ -395,32 +479,32 @@ export default function MediaPage({ onClose }: MediaPageProps) {
                       ))}
                     </div>
                     {/* Instagram Actions */}
-                    <div className="px-4 py-3 space-y-2">
+                    <div className="px-4 py-3 space-y-2 bg-black/10">
                       <div className="flex items-center space-x-4">
                         <button
                           className="hover:opacity-70 transition-opacity"
                           aria-label="Like"
                         >
-                          <Heart className="w-6 h-6 text-gray-800" />
+                          <Heart className="w-6 h-6 text-white/80" />
                         </button>
                         <button
                           className="hover:opacity-70 transition-opacity"
                           aria-label="Comment"
                         >
-                          <MessageCircle className="w-6 h-6 text-gray-800" />
+                          <MessageCircle className="w-6 h-6 text-white/80" />
                         </button>
                         <button
                           className="hover:opacity-70 transition-opacity"
                           aria-label="Share"
                         >
-                          <Share2 className="w-6 h-6 text-gray-800" />
+                          <Share2 className="w-6 h-6 text-white/80" />
                         </button>
                         <div className="flex-1"></div>
                         <button
                           className="hover:opacity-70 transition-opacity"
                           aria-label="Save"
                         >
-                          <Bookmark className="w-6 h-6 text-gray-800" />
+                          <Bookmark className="w-6 h-6 text-white/80" />
                         </button>
                       </div>
                     </div>
@@ -428,22 +512,22 @@ export default function MediaPage({ onClose }: MediaPageProps) {
                 )}
 
                 {social.name === "Facebook" && (
-                  <div className="bg-white rounded-2xl shadow-2xl overflow-hidden border border-gray-200">
+                  <div className="bg-white/10 backdrop-blur-xl rounded-2xl shadow-2xl overflow-hidden border border-white/20">
                     {/* Facebook Header */}
-                    <div className="px-4 py-3 border-b border-gray-200">
+                    <div className="px-4 py-3 border-b border-white/10">
                       <div className="flex items-center space-x-3">
                         <div className="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center">
                           <Facebook className="w-5 h-5 text-white" />
                         </div>
                         <div className="flex-1">
-                          <div className="text-sm font-semibold text-gray-900">
+                          <div className="text-sm font-semibold text-white">
                             {social.username}
                           </div>
                         </div>
                       </div>
                     </div>
                     {/* Facebook Image Grid */}
-                    <div className="grid grid-cols-2 gap-1 p-1 bg-gray-100">
+                    <div className="grid grid-cols-2 gap-1 p-1 bg-black/20">
                       {[1, 2, 3, 5].map((num) => (
                         <div
                           key={num}
@@ -489,24 +573,24 @@ export default function MediaPage({ onClose }: MediaPageProps) {
                       ))}
                     </div>
                     {/* Facebook Actions */}
-                    <div className="px-4 py-3 border-t border-gray-200">
-                      <div className="flex items-center space-x-6 text-gray-600">
+                    <div className="px-4 py-3 border-t border-white/10 bg-black/10">
+                      <div className="flex items-center space-x-6 text-white/80">
                         <button
-                          className="flex items-center space-x-2 hover:text-blue-600 transition-colors"
+                          className="flex items-center space-x-2 hover:text-blue-400 transition-colors"
                           aria-label="Like"
                         >
                           <ThumbsUp className="w-5 h-5" />
                           <span className="text-sm font-medium">Like</span>
                         </button>
                         <button
-                          className="flex items-center space-x-2 hover:text-gray-800 transition-colors"
+                          className="flex items-center space-x-2 hover:text-white transition-colors"
                           aria-label="Comment"
                         >
                           <MessageCircle className="w-5 h-5" />
                           <span className="text-sm font-medium">Comment</span>
                         </button>
                         <button
-                          className="flex items-center space-x-2 hover:text-gray-800 transition-colors"
+                          className="flex items-center space-x-2 hover:text-white transition-colors"
                           aria-label="Share"
                         >
                           <Share2 className="w-5 h-5" />
@@ -518,9 +602,9 @@ export default function MediaPage({ onClose }: MediaPageProps) {
                 )}
 
                 {social.name === "Twitter / X" && (
-                  <div className="bg-black rounded-2xl shadow-2xl overflow-hidden border border-gray-800">
+                  <div className="bg-black/40 backdrop-blur-xl rounded-2xl shadow-2xl overflow-hidden border border-white/10">
                     {/* Twitter Header */}
-                    <div className="px-4 py-3 border-b border-gray-800">
+                    <div className="px-4 py-3 border-b border-white/10">
                       <div className="flex items-center space-x-3">
                         <div className="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center">
                           <Twitter className="w-5 h-5 text-white" />
@@ -612,22 +696,22 @@ export default function MediaPage({ onClose }: MediaPageProps) {
                 )}
 
                 {social.name === "LinkedIn" && (
-                  <div className="bg-white rounded-2xl shadow-2xl overflow-hidden border border-gray-200">
+                  <div className="bg-white/10 backdrop-blur-xl rounded-2xl shadow-2xl overflow-hidden border border-white/20">
                     {/* LinkedIn Header */}
-                    <div className="px-4 py-3 border-b border-gray-200">
+                    <div className="px-4 py-3 border-b border-white/10">
                       <div className="flex items-center space-x-3">
                         <div className="w-10 h-10 rounded-full bg-blue-700 flex items-center justify-center">
                           <Linkedin className="w-5 h-5 text-white" />
                         </div>
                         <div className="flex-1">
-                          <div className="text-sm font-semibold text-gray-900">
+                          <div className="text-sm font-semibold text-white">
                             {social.username}
                           </div>
                         </div>
                       </div>
                     </div>
                     {/* LinkedIn Image Grid */}
-                    <div className="grid grid-cols-3 gap-1 p-1 bg-gray-50">
+                    <div className="grid grid-cols-3 gap-1 p-1 bg-black/20">
                       {[1, 2, 3, 5, 6].map((num) => (
                         <div
                           key={num}
@@ -673,24 +757,24 @@ export default function MediaPage({ onClose }: MediaPageProps) {
                       ))}
                     </div>
                     {/* LinkedIn Actions */}
-                    <div className="px-4 py-3 border-t border-gray-200">
-                      <div className="flex items-center space-x-4 text-gray-600">
+                    <div className="px-4 py-3 border-t border-white/10 bg-black/10">
+                      <div className="flex items-center space-x-4 text-white/80">
                         <button
-                          className="flex items-center space-x-2 hover:text-blue-600 transition-colors"
+                          className="flex items-center space-x-2 hover:text-blue-400 transition-colors"
                           aria-label="Like"
                         >
                           <ThumbsUp className="w-5 h-5" />
                           <span className="text-sm font-medium">Like</span>
                         </button>
                         <button
-                          className="flex items-center space-x-2 hover:text-gray-800 transition-colors"
+                          className="flex items-center space-x-2 hover:text-white transition-colors"
                           aria-label="Comment"
                         >
                           <MessageCircle className="w-5 h-5" />
                           <span className="text-sm font-medium">Comment</span>
                         </button>
                         <button
-                          className="flex items-center space-x-2 hover:text-gray-800 transition-colors"
+                          className="flex items-center space-x-2 hover:text-white transition-colors"
                           aria-label="Share"
                         >
                           <Share2 className="w-5 h-5" />
@@ -713,7 +797,7 @@ export default function MediaPage({ onClose }: MediaPageProps) {
             <motion.button
               key={social.name}
               onClick={() => scrollToSection(social.name)}
-              className={`w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-gradient-to-br ${social.color} text-white shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center justify-center`}
+              className={`w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-gradient-to-br ${social.color} text-white shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center justify-center backdrop-blur-sm border border-white/20`}
               whileHover={{ scale: 1.15, y: -8 }}
               whileTap={{ scale: 0.9 }}
               aria-label={`Scroll to ${social.name} section`}
