@@ -91,7 +91,7 @@ const PRODUCTS_DATA: Product[] = [
     image: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/products/Round bars.jpg`,
     specifications: [
       "Diameter: 6mm-100mm",
-      "Grade: Stainless Steel",
+      "Grade: Carbon Steel",
       "Surface: Bright/Polished",
       "Length: 3m-6m",
     ],
@@ -172,15 +172,15 @@ const PRODUCTS_DATA: Product[] = [
     title: "V Angle",
     category: "Construction",
     description:
-      "Versatile stainless steel structural connector designed to meet the demands of the most rigorous construction and industrial applications. Perfect for structural framing, support brackets, and reinforcement work.",
-    shortDescription: "Versatile stainless steel structural connector",
+      "Versatile structural steel connector designed to meet the demands of the most rigorous construction and industrial applications. Perfect for structural framing, support brackets, and reinforcement work.",
+    shortDescription: "Versatile structural steel connector",
     carouselDescription:
-      "Versatile stainless steel connectors engineered for high-demand structural and industrial applications.",
+      "Versatile structural steel connectors engineered for high-demand structural and industrial applications.",
     image: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/products/V-ANGLES.jpg`,
     specifications: [
       "Size: 25x25mm to 200x200mm",
       "Thickness: 3mm-20mm",
-      "Grade: Structural Steel / Stainless Steel",
+      "Grade: Structural Steel",
       "Length: 6m-12m",
       "Standard: ASTM A36 / IS 2062",
       "Surface: Mill Finish / Polished",

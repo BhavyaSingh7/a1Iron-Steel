@@ -64,7 +64,7 @@ export default function ProductsSection() {
         }/products/Round bars.jpg`,
         specifications: [
           "Diameter: 6mm-100mm",
-          "Grade: Stainless Steel",
+          "Grade: Carbon Steel",
           "Surface: Bright/Polished",
           "Length: 3m-6m",
         ],
@@ -119,14 +119,14 @@ export default function ProductsSection() {
         id: 4,
         title: "V Angle",
         description:
-          "Versatile stainless steel connectors engineered for high-demand structural and industrial applications.",
+          "Versatile structural steel connectors engineered for high-demand structural and industrial applications.",
         image: `${
           process.env.NEXT_PUBLIC_BASE_PATH || ""
         }/products/V-ANGLES.jpg`,
         specifications: [
           "Size: 25x25mm to 200x200mm",
           "Thickness: 3mm-20mm",
-          "Grade: Structural Steel / Stainless Steel",
+          "Grade: Structural Steel",
           "Length: 6m-12m",
           "Standard: ASTM A36 / IS 2062",
           "Surface: Mill Finish / Polished",
