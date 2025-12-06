@@ -1,6 +1,12 @@
 "use client";
 
-import React, { useState, useEffect, useCallback, useMemo, useRef } from "react";
+import React, {
+  useState,
+  useEffect,
+  useCallback,
+  useMemo,
+  useRef,
+} from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
 import { CarouselSkeleton } from "@/components/LoadingSkeleton";
@@ -10,6 +16,7 @@ type Product = {
   id: number;
   title: string;
   description: string;
+  carouselDescription: string;
   image: string;
   specifications: string[];
   applications: string[];
@@ -25,7 +32,11 @@ export default function ProductsSection() {
         title: "TMT Bars",
         description:
           "High-performance TMT bars crafted with advanced technology for unmatched strength, corrosion resistance, and seismic safety.",
-        image: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/products/tmt bars.jpg`,
+        carouselDescription:
+          "High-performance TMT bars crafted with advanced technology for unmatched strength, corrosion resistance, and seismic safety.",
+        image: `${
+          process.env.NEXT_PUBLIC_BASE_PATH || ""
+        }/products/tmt bars.jpg`,
         specifications: [
           "Grade: Fe500",
           "Diameter: 8mm-32mm",
@@ -55,7 +66,11 @@ export default function ProductsSection() {
         title: "Round Bar",
         description:
           "Precision-engineered round bars built to meet the highest standards for construction, manufacturing, automotive, and more.",
-        image: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/products/Round bars.jpg`,
+        carouselDescription:
+          "Precision-engineered round bars built to meet the highest standards for construction, manufacturing, automotive, and more.",
+        image: `${
+          process.env.NEXT_PUBLIC_BASE_PATH || ""
+        }/products/Round bars.jpg`,
         specifications: [
           "Diameter: 6mm-100mm",
           "Grade: Carbon Steel",
@@ -82,6 +97,8 @@ export default function ProductsSection() {
         id: 3,
         title: "5.5MM Wire Rod",
         description:
+          "Durable, general-purpose wire rods crafted for diverse industrial applications with excellent mechanical properties.",
+        carouselDescription:
           "Durable, general-purpose wire rods crafted for diverse industrial applications with excellent mechanical properties.",
         image: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/products/5.5mm.webp`,
         specifications: [
@@ -112,7 +129,11 @@ export default function ProductsSection() {
         title: "V Angle",
         description:
           "Versatile structural steel connectors engineered for high-demand structural and industrial applications.",
-        image: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/products/V-ANGLES.jpg`,
+        carouselDescription:
+          "Versatile structural steel connectors engineered for high-demand structural and industrial applications.",
+        image: `${
+          process.env.NEXT_PUBLIC_BASE_PATH || ""
+        }/products/V-ANGLES.jpg`,
         specifications: [
           "Size: 25x25mm to 200x200mm",
           "Thickness: 3mm-20mm",
@@ -142,7 +163,11 @@ export default function ProductsSection() {
         title: "C Channel",
         description:
           "Long-lasting, corrosion-proof channel steel ideal for stable, versatile structural and industrial solutions.",
-        image: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/products/C-Chanel.jpg`,
+        carouselDescription:
+          "Long-lasting, corrosion-proof channel steel ideal for stable, versatile structural and industrial solutions.",
+        image: `${
+          process.env.NEXT_PUBLIC_BASE_PATH || ""
+        }/products/C-Chanel.jpg`,
         specifications: [
           "Size: 75x40mm to 200x75mm",
           "Thickness: 2mm-8mm",
@@ -172,7 +197,11 @@ export default function ProductsSection() {
         title: "I-Beam",
         description:
           "Durable I-beam steel built to deliver exceptional stability and performance in demanding applications.",
-        image: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/products/STEEL-BEAMS.jpg`,
+        carouselDescription:
+          "Durable I-beam steel built to deliver exceptional stability and performance in demanding applications.",
+        image: `${
+          process.env.NEXT_PUBLIC_BASE_PATH || ""
+        }/products/STEEL-BEAMS.jpg`,
         specifications: [
           "Size: 100x50mm to 600x200mm",
           "Thickness: 3mm-25mm",
@@ -202,7 +231,11 @@ export default function ProductsSection() {
         title: "Flat Bar",
         description:
           "Steel flat bar for versatile industrial applications. Crafted to provide reliable strength and versatility for a range of manufacturing, construction, and fabrication needs.",
-        image: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/products/Flat-Bars.jpg`,
+        carouselDescription:
+          "Steel flat bar for versatile industrial applications. Crafted to provide reliable strength and versatility for a range of manufacturing, construction, and fabrication needs.",
+        image: `${
+          process.env.NEXT_PUBLIC_BASE_PATH || ""
+        }/products/Flat-Bars.jpg`,
         specifications: [
           "Width: 10mm-200mm",
           "Thickness: 3mm-50mm",
@@ -232,7 +265,11 @@ export default function ProductsSection() {
         title: "Hot Rolled Strip",
         description:
           "High-strength hot-rolled strips engineered for versatile performance across automotive, construction, manufacturing, and fabrication industries.",
-        image: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/products/HOT-ROLLED-STRIP.webp`,
+        carouselDescription:
+          "High-strength hot-rolled strips engineered for versatile performance across automotive, construction, manufacturing, and fabrication industries.",
+        image: `${
+          process.env.NEXT_PUBLIC_BASE_PATH || ""
+        }/products/HOT-ROLLED-STRIP.webp`,
         specifications: [
           "Thickness: 1.5mm-12mm",
           "Width: 25mm-200mm",
@@ -261,6 +298,8 @@ export default function ProductsSection() {
         id: 9,
         title: "Hollow Section",
         description:
+          "High-strength hollow sections offering an excellent strength-to-weight ratio for structural and engineering applications.",
+        carouselDescription:
           "High-strength hollow sections offering an excellent strength-to-weight ratio for structural and engineering applications.",
         image: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/products/HS.jpg`,
         specifications: [
@@ -292,7 +331,11 @@ export default function ProductsSection() {
         title: "Wire Nails",
         description:
           "Reliable, long-lasting wire nails engineered for superior grip in construction and industrial use.",
-        image: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/products/Wire-Nails (1).avif`,
+        carouselDescription:
+          "Reliable, long-lasting wire nails engineered for superior grip in construction and industrial use.",
+        image: `${
+          process.env.NEXT_PUBLIC_BASE_PATH || ""
+        }/products/Wire-Nails (1).avif`,
         specifications: [
           "Length: 25mm-150mm",
           "Diameter: 2mm-6mm",
@@ -322,7 +365,11 @@ export default function ProductsSection() {
         title: "Binding Wire",
         description:
           "Corrosion-resistant binding wire designed for dependable reinforcement and versatile fastening applications.",
-        image: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/products/Binding-Wire (1).jpg`,
+        carouselDescription:
+          "Corrosion-resistant binding wire designed for dependable reinforcement and versatile fastening applications.",
+        image: `${
+          process.env.NEXT_PUBLIC_BASE_PATH || ""
+        }/products/Binding-Wire (1).jpg`,
         specifications: [
           "Diameter: 0.8mm-2.5mm",
           "Material: Galvanized Steel",
@@ -351,6 +398,8 @@ export default function ProductsSection() {
         id: 12,
         title: "BRC",
         description:
+          "Premium BRC reinforcement mesh crafted to strengthen concrete structures and deliver durable, high-performance results.",
+        carouselDescription:
           "Premium BRC reinforcement mesh crafted to strengthen concrete structures and deliver durable, high-performance results.",
         image: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/products/brc.jpg`,
         specifications: [
@@ -382,7 +431,11 @@ export default function ProductsSection() {
         title: "GI Chain Link",
         description:
           "Corrosion-resistant GI chain-link fencing providing robust and affordable protection for all types of properties.",
-        image: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/products/gi chain link.jpg`,
+        carouselDescription:
+          "Corrosion-resistant GI chain-link fencing providing robust and affordable protection for all types of properties.",
+        image: `${
+          process.env.NEXT_PUBLIC_BASE_PATH || ""
+        }/products/gi chain link.jpg`,
         specifications: [
           "Mesh Size: 50mm-100mm",
           "Wire Gauge: 8-12 gauge",
@@ -412,7 +465,11 @@ export default function ProductsSection() {
         title: "Barbed Wire",
         description:
           "Effective and long-lasting barbed wire fencing engineered for robust security applications.",
-        image: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/products/barbed-wires.jpg`,
+        carouselDescription:
+          "Effective and long-lasting barbed wire fencing engineered for robust security applications.",
+        image: `${
+          process.env.NEXT_PUBLIC_BASE_PATH || ""
+        }/products/barbed-wires.jpg`,
         specifications: [
           "Wire Gauge: 12-14 gauge",
           "Barb Spacing: 75mm-150mm",
@@ -443,83 +500,107 @@ export default function ProductsSection() {
 
   const [isClient, setIsClient] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const [carouselItems, setCarouselItems] = useState<Product[]>([]);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const carouselRef = useRef<HTMLDivElement>(null);
-  const [cardWidth, setCardWidth] = useState(352); // Default: 320px (w-80) + 32px (px-4 padding)
-  const visibleCards = 3; // Always show 3 cards at a time
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [dragOffset, setDragOffset] = useState(0);
 
   useEffect(() => {
     setIsClient(true);
-    // Create infinite carousel by duplicating products multiple times for seamless loop
-    setCarouselItems([...products, ...products, ...products]);
-    // Start in the middle set for infinite scroll
-    setCurrentIndex(products.length);
-  }, [products]);
-
-  // Calculate card width based on screen size
-  useEffect(() => {
-    const updateCardWidth = () => {
-      if (carouselRef.current) {
-        const firstCard = carouselRef.current.querySelector(".carousel-card");
-        if (firstCard) {
-          const rect = firstCard.getBoundingClientRect();
-          setCardWidth(rect.width);
-        }
-      }
-    };
-
-    if (isClient) {
-      // Wait for next frame to ensure DOM is ready
-      requestAnimationFrame(() => {
-        updateCardWidth();
-      });
-    }
-
-    window.addEventListener("resize", updateCardWidth);
-    return () => window.removeEventListener("resize", updateCardWidth);
-  }, [isClient]);
+  }, []);
 
   const navigateLeft = useCallback(() => {
-    if (isTransitioning) return;
-    setIsTransitioning(true);
     setCurrentIndex((prev) => {
-      const newIndex = prev - visibleCards;
-      if (newIndex < 0) {
-        // Jump to the end of the last set (seamless loop)
-        return products.length * 3 - visibleCards;
+      if (prev === 0) {
+        // Wrap to show last 3 products (circular navigation)
+        return Math.max(0, products.length - 3);
       }
-      return newIndex;
+      return prev - 1;
     });
-    setTimeout(() => setIsTransitioning(false), 300);
-  }, [products.length, isTransitioning, visibleCards]);
+  }, [products.length]);
 
   const navigateRight = useCallback(() => {
-    if (isTransitioning) return;
-    setIsTransitioning(true);
     setCurrentIndex((prev) => {
-      const newIndex = prev + visibleCards;
-      if (newIndex >= products.length * 3) {
-        // Jump to the beginning of the first set (seamless loop)
-        return products.length;
+      // Maximum index to show last 3 products (products.length - 3)
+      const maxIndex = Math.max(0, products.length - 3);
+      if (prev >= maxIndex) {
+        return 0; // Wrap to beginning (circular navigation)
       }
-      return newIndex;
+      return prev + 1;
     });
-    setTimeout(() => setIsTransitioning(false), 300);
-  }, [products.length, isTransitioning, visibleCards]);
+  }, [products.length]);
 
   const goToSlide = useCallback(
     (index: number) => {
-      if (isTransitioning) return;
-      setIsTransitioning(true);
-      // Adjust index to account for starting in the middle set
-      setCurrentIndex(index + products.length);
-      setTimeout(() => setIsTransitioning(false), 300);
+      // Ensure index doesn't exceed max (to show last 3 products)
+      const maxIndex = Math.max(0, products.length - 3);
+      // Circular: if clicking on a dot beyond max, wrap to beginning
+      if (index > maxIndex) {
+        setCurrentIndex(0);
+      } else {
+        setCurrentIndex(index);
+      }
     },
-    [isTransitioning, products.length]
+    [products.length]
   );
+
+  // Drag handlers
+  const handleMouseDown = (e: React.MouseEvent) => {
+    setIsDragging(true);
+    setStartX(e.pageX);
+    setDragOffset(0);
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging) return;
+    const diff = e.pageX - startX;
+    setDragOffset(diff);
+  };
+
+  const handleMouseUp = () => {
+    if (!isDragging) return;
+    const threshold = 100; // Minimum drag distance
+
+    if (Math.abs(dragOffset) > threshold) {
+      if (dragOffset > 0) {
+        navigateLeft();
+      } else {
+        navigateRight();
+      }
+    }
+    setIsDragging(false);
+    setDragOffset(0);
+  };
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setIsDragging(true);
+    setStartX(e.touches[0].pageX);
+    setDragOffset(0);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (!isDragging) return;
+    const diff = e.touches[0].pageX - startX;
+    setDragOffset(diff);
+  };
+
+  const handleTouchEnd = () => {
+    if (!isDragging) return;
+    const threshold = 100;
+
+    if (Math.abs(dragOffset) > threshold) {
+      if (dragOffset > 0) {
+        navigateLeft();
+      } else {
+        navigateRight();
+      }
+    }
+    setIsDragging(false);
+    setDragOffset(0);
+  };
 
   const openProductModal = useCallback((product: Product) => {
     setSelectedProduct(product);
@@ -565,11 +646,12 @@ export default function ProductsSection() {
 
         {/* Carousel Container */}
         <div className="relative">
-          {/* Navigation Arrows */}
+          {/* Navigation Arrows - Positioned further towards edges */}
           <button
             onClick={navigateLeft}
-            className="absolute left-0 top-1/2 transform -translate-y-1/2 z-20 w-12 h-12 bg-white border border-orange-500 rounded-full flex items-center justify-center text-orange-500 hover:bg-orange-50 transition-all duration-200 hover:scale-105 active:scale-95 shadow-md hover:shadow-lg"
+            className="absolute top-1/2 transform -translate-y-1/2 z-20 w-12 h-12 bg-white border border-orange-500 rounded-full flex items-center justify-center text-orange-500 hover:bg-orange-50 transition-all duration-200 hover:scale-105 active:scale-95 shadow-md hover:shadow-lg"
             style={{
+              left: "-64px", // Move further left, outside the container
               boxShadow:
                 "0 4px 12px -2px rgba(249, 115, 22, 0.25), 0 2px 6px -1px rgba(249, 115, 22, 0.15)",
             }}
@@ -579,8 +661,9 @@ export default function ProductsSection() {
 
           <button
             onClick={navigateRight}
-            className="absolute right-0 top-1/2 transform -translate-y-1/2 z-20 w-12 h-12 bg-white border border-blue-500 rounded-full flex items-center justify-center text-blue-500 hover:bg-blue-50 transition-all duration-200 hover:scale-105 active:scale-95 shadow-md hover:shadow-lg"
+            className="absolute top-1/2 transform -translate-y-1/2 z-20 w-12 h-12 bg-white border border-blue-500 rounded-full flex items-center justify-center text-blue-500 hover:bg-blue-50 transition-all duration-200 hover:scale-105 active:scale-95 shadow-md hover:shadow-lg"
             style={{
+              right: "-64px", // Move further right, outside the container
               boxShadow:
                 "0 4px 12px -2px rgba(32, 132, 177, 0.25), 0 2px 6px -1px rgba(32, 132, 177, 0.15)",
             }}
@@ -589,23 +672,48 @@ export default function ProductsSection() {
           </button>
 
           {/* Product Cards */}
-          <div className="overflow-hidden px-16">
+          <div
+            ref={containerRef}
+            className="relative overflow-hidden"
+            onMouseDown={handleMouseDown}
+            onMouseMove={handleMouseMove}
+            onMouseUp={handleMouseUp}
+            onMouseLeave={handleMouseUp}
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+            style={{
+              cursor: isDragging ? "grabbing" : "grab",
+              paddingLeft: "64px",
+              paddingRight: "64px",
+            }}
+          >
             {!isClient ? (
               <CarouselSkeleton />
             ) : (
               <div
                 ref={carouselRef}
-                className="flex transition-transform duration-300 ease-out"
+                className="flex"
                 style={{
-                  transform: `translateX(calc(-${currentIndex} * ${cardWidth}px + (100% - ${visibleCards * cardWidth}px) / 2 - 64px))`,
+                  transform: `translateX(calc((100% - 128px - 1296px) / 2 + 64px - ${
+                    currentIndex * 432
+                  }px + ${dragOffset}px))`,
+                  transition: isDragging ? "none" : "transform 0.3s ease-out",
                   willChange: "transform",
                 }}
               >
-                {/* Render all carousel items */}
-                {carouselItems.map((product, index) => (
+                {/* Render all products - show 3 at a time */}
+                {products.map((product, index) => (
                   <div
-                    key={`${product.id}-${index}`}
-                    className="carousel-card flex-shrink-0 w-80 md:w-96 px-4"
+                    key={`product-${product.id}-${index}`}
+                    className="flex-shrink-0"
+                    style={{
+                      width: "400px",
+                      paddingLeft: "16px",
+                      paddingRight: "16px",
+                      minWidth: "400px",
+                      flexShrink: 0,
+                    }}
                   >
                     <div
                       className="bg-white rounded-lg overflow-hidden shadow-md border border-gray-100 h-full hover:border-gray-200 hover:shadow-lg transition-all duration-200 ease-out hover:-translate-y-2 flex flex-col cursor-pointer group"
@@ -623,14 +731,12 @@ export default function ProductsSection() {
                           fill
                           className="object-cover"
                           quality={50}
-                          sizes="(max-width: 768px) 320px, 384px"
+                          sizes="400px"
                           priority={
-                            index >= currentIndex &&
-                            index < currentIndex + visibleCards
+                            index >= currentIndex && index < currentIndex + 3
                           }
                           loading={
-                            index >= currentIndex &&
-                            index < currentIndex + visibleCards
+                            index >= currentIndex && index < currentIndex + 3
                               ? "eager"
                               : "lazy"
                           }
@@ -647,7 +753,7 @@ export default function ProductsSection() {
                           {product.title}
                         </h3>
                         <p className="text-gray-600 mb-6 leading-relaxed flex-grow text-sm sm:text-base font-light">
-                          {product.description}
+                          {product.carouselDescription}
                         </p>
 
                         {/* Horizontal line */}
@@ -670,24 +776,37 @@ export default function ProductsSection() {
 
           {/* Pagination Dots - One dot per product (14 dots) */}
           <div className="flex justify-center mt-8 space-x-2 flex-wrap gap-2">
-            {products.map((_, index) => {
-              // Calculate which product is currently centered/active
-              const normalizedIndex =
-                ((currentIndex % products.length) + products.length) %
-                products.length;
-              const isActive = normalizedIndex === index;
+            {products.map((product, index) => {
+              // Show active dot for the first visible card in the current view
+              // If showing cards 0,1,2 -> dot 0 is active
+              // If showing cards 1,2,3 -> dot 1 is active
+              // If showing cards 11,12,13 -> dot 11 is active
+              const maxIndex = Math.max(0, products.length - 3);
+              const isActive = currentIndex === index;
+              // Also highlight dots for all visible cards
+              const isVisible =
+                index >= currentIndex && index < currentIndex + 3;
 
               return (
                 <button
-                  key={index}
-                  onClick={() => goToSlide(index)}
+                  key={product.id}
+                  onClick={() => {
+                    // Circular navigation: clicking any dot should work
+                    if (index > maxIndex) {
+                      goToSlide(0); // Wrap to beginning
+                    } else {
+                      goToSlide(index);
+                    }
+                  }}
                   className={`w-3 h-3 rounded-full transition-all duration-200 hover:scale-125 active:scale-95 ${
                     isActive
                       ? "bg-orange-500 scale-125"
+                      : isVisible
+                      ? "bg-orange-300"
                       : "bg-gray-300 hover:bg-gray-400"
                   }`}
-                  title={products[index].title}
-                  aria-label={`Go to ${products[index].title}`}
+                  title={product.title}
+                  aria-label={`Go to ${product.title}`}
                 />
               );
             })}
@@ -701,172 +820,201 @@ export default function ProductsSection() {
         </div>
       </div>
 
-      {/* Product Detail Modal */}
+      {/* Product Detail Modal - Dark Theme */}
       {isModalOpen && selectedProduct && (
         <div
-          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+          className="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4 sm:p-6"
           onClick={closeModal}
+          style={{ zIndex: 10000 }}
         >
           <div
-            className="bg-white rounded-xl shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto border border-gray-100"
+            className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 rounded-2xl shadow-2xl max-w-5xl w-full max-h-[95vh] overflow-hidden border border-white/10 flex flex-col"
             style={{
               boxShadow:
-                "0 20px 40px -10px rgba(0, 0, 0, 0.15), 0 10px 20px -5px rgba(0, 0, 0, 0.1)",
+                "0 25px 70px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.1)",
             }}
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Modal Header */}
-            <div className="relative">
-              <div className="h-64 md:h-80 relative overflow-hidden rounded-t-2xl">
-                <Image
-                  src={selectedProduct.image}
-                  alt={selectedProduct.title}
-                  fill
-                  className="object-cover"
-                  quality={60}
-                  loading="eager"
-                />
-                <button
-                  onClick={closeModal}
-                  className="absolute top-4 right-4 w-10 h-10 bg-white rounded-full flex items-center justify-center text-gray-600 hover:text-gray-800 transition-colors"
+            {/* Modal Header with Image */}
+            <div className="relative h-64 md:h-80 overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/80 to-transparent z-10" />
+              <Image
+                src={selectedProduct.image}
+                alt={selectedProduct.title}
+                fill
+                className="object-cover"
+                quality={80}
+                loading="eager"
+              />
+              <button
+                onClick={closeModal}
+                className="absolute top-4 right-4 z-20 w-10 h-10 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-all duration-200 border border-white/20 hover:scale-110"
+                aria-label="Close modal"
+              >
+                <svg
+                  className="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
                 >
-                  <svg
-                    className="w-6 h-6"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M6 18L18 6M6 6l12 12"
-                    />
-                  </svg>
-                </button>
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
+              <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8 z-10">
+                <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-2 drop-shadow-lg">
+                  {selectedProduct.title}
+                </h2>
+                <div className="h-1 w-20 bg-gradient-to-r from-orange-500 to-orange-600 rounded-full"></div>
               </div>
             </div>
 
-            {/* Modal Content */}
-            <div className="p-6 md:p-8">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
-                {selectedProduct.title}
-              </h2>
-              <p className="text-lg text-gray-600 mb-8 leading-relaxed">
-                {selectedProduct.description}
-              </p>
+            {/* Modal Content - Scrollable */}
+            <div className="flex-1 overflow-y-auto">
+              <div className="p-6 md:p-8">
+                <p className="text-lg md:text-xl text-white/80 mb-8 leading-relaxed">
+                  {selectedProduct.description}
+                </p>
 
-              <div className="grid md:grid-cols-3 gap-6">
-                {/* Specifications */}
-                <div className="bg-gray-50 rounded-xl p-6">
-                  <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center">
-                    <div className="w-8 h-8 bg-orange-500 rounded-lg flex items-center justify-center mr-3">
-                      <svg
-                        className="w-4 h-4 text-white"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                    </div>
-                    Specifications
-                  </h3>
-                  <ul className="space-y-2">
-                    {selectedProduct.specifications.map((spec, index) => (
-                      <li
-                        key={index}
-                        className="text-gray-600 flex items-start"
-                      >
-                        <div className="w-2 h-2 bg-orange-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                        {spec}
-                      </li>
-                    ))}
-                  </ul>
+                <div className="grid md:grid-cols-3 gap-6 mb-8">
+                  {/* Specifications */}
+                  <div className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10 hover:border-orange-500/50 transition-all duration-300">
+                    <h3 className="text-xl font-bold text-white mb-4 flex items-center">
+                      <div className="w-10 h-10 bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg flex items-center justify-center mr-3 shadow-lg">
+                        <svg
+                          className="w-5 h-5 text-white"
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                            clipRule="evenodd"
+                          />
+                        </svg>
+                      </div>
+                      <span className="bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent">
+                        Specifications
+                      </span>
+                    </h3>
+                    <ul className="space-y-3">
+                      {selectedProduct.specifications.map((spec, index) => (
+                        <li
+                          key={index}
+                          className="text-white/70 flex items-start group"
+                        >
+                          <div className="w-2 h-2 bg-orange-500 rounded-full mt-2 mr-3 flex-shrink-0 group-hover:scale-125 transition-transform"></div>
+                          <span className="text-sm leading-relaxed">
+                            {spec}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Applications */}
+                  <div className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10 hover:border-blue-500/50 transition-all duration-300">
+                    <h3 className="text-xl font-bold text-white mb-4 flex items-center">
+                      <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center mr-3 shadow-lg">
+                        <svg
+                          className="w-5 h-5 text-white"
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z"
+                            clipRule="evenodd"
+                          />
+                        </svg>
+                      </div>
+                      <span className="bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent">
+                        Applications
+                      </span>
+                    </h3>
+                    <ul className="space-y-3">
+                      {selectedProduct.applications.map((app, index) => (
+                        <li
+                          key={index}
+                          className="text-white/70 flex items-start group"
+                        >
+                          <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0 group-hover:scale-125 transition-transform"></div>
+                          <span className="text-sm leading-relaxed">{app}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Features */}
+                  <div className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10 hover:border-green-500/50 transition-all duration-300">
+                    <h3 className="text-xl font-bold text-white mb-4 flex items-center">
+                      <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-green-600 rounded-lg flex items-center justify-center mr-3 shadow-lg">
+                        <svg
+                          className="w-5 h-5 text-white"
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                            clipRule="evenodd"
+                          />
+                        </svg>
+                      </div>
+                      <span className="bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent">
+                        Features
+                      </span>
+                    </h3>
+                    <ul className="space-y-3">
+                      {selectedProduct.features.map((feature, index) => (
+                        <li
+                          key={index}
+                          className="text-white/70 flex items-start group"
+                        >
+                          <div className="w-2 h-2 bg-green-500 rounded-full mt-2 mr-3 flex-shrink-0 group-hover:scale-125 transition-transform"></div>
+                          <span className="text-sm leading-relaxed">
+                            {feature}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
 
-                {/* Applications */}
-                <div className="bg-gray-50 rounded-xl p-6">
-                  <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center">
-                    <div className="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center mr-3">
-                      <svg
-                        className="w-4 h-4 text-white"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                    </div>
-                    Applications
-                  </h3>
-                  <ul className="space-y-2">
-                    {selectedProduct.applications.map((app, index) => (
-                      <li
-                        key={index}
-                        className="text-gray-600 flex items-start"
-                      >
-                        <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                        {app}
-                      </li>
-                    ))}
-                  </ul>
+                {/* Contact Button */}
+                <div className="mt-8 text-center">
+                  <button
+                    onClick={() => {
+                      const subject = encodeURIComponent(
+                        `Product Quote Request - ${selectedProduct.title}`
+                      );
+                      const body = encodeURIComponent(
+                        `Hello,\n\nI am interested in getting a quote for ${selectedProduct.title}.\n\nPlease provide me with pricing and availability information.\n\nThank you.`
+                      );
+                      window.location.href = `mailto:marketing@a1steelrwanda.com?subject=${subject}&body=${body}`;
+                    }}
+                    className="bg-gradient-to-r from-orange-500 to-orange-600 text-white px-10 py-4 rounded-xl font-bold text-lg hover:from-orange-600 hover:to-orange-700 transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 flex items-center gap-2 mx-auto"
+                  >
+                    <span>Request Quote</span>
+                    <svg
+                      className="w-5 h-5"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M13 7l5 5m0 0l-5 5m5-5H6"
+                      />
+                    </svg>
+                  </button>
                 </div>
-
-                {/* Features */}
-                <div className="bg-gray-50 rounded-xl p-6">
-                  <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center">
-                    <div className="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center mr-3">
-                      <svg
-                        className="w-4 h-4 text-white"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                    </div>
-                    Features
-                  </h3>
-                  <ul className="space-y-2">
-                    {selectedProduct.features.map((feature, index) => (
-                      <li
-                        key={index}
-                        className="text-gray-600 flex items-start"
-                      >
-                        <div className="w-2 h-2 bg-green-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-
-              {/* Contact Button */}
-              <div className="mt-8 text-center">
-                <button
-                  onClick={() => {
-                    const subject = encodeURIComponent(
-                      `Product Quote Request - ${selectedProduct.title}`
-                    );
-                    const body = encodeURIComponent(
-                      `Hello,\n\nI am interested in getting a quote for ${selectedProduct.title}.\n\nPlease provide me with pricing and availability information.\n\nThank you.`
-                    );
-                    window.location.href = `mailto:marketing@a1steelrwanda.com?subject=${subject}&body=${body}`;
-                  }}
-                  className="bg-orange-500 text-white px-8 py-3 rounded-xl font-semibold hover:bg-orange-600 transition-colors"
-                >
-                  Request Quote
-                </button>
               </div>
             </div>
           </div>

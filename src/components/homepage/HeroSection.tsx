@@ -97,8 +97,14 @@ export default function HeroSection({
   const productsButtonRef = useRef<HTMLButtonElement>(null);
   const aboutDropdownRef = useRef<HTMLDivElement>(null);
   const productsDropdownRef = useRef<HTMLDivElement>(null);
-  const [aboutDropdownPosition, setAboutDropdownPosition] = useState({ top: 0, left: 0 });
-  const [productsDropdownPosition, setProductsDropdownPosition] = useState({ top: 0, left: 0 });
+  const [aboutDropdownPosition, setAboutDropdownPosition] = useState({
+    top: 0,
+    left: 0,
+  });
+  const [productsDropdownPosition, setProductsDropdownPosition] = useState({
+    top: 0,
+    left: 0,
+  });
   const [mounted, setMounted] = useState(false);
   const aboutCloseTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const productsCloseTimeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -129,18 +135,14 @@ export default function HeroSection({
   };
 
   const handleAboutClick = useCallback(() => {
-    console.log("handleAboutClick called");
     const basePath = getBasePath();
     const url = `${basePath}/about/`;
-    console.log("Navigating to:", url);
     window.location.href = url;
   }, [getBasePath]);
 
   const handleMakingSteelClick = useCallback(() => {
-    console.log("handleMakingSteelClick called");
     const basePath = getBasePath();
     const url = `${basePath}/about/making-steel/`;
-    console.log("Navigating to:", url);
     window.location.href = url;
   }, [getBasePath]);
 
@@ -286,9 +288,10 @@ export default function HeroSection({
     const updateAboutPosition = () => {
       if (aboutButtonRef.current && isAboutDropdownOpen) {
         const rect = aboutButtonRef.current.getBoundingClientRect();
+        // Use viewport coordinates since dropdown uses position: fixed
         setAboutDropdownPosition({
-          top: rect.bottom + window.scrollY + 8,
-          left: rect.left + window.scrollX,
+          top: rect.bottom + 8, // No scrollY needed for fixed positioning
+          left: rect.left, // No scrollX needed for fixed positioning
         });
       }
     };
@@ -298,11 +301,19 @@ export default function HeroSection({
     if (isAboutDropdownOpen) {
       window.addEventListener("scroll", updateAboutPosition, { passive: true });
       window.addEventListener("resize", updateAboutPosition);
+      // Also update on any scroll event to keep position accurate
+      document.addEventListener("scroll", updateAboutPosition, {
+        passive: true,
+        capture: true,
+      });
     }
 
     return () => {
       window.removeEventListener("scroll", updateAboutPosition);
       window.removeEventListener("resize", updateAboutPosition);
+      document.removeEventListener("scroll", updateAboutPosition, {
+        capture: true,
+      });
     };
   }, [isAboutDropdownOpen]);
 
@@ -311,9 +322,10 @@ export default function HeroSection({
     const updateProductsPosition = () => {
       if (productsButtonRef.current && isProductsDropdownOpen) {
         const rect = productsButtonRef.current.getBoundingClientRect();
+        // Use viewport coordinates since dropdown uses position: fixed
         setProductsDropdownPosition({
-          top: rect.bottom + window.scrollY + 8,
-          left: rect.left + window.scrollX,
+          top: rect.bottom + 8, // No scrollY needed for fixed positioning
+          left: rect.left, // No scrollX needed for fixed positioning
         });
       }
     };
@@ -321,16 +333,25 @@ export default function HeroSection({
     updateProductsPosition();
 
     if (isProductsDropdownOpen) {
-      window.addEventListener("scroll", updateProductsPosition, { passive: true });
+      window.addEventListener("scroll", updateProductsPosition, {
+        passive: true,
+      });
       window.addEventListener("resize", updateProductsPosition);
+      // Also update on any scroll event to keep position accurate
+      document.addEventListener("scroll", updateProductsPosition, {
+        passive: true,
+        capture: true,
+      });
     }
 
     return () => {
       window.removeEventListener("scroll", updateProductsPosition);
       window.removeEventListener("resize", updateProductsPosition);
+      document.removeEventListener("scroll", updateProductsPosition, {
+        capture: true,
+      });
     };
   }, [isProductsDropdownOpen]);
-
 
   // Scroll detection for navbar transparency - debounced for performance
   useEffect(() => {
@@ -405,19 +426,30 @@ export default function HeroSection({
     const handleClickOutside = (event: MouseEvent) => {
       if (isAboutDropdownOpen) {
         const target = event.target as Element;
-        const aboutDropdown = target.closest(".about-dropdown-container");
-        if (!aboutDropdown) {
+        // Check if click is on the button or inside the dropdown portal
+        const aboutButton = aboutButtonRef.current;
+        const aboutDropdown = aboutDropdownRef.current;
+
+        if (
+          aboutButton &&
+          aboutDropdown &&
+          !aboutButton.contains(target) &&
+          !aboutDropdown.contains(target)
+        ) {
           setIsAboutDropdownOpen(false);
         }
       }
     };
 
     if (isAboutDropdownOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
+      // Use a slight delay to ensure clicks on dropdown items register first
+      setTimeout(() => {
+        document.addEventListener("mousedown", handleClickOutside, true);
+      }, 0);
     }
 
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside, true);
     };
   }, [isAboutDropdownOpen]);
 
@@ -433,7 +465,11 @@ export default function HeroSection({
       aria-label="Hero section with company introduction"
     >
       {/* Background Image Carousel - Based on selected industry */}
-      <div className="absolute inset-0 w-full h-full" aria-hidden="true" style={{ zIndex: 1 }}>
+      <div
+        className="absolute inset-0 w-full h-full"
+        aria-hidden="true"
+        style={{ zIndex: 1 }}
+      >
         <div className="absolute inset-0 bg-gray-900" />
         {INDUSTRIES.map((industry, index) => (
           <div
@@ -576,73 +612,101 @@ export default function HeroSection({
                     }`}
                   />
                 </button>
-                {isAboutDropdownOpen && mounted && typeof document !== "undefined" && createPortal(
-                  <motion.div
-                    ref={aboutDropdownRef}
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    transition={{ duration: 0.2 }}
-                    className="fixed w-56"
-                    onMouseEnter={() => {
-                      if (aboutCloseTimeoutRef.current) {
-                        clearTimeout(aboutCloseTimeoutRef.current);
-                        aboutCloseTimeoutRef.current = null;
-                      }
-                      setIsAboutDropdownOpen(true);
-                    }}
-                    onMouseLeave={() => {
-                      // Delay closing to allow clicks to register
-                      aboutCloseTimeoutRef.current = setTimeout(() => {
-                        setIsAboutDropdownOpen(false);
-                      }, 300);
-                    }}
-                    style={{
-                      top: `${aboutDropdownPosition.top}px`,
-                      left: `${aboutDropdownPosition.left}px`,
-                      zIndex: 10003,
-                      pointerEvents: "auto",
-                    }}
-                  >
-                    <div
-                      className="bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-gray-200/50 py-3 overflow-hidden"
+                {isAboutDropdownOpen &&
+                  mounted &&
+                  typeof document !== "undefined" &&
+                  createPortal(
+                    <motion.div
+                      ref={aboutDropdownRef}
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      transition={{ duration: 0.2 }}
+                      className="fixed w-56"
+                      onMouseEnter={() => {
+                        if (aboutCloseTimeoutRef.current) {
+                          clearTimeout(aboutCloseTimeoutRef.current);
+                          aboutCloseTimeoutRef.current = null;
+                        }
+                        setIsAboutDropdownOpen(true);
+                      }}
+                      onMouseLeave={() => {
+                        // Delay closing to allow clicks to register
+                        aboutCloseTimeoutRef.current = setTimeout(() => {
+                          setIsAboutDropdownOpen(false);
+                        }, 300);
+                      }}
                       style={{
-                        boxShadow:
-                          "0 25px 70px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.9)",
-                        backdropFilter: "blur(20px) saturate(180%)",
+                        top: `${aboutDropdownPosition.top}px`,
+                        left: `${aboutDropdownPosition.left}px`,
+                        zIndex: 10003,
+                        pointerEvents: "auto",
                       }}
                     >
-                      {/* Top accent line */}
-                      <div className="h-1 bg-gradient-to-r from-[#2084b1] via-[#f1852e] to-[#2084b1] mb-2"></div>
-                      
-                      <button
-                        onClick={(e) => {
-                          e.preventDefault();
-                          e.stopPropagation();
-                          // Clear any pending close timeout
-                          if (aboutCloseTimeoutRef.current) {
-                            clearTimeout(aboutCloseTimeoutRef.current);
-                            aboutCloseTimeoutRef.current = null;
-                          }
-                          setIsAboutDropdownOpen(false);
-                          // Use setTimeout to ensure state update completes
-                          setTimeout(() => {
-                            handleAboutClick();
-                          }, 0);
+                      <div
+                        className="bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-gray-200/50 py-3 overflow-hidden"
+                        style={{
+                          boxShadow:
+                            "0 25px 70px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.9)",
+                          backdropFilter: "blur(20px) saturate(180%)",
                         }}
-                        onMouseDown={(e) => {
-                          // Prevent dropdown from closing on mousedown
-                          e.stopPropagation();
-                        }}
-                        className="w-full text-left px-6 py-4 text-gray-800 hover:bg-gradient-to-r hover:from-[#2084b1]/10 hover:to-[#f1852e]/10 hover:text-[#2084b1] transition-all duration-300 text-sm font-semibold flex items-center gap-4 group/item cursor-pointer relative overflow-hidden"
-                        aria-label="About Us"
-                        type="button"
                       >
-                        {/* Hover effect background */}
-                        <div className="absolute inset-0 bg-gradient-to-r from-[#2084b1]/5 to-[#f1852e]/5 opacity-0 group-hover/item:opacity-100 transition-opacity duration-300"></div>
-                        
-                        {/* Icon */}
-                        <div className="relative z-10 w-8 h-8 rounded-lg bg-gradient-to-br from-[#2084b1]/10 to-[#2084b1]/5 flex items-center justify-center group-hover/item:from-[#2084b1]/20 group-hover/item:to-[#2084b1]/10 transition-all duration-300">
+                        {/* Top accent line */}
+                        <div className="h-1 bg-gradient-to-r from-[#2084b1] via-[#f1852e] to-[#2084b1] mb-2"></div>
+
+                        <button
+                          onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            // Clear any pending close timeout
+                            if (aboutCloseTimeoutRef.current) {
+                              clearTimeout(aboutCloseTimeoutRef.current);
+                              aboutCloseTimeoutRef.current = null;
+                            }
+                            setIsAboutDropdownOpen(false);
+                            // Use setTimeout to ensure state update completes
+                            setTimeout(() => {
+                              handleAboutClick();
+                            }, 0);
+                          }}
+                          onMouseDown={(e) => {
+                            // Prevent dropdown from closing on mousedown
+                            e.stopPropagation();
+                          }}
+                          className="w-full text-left px-6 py-4 text-gray-800 hover:bg-gradient-to-r hover:from-[#2084b1]/10 hover:to-[#f1852e]/10 hover:text-[#2084b1] transition-all duration-300 text-sm font-semibold flex items-center gap-4 group/item cursor-pointer relative overflow-hidden"
+                          aria-label="About Us"
+                          type="button"
+                        >
+                          {/* Hover effect background */}
+                          <div className="absolute inset-0 bg-gradient-to-r from-[#2084b1]/5 to-[#f1852e]/5 opacity-0 group-hover/item:opacity-100 transition-opacity duration-300"></div>
+
+                          {/* Icon */}
+                          <div className="relative z-10 w-8 h-8 rounded-lg bg-gradient-to-br from-[#2084b1]/10 to-[#2084b1]/5 flex items-center justify-center group-hover/item:from-[#2084b1]/20 group-hover/item:to-[#2084b1]/10 transition-all duration-300">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="16"
+                              height="16"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              className="text-[#2084b1] group-hover/item:scale-110 transition-transform duration-300"
+                            >
+                              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                              <circle cx="9" cy="7" r="4"></circle>
+                              <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+                              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                            </svg>
+                          </div>
+
+                          {/* Text */}
+                          <span className="relative z-10 flex-1 group-hover/item:translate-x-1 transition-transform duration-300">
+                            About Us
+                          </span>
+
+                          {/* Arrow indicator */}
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="16"
@@ -653,69 +717,66 @@ export default function HeroSection({
                             strokeWidth="2"
                             strokeLinecap="round"
                             strokeLinejoin="round"
-                            className="text-[#2084b1] group-hover/item:scale-110 transition-transform duration-300"
+                            className="relative z-10 text-gray-400 group-hover/item:text-[#2084b1] group-hover/item:translate-x-1 opacity-0 group-hover/item:opacity-100 transition-all duration-300"
                           >
-                            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
-                            <circle cx="9" cy="7" r="4"></circle>
-                            <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
-                            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                            <path d="M5 12h14"></path>
+                            <path d="m12 5 7 7-7 7"></path>
                           </svg>
-                        </div>
-                        
-                        {/* Text */}
-                        <span className="relative z-10 flex-1 group-hover/item:translate-x-1 transition-transform duration-300">
-                        About Us
-                        </span>
-                        
-                        {/* Arrow indicator */}
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="16"
-                          height="16"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          className="relative z-10 text-gray-400 group-hover/item:text-[#2084b1] group-hover/item:translate-x-1 opacity-0 group-hover/item:opacity-100 transition-all duration-300"
+                        </button>
+
+                        {/* Divider */}
+                        <div className="h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent mx-4 my-2"></div>
+
+                        <button
+                          onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            // Clear any pending close timeout
+                            if (aboutCloseTimeoutRef.current) {
+                              clearTimeout(aboutCloseTimeoutRef.current);
+                              aboutCloseTimeoutRef.current = null;
+                            }
+                            setIsAboutDropdownOpen(false);
+                            // Use setTimeout to ensure state update completes
+                            setTimeout(() => {
+                              handleMakingSteelClick();
+                            }, 0);
+                          }}
+                          onMouseDown={(e) => {
+                            // Prevent dropdown from closing on mousedown
+                            e.stopPropagation();
+                          }}
+                          className="w-full text-left px-6 py-4 text-gray-800 hover:bg-gradient-to-r hover:from-[#2084b1]/10 hover:to-[#f1852e]/10 hover:text-[#f1852e] transition-all duration-300 text-sm font-semibold flex items-center gap-4 group/item cursor-pointer relative overflow-hidden"
+                          aria-label="Making Steel"
+                          type="button"
                         >
-                          <path d="M5 12h14"></path>
-                          <path d="m12 5 7 7-7 7"></path>
-                        </svg>
-                      </button>
-                      
-                      {/* Divider */}
-                      <div className="h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent mx-4 my-2"></div>
-                      
-                      <button
-                        onClick={(e) => {
-                          e.preventDefault();
-                          e.stopPropagation();
-                          // Clear any pending close timeout
-                          if (aboutCloseTimeoutRef.current) {
-                            clearTimeout(aboutCloseTimeoutRef.current);
-                            aboutCloseTimeoutRef.current = null;
-                          }
-                          setIsAboutDropdownOpen(false);
-                          // Use setTimeout to ensure state update completes
-                          setTimeout(() => {
-                            handleMakingSteelClick();
-                          }, 0);
-                        }}
-                        onMouseDown={(e) => {
-                          // Prevent dropdown from closing on mousedown
-                          e.stopPropagation();
-                        }}
-                        className="w-full text-left px-6 py-4 text-gray-800 hover:bg-gradient-to-r hover:from-[#2084b1]/10 hover:to-[#f1852e]/10 hover:text-[#f1852e] transition-all duration-300 text-sm font-semibold flex items-center gap-4 group/item cursor-pointer relative overflow-hidden"
-                        aria-label="Making Steel"
-                        type="button"
-                      >
-                        {/* Hover effect background */}
-                        <div className="absolute inset-0 bg-gradient-to-r from-[#f1852e]/5 to-[#2084b1]/5 opacity-0 group-hover/item:opacity-100 transition-opacity duration-300"></div>
-                        
-                        {/* Icon */}
-                        <div className="relative z-10 w-8 h-8 rounded-lg bg-gradient-to-br from-[#f1852e]/10 to-[#f1852e]/5 flex items-center justify-center group-hover/item:from-[#f1852e]/20 group-hover/item:to-[#f1852e]/10 transition-all duration-300">
+                          {/* Hover effect background */}
+                          <div className="absolute inset-0 bg-gradient-to-r from-[#f1852e]/5 to-[#2084b1]/5 opacity-0 group-hover/item:opacity-100 transition-opacity duration-300"></div>
+
+                          {/* Icon */}
+                          <div className="relative z-10 w-8 h-8 rounded-lg bg-gradient-to-br from-[#f1852e]/10 to-[#f1852e]/5 flex items-center justify-center group-hover/item:from-[#f1852e]/20 group-hover/item:to-[#f1852e]/10 transition-all duration-300">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="16"
+                              height="16"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              className="text-[#f1852e] group-hover/item:scale-110 transition-transform duration-300"
+                            >
+                              <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                            </svg>
+                          </div>
+
+                          {/* Text */}
+                          <span className="relative z-10 flex-1 group-hover/item:translate-x-1 transition-transform duration-300">
+                            Making Steel
+                          </span>
+
+                          {/* Arrow indicator */}
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="16"
@@ -726,39 +787,16 @@ export default function HeroSection({
                             strokeWidth="2"
                             strokeLinecap="round"
                             strokeLinejoin="round"
-                            className="text-[#f1852e] group-hover/item:scale-110 transition-transform duration-300"
+                            className="relative z-10 text-gray-400 group-hover/item:text-[#f1852e] group-hover/item:translate-x-1 opacity-0 group-hover/item:opacity-100 transition-all duration-300"
                           >
-                            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                            <path d="M5 12h14"></path>
+                            <path d="m12 5 7 7-7 7"></path>
                           </svg>
-                        </div>
-                        
-                        {/* Text */}
-                        <span className="relative z-10 flex-1 group-hover/item:translate-x-1 transition-transform duration-300">
-                        Making Steel
-                        </span>
-                        
-                        {/* Arrow indicator */}
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="16"
-                          height="16"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          className="relative z-10 text-gray-400 group-hover/item:text-[#f1852e] group-hover/item:translate-x-1 opacity-0 group-hover/item:opacity-100 transition-all duration-300"
-                        >
-                          <path d="M5 12h14"></path>
-                          <path d="m12 5 7 7-7 7"></path>
-                        </svg>
-                      </button>
-                      
-                  </div>
-                  </motion.div>,
-                  document.body
-                )}
+                        </button>
+                      </div>
+                    </motion.div>,
+                    document.body
+                  )}
               </div>
               {/* Products Dropdown */}
               <div
@@ -801,67 +839,90 @@ export default function HeroSection({
                     }`}
                   />
                 </button>
-                {isProductsDropdownOpen && mounted && typeof document !== "undefined" && createPortal(
-                  <motion.div
-                    ref={productsDropdownRef}
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    transition={{ duration: 0.2 }}
-                    className="fixed w-56"
-                    onMouseEnter={() => {
-                      if (productsCloseTimeoutRef.current) {
-                        clearTimeout(productsCloseTimeoutRef.current);
-                        productsCloseTimeoutRef.current = null;
-                      }
-                      setIsProductsDropdownOpen(true);
-                    }}
-                    onMouseLeave={() => {
-                      productsCloseTimeoutRef.current = setTimeout(() => {
-                        setIsProductsDropdownOpen(false);
-                      }, 300);
-                    }}
-                    style={{
-                      top: `${productsDropdownPosition.top}px`,
-                      left: `${productsDropdownPosition.left}px`,
-                      zIndex: 10003,
-                      pointerEvents: "auto",
-                    }}
-                  >
-                    <div
-                      className="bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-gray-200/50 py-3 overflow-hidden"
+                {isProductsDropdownOpen &&
+                  mounted &&
+                  typeof document !== "undefined" &&
+                  createPortal(
+                    <motion.div
+                      ref={productsDropdownRef}
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      transition={{ duration: 0.2 }}
+                      className="fixed w-56"
+                      onMouseEnter={() => {
+                        if (productsCloseTimeoutRef.current) {
+                          clearTimeout(productsCloseTimeoutRef.current);
+                          productsCloseTimeoutRef.current = null;
+                        }
+                        setIsProductsDropdownOpen(true);
+                      }}
+                      onMouseLeave={() => {
+                        productsCloseTimeoutRef.current = setTimeout(() => {
+                          setIsProductsDropdownOpen(false);
+                        }, 300);
+                      }}
                       style={{
-                        boxShadow:
-                          "0 25px 70px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.9)",
-                        backdropFilter: "blur(20px) saturate(180%)",
+                        top: `${productsDropdownPosition.top}px`,
+                        left: `${productsDropdownPosition.left}px`,
+                        zIndex: 10003,
+                        pointerEvents: "auto",
                       }}
                     >
-                      {/* Top accent line */}
-                      <div className="h-1 bg-gradient-to-r from-[#f1852e] via-[#2084b1] to-[#f1852e] mb-2"></div>
-                      
-                      {/* Our Products */}
-                      <button
-                        onClick={(e) => {
-                          e.preventDefault();
-                          e.stopPropagation();
-                          if (productsCloseTimeoutRef.current) {
-                            clearTimeout(productsCloseTimeoutRef.current);
-                            productsCloseTimeoutRef.current = null;
-                          }
-                          setIsProductsDropdownOpen(false);
-                          setTimeout(() => {
-                            onProductsClick();
-                          }, 0);
+                      <div
+                        className="bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-gray-200/50 py-3 overflow-hidden"
+                        style={{
+                          boxShadow:
+                            "0 25px 70px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.9)",
+                          backdropFilter: "blur(20px) saturate(180%)",
                         }}
-                        onMouseDown={(e) => {
-                          e.stopPropagation();
-                        }}
-                        className="w-full text-left px-6 py-4 text-gray-800 hover:bg-gradient-to-r hover:from-[#f1852e]/10 hover:to-[#2084b1]/10 hover:text-[#f1852e] transition-all duration-300 text-sm font-semibold flex items-center gap-4 group/item cursor-pointer relative overflow-hidden"
-                        aria-label="Our Products"
-                        type="button"
                       >
-                        <div className="absolute inset-0 bg-gradient-to-r from-[#f1852e]/5 to-[#2084b1]/5 opacity-0 group-hover/item:opacity-100 transition-opacity duration-300"></div>
-                        <div className="relative z-10 w-8 h-8 rounded-lg bg-gradient-to-br from-[#f1852e]/10 to-[#f1852e]/5 flex items-center justify-center group-hover/item:from-[#f1852e]/20 group-hover/item:to-[#f1852e]/10 transition-all duration-300">
+                        {/* Top accent line */}
+                        <div className="h-1 bg-gradient-to-r from-[#f1852e] via-[#2084b1] to-[#f1852e] mb-2"></div>
+
+                        {/* Our Products */}
+                        <button
+                          onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            if (productsCloseTimeoutRef.current) {
+                              clearTimeout(productsCloseTimeoutRef.current);
+                              productsCloseTimeoutRef.current = null;
+                            }
+                            setIsProductsDropdownOpen(false);
+                            setTimeout(() => {
+                              onProductsClick();
+                            }, 0);
+                          }}
+                          onMouseDown={(e) => {
+                            e.stopPropagation();
+                          }}
+                          className="w-full text-left px-6 py-4 text-gray-800 hover:bg-gradient-to-r hover:from-[#f1852e]/10 hover:to-[#2084b1]/10 hover:text-[#f1852e] transition-all duration-300 text-sm font-semibold flex items-center gap-4 group/item cursor-pointer relative overflow-hidden"
+                          aria-label="Our Products"
+                          type="button"
+                        >
+                          <div className="absolute inset-0 bg-gradient-to-r from-[#f1852e]/5 to-[#2084b1]/5 opacity-0 group-hover/item:opacity-100 transition-opacity duration-300"></div>
+                          <div className="relative z-10 w-8 h-8 rounded-lg bg-gradient-to-br from-[#f1852e]/10 to-[#f1852e]/5 flex items-center justify-center group-hover/item:from-[#f1852e]/20 group-hover/item:to-[#f1852e]/10 transition-all duration-300">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="16"
+                              height="16"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              className="text-[#f1852e] group-hover/item:scale-110 transition-transform duration-300"
+                            >
+                              <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path>
+                              <path d="M3 6h18"></path>
+                              <path d="M16 10a4 4 0 0 1-8 0"></path>
+                            </svg>
+                          </div>
+                          <span className="relative z-10 flex-1 group-hover/item:translate-x-1 transition-transform duration-300">
+                            Our Products
+                          </span>
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="16"
@@ -872,59 +933,58 @@ export default function HeroSection({
                             strokeWidth="2"
                             strokeLinecap="round"
                             strokeLinejoin="round"
-                            className="text-[#f1852e] group-hover/item:scale-110 transition-transform duration-300"
+                            className="relative z-10 text-gray-400 group-hover/item:text-[#f1852e] group-hover/item:translate-x-1 opacity-0 group-hover/item:opacity-100 transition-all duration-300"
                           >
-                            <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path>
-                            <path d="M3 6h18"></path>
-                            <path d="M16 10a4 4 0 0 1-8 0"></path>
+                            <path d="M5 12h14"></path>
+                            <path d="m12 5 7 7-7 7"></path>
                           </svg>
-                        </div>
-                        <span className="relative z-10 flex-1 group-hover/item:translate-x-1 transition-transform duration-300">
-                          Our Products
-                        </span>
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="16"
-                          height="16"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          className="relative z-10 text-gray-400 group-hover/item:text-[#f1852e] group-hover/item:translate-x-1 opacity-0 group-hover/item:opacity-100 transition-all duration-300"
+                        </button>
+
+                        {/* Divider */}
+                        <div className="h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent mx-4 my-2"></div>
+
+                        {/* Our Quality */}
+                        <button
+                          onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            if (productsCloseTimeoutRef.current) {
+                              clearTimeout(productsCloseTimeoutRef.current);
+                              productsCloseTimeoutRef.current = null;
+                            }
+                            setIsProductsDropdownOpen(false);
+                            setTimeout(() => {
+                              handleQualityClick();
+                            }, 0);
+                          }}
+                          onMouseDown={(e) => {
+                            e.stopPropagation();
+                          }}
+                          className="w-full text-left px-6 py-4 text-gray-800 hover:bg-gradient-to-r hover:from-[#2084b1]/10 hover:to-[#f1852e]/10 hover:text-[#2084b1] transition-all duration-300 text-sm font-semibold flex items-center gap-4 group/item cursor-pointer relative overflow-hidden"
+                          aria-label="Our Quality"
+                          type="button"
                         >
-                          <path d="M5 12h14"></path>
-                          <path d="m12 5 7 7-7 7"></path>
-                        </svg>
-                      </button>
-                      
-                      {/* Divider */}
-                      <div className="h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent mx-4 my-2"></div>
-                      
-                      {/* Our Quality */}
-                      <button
-                        onClick={(e) => {
-                          e.preventDefault();
-                          e.stopPropagation();
-                          if (productsCloseTimeoutRef.current) {
-                            clearTimeout(productsCloseTimeoutRef.current);
-                            productsCloseTimeoutRef.current = null;
-                          }
-                          setIsProductsDropdownOpen(false);
-                          setTimeout(() => {
-                            handleQualityClick();
-                          }, 0);
-                        }}
-                        onMouseDown={(e) => {
-                          e.stopPropagation();
-                        }}
-                        className="w-full text-left px-6 py-4 text-gray-800 hover:bg-gradient-to-r hover:from-[#2084b1]/10 hover:to-[#f1852e]/10 hover:text-[#2084b1] transition-all duration-300 text-sm font-semibold flex items-center gap-4 group/item cursor-pointer relative overflow-hidden"
-                        aria-label="Our Quality"
-                        type="button"
-                      >
-                        <div className="absolute inset-0 bg-gradient-to-r from-[#2084b1]/5 to-[#f1852e]/5 opacity-0 group-hover/item:opacity-100 transition-opacity duration-300"></div>
-                        <div className="relative z-10 w-8 h-8 rounded-lg bg-gradient-to-br from-[#2084b1]/10 to-[#2084b1]/5 flex items-center justify-center group-hover/item:from-[#2084b1]/20 group-hover/item:to-[#2084b1]/10 transition-all duration-300">
+                          <div className="absolute inset-0 bg-gradient-to-r from-[#2084b1]/5 to-[#f1852e]/5 opacity-0 group-hover/item:opacity-100 transition-opacity duration-300"></div>
+                          <div className="relative z-10 w-8 h-8 rounded-lg bg-gradient-to-br from-[#2084b1]/10 to-[#2084b1]/5 flex items-center justify-center group-hover/item:from-[#2084b1]/20 group-hover/item:to-[#2084b1]/10 transition-all duration-300">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="16"
+                              height="16"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              className="text-[#2084b1] group-hover/item:scale-110 transition-transform duration-300"
+                            >
+                              <path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526"></path>
+                              <circle cx="12" cy="8" r="6"></circle>
+                            </svg>
+                          </div>
+                          <span className="relative z-10 flex-1 group-hover/item:translate-x-1 transition-transform duration-300">
+                            Our Quality
+                          </span>
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="16"
@@ -935,35 +995,16 @@ export default function HeroSection({
                             strokeWidth="2"
                             strokeLinecap="round"
                             strokeLinejoin="round"
-                            className="text-[#2084b1] group-hover/item:scale-110 transition-transform duration-300"
+                            className="relative z-10 text-gray-400 group-hover/item:text-[#2084b1] group-hover/item:translate-x-1 opacity-0 group-hover/item:opacity-100 transition-all duration-300"
                           >
-                            <path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526"></path>
-                            <circle cx="12" cy="8" r="6"></circle>
+                            <path d="M5 12h14"></path>
+                            <path d="m12 5 7 7-7 7"></path>
                           </svg>
-                        </div>
-                        <span className="relative z-10 flex-1 group-hover/item:translate-x-1 transition-transform duration-300">
-                          Our Quality
-                        </span>
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="16"
-                          height="16"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          className="relative z-10 text-gray-400 group-hover/item:text-[#2084b1] group-hover/item:translate-x-1 opacity-0 group-hover/item:opacity-100 transition-all duration-300"
-                        >
-                          <path d="M5 12h14"></path>
-                          <path d="m12 5 7 7-7 7"></path>
-                        </svg>
-                      </button>
-                    </div>
-                  </motion.div>,
-                  document.body
-                )}
+                        </button>
+                      </div>
+                    </motion.div>,
+                    document.body
+                  )}
               </div>
               <button
                 onClick={handleMediaClick}
@@ -1173,13 +1214,13 @@ export default function HeroSection({
             </p>
             {/* Hide button for Our Impact (id: 4) */}
             {INDUSTRIES[currentIndex].id !== 4 && (
-            <button
-              onClick={handleIndustryAction}
-              className="px-8 py-4 border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-gray-900 transition-all duration-300 flex items-center gap-2 group"
-            >
-              <span>Find out more</span>
-              <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </button>
+              <button
+                onClick={handleIndustryAction}
+                className="px-8 py-4 border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-gray-900 transition-all duration-300 flex items-center gap-2 group"
+              >
+                <span>Find out more</span>
+                <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </button>
             )}
           </div>
 

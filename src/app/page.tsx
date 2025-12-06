@@ -77,6 +77,13 @@ function HomeContent() {
     return checkSkipIntro();
   });
 
+  // Scroll to top on page load/refresh
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      window.scrollTo(0, 0);
+    }
+  }, []);
+
   // Set mounted state and ensure video shows immediately on fresh loads
   useEffect(() => {
     setMounted(true);
