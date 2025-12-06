@@ -620,7 +620,7 @@ export default function ProductsSection() {
     <section
       id="products"
       aria-label="Product showcase section"
-      className="relative min-h-screen flex items-center justify-center py-16 sm:py-20 lg:py-24 bg-white overflow-hidden"
+      className="relative min-h-screen flex items-center justify-center py-16 sm:py-20 lg:py-24 bg-white overflow-visible"
     >
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         {/* Section Header */}
@@ -645,28 +645,28 @@ export default function ProductsSection() {
         </div>
 
         {/* Carousel Container */}
-        <div className="relative">
-          {/* Navigation Arrows - Positioned further towards edges */}
+        <div className="relative overflow-visible">
+          {/* Navigation Arrows - Responsive positioning */}
           <button
             onClick={navigateLeft}
-            className="absolute top-1/2 transform -translate-y-1/2 z-20 w-12 h-12 bg-white border border-orange-500 rounded-full flex items-center justify-center text-orange-500 hover:bg-orange-50 transition-all duration-200 hover:scale-105 active:scale-95 shadow-md hover:shadow-lg"
+            className="absolute top-1/2 transform -translate-y-1/2 z-20 w-12 h-12 bg-white border border-orange-500 rounded-full flex items-center justify-center text-orange-500 hover:bg-orange-50 transition-all duration-200 hover:scale-105 active:scale-95 shadow-md hover:shadow-lg left-0 md:left-[-48px] lg:left-[-64px]"
             style={{
-              left: "-64px", // Move further left, outside the container
               boxShadow:
                 "0 4px 12px -2px rgba(249, 115, 22, 0.25), 0 2px 6px -1px rgba(249, 115, 22, 0.15)",
             }}
+            aria-label="Previous products"
           >
             <ChevronLeft className="w-6 h-6" />
           </button>
 
           <button
             onClick={navigateRight}
-            className="absolute top-1/2 transform -translate-y-1/2 z-20 w-12 h-12 bg-white border border-blue-500 rounded-full flex items-center justify-center text-blue-500 hover:bg-blue-50 transition-all duration-200 hover:scale-105 active:scale-95 shadow-md hover:shadow-lg"
+            className="absolute top-1/2 transform -translate-y-1/2 z-20 w-12 h-12 bg-white border border-blue-500 rounded-full flex items-center justify-center text-blue-500 hover:bg-blue-50 transition-all duration-200 hover:scale-105 active:scale-95 shadow-md hover:shadow-lg right-0 md:right-[-48px] lg:right-[-64px]"
             style={{
-              right: "-64px", // Move further right, outside the container
               boxShadow:
                 "0 4px 12px -2px rgba(32, 132, 177, 0.25), 0 2px 6px -1px rgba(32, 132, 177, 0.15)",
             }}
+            aria-label="Next products"
           >
             <ChevronRight className="w-6 h-6" />
           </button>
@@ -674,7 +674,7 @@ export default function ProductsSection() {
           {/* Product Cards */}
           <div
             ref={containerRef}
-            className="relative overflow-hidden"
+            className="relative overflow-x-hidden overflow-y-visible"
             onMouseDown={handleMouseDown}
             onMouseMove={handleMouseMove}
             onMouseUp={handleMouseUp}
@@ -686,6 +686,7 @@ export default function ProductsSection() {
               cursor: isDragging ? "grabbing" : "grab",
               paddingLeft: "64px",
               paddingRight: "64px",
+              minHeight: "500px", // Ensure minimum height for visibility
             }}
           >
             {!isClient ? (
@@ -700,6 +701,7 @@ export default function ProductsSection() {
                   }px + ${dragOffset}px))`,
                   transition: isDragging ? "none" : "transform 0.3s ease-out",
                   willChange: "transform",
+                  minWidth: "max-content", // Ensure content is always visible
                 }}
               >
                 {/* Render all products - show 3 at a time */}
