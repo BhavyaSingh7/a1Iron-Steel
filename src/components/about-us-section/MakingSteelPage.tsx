@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 import {
   ArrowLeft,
   X,
@@ -13,6 +14,8 @@ import {
   Cog,
   CheckCircle,
   ArrowRight,
+  Play,
+  Pause,
 } from "lucide-react";
 
 interface MakingSteelPageProps {
@@ -35,6 +38,8 @@ interface ProcessStep {
 export default function MakingSteelPage({ onClose }: MakingSteelPageProps) {
   const router = useRouter();
   const [activeStep, setActiveStep] = useState(0);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  const [hoveredStep, setHoveredStep] = useState<number | null>(null);
 
   const handleClose = () => {
     // Use window.location for immediate navigation with skipIntro parameter
@@ -114,12 +119,14 @@ export default function MakingSteelPage({ onClose }: MakingSteelPageProps) {
 
   // Auto-advance through steps
   useEffect(() => {
+    if (!isAutoPlaying) return;
+
     const interval = setInterval(() => {
       setActiveStep((prev) => (prev + 1) % processes.length);
     }, 4000);
 
     return () => clearInterval(interval);
-  }, [processes.length]);
+  }, [processes.length, isAutoPlaying]);
 
   return (
     <div className="fixed inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 z-50 overflow-y-auto">
@@ -144,11 +151,29 @@ export default function MakingSteelPage({ onClose }: MakingSteelPageProps) {
         </div>
       </div>
 
-      {/* Hero Section */}
-      <section className="relative py-16 sm:py-20 overflow-hidden min-h-[40vh] flex items-center">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/40" />
+      {/* Hero Section with Image */}
+      <section className="relative py-16 sm:py-20 overflow-hidden min-h-[60vh] flex items-center">
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/40 to-black/60" />
+        {/* Background Image */}
         <motion.div
-          className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full text-center"
+          className="absolute inset-0 opacity-30"
+          initial={{ opacity: 0, scale: 1.1 }}
+          animate={{ opacity: 0.3, scale: 1 }}
+          transition={{ duration: 1.5 }}
+        >
+          <Image
+            src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/making-of-a-steel/image.png`}
+            alt="Steel Manufacturing Process"
+            fill
+            className="object-cover"
+            quality={75}
+            priority
+            sizes="100vw"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-900/80 via-slate-900/60 to-slate-900/80" />
+        </motion.div>
+        <motion.div
+          className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full text-center z-10"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
@@ -159,18 +184,40 @@ export default function MakingSteelPage({ onClose }: MakingSteelPageProps) {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <span className="bg-gradient-to-r from-blue-400 via-orange-400 to-blue-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-blue-400 via-orange-400 to-blue-400 bg-clip-text text-transparent drop-shadow-2xl">
               Our Manufacturing
             </span>
           </motion.h1>
           <motion.p
-            className="text-xl sm:text-2xl text-white/80 max-w-3xl mx-auto"
+            className="text-xl sm:text-2xl text-white/90 max-w-3xl mx-auto drop-shadow-lg"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
             Visual Journey Through Our Manufacturing Process
           </motion.p>
+          {/* Play/Pause Control */}
+          <motion.button
+            onClick={() => setIsAutoPlaying(!isAutoPlaying)}
+            className="mt-8 flex items-center gap-2 px-6 py-3 bg-white/10 backdrop-blur-md rounded-full border border-white/20 text-white hover:bg-white/20 transition-all duration-200 mx-auto group"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            {isAutoPlaying ? (
+              <>
+                <Pause className="w-5 h-5" />
+                <span>Pause Auto-Play</span>
+              </>
+            ) : (
+              <>
+                <Play className="w-5 h-5" />
+                <span>Resume Auto-Play</span>
+              </>
+            )}
+          </motion.button>
         </motion.div>
       </section>
 
@@ -179,8 +226,8 @@ export default function MakingSteelPage({ onClose }: MakingSteelPageProps) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Process Flow Diagram */}
           <div className="relative">
-            {/* Connection Lines */}
-            <div className="hidden lg:block absolute top-1/2 left-0 right-0 h-1 -translate-y-1/2 z-0">
+            {/* Enhanced Connection Lines with Flow Animation */}
+            <div className="hidden lg:block absolute top-1/2 left-0 right-0 h-2 -translate-y-1/2 z-0">
               <div className="relative h-full">
                 {processes.map((_, index) => {
                   if (index === processes.length - 1) return null;
@@ -188,18 +235,33 @@ export default function MakingSteelPage({ onClose }: MakingSteelPageProps) {
                   return (
                     <motion.div
                       key={`line-${index}`}
-                      className="absolute h-1 bg-gradient-to-r from-orange-500 to-orange-600"
+                      className="absolute h-2 bg-gradient-to-r from-orange-500 via-orange-400 to-orange-500 rounded-full"
                       style={{
                         left: `${index * width}%`,
                         width: `${width}%`,
                       }}
-                      initial={{ scaleX: 0 }}
+                      initial={{ scaleX: 0, opacity: 0 }}
                       animate={{
-                        scaleX: activeStep > index ? 1 : 0.3,
+                        scaleX: activeStep > index ? 1 : 0.2,
                         opacity: activeStep > index ? 1 : 0.3,
                       }}
-                      transition={{ duration: 0.5 }}
-                    />
+                      transition={{ duration: 0.6, ease: "easeOut" }}
+                    >
+                      {/* Animated flow effect */}
+                      {activeStep > index && (
+                        <motion.div
+                          className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent rounded-full"
+                          animate={{
+                            x: ["-100%", "100%"],
+                          }}
+                          transition={{
+                            duration: 2,
+                            repeat: Infinity,
+                            ease: "linear",
+                          }}
+                        />
+                      )}
+                    </motion.div>
                   );
                 })}
               </div>
@@ -219,13 +281,21 @@ export default function MakingSteelPage({ onClose }: MakingSteelPageProps) {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: index * 0.1 }}
-                    onClick={() => setActiveStep(index)}
+                    onClick={() => {
+                      setActiveStep(index);
+                      setIsAutoPlaying(false); // Pause auto-play when user clicks
+                    }}
+                    onMouseEnter={() => setHoveredStep(index)}
+                    onMouseLeave={() => setHoveredStep(null)}
+                    whileHover={{ y: -5 }}
                   >
-                    {/* Step Circle with Animation */}
+                    {/* Step Circle with Enhanced Animation */}
                     <motion.div
                       className={`relative w-20 h-20 md:w-24 md:h-24 mx-auto mb-4 rounded-full flex items-center justify-center cursor-pointer transition-all duration-300 ${
                         isActive
                           ? "scale-125 shadow-2xl"
+                          : hoveredStep === index
+                          ? "scale-110 opacity-90"
                           : isPast
                           ? "scale-100 opacity-80"
                           : "scale-90 opacity-60"
@@ -235,15 +305,29 @@ export default function MakingSteelPage({ onClose }: MakingSteelPageProps) {
                           ? `linear-gradient(135deg, ${
                               process.color.split(" ")[1]
                             }, ${process.color.split(" ")[3]})`
+                          : hoveredStep === index
+                          ? `linear-gradient(135deg, ${
+                              process.color.split(" ")[1]
+                            }60, ${process.color.split(" ")[3]}60)`
                           : "rgba(255, 255, 255, 0.1)",
                       }}
-                      whileHover={{ scale: isActive ? 1.3 : 1.1 }}
+                      whileHover={{ scale: isActive ? 1.35 : hoveredStep === index ? 1.2 : 1.15 }}
+                      whileTap={{ scale: 0.95 }}
                       animate={{
                         boxShadow: isActive
-                          ? `0 0 30px ${
+                          ? `0 0 40px ${
                               process.color.split(" ")[1]
-                            }80, 0 0 60px ${process.color.split(" ")[1]}40`
+                            }90, 0 0 80px ${process.color.split(" ")[1]}50`
+                          : hoveredStep === index
+                          ? `0 0 20px ${
+                              process.color.split(" ")[1]
+                            }60, 0 0 40px ${process.color.split(" ")[1]}30`
                           : "0 4px 15px rgba(0,0,0,0.2)",
+                        rotate: isActive ? [0, 5, -5, 0] : 0,
+                      }}
+                      transition={{
+                        boxShadow: { duration: 0.3 },
+                        rotate: { duration: 4, repeat: isActive ? Infinity : 0, ease: "easeInOut" },
                       }}
                     >
                       <IconComponent
@@ -252,19 +336,43 @@ export default function MakingSteelPage({ onClose }: MakingSteelPageProps) {
                         }`}
                       />
 
-                      {/* Animated Ring */}
+                      {/* Multiple Animated Rings */}
                       {isActive && (
+                        <>
+                          <motion.div
+                            className="absolute inset-0 rounded-full border-2 border-white/60"
+                            animate={{
+                              scale: [1, 1.4, 1],
+                              opacity: [0.6, 0, 0.6],
+                            }}
+                            transition={{
+                              duration: 2,
+                              repeat: Infinity,
+                              ease: "easeInOut",
+                            }}
+                          />
+                          <motion.div
+                            className="absolute inset-0 rounded-full border border-white/40"
+                            animate={{
+                              scale: [1, 1.6, 1],
+                              opacity: [0.4, 0, 0.4],
+                            }}
+                            transition={{
+                              duration: 2.5,
+                              repeat: Infinity,
+                              ease: "easeInOut",
+                              delay: 0.5,
+                            }}
+                          />
+                        </>
+                      )}
+                      {/* Hover indicator */}
+                      {hoveredStep === index && !isActive && (
                         <motion.div
-                          className="absolute inset-0 rounded-full border-2 border-white/50"
-                          animate={{
-                            scale: [1, 1.3, 1],
-                            opacity: [0.5, 0, 0.5],
-                          }}
-                          transition={{
-                            duration: 2,
-                            repeat: Infinity,
-                            ease: "easeInOut",
-                          }}
+                          className="absolute inset-0 rounded-full border-2 border-white/30"
+                          initial={{ scale: 1, opacity: 0 }}
+                          animate={{ scale: 1.2, opacity: 0.5 }}
+                          exit={{ scale: 1, opacity: 0 }}
                         />
                       )}
 
@@ -280,27 +388,39 @@ export default function MakingSteelPage({ onClose }: MakingSteelPageProps) {
                       </div>
                     </motion.div>
 
-                    {/* Step Info */}
+                    {/* Step Info with Enhanced Interactivity */}
                     <div className="text-center">
                       <motion.h3
-                        className={`text-sm md:text-base font-bold mb-1 ${
-                          isActive ? "text-white" : "text-white/60"
+                        className={`text-sm md:text-base font-bold mb-1 transition-colors duration-300 ${
+                          isActive
+                            ? "text-white"
+                            : hoveredStep === index
+                            ? "text-white/90"
+                            : "text-white/60"
                         }`}
                         animate={{
-                          scale: isActive ? 1.1 : 1,
+                          scale: isActive ? 1.15 : hoveredStep === index ? 1.05 : 1,
                         }}
+                        transition={{ duration: 0.2 }}
                       >
                         {process.title}
                       </motion.h3>
-                      <p className="text-xs md:text-sm text-white/50">
+                      <motion.p
+                        className="text-xs md:text-sm text-white/50 transition-colors duration-300"
+                        animate={{
+                          color: hoveredStep === index ? "rgba(255,255,255,0.7)" : undefined,
+                        }}
+                      >
                         {process.shortDesc}
-                      </p>
+                      </motion.p>
                       {isActive && process.temperature && (
                         <motion.div
-                          className="mt-2 text-xs text-orange-400 font-semibold"
-                          initial={{ opacity: 0, y: -5 }}
-                          animate={{ opacity: 1, y: 0 }}
+                          className="mt-2 text-xs text-orange-400 font-semibold flex items-center justify-center gap-1"
+                          initial={{ opacity: 0, y: -5, scale: 0.8 }}
+                          animate={{ opacity: 1, y: 0, scale: 1 }}
+                          transition={{ type: "spring", stiffness: 200 }}
                         >
+                          <Flame className="w-3 h-3" />
                           {process.temperature}
                         </motion.div>
                       )}
@@ -327,25 +447,42 @@ export default function MakingSteelPage({ onClose }: MakingSteelPageProps) {
                 return (
                   <div className="bg-black/40 backdrop-blur-lg rounded-3xl p-8 md:p-12 border border-white/10 shadow-2xl">
                     <div className="grid md:grid-cols-2 gap-8 items-center">
-                      {/* Visual Representation */}
-                      <div className="relative h-64 md:h-96 rounded-2xl overflow-hidden bg-gradient-to-br from-gray-800 to-gray-900">
+                      {/* Visual Representation with Image */}
+                      <motion.div
+                        className="relative h-64 md:h-96 rounded-2xl overflow-hidden bg-gradient-to-br from-gray-800 to-gray-900 border-2 border-white/10 group cursor-pointer"
+                        initial={{ scale: 0.95, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        transition={{ duration: 0.5 }}
+                        whileHover={{ scale: 1.02, borderColor: "rgba(255,255,255,0.3)" }}
+                      >
+                        {/* Manufacturing Process Image */}
+                        <div className="absolute inset-0">
+                          <Image
+                            src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/making-of-a-steel/image.png`}
+                            alt={`${currentProcess.title} - Steel Manufacturing`}
+                            fill
+                            className="object-cover opacity-40 group-hover:opacity-60 transition-opacity duration-300"
+                            quality={75}
+                            sizes="(max-width: 768px) 100vw, 50vw"
+                          />
+                        </div>
                         <div
-                          className={`absolute inset-0 bg-gradient-to-br ${currentProcess.color} opacity-20`}
+                          className={`absolute inset-0 bg-gradient-to-br ${currentProcess.color} opacity-30 group-hover:opacity-40 transition-opacity duration-300`}
                         />
                         <div className="absolute inset-0 flex items-center justify-center">
                           <motion.div
-                            className="relative"
+                            className="relative z-10"
                             animate={{
-                              scale: [1, 1.1, 1],
-                              rotate: [0, 5, -5, 0],
+                              scale: [1, 1.15, 1],
+                              rotate: [0, 10, -10, 0],
                             }}
                             transition={{
-                              duration: 4,
+                              duration: 5,
                               repeat: Infinity,
                               ease: "easeInOut",
                             }}
                           >
-                            <ProcessIcon className="w-32 h-32 md:w-40 md:h-40 text-white/30" />
+                            <ProcessIcon className="w-32 h-32 md:w-40 md:h-40 text-white/40 drop-shadow-2xl" />
                           </motion.div>
 
                           {/* Animated Particles */}
@@ -384,43 +521,80 @@ export default function MakingSteelPage({ onClose }: MakingSteelPageProps) {
                             />
                           ))}
                         </div>
-                      </div>
+                      </motion.div>
 
-                      {/* Step Details */}
-                      <div className="text-white">
+                      {/* Enhanced Step Details with Interactive Elements */}
+                      <motion.div
+                        className="text-white"
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.3 }}
+                      >
                         <motion.div
                           className="inline-block mb-4"
-                          initial={{ scale: 0 }}
-                          animate={{ scale: 1 }}
-                          transition={{ type: "spring", stiffness: 200 }}
+                          initial={{ scale: 0, rotate: -180 }}
+                          animate={{ scale: 1, rotate: 0 }}
+                          transition={{ type: "spring", stiffness: 200, delay: 0.2 }}
                         >
                           <div
-                            className={`w-16 h-1 bg-gradient-to-r ${currentProcess.color} rounded-full`}
+                            className={`w-20 h-1.5 bg-gradient-to-r ${currentProcess.color} rounded-full shadow-lg`}
                           />
                         </motion.div>
-                        <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                        <motion.h2
+                          className="text-3xl md:text-4xl font-bold mb-6 bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent"
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: 0.4 }}
+                        >
                           {currentProcess.title}
-                        </h2>
-                        <div className="space-y-4 text-white/80">
-                          <div className="flex items-center gap-3">
-                            <div
-                              className={`w-12 h-12 rounded-xl bg-gradient-to-br ${currentProcess.color} flex items-center justify-center`}
+                        </motion.h2>
+                        <div className="space-y-6">
+                          <motion.div
+                            className="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all duration-300 cursor-pointer group"
+                            initial={{ opacity: 0, x: -10 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: 0.5 }}
+                            whileHover={{ x: 5, backgroundColor: "rgba(255,255,255,0.1)" }}
+                          >
+                            <motion.div
+                              className={`w-14 h-14 rounded-xl bg-gradient-to-br ${currentProcess.color} flex items-center justify-center shadow-lg`}
+                              whileHover={{ rotate: 360, scale: 1.1 }}
+                              transition={{ duration: 0.6 }}
                             >
-                              <ProcessIcon className="w-6 h-6 text-white" />
-                            </div>
-                            <div>
-                              <p className="font-semibold">
+                              <ProcessIcon className="w-7 h-7 text-white" />
+                            </motion.div>
+                            <div className="flex-1">
+                              <p className="font-semibold text-lg mb-1">
                                 {currentProcess.shortDesc}
                               </p>
                               {currentProcess.temperature && (
-                                <p className="text-sm text-orange-400">
+                                <motion.p
+                                  className="text-sm text-orange-400 flex items-center gap-2"
+                                  initial={{ opacity: 0 }}
+                                  animate={{ opacity: 1 }}
+                                  transition={{ delay: 0.6 }}
+                                >
+                                  <Flame className="w-4 h-4" />
                                   Temperature: {currentProcess.temperature}
-                                </p>
+                                </motion.p>
                               )}
                             </div>
-                          </div>
+                          </motion.div>
+                          {/* Interactive Info Card */}
+                          <motion.div
+                            className="p-4 rounded-xl bg-gradient-to-br from-white/5 to-white/0 border border-white/10"
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.7 }}
+                            whileHover={{ scale: 1.02, borderColor: "rgba(255,255,255,0.2)" }}
+                          >
+                            <p className="text-white/80 leading-relaxed">
+                              Click on any process step above to explore detailed information
+                              about each stage of our steel manufacturing process.
+                            </p>
+                          </motion.div>
                         </div>
-                      </div>
+                      </motion.div>
                     </div>
                   </div>
                 );
