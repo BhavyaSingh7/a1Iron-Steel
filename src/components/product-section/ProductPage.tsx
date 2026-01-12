@@ -45,14 +45,15 @@ const PRODUCTS_DATA: Product[] = [
       "High-performance TMT bars crafted with advanced technology for unmatched strength, corrosion resistance, and seismic safety.",
     image: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/products/tmt bars.jpg`,
     specifications: [
-      "Grade: Fe500",
-      "Diameter: 8mm-32mm",
-      "Standard: IS 1786:2008",
-      "Yield Strength: 500 MPa",
-      "Tensile Strength: 545 MPa",
+      "Grade: Fe 500 & Fe 550",
+      "Diameter: 6mm - 40mm",
+      "Standard: Rwandan Std., BS 449",
+      "Yield Strength: 550 MPa (Fe 550)",
+      "Tensile Strength: 600 MPa (Fe 550)",
       "Elongation: 12% minimum",
     ],
     applications: [
+      "Power Dam",
       "Reinforced Concrete Construction",
       "High-rise Buildings",
       "Bridges & Infrastructure",
@@ -75,7 +76,7 @@ const PRODUCTS_DATA: Product[] = [
       "Enhanced safety in construction",
       "Environmentally sustainable",
     ],
-    certifications: ["ISI Mark", "BIS Certified", "ISO 9001:2015"],
+    certifications: ["Rwandan Certification", "BS 449 Standard"],
     priceRange: "Contact for pricing",
     availability: "In Stock",
   },
@@ -90,10 +91,11 @@ const PRODUCTS_DATA: Product[] = [
       "Precision-engineered round bars built to meet the highest standards for construction, manufacturing, automotive, and more.",
     image: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/products/Round bars.jpg`,
     specifications: [
-      "Diameter: 6mm-100mm",
+      "Diameter: 4mm - 40mm",
+      "Length: 6m & 12m",
       "Grade: Carbon Steel",
       "Surface: Bright/Polished",
-      "Length: 3m-6m",
+      "Certification: Rwandan Standard",
     ],
     applications: [
       "Machinery Components",
@@ -119,7 +121,7 @@ const PRODUCTS_DATA: Product[] = [
       "Cost-effective and efficient solution",
       "Sustainable production practices",
     ],
-    certifications: ["ISO 9001", "ASTM Standards"],
+    certifications: ["Rwandan Certification"],
     priceRange: "Contact for pricing",
     availability: "In Stock",
   },
@@ -134,11 +136,11 @@ const PRODUCTS_DATA: Product[] = [
       "Durable, general-purpose wire rods crafted for diverse industrial applications with excellent mechanical properties.",
     image: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/products/5.5mm.webp`,
     specifications: [
-      "Diameter: 5.5mm",
+      "Diameter: 5.5mm, 6mm & 7mm",
       "Grade: Low Carbon Steel",
       "Surface: Bright",
       "Tolerance: ±0.1mm",
-      "Tensile Strength: 350-450 MPa",
+      "Tensile Strength: Check online for specifications",
       "Elongation: 20% minimum",
     ],
     applications: [
@@ -178,10 +180,10 @@ const PRODUCTS_DATA: Product[] = [
       "Versatile structural steel connectors engineered for high-demand structural and industrial applications.",
     image: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/products/V-ANGLES.jpg`,
     specifications: [
-      "Size: 25x25mm to 200x200mm",
-      "Thickness: 3mm-20mm",
+      "Size: 16mm x 16mm - 75mm x 75mm",
+      "Thickness: 2mm - 8mm",
+      "Length: 6m",
       "Grade: Structural Steel",
-      "Length: 6m-12m",
       "Standard: ASTM A36 / IS 2062",
       "Surface: Mill Finish / Polished",
     ],
@@ -217,16 +219,16 @@ const PRODUCTS_DATA: Product[] = [
     title: "C Channel",
     category: "Construction",
     description:
-      "Corrosion-resistant hot-dip galvanized channel steel engineered to provide outstanding structural support, stability, and versatility. Ideal for structural support, framing systems, and industrial applications.",
-    shortDescription: "Corrosion-resistant hot-dip galvanized channel steel",
+      "MS Channel steel engineered to provide outstanding structural support, stability, and versatility. Features durable coating for long-lasting performance. Ideal for structural support, framing systems, and industrial applications.",
+    shortDescription: "MS Channel with durable coating",
     carouselDescription:
-      "Long-lasting, corrosion-proof channel steel ideal for stable, versatile structural and industrial solutions.",
+      "Long-lasting MS Channel steel ideal for stable, versatile structural and industrial solutions.",
     image: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/products/C-Chanel.jpg`,
     specifications: [
-      "Size: 75x40mm to 200x75mm",
-      "Thickness: 2mm-8mm",
-      "Coating: Hot-dip Galvanized",
-      "Length: 6m-12m",
+      "Size: 75x40mm to 150x75mm",
+      "Thickness: 3mm - 6mm",
+      "Coating: Durable Coating (Not Galvanized)",
+      "Length: 6m",
       "Grade: Structural Steel",
       "Standard: ASTM A36 / IS 2062",
     ],
@@ -238,12 +240,12 @@ const PRODUCTS_DATA: Product[] = [
       "Building Infrastructure",
     ],
     features: [
-      "Corrosion Protection",
+      "Durable Coating",
       "High Load Capacity",
       "Easy Installation",
-      "Durable Coating",
       "Long-lasting Performance",
       "Cost-effective Solution",
+      "MS Channel Construction",
     ],
     benefits: [
       "Versatile applications",
@@ -262,20 +264,20 @@ const PRODUCTS_DATA: Product[] = [
     title: "I-Beam",
     category: "Construction",
     description:
-      "Corrosion-resistant galvanized I-beam steel specifically designed to provide maximum structural strength, stability, and reliability. Perfect for structural framing, bridge construction, and heavy load support applications.",
-    shortDescription: "Corrosion-resistant galvanized I-beam steel",
+      "I-beam steel specifically designed to provide maximum structural strength, stability, and reliability. Perfect for structural framing, bridge construction, and heavy load support applications.",
+    shortDescription: "I-beam steel for structural applications",
     carouselDescription:
       "Durable I-beam steel built to deliver exceptional stability and performance in demanding applications.",
     image: `${
       process.env.NEXT_PUBLIC_BASE_PATH || ""
     }/products/STEEL-BEAMS.jpg`,
     specifications: [
-      "Size: 100x50mm to 600x200mm",
+      "Size: 100x50mm",
       "Thickness: 3mm-25mm",
-      "Coating: Hot-dip Galvanized",
       "Length: 6m-12m",
       "Grade: Structural Steel",
       "Standard: ASTM A36 / IS 2062",
+      "Coating: Not Galvanized",
     ],
     applications: [
       "Structural Framing",
@@ -287,10 +289,10 @@ const PRODUCTS_DATA: Product[] = [
     features: [
       "Maximum Load Capacity",
       "Structural Stability",
-      "Corrosion Resistance",
       "Easy Installation",
       "Superior Strength-to-Weight Ratio",
       "Long-term Durability",
+      "High Structural Integrity",
     ],
     benefits: [
       "Long-term durability",
@@ -315,11 +317,11 @@ const PRODUCTS_DATA: Product[] = [
       "Steel flat bar for versatile industrial applications. Crafted to provide reliable strength and versatility for a range of manufacturing, construction, and fabrication needs.",
     image: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/products/Flat-Bars.jpg`,
     specifications: [
-      "Width: 10mm-200mm",
-      "Thickness: 3mm-50mm",
+      "Width: 16mm - 75mm",
+      "Thickness: 2mm - 8mm",
+      "Length: 6m",
       "Grade: Mild Steel / Structural Steel",
       "Surface: Mill Finish",
-      "Length: 3m-6m (standard), Custom lengths available",
       "Standard: ASTM A36 / IS 2062",
     ],
     applications: [
@@ -362,11 +364,11 @@ const PRODUCTS_DATA: Product[] = [
       process.env.NEXT_PUBLIC_BASE_PATH || ""
     }/products/HOT-ROLLED-STRIP.webp`,
     specifications: [
-      "Thickness: 1.5mm-12mm",
-      "Width: 25mm-200mm",
+      "Thickness: 0.8mm - 2mm",
+      "Width: 80mm - 240mm",
+      "Surface: Mill Finish",
+      "Tensile Strength: Check online for specifications",
       "Grade: Mild Steel / Low Carbon Steel",
-      "Surface: Mill Scale",
-      "Tensile Strength: 400-500 MPa",
       "Standard: ASTM A36 / IS 2062",
     ],
     applications: [
@@ -407,10 +409,10 @@ const PRODUCTS_DATA: Product[] = [
       "High-strength hollow sections offering an excellent strength-to-weight ratio for structural and engineering applications.",
     image: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/products/HS.jpg`,
     specifications: [
-      "Size: 20x20mm to 400x400mm",
-      "Thickness: 1.5mm-12mm",
+      "Size: 12mm x 12mm - 60mm x 60mm",
+      "Thickness: 0.8mm - 2mm",
+      "Length: 6m",
       "Grade: Structural Steel",
-      "Length: 6m-12m",
       "Shape: Square / Rectangular / Circular",
       "Standard: ASTM A500 / IS 4923",
     ],
@@ -446,21 +448,20 @@ const PRODUCTS_DATA: Product[] = [
     title: "Wire Nails",
     category: "Manufacturing",
     description:
-      "Wire nails: versatile, durable fasteners for construction. Perfect for both industrial and construction applications, offering reliable fastening solutions with superior quality and performance.",
+      "MS wire nails: versatile, durable fasteners for construction. Perfect for both industrial and construction applications, offering reliable fastening solutions with superior quality and performance.",
     shortDescription:
-      "Wire nails: versatile, durable fasteners for construction",
+      "MS wire nails: versatile, durable fasteners for construction",
     carouselDescription:
-      "Reliable, long-lasting wire nails engineered for superior grip in construction and industrial use.",
+      "Reliable, long-lasting MS wire nails engineered for superior grip in construction and industrial use.",
     image: `${
       process.env.NEXT_PUBLIC_BASE_PATH || ""
     }/products/Wire-Nails (1).avif`,
     specifications: [
-      "Length: 25mm-150mm",
-      "Diameter: 2mm-6mm",
-      "Material: Carbon Steel",
-      "Coating: Galvanized / Electro-galvanized",
+      "Size: 1.5 inch - 6 inch",
+      "Material: MS (Mild Steel)",
       "Head Type: Flat / Round / Countersunk",
       "Point Type: Diamond / Blunt",
+      "Standard: Check MS nail specifications online",
     ],
     applications: [
       "Construction",
@@ -471,19 +472,19 @@ const PRODUCTS_DATA: Product[] = [
     ],
     features: [
       "High Durability",
-      "Corrosion Resistance",
       "Sharp Points",
       "Consistent Quality",
       "Strong Holding Power",
       "Easy to Use",
+      "MS Material",
     ],
     benefits: [
       "High durability for long-lasting performance",
-      "Corrosion resistance for outdoor use",
       "Reliable fastening in various materials",
       "Cost effective solution",
       "Strong holding power",
       "Easy to use and install",
+      "MS material quality",
     ],
     certifications: ["ISO 9001", "ASTM Standards"],
     priceRange: "Contact for pricing",
@@ -494,19 +495,18 @@ const PRODUCTS_DATA: Product[] = [
     title: "Binding Wire",
     category: "Construction",
     description:
-      "Durable, corrosion-resistant galvanized binding wire that delivers reliable performance in a range of applications, from construction to general industrial use. Essential for concrete reinforcement and construction tying.",
-    shortDescription: "Durable, corrosion-resistant galvanized binding wire",
+      "Durable MS annealed binding wire that delivers reliable performance in a range of applications, from construction to general industrial use. Essential for concrete reinforcement and construction tying.",
+    shortDescription: "Durable MS annealed binding wire",
     carouselDescription:
-      "Corrosion-resistant binding wire designed for dependable reinforcement and versatile fastening applications.",
+      "MS annealed binding wire designed for dependable reinforcement and versatile fastening applications.",
     image: `${
       process.env.NEXT_PUBLIC_BASE_PATH || ""
     }/products/Binding-Wire (1).jpg`,
     specifications: [
-      "Diameter: 0.8mm-2.5mm",
-      "Material: Galvanized Steel",
-      "Coating: Hot-dip Galvanized",
-      "Length: 50kg-100kg coils",
-      "Tensile Strength: 350-450 MPa",
+      "Diameter: 1.4mm - 2.5mm",
+      "Material: MS Annealed Wire",
+      "Packing: 50kg bag",
+      "Tensile Strength: Check specifications",
       "Standard: IS 280 / ASTM A641",
     ],
     applications: [
@@ -517,20 +517,20 @@ const PRODUCTS_DATA: Product[] = [
       "Rebar Tying",
     ],
     features: [
-      "Durable Coating",
-      "Corrosion Resistance",
+      "MS Annealed Material",
       "Flexible",
       "Easy to Use",
       "High Tensile Strength",
       "Long-lasting Performance",
+      "50kg Bag Packing",
     ],
     benefits: [
-      "Corrosion resistance for long-term use",
+      "MS annealed material quality",
       "Easy to use and handle",
       "Reliable performance in all conditions",
       "Cost effective solution",
       "High tensile strength",
-      "Long-lasting durability",
+      "Convenient 50kg bag packing",
     ],
     certifications: ["ISO 9001", "ASTM Standards"],
     priceRange: "Contact for pricing",

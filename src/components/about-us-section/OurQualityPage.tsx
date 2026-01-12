@@ -129,16 +129,16 @@ export default function OurQualityPage({ onClose }: OurQualityPageProps) {
   }, []);
 
   return (
-    <div className="fixed inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 z-50 overflow-y-auto">
+    <div className="fixed inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 z-50 overflow-y-auto snap-y snap-mandatory scroll-smooth">
       {/* Animated Background Elements */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+      <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse" />
         <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-orange-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "1s" }} />
         <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "2s" }} />
       </div>
 
       {/* Header */}
-      <div className="sticky top-0 bg-black/60 backdrop-blur-xl border-b border-white/10 shadow-2xl z-20">
+      <div className="fixed top-0 left-0 right-0 bg-black/60 backdrop-blur-xl border-b border-white/10 shadow-2xl z-30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <button
@@ -158,10 +158,10 @@ export default function OurQualityPage({ onClose }: OurQualityPageProps) {
         </div>
       </div>
 
-      {/* Hero Section - Enhanced */}
-      <section className="relative py-20 sm:py-28 overflow-hidden min-h-[50vh] flex items-center">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/30 to-black/60" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(32,132,177,0.1),transparent_70%)]" />
+      {/* Hero Section - Full Screen */}
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden snap-start snap-always pt-16" style={{ scrollSnapAlign: "start" }}>
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/30 to-black/60 z-0" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(32,132,177,0.1),transparent_70%)] z-0" />
         
         <motion.div
           className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full text-center z-10"
@@ -236,11 +236,11 @@ export default function OurQualityPage({ onClose }: OurQualityPageProps) {
         </motion.div>
       </section>
 
-      {/* Quality Image Section - Enhanced */}
-      <section className="py-16 sm:py-20 relative">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Quality Image Section - Full Screen */}
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden snap-start snap-always" style={{ scrollSnapAlign: "start" }}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full h-full flex items-center justify-center">
           <motion.div
-            className="relative w-full aspect-[16/9] rounded-3xl overflow-hidden shadow-2xl group"
+            className="relative w-full max-w-6xl aspect-[16/9] rounded-3xl overflow-hidden shadow-2xl group"
             initial={{ opacity: 0, scale: 0.95, y: 50 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
@@ -278,11 +278,11 @@ export default function OurQualityPage({ onClose }: OurQualityPageProps) {
         </div>
       </section>
 
-      {/* Quality Standards - Enhanced Interactive Display */}
-      <section className="py-20 sm:py-28 relative">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Quality Standards - Full Screen */}
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden snap-start snap-always py-20" style={{ scrollSnapAlign: "start" }}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
           <motion.div
-            className="text-center mb-16"
+            className="text-center mb-12"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -299,7 +299,7 @@ export default function OurQualityPage({ onClose }: OurQualityPageProps) {
           </motion.div>
 
           {/* Main Quality Standard Display - Enhanced */}
-          <div className="relative min-h-[600px] mb-16">
+          <div className="relative min-h-[500px] mb-12">
             <AnimatePresence mode="wait">
               {qualityStandards.map(
                 (standard, index) =>
@@ -425,12 +425,12 @@ export default function OurQualityPage({ onClose }: OurQualityPageProps) {
         </div>
       </section>
 
-      {/* Quality Metrics Section - Enhanced */}
-      <section className="py-20 sm:py-28 bg-black/40 backdrop-blur-sm relative">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(241,133,46,0.1),transparent_70%)]" />
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      {/* Quality Metrics Section - Full Screen */}
+      <section className="relative min-h-screen flex items-center justify-center bg-black/40 backdrop-blur-sm overflow-hidden snap-start snap-always" style={{ scrollSnapAlign: "start" }}>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(241,133,46,0.1),transparent_70%)] z-0" />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10">
           <motion.div
-            className="text-center mb-16"
+            className="text-center mb-12"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -494,11 +494,11 @@ export default function OurQualityPage({ onClose }: OurQualityPageProps) {
         </div>
       </section>
 
-      {/* Additional Quality Features */}
-      <section className="py-20 sm:py-28">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Additional Quality Features - Full Screen */}
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden snap-start snap-always" style={{ scrollSnapAlign: "start" }}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
           <motion.div
-            className="text-center mb-16"
+            className="text-center mb-12"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -538,10 +538,10 @@ export default function OurQualityPage({ onClose }: OurQualityPageProps) {
         </div>
       </section>
 
-      {/* Call to Action - Enhanced */}
-      <section className="py-20 md:py-28 relative">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/40" />
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+      {/* Call to Action - Full Screen */}
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden snap-start snap-always" style={{ scrollSnapAlign: "start" }}>
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/40 z-0" />
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 w-full">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}

@@ -9,7 +9,6 @@ import React, {
 } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
-import { CarouselSkeleton } from "@/components/LoadingSkeleton";
 
 // Product type definition
 type Product = {
@@ -38,14 +37,15 @@ export default function ProductsSection() {
           process.env.NEXT_PUBLIC_BASE_PATH || ""
         }/products/tmt bars.jpg`,
         specifications: [
-          "Grade: Fe500",
-          "Diameter: 8mm-32mm",
-          "Standard: IS 1786:2008",
-          "Yield Strength: 500 MPa",
-          "Tensile Strength: 545 MPa",
+          "Grade: Fe 500 & Fe 550",
+          "Diameter: 6mm - 40mm",
+          "Standard: Rwandan Std., BS 449",
+          "Yield Strength: 550 MPa (Fe 550)",
+          "Tensile Strength: 600 MPa (Fe 550)",
           "Elongation: 12% minimum",
         ],
         applications: [
+          "Power Dam",
           "Reinforced Concrete Construction",
           "High-rise Buildings",
           "Bridges & Infrastructure",
@@ -72,10 +72,11 @@ export default function ProductsSection() {
           process.env.NEXT_PUBLIC_BASE_PATH || ""
         }/products/Round bars.jpg`,
         specifications: [
-          "Diameter: 6mm-100mm",
+          "Diameter: 4mm - 40mm",
+          "Length: 6m & 12m",
           "Grade: Carbon Steel",
           "Surface: Bright/Polished",
-          "Length: 3m-6m",
+          "Certification: Rwandan Standard",
         ],
         applications: [
           "Machinery Components",
@@ -102,11 +103,11 @@ export default function ProductsSection() {
           "Durable, general-purpose wire rods crafted for diverse industrial applications with excellent mechanical properties.",
         image: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/products/5.5mm.webp`,
         specifications: [
-          "Diameter: 5.5mm",
+          "Diameter: 5.5mm, 6mm & 7mm",
           "Grade: Low Carbon Steel",
           "Surface: Bright",
           "Tolerance: ±0.1mm",
-          "Tensile Strength: 350-450 MPa",
+          "Tensile Strength: Check online for specifications",
           "Elongation: 20% minimum",
         ],
         applications: [
@@ -135,10 +136,10 @@ export default function ProductsSection() {
           process.env.NEXT_PUBLIC_BASE_PATH || ""
         }/products/V-ANGLES.jpg`,
         specifications: [
-          "Size: 25x25mm to 200x200mm",
-          "Thickness: 3mm-20mm",
+          "Size: 16mm x 16mm - 75mm x 75mm",
+          "Thickness: 2mm - 8mm",
+          "Length: 6m",
           "Grade: Structural Steel",
-          "Length: 6m-12m",
           "Standard: ASTM A36 / IS 2062",
           "Surface: Mill Finish / Polished",
         ],
@@ -162,17 +163,17 @@ export default function ProductsSection() {
         id: 5,
         title: "C Channel",
         description:
-          "Long-lasting, corrosion-proof channel steel ideal for stable, versatile structural and industrial solutions.",
+          "MS Channel with durable coating ideal for stable, versatile structural and industrial solutions.",
         carouselDescription:
-          "Long-lasting, corrosion-proof channel steel ideal for stable, versatile structural and industrial solutions.",
+          "Long-lasting MS Channel steel ideal for stable, versatile structural and industrial solutions.",
         image: `${
           process.env.NEXT_PUBLIC_BASE_PATH || ""
         }/products/C-Chanel.jpg`,
         specifications: [
-          "Size: 75x40mm to 200x75mm",
-          "Thickness: 2mm-8mm",
-          "Coating: Hot-dip Galvanized",
-          "Length: 6m-12m",
+          "Size: 75x40mm to 150x75mm",
+          "Thickness: 3mm - 6mm",
+          "Coating: Durable Coating (Not Galvanized)",
+          "Length: 6m",
           "Grade: Structural Steel",
           "Standard: ASTM A36 / IS 2062",
         ],
@@ -184,12 +185,12 @@ export default function ProductsSection() {
           "Building Infrastructure",
         ],
         features: [
-          "Corrosion Protection",
+          "Durable Coating",
           "High Load Capacity",
           "Easy Installation",
-          "Durable Coating",
           "Long-lasting Performance",
           "Cost-effective Solution",
+          "MS Channel Construction",
         ],
       },
       {
@@ -203,12 +204,12 @@ export default function ProductsSection() {
           process.env.NEXT_PUBLIC_BASE_PATH || ""
         }/products/STEEL-BEAMS.jpg`,
         specifications: [
-          "Size: 100x50mm to 600x200mm",
+          "Size: 100x50mm",
           "Thickness: 3mm-25mm",
-          "Coating: Hot-dip Galvanized",
           "Length: 6m-12m",
           "Grade: Structural Steel",
           "Standard: ASTM A36 / IS 2062",
+          "Coating: Not Galvanized",
         ],
         applications: [
           "Structural Framing",
@@ -220,10 +221,10 @@ export default function ProductsSection() {
         features: [
           "Maximum Load Capacity",
           "Structural Stability",
-          "Corrosion Resistance",
           "Easy Installation",
           "Superior Strength-to-Weight Ratio",
           "Long-term Durability",
+          "High Structural Integrity",
         ],
       },
       {
@@ -237,11 +238,11 @@ export default function ProductsSection() {
           process.env.NEXT_PUBLIC_BASE_PATH || ""
         }/products/Flat-Bars.jpg`,
         specifications: [
-          "Width: 10mm-200mm",
-          "Thickness: 3mm-50mm",
+          "Width: 16mm - 75mm",
+          "Thickness: 2mm - 8mm",
+          "Length: 6m",
           "Grade: Mild Steel / Structural Steel",
           "Surface: Mill Finish",
-          "Length: 3m-6m (standard), Custom lengths available",
           "Standard: ASTM A36 / IS 2062",
         ],
         applications: [
@@ -271,11 +272,11 @@ export default function ProductsSection() {
           process.env.NEXT_PUBLIC_BASE_PATH || ""
         }/products/HOT-ROLLED-STRIP.webp`,
         specifications: [
-          "Thickness: 1.5mm-12mm",
-          "Width: 25mm-200mm",
+          "Thickness: 0.8mm - 2mm",
+          "Width: 80mm - 240mm",
+          "Surface: Mill Finish",
+          "Tensile Strength: Check online for specifications",
           "Grade: Mild Steel / Low Carbon Steel",
-          "Surface: Mill Scale",
-          "Tensile Strength: 400-500 MPa",
           "Standard: ASTM A36 / IS 2062",
         ],
         applications: [
@@ -303,10 +304,10 @@ export default function ProductsSection() {
           "High-strength hollow sections offering an excellent strength-to-weight ratio for structural and engineering applications.",
         image: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/products/HS.jpg`,
         specifications: [
-          "Size: 20x20mm to 400x400mm",
-          "Thickness: 1.5mm-12mm",
+          "Size: 12mm x 12mm - 60mm x 60mm",
+          "Thickness: 0.8mm - 2mm",
+          "Length: 6m",
           "Grade: Structural Steel",
-          "Length: 6m-12m",
           "Shape: Square / Rectangular / Circular",
           "Standard: ASTM A500 / IS 4923",
         ],
@@ -330,19 +331,18 @@ export default function ProductsSection() {
         id: 10,
         title: "Wire Nails",
         description:
-          "Reliable, long-lasting wire nails engineered for superior grip in construction and industrial use.",
+          "Reliable, long-lasting MS wire nails engineered for superior grip in construction and industrial use.",
         carouselDescription:
-          "Reliable, long-lasting wire nails engineered for superior grip in construction and industrial use.",
+          "Reliable, long-lasting MS wire nails engineered for superior grip in construction and industrial use.",
         image: `${
           process.env.NEXT_PUBLIC_BASE_PATH || ""
         }/products/Wire-Nails (1).avif`,
         specifications: [
-          "Length: 25mm-150mm",
-          "Diameter: 2mm-6mm",
-          "Material: Carbon Steel",
-          "Coating: Galvanized / Electro-galvanized",
+          "Size: 1.5 inch - 6 inch",
+          "Material: MS (Mild Steel)",
           "Head Type: Flat / Round / Countersunk",
           "Point Type: Diamond / Blunt",
+          "Standard: Check MS nail specifications online",
         ],
         applications: [
           "Construction",
@@ -353,11 +353,11 @@ export default function ProductsSection() {
         ],
         features: [
           "High Durability",
-          "Corrosion Resistance",
           "Sharp Points",
           "Consistent Quality",
           "Strong Holding Power",
           "Easy to Use",
+          "MS Material",
         ],
       },
       {
@@ -371,11 +371,10 @@ export default function ProductsSection() {
           process.env.NEXT_PUBLIC_BASE_PATH || ""
         }/products/Binding-Wire (1).jpg`,
         specifications: [
-          "Diameter: 0.8mm-2.5mm",
-          "Material: Galvanized Steel",
-          "Coating: Hot-dip Galvanized",
-          "Length: 50kg-100kg coils",
-          "Tensile Strength: 350-450 MPa",
+          "Diameter: 1.4mm - 2.5mm",
+          "Material: MS Annealed Wire",
+          "Packing: 50kg bag",
+          "Tensile Strength: Check specifications",
           "Standard: IS 280 / ASTM A641",
         ],
         applications: [
@@ -386,12 +385,12 @@ export default function ProductsSection() {
           "Rebar Tying",
         ],
         features: [
-          "Durable Coating",
-          "Corrosion Resistance",
+          "MS Annealed Material",
           "Flexible",
           "Easy to Use",
           "High Tensile Strength",
           "Long-lasting Performance",
+          "50kg Bag Packing",
         ],
       },
       {
@@ -498,7 +497,6 @@ export default function ProductsSection() {
     []
   );
 
-  const [isClient, setIsClient] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -508,39 +506,28 @@ export default function ProductsSection() {
   const [startX, setStartX] = useState(0);
   const [dragOffset, setDragOffset] = useState(0);
 
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
-
   const navigateLeft = useCallback(() => {
     setCurrentIndex((prev) => {
-      if (prev === 0) {
-        // Wrap to show last 3 products (circular navigation)
-        return Math.max(0, products.length - 3);
-      }
-      return prev - 1;
+      const newIndex = prev === 0 ? Math.max(0, products.length - 1) : prev - 1;
+      console.log("Navigate Left - Previous:", prev, "New:", newIndex);
+      return newIndex;
     });
   }, [products.length]);
 
   const navigateRight = useCallback(() => {
     setCurrentIndex((prev) => {
-      // Maximum index to show last 3 products (products.length - 3)
-      const maxIndex = Math.max(0, products.length - 3);
-      if (prev >= maxIndex) {
-        return 0; // Wrap to beginning (circular navigation)
-      }
-      return prev + 1;
+      // Circular navigation: if at last product, go to first
+      const newIndex = prev >= products.length - 1 ? 0 : prev + 1;
+      console.log("Navigate Right - Previous:", prev, "New:", newIndex);
+      return newIndex;
     });
   }, [products.length]);
 
   const goToSlide = useCallback(
     (index: number) => {
-      // Ensure index doesn't exceed max (to show last 3 products)
-      const maxIndex = Math.max(0, products.length - 3);
-      // Circular: if clicking on a dot beyond max, wrap to beginning
-      if (index > maxIndex) {
-        setCurrentIndex(0);
-      } else {
+      // Direct navigation to any product index
+      if (index >= 0 && index < products.length) {
+        console.log("Go to slide - Index:", index);
         setCurrentIndex(index);
       }
     },
@@ -549,6 +536,10 @@ export default function ProductsSection() {
 
   // Drag handlers
   const handleMouseDown = (e: React.MouseEvent) => {
+    // Don't start dragging if clicking on a button
+    if ((e.target as HTMLElement).closest('button')) {
+      return;
+    }
     setIsDragging(true);
     setStartX(e.pageX);
     setDragOffset(0);
@@ -576,6 +567,10 @@ export default function ProductsSection() {
   };
 
   const handleTouchStart = (e: React.TouchEvent) => {
+    // Don't start dragging if touching a button
+    if ((e.target as HTMLElement).closest('button')) {
+      return;
+    }
     setIsDragging(true);
     setStartX(e.touches[0].pageX);
     setDragOffset(0);
@@ -612,9 +607,19 @@ export default function ProductsSection() {
     setSelectedProduct(null);
   }, []);
 
-  if (!isClient) {
-    return <div className="h-[400px] bg-gray-100 animate-pulse" />;
-  }
+  // Calculate transform value
+  const transformValue = useMemo(() => {
+    return -currentIndex * 432 + dragOffset;
+  }, [currentIndex, dragOffset]);
+
+  // Debug: Log transform value when currentIndex changes
+  useEffect(() => {
+    console.log("Carousel Transform - currentIndex:", currentIndex, "dragOffset:", dragOffset, "transform:", transformValue, "px");
+    if (carouselRef.current) {
+      console.log("Applied transform:", carouselRef.current.style.transform);
+      console.log("Carousel element:", carouselRef.current);
+    }
+  }, [currentIndex, dragOffset, transformValue]);
 
   return (
     <section
@@ -645,30 +650,42 @@ export default function ProductsSection() {
         </div>
 
         {/* Carousel Container */}
-        <div className="relative overflow-visible">
+        <div className="relative -mx-4 sm:-mx-6 lg:-mx-8" style={{ overflow: "visible" }}>
           {/* Navigation Arrows - Responsive positioning */}
           <button
-            onClick={navigateLeft}
-            className="absolute top-1/2 transform -translate-y-1/2 z-20 w-12 h-12 bg-white border border-orange-500 rounded-full flex items-center justify-center text-orange-500 hover:bg-orange-50 transition-all duration-200 hover:scale-105 active:scale-95 shadow-md hover:shadow-lg left-0 md:left-[-48px] lg:left-[-64px]"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              navigateLeft();
+            }}
+            className="absolute top-1/2 -translate-y-1/2 z-50 w-12 h-12 bg-white border border-orange-500 rounded-full flex items-center justify-center text-orange-500 hover:bg-orange-50 transition-all duration-200 hover:scale-105 active:scale-95 shadow-md hover:shadow-lg left-4 md:left-[-48px] lg:left-[-64px] cursor-pointer"
             style={{
               boxShadow:
                 "0 4px 12px -2px rgba(249, 115, 22, 0.25), 0 2px 6px -1px rgba(249, 115, 22, 0.15)",
+              pointerEvents: "auto",
             }}
             aria-label="Previous products"
+            type="button"
           >
-            <ChevronLeft className="w-6 h-6" />
+            <ChevronLeft className="w-6 h-6 pointer-events-none" />
           </button>
 
           <button
-            onClick={navigateRight}
-            className="absolute top-1/2 transform -translate-y-1/2 z-20 w-12 h-12 bg-white border border-blue-500 rounded-full flex items-center justify-center text-blue-500 hover:bg-blue-50 transition-all duration-200 hover:scale-105 active:scale-95 shadow-md hover:shadow-lg right-0 md:right-[-48px] lg:right-[-64px]"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              navigateRight();
+            }}
+            className="absolute top-1/2 -translate-y-1/2 z-50 w-12 h-12 bg-white border border-blue-500 rounded-full flex items-center justify-center text-blue-500 hover:bg-blue-50 transition-all duration-200 hover:scale-105 active:scale-95 shadow-md hover:shadow-lg right-4 md:right-[-48px] lg:right-[-64px] cursor-pointer"
             style={{
               boxShadow:
                 "0 4px 12px -2px rgba(32, 132, 177, 0.25), 0 2px 6px -1px rgba(32, 132, 177, 0.15)",
+              pointerEvents: "auto",
             }}
             aria-label="Next products"
+            type="button"
           >
-            <ChevronRight className="w-6 h-6" />
+            <ChevronRight className="w-6 h-6 pointer-events-none" />
           </button>
 
           {/* Product Cards */}
@@ -684,42 +701,43 @@ export default function ProductsSection() {
             onTouchEnd={handleTouchEnd}
             style={{
               cursor: isDragging ? "grabbing" : "grab",
-              paddingLeft: "64px",
-              paddingRight: "64px",
+              paddingLeft: "0px",
+              paddingRight: "0px",
               minHeight: "500px", // Ensure minimum height for visibility
+              width: "100%",
+              position: "relative",
             }}
           >
-            {!isClient ? (
-              <CarouselSkeleton />
-            ) : (
-              <div
-                ref={carouselRef}
-                className="flex"
-                style={{
-                  transform: `translateX(calc((100% - 128px - 1296px) / 2 + 64px - ${
-                    currentIndex * 432
-                  }px + ${dragOffset}px))`,
-                  transition: isDragging ? "none" : "transform 0.3s ease-out",
-                  willChange: "transform",
-                  minWidth: "max-content", // Ensure content is always visible
-                }}
-              >
+            <div
+              ref={carouselRef}
+              className="flex"
+              style={{
+                transform: `translate3d(${transformValue}px, 0, 0)`,
+                transition: isDragging ? "none" : "transform 0.3s ease-out",
+                willChange: "transform",
+                minWidth: "max-content",
+                position: "relative",
+              }}
+            >
                 {/* Render all products - show 3 at a time */}
                 {products.map((product, index) => (
                   <div
                     key={`product-${product.id}-${index}`}
                     className="flex-shrink-0"
                     style={{
-                      width: "400px",
+                      width: "432px",
                       paddingLeft: "16px",
                       paddingRight: "16px",
-                      minWidth: "400px",
+                      minWidth: "432px",
                       flexShrink: 0,
                     }}
                   >
                     <div
                       className="bg-white rounded-lg overflow-hidden shadow-md border border-gray-100 h-full hover:border-gray-200 hover:shadow-lg transition-all duration-200 ease-out hover:-translate-y-2 flex flex-col cursor-pointer group"
-                      onClick={() => openProductModal(product)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        openProductModal(product);
+                      }}
                       style={{
                         boxShadow:
                           "0 4px 12px -2px rgba(0, 0, 0, 0.08), 0 2px 6px -1px rgba(0, 0, 0, 0.04)",
@@ -773,7 +791,6 @@ export default function ProductsSection() {
                   </div>
                 ))}
               </div>
-            )}
           </div>
 
           {/* Pagination Dots - One dot per product (14 dots) */}
@@ -782,33 +799,27 @@ export default function ProductsSection() {
               // Show active dot for the first visible card in the current view
               // If showing cards 0,1,2 -> dot 0 is active
               // If showing cards 1,2,3 -> dot 1 is active
-              // If showing cards 11,12,13 -> dot 11 is active
-              const maxIndex = Math.max(0, products.length - 3);
+              // Each dot represents one product
+              // First dot (index 0) is active when currentIndex is 0 (TMT Bars)
               const isActive = currentIndex === index;
-              // Also highlight dots for all visible cards
-              const isVisible =
-                index >= currentIndex && index < currentIndex + 3;
 
               return (
                 <button
                   key={product.id}
-                  onClick={() => {
-                    // Circular navigation: clicking any dot should work
-                    if (index > maxIndex) {
-                      goToSlide(0); // Wrap to beginning
-                    } else {
-                      goToSlide(index);
-                    }
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    // Direct navigation to the clicked product
+                    goToSlide(index);
                   }}
-                  className={`w-3 h-3 rounded-full transition-all duration-200 hover:scale-125 active:scale-95 ${
+                  className={`w-3 h-3 rounded-full transition-all duration-200 hover:scale-125 active:scale-95 cursor-pointer ${
                     isActive
                       ? "bg-orange-500 scale-125"
-                      : isVisible
-                      ? "bg-orange-300"
                       : "bg-gray-300 hover:bg-gray-400"
                   }`}
                   title={product.title}
                   aria-label={`Go to ${product.title}`}
+                  type="button"
                 />
               );
             })}

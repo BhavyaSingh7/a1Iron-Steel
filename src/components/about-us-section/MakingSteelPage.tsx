@@ -16,6 +16,10 @@ import {
   ArrowRight,
   Play,
   Pause,
+  Package,
+  ArrowDown,
+  ArrowRight as ArrowRightIcon,
+  Circle,
 } from "lucide-react";
 
 interface MakingSteelPageProps {
@@ -40,6 +44,10 @@ export default function MakingSteelPage({ onClose }: MakingSteelPageProps) {
   const [activeStep, setActiveStep] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [hoveredStep, setHoveredStep] = useState<number | null>(null);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [isImageZoomed, setIsImageZoomed] = useState(false);
+  const [playbackSpeed, setPlaybackSpeed] = useState(1);
+  const [showDetails, setShowDetails] = useState<number | null>(null);
 
   const handleClose = () => {
     // Use window.location for immediate navigation with skipIntro parameter
@@ -53,57 +61,48 @@ export default function MakingSteelPage({ onClose }: MakingSteelPageProps) {
   const processes: ProcessStep[] = [
     {
       id: 1,
-      icon: Factory,
-      title: "Raw Materials",
-      shortDesc: "Iron Ore • Coal • Limestone",
+      icon: Package,
+      title: "Raw Materials (RM)",
+      shortDesc: "Ore • Coal • Dolomite",
       color: "from-blue-500 to-blue-700",
       temperature: "Ambient",
       visualData: { particles: 3, flow: "down" },
     },
     {
       id: 2,
-      icon: Flame,
-      title: "Iron Making",
-      shortDesc: "Blast Furnace",
+      icon: Factory,
+      title: "DR1",
+      shortDesc: "Direct Reduced Iron",
       color: "from-orange-500 to-red-600",
-      temperature: "1,500°C+",
+      temperature: "1,200°C",
       visualData: { particles: 8, flow: "up" },
     },
     {
       id: 3,
-      icon: Droplets,
-      title: "Steel Making",
-      shortDesc: "Refining Process",
+      icon: Zap,
+      title: "Induction Furnace + EAF",
+      shortDesc: "Electric Arc Furnace",
       color: "from-cyan-500 to-blue-600",
       temperature: "1,600°C",
       visualData: { particles: 5, flow: "circular" },
     },
     {
       id: 4,
-      icon: Zap,
-      title: "Casting",
-      shortDesc: "Continuous Casting",
+      icon: Droplets,
+      title: "Liquid Steel",
+      shortDesc: "Molten Steel",
       color: "from-purple-500 to-pink-600",
-      temperature: "1,400°C",
+      temperature: "1,500°C",
       visualData: { particles: 6, flow: "down" },
     },
     {
       id: 5,
       icon: Cog,
-      title: "Hot Rolling",
-      shortDesc: "Shape Formation",
-      color: "from-gray-600 to-gray-800",
-      temperature: "1,200°C",
-      visualData: { particles: 4, flow: "horizontal" },
-    },
-    {
-      id: 6,
-      icon: CheckCircle,
-      title: "Quality Control",
-      shortDesc: "Testing & Finishing",
+      title: "Wire Rod 5.5",
+      shortDesc: "Final Product",
       color: "from-green-500 to-emerald-600",
-      temperature: "Room Temp",
-      visualData: { particles: 2, flow: "static" },
+      temperature: "Cooled",
+      visualData: { particles: 4, flow: "horizontal" },
     },
   ];
 
@@ -117,16 +116,28 @@ export default function MakingSteelPage({ onClose }: MakingSteelPageProps) {
     };
   }, []);
 
-  // Auto-advance through steps
+  // Track mouse position for 3D effects
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePosition({ x: e.clientX, y: e.clientY });
+    };
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
+
+  // Auto-advance through steps with speed control
   useEffect(() => {
     if (!isAutoPlaying) return;
 
     const interval = setInterval(() => {
       setActiveStep((prev) => (prev + 1) % processes.length);
-    }, 4000);
+    }, 4000 / playbackSpeed);
 
     return () => clearInterval(interval);
-  }, [processes.length, isAutoPlaying]);
+  }, [processes.length, isAutoPlaying, playbackSpeed]);
+
+  // Calculate progress percentage
+  const progressPercentage = ((activeStep + 1) / processes.length) * 100;
 
   return (
     <div className="fixed inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 z-50 overflow-y-auto">
@@ -198,54 +209,103 @@ export default function MakingSteelPage({ onClose }: MakingSteelPageProps) {
           >
             Visual Journey Through Our Manufacturing Process
           </motion.p>
-          {/* Play/Pause Control */}
-          <motion.button
-            onClick={() => setIsAutoPlaying(!isAutoPlaying)}
-            className="mt-8 flex items-center gap-2 px-6 py-3 bg-white/10 backdrop-blur-md rounded-full border border-white/20 text-white hover:bg-white/20 transition-all duration-200 mx-auto group"
+          {/* Interactive Controls */}
+          <motion.div
+            className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
           >
-            {isAutoPlaying ? (
-              <>
-                <Pause className="w-5 h-5" />
-                <span>Pause Auto-Play</span>
-              </>
-            ) : (
-              <>
-                <Play className="w-5 h-5" />
-                <span>Resume Auto-Play</span>
-              </>
-            )}
-          </motion.button>
+            {/* Play/Pause Control */}
+            <motion.button
+              onClick={() => setIsAutoPlaying(!isAutoPlaying)}
+              className="flex items-center gap-2 px-6 py-3 bg-white/10 backdrop-blur-md rounded-full border border-white/20 text-white hover:bg-white/20 transition-all duration-200 group"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              {isAutoPlaying ? (
+                <>
+                  <Pause className="w-5 h-5" />
+                  <span>Pause</span>
+                </>
+              ) : (
+                <>
+                  <Play className="w-5 h-5" />
+                  <span>Play</span>
+                </>
+              )}
+            </motion.button>
+
+            {/* Speed Control */}
+            <div className="flex items-center gap-3 bg-white/10 backdrop-blur-md rounded-full px-4 py-2 border border-white/20">
+              <span className="text-white/70 text-sm">Speed:</span>
+              <div className="flex gap-2">
+                {[0.5, 1, 1.5, 2].map((speed) => (
+                  <button
+                    key={speed}
+                    onClick={() => setPlaybackSpeed(speed)}
+                    className={`px-3 py-1 rounded-lg text-sm font-semibold transition-all ${
+                      playbackSpeed === speed
+                        ? "bg-orange-500 text-white scale-110"
+                        : "bg-white/10 text-white/70 hover:bg-white/20"
+                    }`}
+                  >
+                    {speed}x
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Progress Bar */}
+            <div className="flex items-center gap-3 bg-white/10 backdrop-blur-md rounded-full px-4 py-2 border border-white/20 min-w-[200px]">
+              <span className="text-white/70 text-sm whitespace-nowrap">
+                Step {activeStep + 1}/{processes.length}
+              </span>
+              <div className="flex-1 h-2 bg-white/20 rounded-full overflow-hidden">
+                <motion.div
+                  className="h-full bg-gradient-to-r from-orange-500 to-orange-400 rounded-full"
+                  initial={{ width: 0 }}
+                  animate={{ width: `${progressPercentage}%` }}
+                  transition={{ duration: 0.5, ease: "easeOut" }}
+                />
+              </div>
+            </div>
+          </motion.div>
         </motion.div>
       </section>
 
       {/* Main Manufacturing Process Image Section */}
       <section className="relative py-12 md:py-20 min-h-screen">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Large Manufacturing Process Image */}
+          {/* Large Manufacturing Process Image with Interactive Zoom */}
           <motion.div
-            className="relative w-full rounded-3xl overflow-hidden shadow-2xl border-2 border-white/20 mb-12 md:mb-16"
+            className="relative w-full rounded-3xl overflow-hidden shadow-2xl border-2 border-white/20 mb-12 md:mb-16 cursor-zoom-in group"
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8 }}
             whileHover={{ borderColor: "rgba(255,255,255,0.4)" }}
+            onClick={() => setIsImageZoomed(!isImageZoomed)}
           >
-            <div className="relative aspect-video w-full">
+            <div className={`relative aspect-video w-full transition-all duration-500 ${
+              isImageZoomed ? "scale-150" : "scale-100"
+            }`}>
               <Image
                 src={`${
                   process.env.NEXT_PUBLIC_BASE_PATH || ""
                 }/making-of-a-steel/image.png`}
                 alt="Steel Manufacturing Process - Complete Overview"
                 fill
-                className="object-contain"
+                className="object-contain transition-transform duration-500"
                 quality={90}
                 priority
                 sizes="100vw"
               />
+              {/* Zoom Indicator */}
+              <div className="absolute top-4 right-4 bg-black/60 backdrop-blur-sm px-3 py-2 rounded-lg border border-white/20 opacity-0 group-hover:opacity-100 transition-opacity">
+                <p className="text-white text-xs font-semibold">
+                  {isImageZoomed ? "Click to zoom out" : "Click to zoom in"}
+                </p>
+              </div>
               {/* Gradient overlay that changes based on active step */}
               <motion.div
                 className={`absolute inset-0 bg-gradient-to-br ${processes[activeStep].color} opacity-20`}
@@ -261,14 +321,13 @@ export default function MakingSteelPage({ onClose }: MakingSteelPageProps) {
                   const isActive = activeStep === index;
                   // Position indicators around the image
                   const positions = [
-                    { top: "10%", left: "5%" }, // Raw Materials
-                    { top: "15%", right: "10%" }, // Iron Making
-                    { top: "50%", left: "5%" }, // Steel Making
-                    { top: "50%", right: "10%" }, // Casting
-                    { bottom: "15%", left: "10%" }, // Hot Rolling
-                    { bottom: "10%", right: "5%" }, // Quality Control
+                    { top: "10%", left: "50%", transform: "translateX(-50%)" }, // Raw Materials
+                    { top: "30%", left: "50%", transform: "translateX(-50%)" }, // DR1
+                    { top: "50%", left: "50%", transform: "translateX(-50%)" }, // Induction Furnace + EAF
+                    { bottom: "25%", left: "25%", transform: "translateX(-50%)" }, // Liquid
+                    { bottom: "25%", right: "25%", transform: "translateX(50%)" }, // Wire Rod 5.5
                   ];
-                  const position = positions[index] || { top: "50%", left: "50%" };
+                  const position = positions[index] || { top: "50%", left: "50%", transform: "translate(-50%, -50%)" };
 
                   return (
                     <motion.button
@@ -280,7 +339,10 @@ export default function MakingSteelPage({ onClose }: MakingSteelPageProps) {
                       className={`absolute z-20 flex flex-col items-center gap-2 group ${
                         isActive ? "scale-110" : "scale-100 opacity-70"
                       }`}
-                      style={position}
+                      style={{
+                        ...position,
+                        transform: position.transform || "translate(-50%, -50%)",
+                      }}
                       initial={{ opacity: 0, scale: 0 }}
                       animate={{ opacity: isActive ? 1 : 0.7, scale: isActive ? 1.1 : 1 }}
                       transition={{ delay: index * 0.1 }}
@@ -384,7 +446,7 @@ export default function MakingSteelPage({ onClose }: MakingSteelPageProps) {
             </div>
 
             {/* Process Steps */}
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-6 relative z-10">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6 relative z-10">
               {processes.map((process, index) => {
                 const IconComponent = process.icon;
                 const isActive = activeStep === index;
@@ -405,7 +467,7 @@ export default function MakingSteelPage({ onClose }: MakingSteelPageProps) {
                     onMouseLeave={() => setHoveredStep(null)}
                     whileHover={{ y: -5 }}
                   >
-                    {/* Step Circle with Enhanced Animation */}
+                    {/* Step Circle with 3D Tilt Effect */}
                     <motion.div
                       className={`relative w-20 h-20 md:w-24 md:h-24 mx-auto mb-4 rounded-full flex items-center justify-center cursor-pointer transition-all duration-300 ${
                         isActive
@@ -426,6 +488,19 @@ export default function MakingSteelPage({ onClose }: MakingSteelPageProps) {
                               process.color.split(" ")[1]
                             }60, ${process.color.split(" ")[3]}60)`
                           : "rgba(255, 255, 255, 0.1)",
+                        transformStyle: "preserve-3d",
+                      }}
+                      onMouseMove={(e) => {
+                        if (hoveredStep === index) {
+                          const rect = e.currentTarget.getBoundingClientRect();
+                          const x = e.clientX - rect.left - rect.width / 2;
+                          const y = e.clientY - rect.top - rect.height / 2;
+                          e.currentTarget.style.transform = `perspective(1000px) rotateX(${-y / 10}deg) rotateY(${x / 10}deg) scale(${isActive ? 1.25 : 1.1})`;
+                        }
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.transform = "";
+                      }}
                       }}
                       whileHover={{
                         scale: isActive
@@ -433,6 +508,7 @@ export default function MakingSteelPage({ onClose }: MakingSteelPageProps) {
                           : hoveredStep === index
                           ? 1.2
                           : 1.15,
+                        z: 50,
                       }}
                       whileTap={{ scale: 0.95 }}
                       animate={{
@@ -454,6 +530,7 @@ export default function MakingSteelPage({ onClose }: MakingSteelPageProps) {
                           repeat: isActive ? Infinity : 0,
                           ease: "easeInOut",
                         },
+                        transform: { duration: 0.1 },
                       }}
                     >
                       <IconComponent
@@ -546,17 +623,81 @@ export default function MakingSteelPage({ onClose }: MakingSteelPageProps) {
                       >
                         {process.shortDesc}
                       </motion.p>
+                      {/* Interactive Temperature Gauge */}
                       {isActive && process.temperature && (
                         <motion.div
-                          className="mt-2 text-xs text-orange-400 font-semibold flex items-center justify-center gap-1"
+                          className="mt-3 w-full"
                           initial={{ opacity: 0, y: -5, scale: 0.8 }}
                           animate={{ opacity: 1, y: 0, scale: 1 }}
                           transition={{ type: "spring", stiffness: 200 }}
                         >
-                          <Flame className="w-3 h-3" />
-                          {process.temperature}
+                          <div className="flex items-center justify-center gap-1 mb-2">
+                            <Flame className="w-3 h-3 text-orange-400" />
+                            <span className="text-xs text-orange-400 font-semibold">
+                              {process.temperature}
+                            </span>
+                          </div>
+                          {/* Temperature Bar */}
+                          <div className="h-1.5 bg-white/10 rounded-full overflow-hidden">
+                            <motion.div
+                              className={`h-full bg-gradient-to-r ${process.color} rounded-full`}
+                              initial={{ width: 0 }}
+                              animate={{
+                                width: process.temperature.includes("°C")
+                                  ? `${(parseInt(process.temperature) / 1600) * 100}%`
+                                  : process.temperature === "Ambient"
+                                  ? "10%"
+                                  : "50%",
+                              }}
+                              transition={{ duration: 1, delay: 0.3 }}
+                            />
+                          </div>
                         </motion.div>
                       )}
+                      
+                      {/* Interactive Details Button */}
+                      <motion.button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setShowDetails(showDetails === index ? null : index);
+                        }}
+                        className={`mt-2 text-xs px-3 py-1 rounded-full transition-all ${
+                          showDetails === index
+                            ? "bg-orange-500 text-white"
+                            : "bg-white/10 text-white/70 hover:bg-white/20"
+                        }`}
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}
+                      >
+                        {showDetails === index ? "Hide" : "Details"}
+                      </motion.button>
+                      
+                      {/* Expandable Details */}
+                      <AnimatePresence>
+                        {showDetails === index && (
+                          <motion.div
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: "auto" }}
+                            exit={{ opacity: 0, height: 0 }}
+                            transition={{ duration: 0.3 }}
+                            className="mt-3 overflow-hidden"
+                          >
+                            <div className="bg-black/60 backdrop-blur-sm rounded-lg p-3 border border-white/10">
+                              <p className="text-xs text-white/80 leading-relaxed">
+                                {process.shortDesc}
+                              </p>
+                              {process.temperature && (
+                                <div className="mt-2 flex items-center gap-2">
+                                  <Flame className="w-3 h-3 text-orange-400" />
+                                  <span className="text-xs text-orange-400">
+                                    {process.temperature}
+                                  </span>
+                                </div>
+                              )}
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
                     </div>
                   </motion.div>
                 );
@@ -642,13 +783,233 @@ export default function MakingSteelPage({ onClose }: MakingSteelPageProps) {
         </div>
       </section>
 
+      {/* Visual Flowchart Section */}
+      <section className="py-16 md:py-24 bg-black/40 backdrop-blur-sm relative">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            className="text-center mb-12"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+              Steel Making <span className="text-orange-400">Process Flow</span>
+            </h2>
+            <p className="text-xl text-white/70 max-w-3xl mx-auto">
+              From raw materials to finished product - our streamlined manufacturing process
+            </p>
+          </motion.div>
+
+          {/* Flowchart Visualization with Interactive Elements */}
+          <div className="relative bg-gradient-to-br from-gray-800/60 to-gray-900/60 backdrop-blur-xl rounded-3xl p-8 md:p-12 border border-white/10 shadow-2xl overflow-hidden group">
+            {/* Animated Background Particles */}
+            <div className="absolute inset-0 overflow-hidden pointer-events-none">
+              {[...Array(20)].map((_, i) => (
+                <motion.div
+                  key={i}
+                  className="absolute w-1 h-1 bg-orange-400/30 rounded-full"
+                  style={{
+                    left: `${Math.random() * 100}%`,
+                    top: `${Math.random() * 100}%`,
+                  }}
+                  animate={{
+                    y: [0, -30, 0],
+                    opacity: [0.3, 0.8, 0.3],
+                    scale: [1, 1.5, 1],
+                  }}
+                  transition={{
+                    duration: 3 + Math.random() * 2,
+                    repeat: Infinity,
+                    delay: Math.random() * 2,
+                  }}
+                />
+              ))}
+            </div>
+            
+            {/* Flowchart Steps */}
+            <div className="space-y-8 relative z-10">
+              {/* Step 1: Raw Materials - Interactive */}
+              <motion.div
+                className="flex flex-col items-center"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 }}
+                whileHover={{ scale: 1.02 }}
+              >
+                <motion.div
+                  className="bg-gradient-to-br from-blue-500 to-blue-700 rounded-2xl p-6 shadow-xl w-full max-w-md cursor-pointer group/item"
+                  whileHover={{ y: -5, boxShadow: "0 20px 40px rgba(59, 130, 246, 0.4)" }}
+                  onClick={() => setActiveStep(0)}
+                >
+                  <div className="flex items-center justify-center gap-3 mb-4">
+                    <motion.div
+                      animate={{ rotate: [0, 10, -10, 0] }}
+                      transition={{ duration: 4, repeat: Infinity }}
+                    >
+                      <Package className="w-8 h-8 text-white" />
+                    </motion.div>
+                    <h3 className="text-2xl font-bold text-white">Raw Materials (RM)</h3>
+                  </div>
+                  <div className="grid grid-cols-3 gap-3">
+                    {["Ore", "Coal", "Dolomite"].map((material, idx) => (
+                      <motion.div
+                        key={idx}
+                        className="bg-white/20 backdrop-blur-sm rounded-lg p-3 text-center"
+                        whileHover={{ scale: 1.1, backgroundColor: "rgba(255,255,255,0.3)" }}
+                        transition={{ type: "spring", stiffness: 300 }}
+                      >
+                        <p className="text-white font-semibold text-sm">{material}</p>
+                      </motion.div>
+                    ))}
+                  </div>
+                </motion.div>
+                <motion.div
+                  className="my-4"
+                  animate={{ y: [0, 10, 0] }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                >
+                  <ArrowDown className="w-8 h-8 text-orange-400" />
+                </motion.div>
+              </motion.div>
+
+              {/* Step 2: DR1 - Interactive */}
+              <motion.div
+                className="flex flex-col items-center"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+                whileHover={{ scale: 1.02 }}
+              >
+                <motion.div
+                  className="bg-gradient-to-br from-orange-500 to-red-600 rounded-2xl p-6 shadow-xl w-full max-w-md cursor-pointer"
+                  whileHover={{ y: -5, boxShadow: "0 20px 40px rgba(249, 115, 22, 0.4)" }}
+                  onClick={() => setActiveStep(1)}
+                >
+                  <div className="flex items-center justify-center gap-3">
+                    <motion.div
+                      animate={{ scale: [1, 1.1, 1] }}
+                      transition={{ duration: 2, repeat: Infinity }}
+                    >
+                      <Factory className="w-8 h-8 text-white" />
+                    </motion.div>
+                    <h3 className="text-2xl font-bold text-white">DR1</h3>
+                    <span className="text-white/80 text-sm">(Direct Reduced Iron)</span>
+                  </div>
+                </motion.div>
+                <motion.div
+                  className="my-4"
+                  animate={{ y: [0, 10, 0] }}
+                  transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
+                >
+                  <ArrowDown className="w-8 h-8 text-orange-400" />
+                </motion.div>
+              </motion.div>
+
+              {/* Step 3: Induction Furnace + EAF - Interactive */}
+              <motion.div
+                className="flex flex-col items-center"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 }}
+                whileHover={{ scale: 1.02 }}
+              >
+                <motion.div
+                  className="bg-gradient-to-br from-cyan-500 to-blue-600 rounded-2xl p-6 shadow-xl w-full max-w-md cursor-pointer"
+                  whileHover={{ y: -5, boxShadow: "0 20px 40px rgba(6, 182, 212, 0.4)" }}
+                  onClick={() => setActiveStep(2)}
+                >
+                  <div className="flex items-center justify-center gap-3 mb-4">
+                    <motion.div
+                      animate={{ rotate: [0, 180, 360] }}
+                      transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                    >
+                      <Zap className="w-8 h-8 text-white" />
+                    </motion.div>
+                    <h3 className="text-2xl font-bold text-white">Induction Furnace + EAF</h3>
+                  </div>
+                  <p className="text-white/90 text-center text-sm">Electric Arc Furnace</p>
+                </motion.div>
+                
+                {/* Two paths from EAF */}
+                <div className="grid grid-cols-2 gap-8 mt-6 w-full max-w-2xl">
+                  {/* Path to Liquid - Interactive */}
+                  <motion.div
+                    className="flex flex-col items-center"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.4 }}
+                    whileHover={{ scale: 1.05 }}
+                  >
+                    <motion.div
+                      className="mb-4"
+                      animate={{ x: [0, 5, 0] }}
+                      transition={{ duration: 2, repeat: Infinity }}
+                    >
+                      <ArrowRightIcon className="w-8 h-8 text-orange-400" />
+                    </motion.div>
+                    <motion.div
+                      className="bg-gradient-to-br from-purple-500 to-pink-600 rounded-2xl p-6 shadow-xl w-full cursor-pointer"
+                      whileHover={{ y: -5, boxShadow: "0 20px 40px rgba(168, 85, 247, 0.4)" }}
+                      onClick={() => setActiveStep(3)}
+                    >
+                      <div className="flex items-center justify-center gap-3">
+                        <motion.div
+                          animate={{ y: [0, -5, 0] }}
+                          transition={{ duration: 1.5, repeat: Infinity }}
+                        >
+                          <Droplets className="w-8 h-8 text-white" />
+                        </motion.div>
+                        <h3 className="text-xl font-bold text-white">Liquid</h3>
+                      </div>
+                    </motion.div>
+                  </motion.div>
+
+                  {/* Path to Wire Rod - Interactive */}
+                  <motion.div
+                    className="flex flex-col items-center"
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.5 }}
+                    whileHover={{ scale: 1.05 }}
+                  >
+                    <motion.div
+                      className="mb-4"
+                      animate={{ x: [0, 5, 0] }}
+                      transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
+                    >
+                      <ArrowRightIcon className="w-8 h-8 text-orange-400" />
+                    </motion.div>
+                    <motion.div
+                      className="bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl p-6 shadow-xl w-full cursor-pointer"
+                      whileHover={{ y: -5, boxShadow: "0 20px 40px rgba(34, 197, 94, 0.4)" }}
+                      onClick={() => setActiveStep(4)}
+                    >
+                      <div className="flex items-center justify-center gap-3">
+                        <motion.div
+                          animate={{ rotate: [0, 360] }}
+                          transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                        >
+                          <Cog className="w-8 h-8 text-white" />
+                        </motion.div>
+                        <h3 className="text-xl font-bold text-white">Wire Rod 5.5</h3>
+                      </div>
+                      <p className="text-white/90 text-center text-xs mt-2">Add Wire Rod 5.5</p>
+                    </motion.div>
+                  </motion.div>
+                </div>
+              </motion.div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Stats Section */}
       <section className="py-16 md:py-24 bg-black/30 backdrop-blur-sm">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
             {[
-              { label: "Process Steps", value: "6", icon: Cog },
-              { label: "Temperature Range", value: "1,500°C+", icon: Flame },
+              { label: "Process Steps", value: "5", icon: Cog },
+              { label: "Temperature Range", value: "1,600°C", icon: Flame },
               {
                 label: "Quality Standards",
                 value: "ISO 9001",

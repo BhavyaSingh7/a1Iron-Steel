@@ -342,6 +342,219 @@ export default function MediaPage({ onClose }: MediaPageProps) {
         </div>
       </section>
 
+      {/* Special Occasions Gallery Section */}
+      <section
+        className="relative min-h-screen flex items-center justify-center py-20 sm:py-24 md:py-32 overflow-hidden"
+        style={{ scrollSnapAlign: "start" }}
+      >
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+          {/* Section Header */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="text-center max-w-4xl mx-auto mb-16"
+          >
+            <motion.div
+              className="inline-flex items-center gap-2 px-4 py-2 bg-blue-500/20 backdrop-blur-md rounded-full border border-blue-500/30 mb-6"
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              <Sparkles className="w-4 h-4 text-blue-400" />
+              <span className="text-sm font-semibold text-blue-300">
+                Special Moments
+              </span>
+            </motion.div>
+            <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6">
+              <span className="bg-gradient-to-r from-blue-400 via-white to-orange-400 bg-clip-text text-transparent">
+                Special Occasions
+              </span>
+              <br />
+              <span className="bg-gradient-to-r from-orange-400 via-white to-blue-400 bg-clip-text text-transparent">
+                & Celebrations
+              </span>
+            </h2>
+            <div className="w-24 h-1 bg-gradient-to-r from-transparent via-blue-500 to-transparent mx-auto mb-6 rounded-full" />
+            <p className="text-xl sm:text-2xl text-white/80 max-w-3xl mx-auto leading-relaxed">
+              Capturing the memorable moments, milestones, and celebrations that
+              define our journey at A1 Iron & Steel.
+            </p>
+          </motion.div>
+
+          {/* Modern Gallery Grid */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+          >
+            {/* Placeholder for special occasion images - You can add actual images here */}
+            {[
+              {
+                id: 1,
+                title: "Company Milestone",
+                description: "Celebrating our achievements",
+                image: "/media/1.jpeg",
+                date: "2024",
+              },
+              {
+                id: 2,
+                title: "Team Celebration",
+                description: "Our dedicated team",
+                image: "/media/2.jpeg",
+                date: "2024",
+              },
+              {
+                id: 3,
+                title: "Award Ceremony",
+                description: "Recognition and excellence",
+                image: "/media/3.jpeg",
+                date: "2024",
+              },
+              {
+                id: 4,
+                title: "Community Event",
+                description: "Engaging with our community",
+                image: "/media/5.jpeg",
+                date: "2024",
+              },
+              {
+                id: 5,
+                title: "Opening Ceremony",
+                description: "A new chapter begins",
+                image: "/media/6.jpeg",
+                date: "2024",
+              },
+              {
+                id: 6,
+                title: "Partnership Event",
+                description: "Building strong relationships",
+                image: "/media/1.jpeg",
+                date: "2024",
+              },
+            ].map((occasion, index) => (
+              <motion.div
+                key={occasion.id}
+                initial={{ opacity: 0, y: 50, scale: 0.9 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{
+                  duration: 0.5,
+                  delay: 0.4 + index * 0.1,
+                  type: "spring",
+                  stiffness: 100,
+                }}
+                whileHover={{ y: -10, scale: 1.02 }}
+                className="group relative bg-white/5 backdrop-blur-xl rounded-2xl overflow-hidden border border-white/10 hover:border-orange-500/50 transition-all duration-500 cursor-pointer shadow-2xl"
+              >
+                {/* Image Container */}
+                <div className="relative aspect-[4/3] overflow-hidden bg-gradient-to-br from-slate-800 to-slate-900">
+                  <Image
+                    src={`${
+                      process.env.NEXT_PUBLIC_BASE_PATH || ""
+                    }${occasion.image}`}
+                    alt={occasion.title}
+                    fill
+                    className="object-cover transition-transform duration-700 group-hover:scale-110"
+                    unoptimized
+                  />
+                  {/* Gradient Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500" />
+                  
+                  {/* Shine Effect */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+                  
+                  {/* Date Badge */}
+                  <motion.div
+                    className="absolute top-4 right-4 px-3 py-1.5 bg-orange-500/90 backdrop-blur-md rounded-full text-white text-xs font-semibold border border-orange-400/50"
+                    initial={{ scale: 0, rotate: -180 }}
+                    whileInView={{ scale: 1, rotate: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: 0.6 + index * 0.1 }}
+                  >
+                    {occasion.date}
+                  </motion.div>
+
+                  {/* Hover Content Overlay */}
+                  <div className="absolute inset-0 flex flex-col justify-end p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                    <motion.div
+                      initial={{ y: 20, opacity: 0 }}
+                      whileHover={{ y: 0, opacity: 1 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <h3 className="text-2xl font-bold text-white mb-2">
+                        {occasion.title}
+                      </h3>
+                      <p className="text-white/90 text-sm">
+                        {occasion.description}
+                      </p>
+                    </motion.div>
+                  </div>
+                </div>
+
+                {/* Content Section (Visible on mobile, hidden on hover for desktop) */}
+                <div className="p-6 group-hover:hidden lg:block">
+                  <h3 className="text-xl font-bold text-white mb-2">
+                    {occasion.title}
+                  </h3>
+                  <p className="text-white/70 text-sm mb-3">
+                    {occasion.description}
+                  </p>
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs text-orange-400 font-semibold">
+                      {occasion.date}
+                    </span>
+                    <motion.div
+                      className="flex items-center text-blue-400 text-sm font-semibold"
+                      whileHover={{ x: 5 }}
+                    >
+                      <span>View</span>
+                      <motion.span
+                        className="ml-2"
+                        animate={{ x: [0, 5, 0] }}
+                        transition={{
+                          duration: 1.5,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                        }}
+                      >
+                        →
+                      </motion.span>
+                    </motion.div>
+                  </div>
+                </div>
+
+                {/* Decorative Elements */}
+                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-orange-500 via-blue-500 to-orange-500 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="absolute bottom-0 left-0 w-0 h-1 bg-gradient-to-r from-orange-500 to-blue-500 group-hover:w-full transition-all duration-700" />
+              </motion.div>
+            ))}
+          </motion.div>
+
+          {/* Call to Action */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+            className="text-center mt-16"
+          >
+            <motion.button
+              className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-orange-500 to-blue-500 text-white font-semibold rounded-full hover:shadow-2xl transition-all duration-300 text-lg"
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <Sparkles className="w-5 h-5" />
+              <span>View All Occasions</span>
+            </motion.button>
+          </motion.div>
+        </div>
+      </section>
+
       {/* Social Media Sections - One per screen */}
       {socialLinks.map((social) => (
         <section

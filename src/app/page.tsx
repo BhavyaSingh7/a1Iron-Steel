@@ -60,22 +60,13 @@ function HomeContent() {
     return urlParams.get("skipIntro") === "true";
   };
 
-  // Initialize showVideoIntro - show immediately on fresh loads, false only if skipIntro
-  const [showVideoIntro, setShowVideoIntro] = useState(() => {
-    // On server, always false to prevent hydration mismatch
-    if (typeof window === "undefined") return false;
-    // On client, check skipIntro immediately
-    return !checkSkipIntro();
-  });
+  // Initialize showVideoIntro - always false on server to prevent hydration mismatch
+  const [showVideoIntro, setShowVideoIntro] = useState(false);
   const [showAboutUs, setShowAboutUs] = useState(false);
   const [showProducts, setShowProducts] = useState(false);
   const [showContact, setShowContact] = useState(false);
   const [showSecondVideo, setShowSecondVideo] = useState(false);
-  const [hasShownVideo, setHasShownVideo] = useState(() => {
-    // Check if we should skip video on initial render
-    if (typeof window === "undefined") return false;
-    return checkSkipIntro();
-  });
+  const [hasShownVideo, setHasShownVideo] = useState(false);
 
   // Scroll to top on page load/refresh
   useEffect(() => {
@@ -105,12 +96,11 @@ function HomeContent() {
           window.location.pathname +
           (urlParams.toString() ? `?${urlParams.toString()}` : "");
         window.history.replaceState({}, "", newUrl);
-        return;
-      }
-
-      // Fresh load - show video immediately if not already shown
-      if (!hasShownVideo && !showVideoIntro) {
-        setShowVideoIntro(true);
+      } else {
+        // Fresh load - show video immediately if not already shown
+        if (!hasShownVideo) {
+          setShowVideoIntro(true);
+        }
       }
     }
   }, []);
@@ -267,9 +257,8 @@ function HomeContent() {
       }`}
     >
       {/* Video Intro Screen - Shows for 10 seconds then slides up */}
-      {/* CRITICAL: Check skipIntro FIRST - if present, NEVER render video, even if showVideoIntro is true */}
-      {/* Show immediately on client, but only after mount check to prevent hydration mismatch */}
-      {mounted && !checkSkipIntro() && showVideoIntro ? (
+      {/* CRITICAL: Only render after mount to prevent hydration mismatch */}
+      {mounted && showVideoIntro ? (
         <div
           className="fixed inset-0 z-50"
           style={{
@@ -599,25 +588,7 @@ function HomeContent() {
             </div>
           </div>
         </div>
-      ) : (
-        // Show background immediately while checking, to prevent blank screen
-        !mounted && (
-          <div
-            className="fixed inset-0 z-50"
-            style={{
-              background:
-                "linear-gradient(135deg, #1a5f82 0%, #113d59 50%, #0a2a3d 100%)",
-            }}
-          >
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="text-center">
-                <div className="w-16 h-16 border-4 border-white/30 border-t-white rounded-full animate-spin mx-auto mb-4"></div>
-                <p className="text-white/80 text-sm">Loading...</p>
-              </div>
-            </div>
-          </div>
-        )
-      )}
+      ) : null}
 
       {/* Hero Section - Always rendered, just behind video overlay */}
       {!showProducts && (
