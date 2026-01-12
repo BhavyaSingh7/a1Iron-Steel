@@ -35,6 +35,11 @@ jobs:
         run: npm run build
         env:
           GITHUB_ACTIONS: true
+          NODE_ENV: production
+
+      - name: List build output
+        run: ls -la out/ | head -20
+        continue-on-error: true
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
