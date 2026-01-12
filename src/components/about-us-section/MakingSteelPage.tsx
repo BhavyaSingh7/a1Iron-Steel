@@ -501,7 +501,6 @@ export default function MakingSteelPage({ onClose }: MakingSteelPageProps) {
                       onMouseLeave={(e) => {
                         e.currentTarget.style.transform = "";
                       }}
-                      }}
                       whileHover={{
                         scale: isActive
                           ? 1.35
