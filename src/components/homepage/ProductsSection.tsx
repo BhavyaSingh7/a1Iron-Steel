@@ -175,7 +175,6 @@ export default function ProductsSection() {
           "Thickness: 3 mm – 6 mm",
           "Length: 6 m",
           "Grade: Structural Steel",
-          "Coating: Durable Coating",
           "Standards Followed: RS ISO 657-1 (Hot-rolled steel sections – channels), ASTM A36, IS 2062; Rwanda Standards Board (RSB) Product Certified",
         ],
         applications: [
