@@ -103,12 +103,13 @@ export default function ProductsSection() {
           "Durable, general-purpose wire rods crafted for diverse industrial applications with excellent mechanical properties.",
         image: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/products/5.5mm.webp`,
         specifications: [
-          "Diameter: 5.5mm, 6mm & 7mm",
+          "Diameter: 5.5 mm, 6 mm and 7 mm",
           "Grade: Low Carbon Steel",
-          "Surface: Bright",
-          "Tolerance: ±0.1mm",
-          "Tensile Strength: Check online for specifications",
-          "Elongation: 20% minimum",
+          "Tolerance: ±0.1 mm",
+          "Yield Strength: 195 – 280 MPa",
+          "Tensile Strength: 315 – 430 MPa",
+          "Elongation: Minimum 20%",
+          "Standards Followed: RS ISO 16120, ASTM A510; Rwanda Standards Board (RSB) Product Certified",
         ],
         applications: [
           "Construction: For reinforcing concrete, manufacturing nails, and other wire products",
