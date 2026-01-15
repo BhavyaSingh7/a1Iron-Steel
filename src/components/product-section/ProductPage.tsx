@@ -166,7 +166,7 @@ const PRODUCTS_DATA: Product[] = [
       "Excellent formability for various manufacturing needs",
       "Environmentally sustainable production",
     ],
-    certifications: ["ISO 9001", "ASTM Standards"],
+    certifications: ["Rwanda Standards Board (RSB) Product Certified", "RS ISO 16120", "ASTM A510"],
     priceRange: "Contact for pricing",
     availability: "In Stock",
   },
