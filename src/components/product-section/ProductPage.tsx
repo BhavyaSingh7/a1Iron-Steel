@@ -1348,7 +1348,7 @@ export default function ProductPage({ onClose }: { onClose: () => void }) {
                 <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
                   <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center">
                     <div className="w-1 h-6 logo-blue-bg mr-3 rounded-full" />
-                    Certifications
+                    Certifications Followed
                   </h3>
                   <div className="space-y-3">
                     {selectedProduct.certifications.map((cert, index) => (
