@@ -204,12 +204,12 @@ export default function ProductsSection() {
           process.env.NEXT_PUBLIC_BASE_PATH || ""
         }/products/Flat-Bars.jpg`,
         specifications: [
-          "Width: 16mm - 75mm",
-          "Thickness: 2mm - 8mm",
-          "Length: 6m",
+          "Width: 16 mm – 75 mm",
+          "Thickness: 2 mm – 8 mm",
+          "Length: 6 m",
           "Grade: Mild Steel / Structural Steel",
           "Surface: Mill Finish",
-          "Standard: ASTM A36 / IS 2062",
+          "Standards Followed: ASTM A36, IS 2062; Rwanda Standards Board (RSB) Product Certified",
         ],
         applications: [
           "Machinery Parts",
