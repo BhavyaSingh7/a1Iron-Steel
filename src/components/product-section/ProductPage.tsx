@@ -460,11 +460,13 @@ const PRODUCTS_DATA: Product[] = [
       process.env.NEXT_PUBLIC_BASE_PATH || ""
     }/products/Binding-Wire (1).jpg`,
     specifications: [
-      "Diameter: 1.4mm - 2.5mm",
+      "Diameter: 1.4 mm – 2.5 mm",
       "Material: MS Annealed Wire",
-      "Packing: 50kg bag",
-      "Tensile Strength: Check specifications",
-      "Standard: IS 280 / ASTM A641",
+      "Packing: 50 kg bag",
+      "Surface Finish: Black Annealed",
+      "Tensile Strength: 300 – 450 MPa",
+      "Elongation: ≥ 20%",
+      "Standards Followed: IS 280, ASTM A641; Rwanda Standards Board (RSB) Product Certified",
     ],
     applications: [
       "Concrete Reinforcement",
@@ -489,7 +491,7 @@ const PRODUCTS_DATA: Product[] = [
       "High tensile strength",
       "Convenient 50kg bag packing",
     ],
-    certifications: ["ISO 9001", "ASTM Standards"],
+    certifications: ["Rwanda Standards Board (RSB) Product Certified", "IS 280", "ASTM A641"],
     priceRange: "Contact for pricing",
     availability: "In Stock",
   },
