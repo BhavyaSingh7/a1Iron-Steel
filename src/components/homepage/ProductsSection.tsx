@@ -171,12 +171,12 @@ export default function ProductsSection() {
           process.env.NEXT_PUBLIC_BASE_PATH || ""
         }/products/C-Chanel.jpg`,
         specifications: [
-          "Size: 75x40mm to 150x75mm",
-          "Thickness: 3mm - 6mm",
-          "Coating: Durable Coating (Not Galvanized)",
-          "Length: 6m",
+          "Size: 75 × 40 mm – 150 × 75 mm",
+          "Thickness: 3 mm – 6 mm",
+          "Length: 6 m",
           "Grade: Structural Steel",
-          "Standard: ASTM A36 / IS 2062",
+          "Coating: Durable Coating",
+          "Standards Followed: RS ISO 657-1 (Hot-rolled steel sections – channels), ASTM A36, IS 2062; Rwanda Standards Board (RSB) Product Certified",
         ],
         applications: [
           "Structural Support",
