@@ -305,11 +305,14 @@ export default function ProductsSection() {
           process.env.NEXT_PUBLIC_BASE_PATH || ""
         }/products/Wire-Nails (1).avif`,
         specifications: [
-          "Size: 1.5 inch - 6 inch",
+          "Size: 1.5 inch – 6 inch",
           "Material: MS (Mild Steel)",
           "Head Type: Flat / Round / Countersunk",
           "Point Type: Diamond / Blunt",
-          "Standard: Check MS nail specifications online",
+          "Surface Finish: Bright / Polished",
+          "Shank Type: Smooth",
+          "Tensile Strength: 300 – 500 MPa (typical for mild steel wire nails)",
+          "Standards Followed: ASTM F1667, IS 723; Rwanda Standards Board (RSB) Product Certified",
         ],
         applications: [
           "Construction",
