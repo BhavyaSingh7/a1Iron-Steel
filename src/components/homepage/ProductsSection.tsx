@@ -271,12 +271,12 @@ export default function ProductsSection() {
           "High-strength hollow sections offering an excellent strength-to-weight ratio for structural and engineering applications.",
         image: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/products/HS.jpg`,
         specifications: [
-          "Size: 12mm x 12mm - 60mm x 60mm",
-          "Thickness: 0.8mm - 2mm",
-          "Length: 6m",
+          "Size: 12 mm × 12 mm – 60 mm × 60 mm",
+          "Thickness: 0.8 mm – 2 mm",
+          "Length: 6 m",
           "Grade: Structural Steel",
           "Shape: Square / Rectangular / Circular",
-          "Standard: ASTM A500 / IS 4923",
+          "Standards Followed: ASTM A500, IS 4923; Rwanda Standards Board (RSB) Product Certified",
         ],
         applications: [
           "Structural Construction",
