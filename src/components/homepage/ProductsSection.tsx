@@ -75,7 +75,7 @@ export default function ProductsSection() {
           "Diameter: 4 mm – 40 mm",
           "Length: 6 m & 12 m",
           "Grade: Carbon Steel",
-          "Surface: Bright / Polished",
+          "Surface: Smooth",
           "Standards Followed: RS ISO 683 (Carbon Steel Bars); Rwanda Standards Board (RSB) Product Certified",
         ],
         applications: [
