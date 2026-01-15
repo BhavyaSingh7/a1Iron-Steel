@@ -72,11 +72,11 @@ export default function ProductsSection() {
           process.env.NEXT_PUBLIC_BASE_PATH || ""
         }/products/Round bars.jpg`,
         specifications: [
-          "Diameter: 4mm - 40mm",
-          "Length: 6m & 12m",
+          "Diameter: 4 mm – 40 mm",
+          "Length: 6 m & 12 m",
           "Grade: Carbon Steel",
-          "Surface: Bright/Polished",
-          "Certification: Rwandan Standard",
+          "Surface: Bright / Polished",
+          "Standards Followed: RS ISO 683 (Carbon Steel Bars); Rwanda Standards Board (RSB) Product Certified",
         ],
         applications: [
           "Machinery Components",
