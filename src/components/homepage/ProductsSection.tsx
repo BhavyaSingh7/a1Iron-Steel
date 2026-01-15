@@ -238,12 +238,13 @@ export default function ProductsSection() {
           process.env.NEXT_PUBLIC_BASE_PATH || ""
         }/products/HOT-ROLLED-STRIP.webp`,
         specifications: [
-          "Thickness: 0.8mm - 2mm",
-          "Width: 80mm - 240mm",
+          "Thickness: 0.8 mm – 2 mm",
+          "Width: 80 mm – 240 mm",
           "Surface: Mill Finish",
-          "Tensile Strength: Check online for specifications",
           "Grade: Mild Steel / Low Carbon Steel",
-          "Standard: ASTM A36 / IS 2062",
+          "Tensile Strength: 340 – 480 MPa",
+          "Elongation: ≥ 20%",
+          "Standards Followed: ASTM A36, IS 2062; Rwanda Standards Board (RSB) Product Certified",
         ],
         applications: [
           "Automotive Industry",
