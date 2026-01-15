@@ -260,53 +260,6 @@ const PRODUCTS_DATA: Product[] = [
     availability: "In Stock",
   },
   {
-    id: 6,
-    title: "I-Beam",
-    category: "Construction",
-    description:
-      "I-beam steel specifically designed to provide maximum structural strength, stability, and reliability. Perfect for structural framing, bridge construction, and heavy load support applications.",
-    shortDescription: "I-beam steel for structural applications",
-    carouselDescription:
-      "Durable I-beam steel built to deliver exceptional stability and performance in demanding applications.",
-    image: `${
-      process.env.NEXT_PUBLIC_BASE_PATH || ""
-    }/products/STEEL-BEAMS.jpg`,
-    specifications: [
-      "Size: 100x50mm",
-      "Thickness: 3mm-25mm",
-      "Length: 6m-12m",
-      "Grade: Structural Steel",
-      "Standard: ASTM A36 / IS 2062",
-      "Coating: Not Galvanized",
-    ],
-    applications: [
-      "Structural Framing",
-      "Bridge Construction",
-      "Industrial Buildings",
-      "Heavy Load Support",
-      "High-rise Construction",
-    ],
-    features: [
-      "Maximum Load Capacity",
-      "Structural Stability",
-      "Easy Installation",
-      "Superior Strength-to-Weight Ratio",
-      "Long-term Durability",
-      "High Structural Integrity",
-    ],
-    benefits: [
-      "Long-term durability",
-      "Easy installation",
-      "Structural stability",
-      "Cost effective",
-      "Superior load-bearing capacity",
-      "Excellent corrosion protection",
-    ],
-    certifications: ["ISO 9001", "ASTM Standards"],
-    priceRange: "Contact for pricing",
-    availability: "In Stock",
-  },
-  {
     id: 7,
     title: "Flat Bar",
     category: "Manufacturing",
