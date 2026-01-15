@@ -137,12 +137,12 @@ export default function ProductsSection() {
           process.env.NEXT_PUBLIC_BASE_PATH || ""
         }/products/V-ANGLES.jpg`,
         specifications: [
-          "Size: 16mm x 16mm - 75mm x 75mm",
-          "Thickness: 2mm - 8mm",
-          "Length: 6m",
+          "Size: 16 mm × 16 mm – 75 mm × 75 mm",
+          "Thickness: 2 mm – 8 mm",
+          "Length: 6 m",
           "Grade: Structural Steel",
-          "Standard: ASTM A36 / IS 2062",
           "Surface: Mill Finish / Polished",
+          "Standards Followed: RS ISO 657-1 (Hot-rolled steel sections – angles), ASTM A36, IS 2062; Rwanda Standards Board (RSB) Product Certified",
         ],
         applications: [
           "Structural Framing",
