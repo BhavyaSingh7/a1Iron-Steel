@@ -37,13 +37,12 @@ export default function ProductsSection() {
           process.env.NEXT_PUBLIC_BASE_PATH || ""
         }/products/tmt bars.jpg`,
         specifications: [
-          "Grade: Fe 500 & Fe 550",
+          "Grade: Fe 500 & Fe 550D",
           "Diameter: 6 mm – 40 mm",
-          "Standard: RS EAS 412-2 / RS ISO 6935-2, BS 4449",
-          "Certification: RSB Product Certification (Steel reinforcement bars conforming to RS ISO 6935-2)",
-          "Yield Strength: 500 MPa (Fe 500), 550 MPa (Fe 550)",
-          "Tensile Strength: 600 MPa (Fe 550)",
-          "Elongation: Minimum 12%",
+          "Standards Followed: RS EAS 412-2(IDT), RS ISO 6935-2, BS 4449; Rwanda Standards Board (RSB) Product Certified",
+          "Yield Strength: 500 MPa (Fe 500), 550 MPa (Fe 550D)",
+          "Tensile Strength: ≥ 600 MPa (Fe 550D)",
+          "Elongation: Minimum 12% (Fe 550D – high ductility grade)",
         ],
         applications: [
           "Power Dam",
