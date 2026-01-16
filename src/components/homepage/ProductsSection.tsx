@@ -185,7 +185,6 @@ export default function ProductsSection() {
           "Building Infrastructure",
         ],
         features: [
-          "Durable Coating",
           "High Load Capacity",
           "Easy Installation",
           "Long-lasting Performance",

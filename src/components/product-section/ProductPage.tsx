@@ -240,7 +240,6 @@ const PRODUCTS_DATA: Product[] = [
       "Building Infrastructure",
     ],
     features: [
-      "Durable Coating",
       "High Load Capacity",
       "Easy Installation",
       "Long-lasting Performance",
