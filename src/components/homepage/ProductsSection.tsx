@@ -373,12 +373,13 @@ export default function ProductsSection() {
           "Premium BRC reinforcement mesh crafted to strengthen concrete structures and deliver durable, high-performance results.",
         image: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/products/brc.jpg`,
         specifications: [
-          "Mesh Size: 100x100mm to 200x200mm",
-          "Wire Diameter: 4mm-8mm",
+          "Mesh Size: 100 × 100 mm – 200 × 200 mm",
+          "Wire Diameter: 4 mm – 8 mm",
           "Material: High Tensile Steel",
-          "Coating: Galvanized",
-          "Sheet Size: Standard 2.4m x 4.8m (custom sizes available)",
-          "Standard: BS 4483 / IS 1566",
+          "Sheet Size: Standard 2.4 m × 4.8 m (custom sizes available)",
+          "Surface Finish: Black / Plain",
+          "Tensile Strength: ≥ 485 MPa (typical for high tensile welded wire mesh)",
+          "Standards Followed: BS 4483, IS 1566; Rwanda Standards Board (RSB) Product Certified",
         ],
         applications: [
           "Concrete Reinforcement",
