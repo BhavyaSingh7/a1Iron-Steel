@@ -554,12 +554,12 @@ const PRODUCTS_DATA: Product[] = [
       process.env.NEXT_PUBLIC_BASE_PATH || ""
     }/products/gi chain link.jpg`,
     specifications: [
-      "Mesh Size: 50mm-100mm",
-      "Wire Gauge: 8-12 gauge",
-      "Coating: Hot-dip Galvanized",
-      "Height: 1m-3m",
-      "Post Spacing: 2.5m-3m",
-      "Standard: ASTM A392 / BS 1722",
+      "Mesh Size: 50 mm – 100 mm",
+      "Wire Gauge: 8 – 12 gauge",
+      "Height: 1 m – 3 m",
+      "Post Spacing: 2.5 m – 3 m",
+      "Surface Finish: Zinc Coated",
+      "Standards Followed: ASTM A392, BS 1722; Rwanda Standards Board (RSB) Product Certified",
     ],
     applications: [
       "Security Fencing",
@@ -584,7 +584,7 @@ const PRODUCTS_DATA: Product[] = [
       "Long-lasting performance",
       "Low maintenance requirements",
     ],
-    certifications: ["ISO 9001", "ASTM Standards"],
+    certifications: ["Rwanda Standards Board (RSB) Product Certified", "ASTM A392", "BS 1722"],
     priceRange: "Contact for pricing",
     availability: "In Stock",
   },
