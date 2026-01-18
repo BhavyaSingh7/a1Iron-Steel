@@ -45,7 +45,6 @@ export default function MakingSteelPage({ onClose }: MakingSteelPageProps) {
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [hoveredStep, setHoveredStep] = useState<number | null>(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [isImageZoomed, setIsImageZoomed] = useState(false);
   const [playbackSpeed, setPlaybackSpeed] = useState(1);
   const [showDetails, setShowDetails] = useState<number | null>(null);
 
@@ -62,8 +61,8 @@ export default function MakingSteelPage({ onClose }: MakingSteelPageProps) {
     {
       id: 1,
       icon: Package,
-      title: "Raw Materials (RM)",
-      shortDesc: "Ore • Coal • Dolomite",
+      title: "Raw Materials",
+      shortDesc: "Iron ore, coal, and dolomite are used as the primary raw materials.",
       color: "from-blue-500 to-blue-700",
       temperature: "Ambient",
       visualData: { particles: 3, flow: "down" },
@@ -71,8 +70,8 @@ export default function MakingSteelPage({ onClose }: MakingSteelPageProps) {
     {
       id: 2,
       icon: Factory,
-      title: "DR1",
-      shortDesc: "Direct Reduced Iron",
+      title: "DRI Process",
+      shortDesc: "Raw materials are processed in the Direct Reduced Iron (DRI) unit to produce sponge iron.",
       color: "from-orange-500 to-red-600",
       temperature: "1,200°C",
       visualData: { particles: 8, flow: "up" },
@@ -80,8 +79,8 @@ export default function MakingSteelPage({ onClose }: MakingSteelPageProps) {
     {
       id: 3,
       icon: Zap,
-      title: "Induction Furnace + EAF",
-      shortDesc: "Electric Arc Furnace",
+      title: "Melting Furnace",
+      shortDesc: "Sponge iron is melted in an Induction Furnace or Electric Arc Furnace (EAF).",
       color: "from-cyan-500 to-blue-600",
       temperature: "1,600°C",
       visualData: { particles: 5, flow: "circular" },
@@ -89,8 +88,8 @@ export default function MakingSteelPage({ onClose }: MakingSteelPageProps) {
     {
       id: 4,
       icon: Droplets,
-      title: "Liquid Steel",
-      shortDesc: "Molten Steel",
+      title: "Liquid Metal Formation",
+      shortDesc: "The molten steel is refined to achieve the required chemical composition.",
       color: "from-purple-500 to-pink-600",
       temperature: "1,500°C",
       visualData: { particles: 6, flow: "down" },
@@ -98,8 +97,8 @@ export default function MakingSteelPage({ onClose }: MakingSteelPageProps) {
     {
       id: 5,
       icon: Cog,
-      title: "Wire Rod 5.5",
-      shortDesc: "Final Product",
+      title: "Production Line",
+      shortDesc: "Include 5.5 mm wire rods.",
       color: "from-green-500 to-emerald-600",
       temperature: "Cooled",
       visualData: { particles: 4, flow: "horizontal" },
@@ -277,35 +276,26 @@ export default function MakingSteelPage({ onClose }: MakingSteelPageProps) {
       {/* Main Manufacturing Process Image Section */}
       <section className="relative py-12 md:py-20 min-h-screen">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Large Manufacturing Process Image with Interactive Zoom */}
+          {/* Large Manufacturing Process Image */}
           <motion.div
-            className="relative w-full rounded-3xl overflow-hidden shadow-2xl border-2 border-white/20 mb-12 md:mb-16 cursor-zoom-in group"
+            className="relative w-full rounded-3xl overflow-hidden shadow-2xl border-2 border-white/20 mb-12 md:mb-16"
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8 }}
             whileHover={{ borderColor: "rgba(255,255,255,0.4)" }}
-            onClick={() => setIsImageZoomed(!isImageZoomed)}
           >
-            <div className={`relative aspect-video w-full transition-all duration-500 ${
-              isImageZoomed ? "scale-150" : "scale-100"
-            }`}>
+            <div className="relative aspect-video w-full">
               <Image
                 src={`${
                   process.env.NEXT_PUBLIC_BASE_PATH || ""
                 }/making-of-a-steel/image.png`}
                 alt="Steel Manufacturing Process - Complete Overview"
                 fill
-                className="object-contain transition-transform duration-500"
+                className="object-contain"
                 quality={90}
                 priority
                 sizes="100vw"
               />
-              {/* Zoom Indicator */}
-              <div className="absolute top-4 right-4 bg-black/60 backdrop-blur-sm px-3 py-2 rounded-lg border border-white/20 opacity-0 group-hover:opacity-100 transition-opacity">
-                <p className="text-white text-xs font-semibold">
-                  {isImageZoomed ? "Click to zoom out" : "Click to zoom in"}
-                </p>
-              </div>
               {/* Gradient overlay that changes based on active step */}
               <motion.div
                 className={`absolute inset-0 bg-gradient-to-br ${processes[activeStep].color} opacity-20`}
