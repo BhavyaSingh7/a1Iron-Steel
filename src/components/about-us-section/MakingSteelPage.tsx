@@ -415,19 +415,9 @@ export default function MakingSteelPage({ onClose }: MakingSteelPageProps) {
                       }}
                       transition={{ duration: 0.6, ease: "easeOut" }}
                     >
-                      {/* Animated flow effect */}
+                      {/* Simple flow indicator - no animation */}
                       {activeStep > index && (
-                        <motion.div
-                          className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent rounded-full"
-                          animate={{
-                            x: ["-100%", "100%"],
-                          }}
-                          transition={{
-                            duration: 2,
-                            repeat: Infinity,
-                            ease: "linear",
-                          }}
-                        />
+                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent rounded-full" />
                       )}
                     </motion.div>
                   );
@@ -443,30 +433,26 @@ export default function MakingSteelPage({ onClose }: MakingSteelPageProps) {
                 const isPast = activeStep > index;
 
                 return (
-                  <motion.div
+                  <div
                     key={process.id}
                     className="relative"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.1 }}
                     onClick={() => {
                       setActiveStep(index);
                       setIsAutoPlaying(false); // Pause auto-play when user clicks
                     }}
                     onMouseEnter={() => setHoveredStep(index)}
                     onMouseLeave={() => setHoveredStep(null)}
-                    whileHover={{ y: -5 }}
                   >
-                    {/* Step Circle with 3D Tilt Effect */}
-                    <motion.div
-                      className={`relative w-20 h-20 md:w-24 md:h-24 mx-auto mb-4 rounded-full flex items-center justify-center cursor-pointer transition-all duration-300 ${
+                    {/* Step Circle - Simplified Design */}
+                    <div
+                      className={`relative w-20 h-20 md:w-24 md:h-24 mx-auto mb-4 rounded-full flex items-center justify-center cursor-pointer transition-all duration-200 ${
                         isActive
-                          ? "scale-125 shadow-2xl"
+                          ? "scale-110 shadow-lg ring-2 ring-white/50"
                           : hoveredStep === index
-                          ? "scale-110 opacity-90"
+                          ? "scale-105 opacity-90"
                           : isPast
-                          ? "scale-100 opacity-80"
-                          : "scale-90 opacity-60"
+                          ? "scale-100 opacity-75"
+                          : "scale-95 opacity-50"
                       }`}
                       style={{
                         background: isActive
@@ -476,190 +462,80 @@ export default function MakingSteelPage({ onClose }: MakingSteelPageProps) {
                           : hoveredStep === index
                           ? `linear-gradient(135deg, ${
                               process.color.split(" ")[1]
-                            }60, ${process.color.split(" ")[3]}60)`
-                          : "rgba(255, 255, 255, 0.1)",
-                        transformStyle: "preserve-3d",
-                      }}
-                      onMouseMove={(e) => {
-                        if (hoveredStep === index) {
-                          const rect = e.currentTarget.getBoundingClientRect();
-                          const x = e.clientX - rect.left - rect.width / 2;
-                          const y = e.clientY - rect.top - rect.height / 2;
-                          e.currentTarget.style.transform = `perspective(1000px) rotateX(${-y / 10}deg) rotateY(${x / 10}deg) scale(${isActive ? 1.25 : 1.1})`;
-                        }
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.transform = "";
-                      }}
-                      whileHover={{
-                        scale: isActive
-                          ? 1.35
-                          : hoveredStep === index
-                          ? 1.2
-                          : 1.15,
-                        z: 50,
-                      }}
-                      whileTap={{ scale: 0.95 }}
-                      animate={{
-                        boxShadow: isActive
-                          ? `0 0 40px ${
-                              process.color.split(" ")[1]
-                            }90, 0 0 80px ${process.color.split(" ")[1]}50`
-                          : hoveredStep === index
-                          ? `0 0 20px ${
-                              process.color.split(" ")[1]
-                            }60, 0 0 40px ${process.color.split(" ")[1]}30`
-                          : "0 4px 15px rgba(0,0,0,0.2)",
-                        rotate: isActive ? [0, 5, -5, 0] : 0,
-                      }}
-                      transition={{
-                        boxShadow: { duration: 0.3 },
-                        rotate: {
-                          duration: 4,
-                          repeat: isActive ? Infinity : 0,
-                          ease: "easeInOut",
-                        },
-                        transform: { duration: 0.1 },
+                            }80, ${process.color.split(" ")[3]}80)`
+                          : "rgba(255, 255, 255, 0.15)",
                       }}
                     >
                       <IconComponent
-                        className={`w-10 h-10 md:w-12 md:h-12 ${
-                          isActive ? "text-white" : "text-white/60"
+                        className={`w-10 h-10 md:w-12 md:h-12 transition-colors ${
+                          isActive ? "text-white" : "text-white/70"
                         }`}
                       />
 
-                      {/* Multiple Animated Rings */}
-                      {isActive && (
-                        <>
-                        <motion.div
-                            className="absolute inset-0 rounded-full border-2 border-white/60"
-                          animate={{
-                              scale: [1, 1.4, 1],
-                              opacity: [0.6, 0, 0.6],
-                          }}
-                          transition={{
-                            duration: 2,
-                            repeat: Infinity,
-                            ease: "easeInOut",
-                          }}
-                          />
-                          <motion.div
-                            className="absolute inset-0 rounded-full border border-white/40"
-                            animate={{
-                              scale: [1, 1.6, 1],
-                              opacity: [0.4, 0, 0.4],
-                            }}
-                            transition={{
-                              duration: 2.5,
-                              repeat: Infinity,
-                              ease: "easeInOut",
-                              delay: 0.5,
-                            }}
-                          />
-                        </>
-                      )}
-                      {/* Hover indicator */}
-                      {hoveredStep === index && !isActive && (
-                        <motion.div
-                          className="absolute inset-0 rounded-full border-2 border-white/30"
-                          initial={{ scale: 1, opacity: 0 }}
-                          animate={{ scale: 1.2, opacity: 0.5 }}
-                          exit={{ scale: 1, opacity: 0 }}
-                        />
-                      )}
-
                       {/* Step Number */}
                       <div
-                        className={`absolute -top-2 -right-2 w-6 h-6 md:w-7 md:h-7 rounded-full flex items-center justify-center text-xs md:text-sm font-bold ${
+                        className={`absolute -top-2 -right-2 w-6 h-6 md:w-7 md:h-7 rounded-full flex items-center justify-center text-xs md:text-sm font-bold transition-colors ${
                           isActive
                             ? "bg-white text-orange-600"
-                            : "bg-white/20 text-white/60"
+                            : "bg-white/30 text-white/80"
                         }`}
                       >
                         {process.id}
                       </div>
-                    </motion.div>
+                    </div>
 
-                    {/* Step Info with Enhanced Interactivity */}
+                    {/* Step Info - Simplified */}
                     <div className="text-center">
-                      <motion.h3
-                        className={`text-sm md:text-base font-bold mb-1 transition-colors duration-300 ${
+                      <h3
+                        className={`text-sm md:text-base font-bold mb-3 transition-colors duration-200 ${
                           isActive
                             ? "text-white"
                             : hoveredStep === index
                             ? "text-white/90"
-                            : "text-white/60"
+                            : "text-white/70"
                         }`}
-                        animate={{
-                          scale: isActive
-                            ? 1.15
-                            : hoveredStep === index
-                            ? 1.05
-                            : 1,
-                        }}
-                        transition={{ duration: 0.2 }}
                       >
                         {process.title}
-                      </motion.h3>
-                      <motion.p
-                        className="text-xs md:text-sm text-white/50 transition-colors duration-300"
-                        animate={{
-                          color:
-                            hoveredStep === index
-                              ? "rgba(255,255,255,0.7)"
-                              : undefined,
-                        }}
-                      >
-                        {process.shortDesc}
-                      </motion.p>
-                      {/* Interactive Temperature Gauge */}
+                      </h3>
+                      {/* Temperature Display - Simplified */}
                       {isActive && process.temperature && (
-                        <motion.div
-                          className="mt-3 w-full"
-                          initial={{ opacity: 0, y: -5, scale: 0.8 }}
-                          animate={{ opacity: 1, y: 0, scale: 1 }}
-                          transition={{ type: "spring", stiffness: 200 }}
-                        >
+                        <div className="mt-3 w-full">
                           <div className="flex items-center justify-center gap-1 mb-2">
                             <Flame className="w-3 h-3 text-orange-400" />
                             <span className="text-xs text-orange-400 font-semibold">
                               {process.temperature}
                             </span>
                           </div>
-                          {/* Temperature Bar */}
+                          {/* Temperature Bar - Static */}
                           <div className="h-1.5 bg-white/10 rounded-full overflow-hidden">
-                            <motion.div
+                            <div
                               className={`h-full bg-gradient-to-r ${process.color} rounded-full`}
-                              initial={{ width: 0 }}
-                              animate={{
+                              style={{
                                 width: process.temperature.includes("°C")
                                   ? `${(parseInt(process.temperature) / 1600) * 100}%`
                                   : process.temperature === "Ambient"
                                   ? "10%"
                                   : "50%",
                               }}
-                              transition={{ duration: 1, delay: 0.3 }}
                             />
                           </div>
-                        </motion.div>
+                        </div>
                       )}
                       
-                      {/* Interactive Details Button */}
-                      <motion.button
+                      {/* Details Button - Simplified */}
+                      <button
                         onClick={(e) => {
                           e.stopPropagation();
                           setShowDetails(showDetails === index ? null : index);
                         }}
-                        className={`mt-2 text-xs px-3 py-1 rounded-full transition-all ${
+                        className={`mt-2 text-xs px-3 py-1 rounded-full transition-all duration-200 ${
                           showDetails === index
                             ? "bg-orange-500 text-white"
                             : "bg-white/10 text-white/70 hover:bg-white/20"
                         }`}
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.9 }}
                       >
                         {showDetails === index ? "Hide" : "Details"}
-                      </motion.button>
+                      </button>
                       
                       {/* Expandable Details */}
                       <AnimatePresence>
@@ -688,87 +564,54 @@ export default function MakingSteelPage({ onClose }: MakingSteelPageProps) {
                         )}
                       </AnimatePresence>
                     </div>
-                  </motion.div>
+                  </div>
                 );
               })}
             </div>
           </div>
 
-          {/* Active Step Details Display */}
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeStep}
-              className="mt-12 md:mt-16"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -30 }}
-              transition={{ duration: 0.4 }}
-            >
+          {/* Active Step Details Display - Simplified */}
+          <div className="mt-12 md:mt-16">
               {(() => {
                 const currentProcess = processes[activeStep];
                 const ProcessIcon = currentProcess.icon;
                 return (
                   <div className="bg-gradient-to-br from-black/60 via-black/40 to-black/60 backdrop-blur-xl rounded-3xl p-8 md:p-12 border-2 border-white/10 shadow-2xl">
                     <div className="flex flex-col md:flex-row items-center gap-8">
-                      {/* Process Icon */}
-                          <motion.div
-                        className={`w-24 h-24 md:w-32 md:h-32 rounded-2xl bg-gradient-to-br ${currentProcess.color} flex items-center justify-center shadow-2xl flex-shrink-0`}
-                        initial={{ scale: 0, rotate: -180 }}
-                        animate={{ scale: 1, rotate: 0 }}
-                        transition={{ type: "spring", stiffness: 200 }}
-                        whileHover={{ rotate: 360, scale: 1.1 }}
+                      {/* Process Icon - Simplified */}
+                      <div
+                        className={`w-24 h-24 md:w-32 md:h-32 rounded-2xl bg-gradient-to-br ${currentProcess.color} flex items-center justify-center shadow-lg flex-shrink-0`}
                       >
                         <ProcessIcon className="w-12 h-12 md:w-16 md:h-16 text-white" />
-                          </motion.div>
+                      </div>
 
-                      {/* Process Details */}
+                      {/* Process Details - Simplified */}
                       <div className="flex-1 text-center md:text-left">
-                        <motion.div
-                          className="inline-block mb-4"
-                          initial={{ scale: 0 }}
-                          animate={{ scale: 1 }}
-                          transition={{ type: "spring", delay: 0.2 }}
-                        >
+                        <div className="inline-block mb-4">
                           <div
                             className={`w-24 h-1.5 bg-gradient-to-r ${currentProcess.color} rounded-full shadow-lg mx-auto md:mx-0`}
                           />
-                        </motion.div>
-                        <motion.h2
-                          className="text-3xl md:text-4xl lg:text-5xl font-black mb-4 bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent"
-                          initial={{ opacity: 0, y: 10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ delay: 0.3 }}
-                        >
+                        </div>
+                        <h2 className="text-3xl md:text-4xl lg:text-5xl font-black mb-4 text-white">
                           {currentProcess.title}
-                        </motion.h2>
-                        <motion.p
-                          className="text-lg md:text-xl text-white/90 mb-4 font-semibold"
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          transition={{ delay: 0.4 }}
-                        >
-                                {currentProcess.shortDesc}
-                        </motion.p>
-                              {currentProcess.temperature && (
-                          <motion.div
-                            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-500/20 border border-orange-500/50"
-                            initial={{ opacity: 0, scale: 0.8 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{ delay: 0.5, type: "spring" }}
-                          >
+                        </h2>
+                        <p className="text-lg md:text-xl text-white/90 mb-4 font-semibold leading-relaxed">
+                          {currentProcess.shortDesc}
+                        </p>
+                        {currentProcess.temperature && (
+                          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-500/20 border border-orange-500/50">
                             <Flame className="w-5 h-5 text-orange-400" />
                             <span className="text-orange-400 font-bold">
                               {currentProcess.temperature}
                             </span>
-                          </motion.div>
+                          </div>
                         )}
                       </div>
                     </div>
                   </div>
                 );
               })()}
-            </motion.div>
-          </AnimatePresence>
+          </div>
         </div>
       </section>
 
