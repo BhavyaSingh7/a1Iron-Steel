@@ -601,12 +601,12 @@ const PRODUCTS_DATA: Product[] = [
       process.env.NEXT_PUBLIC_BASE_PATH || ""
     }/products/barbed-wires.jpg`,
     specifications: [
-      "Wire Gauge: 12-14 gauge",
-      "Barb Spacing: 75mm-150mm",
-      "Coating: Galvanized",
-      "Length: 400m-500m rolls",
+      "Wire Gauge: 12 – 14 gauge",
+      "Barb Spacing: 75 mm – 150 mm",
+      "Length: 400 m – 500 m rolls",
       "Barb Type: 2-point / 4-point",
-      "Standard: ASTM A121 / BS 4102",
+      "Surface Finish: Zinc Coated",
+      "Standards Followed: ASTM A121, BS 4102; Rwanda Standards Board (RSB) Product Certified",
     ],
     applications: [
       "Security Fencing",
@@ -631,7 +631,7 @@ const PRODUCTS_DATA: Product[] = [
       "Easy installation",
       "Effective perimeter protection",
     ],
-    certifications: ["ISO 9001", "ASTM Standards"],
+    certifications: ["Rwanda Standards Board (RSB) Product Certified", "ASTM A121", "BS 4102"],
     priceRange: "Contact for pricing",
     availability: "In Stock",
   },
