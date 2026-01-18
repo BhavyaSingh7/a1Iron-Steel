@@ -174,7 +174,7 @@ export default function MakingSteelPage({ onClose }: MakingSteelPageProps) {
           <Image
             src={`${
               process.env.NEXT_PUBLIC_BASE_PATH || ""
-            }/making-of-a-steel/image.png`}
+            }/making-of-a-steel/makingofsteel.jpeg`}
             alt="Steel Manufacturing Process"
             fill
             className="object-cover"
@@ -288,7 +288,7 @@ export default function MakingSteelPage({ onClose }: MakingSteelPageProps) {
               <Image
                 src={`${
                   process.env.NEXT_PUBLIC_BASE_PATH || ""
-                }/making-of-a-steel/image.png`}
+                }/making-of-a-steel/makingofsteel.jpeg`}
                 alt="Steel Manufacturing Process - Complete Overview"
                 fill
                 className="object-contain"
