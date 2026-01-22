@@ -96,7 +96,7 @@ export default function MakingSteelPage({ onClose }: MakingSteelPageProps) {
       id: 5,
       icon: Cog,
       title: "Production Line & Rolling",
-      shortDesc: "The liquid metal is cast and rolled into finished steel products, including 5.5 mm wire rods and other steel sections.",
+      shortDesc: "The liquid metal is cast and rolled into finished steel products, including 5.5 mm wire rods, TMT bars, round bars, binding wire, BRC mesh, wire nails, barbed wire, fencing mesh, angles, channels, flats, and other structural steel sections.",
       color: "from-green-500 to-emerald-600",
       temperature: "Cooled",
       visualData: { particles: 4, flow: "horizontal" },

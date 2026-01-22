@@ -470,8 +470,8 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
             {[
               {
                 icon: Building,
-                number: "2012",
-                label: "Founded in 2012",
+                number: "2025",
+                label: "Founded in 2025",
                 color: "logo-blue-bg",
               },
               {

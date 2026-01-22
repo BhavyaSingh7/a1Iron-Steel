@@ -224,7 +224,7 @@ const PRODUCTS_DATA: Product[] = [
     shortDescription: "MS Channel with durable coating",
     carouselDescription:
       "Long-lasting MS Channel steel ideal for stable, versatile structural and industrial solutions.",
-    image: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/products/C-Chanel.jpg`,
+    image: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/products/c-channel.jpg`,
     specifications: [
       "Size: 75 × 40 mm – 150 × 75 mm",
       "Thickness: 3 mm – 6 mm",

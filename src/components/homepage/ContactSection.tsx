@@ -62,13 +62,29 @@ export default function ContactSection() {
       icon: Mail,
       title: "Email",
       description: "Send us your inquiries",
-      details: ["info@a1ironsteel.rw", "sales@a1ironsteel.rw"],
+      details: ["marketing@a1steelrwanda.com", "hr@a1steelrwanda.com"],
     },
     {
       icon: MapPin,
-      title: "Address",
+      title: "Office Address",
+      description: "Visit our headquarters",
+      details: [
+        "A1 IRON & STEEL RWANDA LIMITED",
+        "2nd FLOOR, BPR TOWER (BPR BANK HEADQUARTER)",
+        "NYARUGENGE, KIGALI TOWN, KIGALI, RWANDA",
+        "POST BOX NO. – 6682 - KIGALI",
+      ],
+    },
+    {
+      icon: MapPin,
+      title: "Plant Address",
       description: "Visit our manufacturing facility",
-      details: ["Kigali Industrial Zone", "Rwanda, East Africa"],
+      details: [
+        "A1 IRON & STEEL RWANDA LIMITED",
+        "MUSANZE INDUSTRIAL PARK",
+        "SECTOR- KIMONYI, CELL- BURAMIRA",
+        "DISTRICT– MUSANZE, RWANDA",
+      ],
     },
   ];
 

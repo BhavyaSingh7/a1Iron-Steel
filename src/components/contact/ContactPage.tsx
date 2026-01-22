@@ -99,9 +99,25 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onClose }) => {
     },
     {
       icon: MapPin,
-      title: "Office Locations",
-      details: ["2nd Floor, BPR Tower, Kigali", "Musanze Industrial Park"],
+      title: "Office Address",
+      details: [
+        "A1 IRON & STEEL RWANDA LIMITED",
+        "2nd FLOOR, BPR TOWER (BPR BANK HEADQUARTER)",
+        "NYARUGENGE, KIGALI TOWN, KIGALI, RWANDA",
+        "POST BOX NO. – 6682 - KIGALI",
+      ],
       color: "from-orange-500 to-orange-600",
+    },
+    {
+      icon: MapPin,
+      title: "Plant Address",
+      details: [
+        "A1 IRON & STEEL RWANDA LIMITED",
+        "MUSANZE INDUSTRIAL PARK",
+        "SECTOR- KIMONYI, CELL- BURAMIRA",
+        "DISTRICT– MUSANZE, RWANDA",
+      ],
+      color: "from-blue-500 to-blue-600",
     },
     {
       icon: Clock,
