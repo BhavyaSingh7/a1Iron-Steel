@@ -152,6 +152,12 @@ export default function HeroSection({
     window.location.href = url;
   }, [getBasePath]);
 
+  const handleOurImpactClick = useCallback(() => {
+    const basePath = getBasePath();
+    const url = `${basePath}/about/our-impact/`;
+    window.location.href = url;
+  }, [getBasePath]);
+
   const handleSustainabilityPageClick = useCallback(() => {
     const basePath = getBasePath();
     const url = `${basePath}/about/sustainability/`;
@@ -237,6 +243,9 @@ export default function HeroSection({
     } else if (industry.id === 3) {
       // Our Quality -> Our Quality page
       handleQualityClick();
+    } else if (industry.id === 4) {
+      // Our Impact -> Our Impact page
+      handleOurImpactClick();
     } else if (industry.id === 5) {
       // Sustainability -> Scroll to sustainability section
       handleSustainabilityClick();
@@ -251,6 +260,7 @@ export default function HeroSection({
     handleContactClick,
     handleMakingSteelClick,
     handleQualityClick,
+    handleOurImpactClick,
     handleSustainabilityClick,
     handleSustainabilityPageClick,
   ]);
@@ -793,9 +803,71 @@ export default function HeroSection({
                             <path d="m12 5 7 7-7 7"></path>
                           </svg>
                         </button>
+
+                        {/* Divider */}
+                        <div className="h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent mx-4 my-2"></div>
+
+                        <button
+                          onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            if (aboutCloseTimeoutRef.current) {
+                              clearTimeout(aboutCloseTimeoutRef.current);
+                              aboutCloseTimeoutRef.current = null;
+                            }
+                            setIsAboutDropdownOpen(false);
+                            setTimeout(() => {
+                              handleOurImpactClick();
+                            }, 0);
+                          }}
+                          onMouseDown={(e) => {
+                            e.stopPropagation();
+                          }}
+                          className="w-full text-left px-6 py-4 text-gray-800 hover:bg-gradient-to-r hover:from-[#2084b1]/10 hover:to-[#f1852e]/10 hover:text-[#2084b1] transition-all duration-300 text-sm font-semibold flex items-center gap-4 group/item cursor-pointer relative overflow-hidden"
+                          aria-label="Our Impact"
+                          type="button"
+                        >
+                          <div className="absolute inset-0 bg-gradient-to-r from-[#2084b1]/5 to-[#f1852e]/5 opacity-0 group-hover/item:opacity-100 transition-opacity duration-300"></div>
+                          <div className="relative z-10 w-8 h-8 rounded-lg bg-gradient-to-br from-[#2084b1]/10 to-[#2084b1]/5 flex items-center justify-center group-hover/item:from-[#2084b1]/20 group-hover/item:to-[#2084b1]/10 transition-all duration-300">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="16"
+                              height="16"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              className="text-[#2084b1] group-hover/item:scale-110 transition-transform duration-300"
+                            >
+                              <circle cx="12" cy="12" r="10"></circle>
+                              <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
+                              <path d="M2 12h20"></path>
+                            </svg>
+                          </div>
+                          <span className="relative z-10 flex-1 group-hover/item:translate-x-1 transition-transform duration-300">
+                            Our Impact
+                          </span>
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            className="relative z-10 text-gray-400 group-hover/item:text-[#2084b1] group-hover/item:translate-x-1 opacity-0 group-hover/item:opacity-100 transition-all duration-300"
+                          >
+                            <path d="M5 12h14"></path>
+                            <path d="m12 5 7 7-7 7"></path>
+                          </svg>
+                        </button>
                       </div>
                     </motion.div>,
-                    document.body
+                    document.body,
                   )}
               </div>
               {/* Products Dropdown */}
@@ -1003,7 +1075,7 @@ export default function HeroSection({
                         </button>
                       </div>
                     </motion.div>,
-                    document.body
+                    document.body,
                   )}
               </div>
               <button
@@ -1144,6 +1216,14 @@ export default function HeroSection({
               >
                 Making Steel
               </button>
+              <button
+                onClick={() => handleMobileNavClick(handleOurImpactClick)}
+                className="block text-base font-medium text-gray-600 hover:text-orange-600 transition-colors duration-300 py-2 w-full text-left focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded px-2 pl-6"
+                aria-label="Our Impact"
+                tabIndex={0}
+              >
+                Our Impact
+              </button>
             </div>
             <button
               onClick={() => handleMobileNavClick(onProductsClick)}
@@ -1212,16 +1292,13 @@ export default function HeroSection({
             <p className="text-lg sm:text-xl md:text-2xl text-white/90 mb-8 leading-relaxed max-w-2xl">
               {INDUSTRIES[currentIndex].description}
             </p>
-            {/* Hide button for Our Impact (id: 4) */}
-            {INDUSTRIES[currentIndex].id !== 4 && (
-              <button
-                onClick={handleIndustryAction}
-                className="px-8 py-4 border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-gray-900 transition-all duration-300 flex items-center gap-2 group"
-              >
-                <span>Find out more</span>
-                <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </button>
-            )}
+            <button
+              onClick={handleIndustryAction}
+              className="px-8 py-4 border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-gray-900 transition-all duration-300 flex items-center gap-2 group"
+            >
+              <span>Find out more</span>
+              <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </button>
           </div>
 
           {/* Right Side - Industries List */}
@@ -1363,7 +1440,7 @@ export default function HeroSection({
                 const maxWidth = sliderElement.offsetWidth - buttonWidth;
                 const newPos = Math.max(
                   0,
-                  Math.min(info.point.x - buttonWidth / 2, maxWidth)
+                  Math.min(info.point.x - buttonWidth / 2, maxWidth),
                 );
                 setSliderPosition(newPos);
 

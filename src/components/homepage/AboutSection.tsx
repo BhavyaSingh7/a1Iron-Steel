@@ -15,29 +15,23 @@ export default function AboutSection() {
   return (
     <section
       id="about"
-      className="relative min-h-screen flex items-center justify-center overflow-y-auto py-16 sm:py-20 lg:py-24 bg-white pb-0"
-      aria-label="About A1 Iron and Steel company information"
+      className="relative min-h-screen flex items-center justify-center overflow-y-auto section-padding py-16 sm:py-20 lg:py-24 bg-white pb-0"
+      aria-label="About A1 Iron & Steel company information"
     >
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="text-center mb-6 sm:mb-8 md:mb-12">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-semibold logo-blue-gradient mb-4 sm:mb-6 tracking-wide" style={{ letterSpacing: "0.03em" }}>
+        <div className="text-center mb-8 sm:mb-10 md:mb-12">
+          <h2 className="section-heading logo-blue-gradient mb-4 sm:mb-6 tracking-wide">
             ABOUT US
           </h2>
-          <div className="w-20 sm:w-24 h-0.5 logo-orange-bg mx-auto mb-6 sm:mb-8" />
+          <div className="w-20 sm:w-24 h-0.5 logo-orange-bg mx-auto mb-6 sm:mb-8 rounded-full" />
         </div>
 
         {/* Single Column Layout - Centered */}
         <div className="max-w-xs sm:max-w-sm md:max-w-2xl lg:max-w-4xl mx-auto">
           {/* Company Introduction */}
-          <div className="mb-6 sm:mb-8 md:mb-12">
-            <div
-              className="bg-white rounded-lg p-6 sm:p-8 shadow-lg border border-gray-100"
-              style={{
-                boxShadow:
-                  "0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 4px 10px -2px rgba(0, 0, 0, 0.05)",
-              }}
-            >
+          <div className="mb-8 sm:mb-10 md:mb-12">
+            <div className="bg-white rounded-2xl p-6 sm:p-8 card-elevated border border-gray-100/80">
               <p className="text-gray-700 text-sm sm:text-base md:text-lg leading-relaxed">
                 A1 Iron & Steel Rwanda Limited stands as a beacon of excellence
                 in the steel manufacturing industry. With{" "}
@@ -63,55 +57,55 @@ export default function AboutSection() {
               </p>
             </div>
 
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3 md:gap-4 lg:gap-6">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-5 lg:gap-6">
               {/* Component 1: Vision & Strategy */}
-              <div className="bg-white rounded-lg p-4 sm:p-6 shadow-md border border-gray-100 hover:shadow-lg hover:border-gray-200 transition-all duration-300 text-center">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-orange-500 to-orange-600 rounded-full flex items-center justify-center mb-2 sm:mb-3 mx-auto">
+              <div className="bg-white rounded-2xl p-4 sm:p-6 card-elevated border border-gray-100/80 text-center">
+                <div className="w-11 h-11 sm:w-12 sm:h-12 bg-gradient-to-r from-orange-500 to-orange-600 rounded-xl flex items-center justify-center mb-3 mx-auto">
                   <CheckCircle className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                 </div>
-                <h4 className="text-sm sm:text-base md:text-lg font-bold text-gray-900 mb-1 sm:mb-2">
+                <h4 className="text-sm sm:text-base md:text-lg font-bold text-gray-900 mb-1.5">
                   Vision
                 </h4>
-                <p className="text-gray-700 text-xs sm:text-sm leading-relaxed">
+                <p className="text-gray-600 text-xs sm:text-sm leading-relaxed">
                   Inspiring teams and driving innovation for excellence
                 </p>
               </div>
 
               {/* Component 2: Team Excellence */}
-              <div className="bg-white rounded-lg p-4 sm:p-6 shadow-md border border-gray-100 hover:shadow-lg hover:border-gray-200 transition-all duration-300 text-center">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-orange-500 to-orange-600 rounded-full flex items-center justify-center mb-2 sm:mb-3 mx-auto">
+              <div className="bg-white rounded-2xl p-4 sm:p-6 card-elevated border border-gray-100/80 text-center">
+                <div className="w-11 h-11 sm:w-12 sm:h-12 bg-gradient-to-r from-orange-500 to-orange-600 rounded-xl flex items-center justify-center mb-3 mx-auto">
                   <Users className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                 </div>
-                <h4 className="text-sm sm:text-base md:text-lg font-bold text-gray-900 mb-1 sm:mb-2">
+                <h4 className="text-sm sm:text-base md:text-lg font-bold text-gray-900 mb-1.5">
                   Excellence
                 </h4>
-                <p className="text-gray-700 text-xs sm:text-sm leading-relaxed">
+                <p className="text-gray-600 text-xs sm:text-sm leading-relaxed">
                   Industry-leading performance and customer satisfaction
                 </p>
               </div>
 
               {/* Component 3: Integrity & Values */}
-              <div className="bg-white rounded-lg p-4 sm:p-6 shadow-md border border-gray-100 hover:shadow-lg hover:border-gray-200 transition-all duration-300 text-center">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-orange-500 to-orange-600 rounded-full flex items-center justify-center mb-2 sm:mb-3 mx-auto">
+              <div className="bg-white rounded-2xl p-4 sm:p-6 card-elevated border border-gray-100/80 text-center">
+                <div className="w-11 h-11 sm:w-12 sm:h-12 bg-gradient-to-r from-orange-500 to-orange-600 rounded-xl flex items-center justify-center mb-3 mx-auto">
                   <Shield className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                 </div>
-                <h4 className="text-sm sm:text-base md:text-lg font-bold text-gray-900 mb-1 sm:mb-2">
+                <h4 className="text-sm sm:text-base md:text-lg font-bold text-gray-900 mb-1.5">
                   Integrity
                 </h4>
-                <p className="text-gray-700 text-xs sm:text-sm leading-relaxed">
+                <p className="text-gray-600 text-xs sm:text-sm leading-relaxed">
                   Building trust through transparency and ethical practices
                 </p>
               </div>
 
               {/* Component 4: Innovation & Technology */}
-              <div className="bg-white rounded-lg p-4 sm:p-6 shadow-md border border-gray-100 hover:shadow-lg hover:border-gray-200 transition-all duration-300 text-center">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-orange-500 to-orange-600 rounded-full flex items-center justify-center mb-2 sm:mb-3 mx-auto">
+              <div className="bg-white rounded-2xl p-4 sm:p-6 card-elevated border border-gray-100/80 text-center">
+                <div className="w-11 h-11 sm:w-12 sm:h-12 bg-gradient-to-r from-orange-500 to-orange-600 rounded-xl flex items-center justify-center mb-3 mx-auto">
                   <Zap className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                 </div>
-                <h4 className="text-sm sm:text-base md:text-lg font-bold text-gray-900 mb-1 sm:mb-2">
+                <h4 className="text-sm sm:text-base md:text-lg font-bold text-gray-900 mb-1.5">
                   Innovation
                 </h4>
-                <p className="text-gray-700 text-xs sm:text-sm leading-relaxed">
+                <p className="text-gray-600 text-xs sm:text-sm leading-relaxed">
                   Efficient steel production and competitive edge
                 </p>
               </div>
@@ -129,10 +123,16 @@ export default function AboutSection() {
                 <div className="inline-flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl mb-4 sm:mb-6 shadow-xl">
                   <Trees className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
                 </div>
-                <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-gray-900 mb-4 sm:mb-6 tracking-wide" style={{ letterSpacing: "0.03em" }}>
+                <h3
+                  className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-gray-900 mb-4 sm:mb-6 tracking-wide"
+                  style={{ letterSpacing: "0.03em" }}
+                >
                   Our Green Commitment
                 </h3>
-                <div className="h-1.5 w-[100px] mx-auto mb-6 rounded-full" style={{ background: "var(--logo-blue-gradient)" }} />
+                <div
+                  className="h-1.5 w-[100px] mx-auto mb-6 rounded-full"
+                  style={{ background: "var(--logo-blue-gradient)" }}
+                />
               </div>
 
               {/* Main Layout: Two Column */}
@@ -202,7 +202,8 @@ export default function AboutSection() {
                 <div className="order-1 lg:order-2 w-full flex flex-col">
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4 sm:gap-5 w-full flex-grow">
                     {/* Carbon Offset */}
-                    <div className="bg-white rounded-lg p-5 sm:p-6 shadow-md border border-gray-100 hover:shadow-lg hover:border-gray-200 transition-all duration-200 group w-full flex-shrink-0 hover:scale-[1.03] hover:-translate-y-2"
+                    <div
+                      className="bg-white rounded-lg p-5 sm:p-6 shadow-md border border-gray-100 hover:shadow-lg hover:border-gray-200 transition-all duration-200 group w-full flex-shrink-0 hover:scale-[1.03] hover:-translate-y-2"
                       style={{
                         boxShadow:
                           "0 4px 12px -2px rgba(0, 0, 0, 0.08), 0 2px 6px -1px rgba(0, 0, 0, 0.04)",
@@ -225,7 +226,8 @@ export default function AboutSection() {
                     </div>
 
                     {/* Green Manufacturing */}
-                    <div className="bg-white rounded-lg p-5 sm:p-6 shadow-md border border-gray-100 hover:shadow-lg hover:border-gray-200 transition-all duration-200 group w-full flex-shrink-0 hover:scale-[1.03] hover:-translate-y-2"
+                    <div
+                      className="bg-white rounded-lg p-5 sm:p-6 shadow-md border border-gray-100 hover:shadow-lg hover:border-gray-200 transition-all duration-200 group w-full flex-shrink-0 hover:scale-[1.03] hover:-translate-y-2"
                       style={{
                         boxShadow:
                           "0 4px 12px -2px rgba(0, 0, 0, 0.08), 0 2px 6px -1px rgba(0, 0, 0, 0.04)",

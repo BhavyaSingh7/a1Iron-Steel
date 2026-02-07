@@ -16,7 +16,7 @@ export default function ContactSection() {
   >("idle");
 
   const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -32,12 +32,12 @@ export default function ContactSection() {
     try {
       // Create mailto link with form data
       const subject = encodeURIComponent(
-        `Contact Form Submission from ${formData.name}`
+        `Contact Form Submission from ${formData.name}`,
       );
       const body = encodeURIComponent(
         `Name: ${formData.name}\nEmail: ${formData.email}\nPhone: ${
           formData.phone || "Not provided"
-        }\n\nMessage:\n${formData.message}`
+        }\n\nMessage:\n${formData.message}`,
       );
       const mailtoLink = `mailto:hr@a1steelrwanda.com?subject=${subject}&body=${body}`;
 
@@ -62,7 +62,11 @@ export default function ContactSection() {
       icon: Mail,
       title: "Email",
       description: "Send us your inquiries",
-      details: ["marketing@a1steelrwanda.com", "hr@a1steelrwanda.com"],
+      details: [
+        "a1steelrwanda@gmail.com",
+        "marketing@a1steelrwanda.com",
+        "hr@a1steelrwanda.com",
+      ],
     },
     {
       icon: MapPin,
@@ -123,57 +127,68 @@ export default function ContactSection() {
         </div>
 
         {/* Main Content Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 lg:gap-10 xl:gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 lg:gap-10 xl:gap-12 items-stretch">
           {/* Contact Information */}
-          <div className="lg:col-span-1 space-y-3 sm:space-y-4">
-            <div className="mb-4 sm:mb-6">
+          <div className="lg:col-span-1 flex flex-col gap-3 sm:gap-4 min-h-0">
+            <div className="flex-shrink-0">
               <h3 className="text-lg sm:text-xl font-bold text-white mb-1 sm:mb-2">
                 Contact Information
               </h3>
               <div className="w-16 sm:w-20 h-1 bg-gradient-to-r from-orange-500 to-orange-600 mb-2 sm:mb-3" />
             </div>
 
-            {contactInfo.map((contact) => (
-              <div
-                key={contact.title}
-                className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm rounded-xl sm:rounded-2xl p-3 sm:p-4 shadow-xl border border-white/20 hover:shadow-2xl transition-all duration-200 hover:bg-white/15"
-              >
-                <div className="flex items-start space-x-3 sm:space-x-4">
-                  <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-r from-orange-500 to-orange-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <contact.icon className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
-                  </div>
-                  <div className="flex-1">
-                    <h4 className="font-bold text-white mb-0.5 sm:mb-1 text-xs sm:text-sm md:text-base">
-                      {contact.title}
-                    </h4>
-                    <p className="text-gray-300 text-xs mb-0.5 sm:mb-1">
-                      {contact.description}
-                    </p>
-                    {contact.details.map((detail, idx) => (
-                      <p key={idx} className="text-gray-200 font-medium">
-                        {detail}
+            <div className="flex flex-col gap-3 sm:gap-4 flex-1 min-h-0">
+              {contactInfo.map((contact) => (
+                <div
+                  key={contact.title}
+                  className="bg-white/10 backdrop-blur-md rounded-2xl p-4 sm:p-5 border border-white/20 hover:bg-white/15 hover:border-white/30 transition-all duration-300 flex-1 min-h-0"
+                >
+                  <div className="flex items-start space-x-3 sm:space-x-4 h-full">
+                    <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-r from-orange-500 to-orange-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <contact.icon className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <h4 className="font-bold text-white mb-0.5 sm:mb-1 text-xs sm:text-sm md:text-base">
+                        {contact.title}
+                      </h4>
+                      <p className="text-gray-300 text-xs mb-1 sm:mb-2">
+                        {contact.description}
                       </p>
-                    ))}
+                      <div className="space-y-0.5">
+                        {contact.details.map((detail, idx) => (
+                          <p
+                            key={idx}
+                            className="text-gray-200 font-medium text-xs sm:text-sm leading-relaxed"
+                          >
+                            {detail}
+                          </p>
+                        ))}
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
 
           {/* Contact Form */}
-          <div className="lg:col-span-2">
-            <div className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm rounded-xl sm:rounded-2xl p-4 sm:p-6 lg:p-8 shadow-2xl border border-white/20">
-              <div className="mb-4 sm:mb-6">
+          <div className="lg:col-span-2 flex flex-col">
+            <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 sm:p-6 lg:p-8 border border-white/20 flex-1 flex flex-col min-h-0">
+              <div className="mb-4 sm:mb-6 flex-shrink-0">
                 <h3 className="text-lg sm:text-xl font-bold text-white mb-1 sm:mb-2">
                   Send us a Message
                 </h3>
+                <div className="w-16 sm:w-20 h-1 bg-gradient-to-r from-orange-500 to-orange-600 mb-2 sm:mb-3" />
                 <p className="text-gray-300 text-xs sm:text-sm">
                   Fill out the form below and we&apos;ll get back to you within
                   24 hours.
                 </p>
               </div>
 
-              <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
+              <form
+                onSubmit={handleSubmit}
+                className="space-y-3 sm:space-y-4 flex-shrink-0"
+              >
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                   <div>
                     <label className="block text-white text-xs sm:text-sm font-medium mb-1 sm:mb-2">
@@ -291,6 +306,22 @@ export default function ContactSection() {
                   </button>
                 </div>
               </form>
+
+              <div className="flex-1 min-h-4" aria-hidden="true" />
+
+              {/* Footer strip: uses bottom space and reinforces trust */}
+              <div className="mt-6 sm:mt-8 pt-4 sm:pt-6 border-t border-white/10 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-center flex-shrink-0">
+                <p className="text-gray-400 text-xs sm:text-sm flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-orange-500 animate-pulse" />
+                  We respond within 24 hours
+                </p>
+                <a
+                  href="mailto:a1steelrwanda@gmail.com"
+                  className="text-orange-400 hover:text-orange-300 text-xs sm:text-sm font-medium transition-colors underline decoration-orange-500/50 underline-offset-2 hover:decoration-orange-400"
+                >
+                  a1steelrwanda@gmail.com
+                </a>
+              </div>
             </div>
           </div>
         </div>

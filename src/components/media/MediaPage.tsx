@@ -53,7 +53,7 @@ export default function MediaPage({ onClose }: MediaPageProps) {
 
   const scrollToSection = (sectionName: string) => {
     const element = document.getElementById(
-      `social-${sectionName.toLowerCase().replace(/\s+/g, "-")}`
+      `social-${sectionName.toLowerCase().replace(/\s+/g, "-")}`,
     );
     if (element) {
       element.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -85,10 +85,10 @@ export default function MediaPage({ onClose }: MediaPageProps) {
     },
     {
       title:
-        "Rwanda's industrial growth takes a step forward with the groundbreaking of A1 Iron and Steel Rwanda Ltd. in Musanze District",
+        "Rwanda's industrial growth takes a step forward with the groundbreaking of A1 Iron & Steel Rwanda Ltd. in Musanze District",
       source: "RDB Post",
       description:
-        "Rwanda's industrial growth takes a step forward with the groundbreaking of A1 Iron and Steel Rwanda Ltd. in @MusanzeDistrict",
+        "Rwanda's industrial growth takes a step forward with the groundbreaking of A1 Iron & Steel Rwanda Ltd. in @MusanzeDistrict",
       icon: TrendingUp,
       color: "from-orange-500 to-orange-600",
       hoverColor: "hover:from-orange-600 hover:to-orange-700",
@@ -454,9 +454,9 @@ export default function MediaPage({ onClose }: MediaPageProps) {
                 {/* Image Container */}
                 <div className="relative aspect-[4/3] overflow-hidden bg-gradient-to-br from-slate-800 to-slate-900">
                   <Image
-                    src={`${
-                      process.env.NEXT_PUBLIC_BASE_PATH || ""
-                    }${occasion.image}`}
+                    src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}${
+                      occasion.image
+                    }`}
                     alt={occasion.title}
                     fill
                     className="object-cover transition-transform duration-700 group-hover:scale-110"
@@ -464,10 +464,10 @@ export default function MediaPage({ onClose }: MediaPageProps) {
                   />
                   {/* Gradient Overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500" />
-                  
+
                   {/* Shine Effect */}
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
-                  
+
                   {/* Date Badge */}
                   <motion.div
                     className="absolute top-4 right-4 px-3 py-1.5 bg-orange-500/90 backdrop-blur-md rounded-full text-white text-xs font-semibold border border-orange-400/50"

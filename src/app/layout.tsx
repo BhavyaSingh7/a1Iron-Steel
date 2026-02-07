@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   description:
     "A1 Iron & Steel is Rwanda's leading manufacturer of high-quality iron and steel products. We specialize in sustainable manufacturing with a commitment to planting 100,000 trees. Serving East Africa with premium steel solutions, quality assurance, and environmental stewardship.",
   keywords:
-    "steel manufacturing, iron products, Rwanda steel, East Africa steel, sustainable manufacturing, steel construction, metal fabrication, A1 Iron Steel",
+    "steel manufacturing, iron products, Rwanda steel, East Africa steel, sustainable manufacturing, steel construction, metal fabrication, A1 Iron & Steel",
   openGraph: {
     title: "A1 Iron & Steel - Premium Steel Manufacturing in Rwanda",
     description:

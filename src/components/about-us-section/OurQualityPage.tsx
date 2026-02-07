@@ -92,7 +92,7 @@ export default function OurQualityPage({ onClose }: OurQualityPageProps) {
       icon: FileCheck,
       title: "Certifications",
       description:
-        "BIS Certified, ISI Mark, and other industry certifications validating our commitment to quality, safety, and environmental responsibility in all our operations.",
+        "BIS Certified and ISI Marked, along with compliance to key Rwandan regulatory and quality standards. Our operations adhere to approvals and certifications from the Rwanda Development Board (RDB), Rwanda Standards Board (RSB), and Rwanda Environment Management Authority (REMA), reinforcing our commitment to quality, safety, and environmentally responsible steel manufacturing.",
       color: "from-cyan-500 to-blue-600",
       gradient: "from-cyan-500/20 via-blue-600/10 to-transparent",
       stats: "Multiple Certifications",
@@ -133,8 +133,14 @@ export default function OurQualityPage({ onClose }: OurQualityPageProps) {
       {/* Animated Background Elements */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-orange-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "1s" }} />
-        <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "2s" }} />
+        <div
+          className="absolute bottom-0 right-1/4 w-96 h-96 bg-orange-500/10 rounded-full blur-3xl animate-pulse"
+          style={{ animationDelay: "1s" }}
+        />
+        <div
+          className="absolute top-1/2 left-1/2 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl animate-pulse"
+          style={{ animationDelay: "2s" }}
+        />
       </div>
 
       {/* Header */}
@@ -159,10 +165,13 @@ export default function OurQualityPage({ onClose }: OurQualityPageProps) {
       </div>
 
       {/* Hero Section - Full Screen */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden snap-start snap-always pt-16" style={{ scrollSnapAlign: "start" }}>
+      <section
+        className="relative min-h-screen flex items-center justify-center overflow-hidden snap-start snap-always pt-16"
+        style={{ scrollSnapAlign: "start" }}
+      >
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/30 to-black/60 z-0" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(32,132,177,0.1),transparent_70%)] z-0" />
-        
+
         <motion.div
           className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full text-center z-10"
           initial={{ opacity: 0, y: 30 }}
@@ -177,7 +186,9 @@ export default function OurQualityPage({ onClose }: OurQualityPageProps) {
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             <Sparkles className="w-4 h-4 text-orange-400" />
-            <span className="text-sm font-semibold text-white">Quality Excellence</span>
+            <span className="text-sm font-semibold text-white">
+              Quality Excellence
+            </span>
           </motion.div>
 
           <motion.h1
@@ -190,19 +201,27 @@ export default function OurQualityPage({ onClose }: OurQualityPageProps) {
               Uncompromising
             </span>
             <br />
-            <span className="bg-gradient-to-r from-orange-400 via-blue-400 to-orange-400 bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient" style={{ animationDelay: "0.5s" }}>
+            <span
+              className="bg-gradient-to-r from-orange-400 via-blue-400 to-orange-400 bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient"
+              style={{ animationDelay: "0.5s" }}
+            >
               Quality
             </span>
           </motion.h1>
-          
+
           <motion.p
             className="text-xl sm:text-2xl md:text-3xl text-white/90 max-w-4xl mx-auto leading-relaxed font-light"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.5 }}
           >
-            Where precision meets excellence. Every product, every process, every detail
-            <span className="text-orange-400 font-semibold"> crafted to perfection</span>.
+            Where precision meets excellence. Every product, every process,
+            every detail
+            <span className="text-orange-400 font-semibold">
+              {" "}
+              crafted to perfection
+            </span>
+            .
           </motion.p>
 
           {/* Stats Bar */}
@@ -227,7 +246,9 @@ export default function OurQualityPage({ onClose }: OurQualityPageProps) {
                   transition={{ delay: 0.8 + index * 0.1 }}
                 >
                   <Icon className="w-8 h-8 text-orange-400 mx-auto mb-3" />
-                  <div className="text-3xl font-bold text-white mb-1">{stat.value}</div>
+                  <div className="text-3xl font-bold text-white mb-1">
+                    {stat.value}
+                  </div>
                   <div className="text-sm text-white/70">{stat.label}</div>
                 </motion.div>
               );
@@ -237,7 +258,10 @@ export default function OurQualityPage({ onClose }: OurQualityPageProps) {
       </section>
 
       {/* Quality Image Section - Full Screen */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden snap-start snap-always" style={{ scrollSnapAlign: "start" }}>
+      <section
+        className="relative min-h-screen flex items-center justify-center overflow-hidden snap-start snap-always"
+        style={{ scrollSnapAlign: "start" }}
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full h-full flex items-center justify-center">
           <motion.div
             className="relative w-full max-w-6xl aspect-[16/9] rounded-3xl overflow-hidden shadow-2xl group"
@@ -257,7 +281,7 @@ export default function OurQualityPage({ onClose }: OurQualityPageProps) {
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.4)_100%)]" />
-            
+
             {/* Overlay Content */}
             <div className="absolute bottom-0 left-0 right-0 p-8 sm:p-12">
               <motion.div
@@ -269,8 +293,9 @@ export default function OurQualityPage({ onClose }: OurQualityPageProps) {
                   Quality That <span className="text-orange-400">Speaks</span>
                 </h3>
                 <p className="text-lg sm:text-xl text-white/90 max-w-2xl">
-                  From raw materials to finished products, every step is meticulously controlled
-                  to ensure the highest standards of excellence.
+                  From raw materials to finished products, every step is
+                  meticulously controlled to ensure the highest standards of
+                  excellence.
                 </p>
               </motion.div>
             </div>
@@ -279,7 +304,10 @@ export default function OurQualityPage({ onClose }: OurQualityPageProps) {
       </section>
 
       {/* Quality Standards - Full Screen */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden snap-start snap-always py-20" style={{ scrollSnapAlign: "start" }}>
+      <section
+        className="relative min-h-screen flex items-center justify-center overflow-hidden snap-start snap-always py-20"
+        style={{ scrollSnapAlign: "start" }}
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
           <motion.div
             className="text-center mb-12"
@@ -291,10 +319,14 @@ export default function OurQualityPage({ onClose }: OurQualityPageProps) {
               <div className="w-20 h-1 bg-gradient-to-r from-transparent via-orange-400 to-transparent rounded-full" />
             </div>
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
-              Pillars of <span className="bg-gradient-to-r from-blue-400 to-orange-400 bg-clip-text text-transparent">Excellence</span>
+              Pillars of{" "}
+              <span className="bg-gradient-to-r from-blue-400 to-orange-400 bg-clip-text text-transparent">
+                Excellence
+              </span>
             </h2>
             <p className="text-xl text-white/70 max-w-3xl mx-auto leading-relaxed">
-              Six fundamental principles that drive our commitment to uncompromising quality
+              Six fundamental principles that drive our commitment to
+              uncompromising quality
             </p>
           </motion.div>
 
@@ -314,8 +346,10 @@ export default function OurQualityPage({ onClose }: OurQualityPageProps) {
                     >
                       <div className="relative bg-gradient-to-br from-gray-800/80 via-gray-900/80 to-gray-800/80 backdrop-blur-xl rounded-3xl p-8 sm:p-12 border border-white/10 shadow-2xl overflow-hidden">
                         {/* Animated Background Gradient */}
-                        <div className={`absolute inset-0 bg-gradient-to-br ${standard.gradient} opacity-50`} />
-                        
+                        <div
+                          className={`absolute inset-0 bg-gradient-to-br ${standard.gradient} opacity-50`}
+                        />
+
                         <div className="relative z-10 grid md:grid-cols-2 gap-12 items-center">
                           {/* Icon Section */}
                           <div className="flex flex-col items-center md:items-start">
@@ -339,10 +373,14 @@ export default function OurQualityPage({ onClose }: OurQualityPageProps) {
                               <motion.div
                                 className="absolute inset-0 rounded-3xl border-4 border-white/30"
                                 animate={{ rotate: 360 }}
-                                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                                transition={{
+                                  duration: 20,
+                                  repeat: Infinity,
+                                  ease: "linear",
+                                }}
                               />
                             </motion.div>
-                            
+
                             {standard.stats && (
                               <motion.div
                                 className="px-6 py-3 bg-white/10 backdrop-blur-md rounded-full border border-white/20"
@@ -350,7 +388,9 @@ export default function OurQualityPage({ onClose }: OurQualityPageProps) {
                                 animate={{ opacity: 1, scale: 1 }}
                                 transition={{ delay: 0.3 }}
                               >
-                                <span className="text-sm font-semibold text-white">{standard.stats}</span>
+                                <span className="text-sm font-semibold text-white">
+                                  {standard.stats}
+                                </span>
                               </motion.div>
                             )}
                           </div>
@@ -377,7 +417,7 @@ export default function OurQualityPage({ onClose }: OurQualityPageProps) {
                         </div>
                       </div>
                     </motion.div>
-                  )
+                  ),
               )}
             </AnimatePresence>
           </div>
@@ -398,7 +438,9 @@ export default function OurQualityPage({ onClose }: OurQualityPageProps) {
                   whileTap={{ scale: 0.95 }}
                 >
                   <div
-                    className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${standard.color} flex items-center justify-center shadow-xl transition-all duration-300 ${
+                    className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${
+                      standard.color
+                    } flex items-center justify-center shadow-xl transition-all duration-300 ${
                       isActive
                         ? "ring-4 ring-orange-400 ring-offset-4 ring-offset-gray-900 scale-110"
                         : "opacity-70 hover:opacity-100"
@@ -406,7 +448,7 @@ export default function OurQualityPage({ onClose }: OurQualityPageProps) {
                   >
                     <Icon className="w-10 h-10 text-white" />
                   </div>
-                  
+
                   {isActive && (
                     <motion.div
                       className="absolute -bottom-12 left-1/2 transform -translate-x-1/2 whitespace-nowrap"
@@ -426,7 +468,10 @@ export default function OurQualityPage({ onClose }: OurQualityPageProps) {
       </section>
 
       {/* Quality Metrics Section - Full Screen */}
-      <section className="relative min-h-screen flex items-center justify-center bg-black/40 backdrop-blur-sm overflow-hidden snap-start snap-always" style={{ scrollSnapAlign: "start" }}>
+      <section
+        className="relative min-h-screen flex items-center justify-center bg-black/40 backdrop-blur-sm overflow-hidden snap-start snap-always"
+        style={{ scrollSnapAlign: "start" }}
+      >
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(241,133,46,0.1),transparent_70%)] z-0" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10">
           <motion.div
@@ -445,23 +490,23 @@ export default function OurQualityPage({ onClose }: OurQualityPageProps) {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
-              { 
-                icon: Target, 
-                value: "99.8%", 
+              {
+                icon: Target,
+                value: "99.8%",
                 label: "Quality Pass Rate",
                 description: "Products meeting or exceeding standards",
                 color: "from-green-500 to-emerald-600",
               },
-              { 
-                icon: Award, 
-                value: "ISO 9001", 
+              {
+                icon: Award,
+                value: "ISO 9001",
                 label: "Certified Quality",
                 description: "International quality management system",
                 color: "from-blue-500 to-cyan-600",
               },
-              { 
-                icon: CheckCircle, 
-                value: "100%", 
+              {
+                icon: CheckCircle,
+                value: "100%",
                 label: "Tested Products",
                 description: "Every product undergoes rigorous testing",
                 color: "from-orange-500 to-red-600",
@@ -477,15 +522,25 @@ export default function OurQualityPage({ onClose }: OurQualityPageProps) {
                   transition={{ delay: 0.2 + index * 0.1 }}
                 >
                   {/* Background Gradient */}
-                  <div className={`absolute inset-0 bg-gradient-to-br ${metric.color} opacity-0 group-hover:opacity-10 transition-opacity duration-300`} />
-                  
+                  <div
+                    className={`absolute inset-0 bg-gradient-to-br ${metric.color} opacity-0 group-hover:opacity-10 transition-opacity duration-300`}
+                  />
+
                   <div className="relative z-10">
-                    <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${metric.color} flex items-center justify-center mb-6 shadow-lg`}>
+                    <div
+                      className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${metric.color} flex items-center justify-center mb-6 shadow-lg`}
+                    >
                       <Icon className="w-8 h-8 text-white" />
                     </div>
-                    <div className="text-5xl font-bold text-white mb-2">{metric.value}</div>
-                    <div className="text-xl font-semibold text-orange-400 mb-2">{metric.label}</div>
-                    <div className="text-sm text-white/60">{metric.description}</div>
+                    <div className="text-5xl font-bold text-white mb-2">
+                      {metric.value}
+                    </div>
+                    <div className="text-xl font-semibold text-orange-400 mb-2">
+                      {metric.label}
+                    </div>
+                    <div className="text-sm text-white/60">
+                      {metric.description}
+                    </div>
                   </div>
                 </motion.div>
               );
@@ -495,7 +550,10 @@ export default function OurQualityPage({ onClose }: OurQualityPageProps) {
       </section>
 
       {/* Additional Quality Features - Full Screen */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden snap-start snap-always" style={{ scrollSnapAlign: "start" }}>
+      <section
+        className="relative min-h-screen flex items-center justify-center overflow-hidden snap-start snap-always"
+        style={{ scrollSnapAlign: "start" }}
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
           <motion.div
             className="text-center mb-12"
@@ -510,12 +568,36 @@ export default function OurQualityPage({ onClose }: OurQualityPageProps) {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
-              { icon: Zap, title: "Advanced Technology", description: "Cutting-edge equipment and processes" },
-              { icon: Gauge, title: "Precision Control", description: "Exact specifications every time" },
-              { icon: Layers, title: "Multi-Stage Testing", description: "Comprehensive quality checks" },
-              { icon: Star, title: "Customer Satisfaction", description: "Exceeding expectations consistently" },
-              { icon: Shield, title: "Safety First", description: "Highest safety standards maintained" },
-              { icon: TrendingUp, title: "Continuous Innovation", description: "Always improving our processes" },
+              {
+                icon: Zap,
+                title: "Advanced Technology",
+                description: "Cutting-edge equipment and processes",
+              },
+              {
+                icon: Gauge,
+                title: "Precision Control",
+                description: "Exact specifications every time",
+              },
+              {
+                icon: Layers,
+                title: "Multi-Stage Testing",
+                description: "Comprehensive quality checks",
+              },
+              {
+                icon: Star,
+                title: "Customer Satisfaction",
+                description: "Exceeding expectations consistently",
+              },
+              {
+                icon: Shield,
+                title: "Safety First",
+                description: "Highest safety standards maintained",
+              },
+              {
+                icon: TrendingUp,
+                title: "Continuous Innovation",
+                description: "Always improving our processes",
+              },
             ].map((feature, index) => {
               const Icon = feature.icon;
               return (
@@ -529,7 +611,9 @@ export default function OurQualityPage({ onClose }: OurQualityPageProps) {
                   <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-orange-500/20 to-orange-600/20 flex items-center justify-center mb-4 border border-orange-400/30">
                     <Icon className="w-7 h-7 text-orange-400" />
                   </div>
-                  <h3 className="text-xl font-bold text-white mb-2">{feature.title}</h3>
+                  <h3 className="text-xl font-bold text-white mb-2">
+                    {feature.title}
+                  </h3>
                   <p className="text-white/70">{feature.description}</p>
                 </motion.div>
               );
@@ -539,7 +623,10 @@ export default function OurQualityPage({ onClose }: OurQualityPageProps) {
       </section>
 
       {/* Call to Action - Full Screen */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden snap-start snap-always" style={{ scrollSnapAlign: "start" }}>
+      <section
+        className="relative min-h-screen flex items-center justify-center overflow-hidden snap-start snap-always"
+        style={{ scrollSnapAlign: "start" }}
+      >
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/40 z-0" />
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 w-full">
           <motion.div
@@ -555,10 +642,15 @@ export default function OurQualityPage({ onClose }: OurQualityPageProps) {
               <Star className="w-16 h-16 text-orange-400" />
             </motion.div>
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
-              Experience <span className="bg-gradient-to-r from-blue-400 to-orange-400 bg-clip-text text-transparent">Quality</span> That Matters
+              Experience{" "}
+              <span className="bg-gradient-to-r from-blue-400 to-orange-400 bg-clip-text text-transparent">
+                Quality
+              </span>{" "}
+              That Matters
             </h2>
             <p className="text-xl text-white/80 mb-10 max-w-2xl mx-auto">
-              Join thousands of satisfied customers who trust A1 Iron & Steel for their quality needs
+              Join thousands of satisfied customers who trust A1 Iron & Steel
+              for their quality needs
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <motion.button

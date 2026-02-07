@@ -18,7 +18,7 @@ export default function Mission() {
     {
       icon: Handshake,
       title: "Clients",
-      description: "Create long term partnerships with each of our customers",
+      description: "Create long-term partnerships with each of our customers",
     },
     {
       icon: Users,
@@ -30,7 +30,7 @@ export default function Mission() {
   return (
     <motion.section
       id="about"
-      className="relative min-h-screen flex items-start justify-center overflow-y-auto pt-12 sm:pt-16 lg:pt-20 pb-16 sm:pb-20 lg:pb-24"
+      className="relative min-h-screen flex items-start justify-center overflow-y-auto section-padding pt-16 sm:pt-20 lg:pt-24 pb-16 sm:pb-20 lg:pb-24"
       style={{
         background:
           "linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%)",
@@ -123,16 +123,7 @@ export default function Mission() {
               className="relative group"
             >
               {/* Glowing Background */}
-              <div
-                className="absolute inset-0 bg-gradient-to-br from-white/10 to-white/5 rounded-2xl backdrop-blur-sm border border-white/20"
-                style={{
-                  boxShadow: `
-                    0 0 30px rgba(249, 115, 22, 0.2),
-                    0 0 60px rgba(249, 115, 22, 0.1),
-                    inset 0 1px 0 rgba(255, 255, 255, 0.1)
-                  `,
-                }}
-              />
+              <div className="absolute inset-0 bg-white/5 rounded-2xl backdrop-blur-md border border-white/10 hover:border-white/20 transition-colors duration-300" />
 
               {/* Content */}
               <div className="relative z-10 p-4 sm:p-6 md:p-8 text-center">

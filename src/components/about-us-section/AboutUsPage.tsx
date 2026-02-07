@@ -8,12 +8,10 @@ import {
   Target,
   Eye,
   Award,
-  Users,
-  Globe,
-  DollarSign,
-  TrendingUp,
   Building,
   Phone,
+  Mail,
+  MapPin,
   CheckCircle,
 } from "lucide-react";
 
@@ -343,9 +341,9 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
                 <div className="flex items-start gap-3">
                   <CheckCircle className="w-5 h-5 text-green-600 mt-1 flex-shrink-0" />
                   <p>
-                    At A1, our mission is to forge the future by producing
-                    innovative, high-quality iron and steel products that shape
-                    industries, drive sustainability, and support the
+                    At A1 Iron & Steel, our mission is to forge the future by
+                    producing innovative, high-quality iron and steel products
+                    that shape industries, drive sustainability, and support the
                     development of resilient infrastructures worldwide.
                   </p>
                 </div>
@@ -418,10 +416,10 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
               <div className="relative">
                 <div className="space-y-6 text-lg text-gray-700 leading-relaxed">
                   <p>
-                    The company has a well spread out installed Steel capacity
-                    of 0.250 MTPA prudently spread over SMS, TMT Bars Mills,
-                    Strip Mill, Medium and Light Structural Mill and Wire Rod
-                    Mill & ERW Pipe Plant.
+                    The company has a well-spread-out installed steel capacity
+                    of 0.250 MTPA prudently spread over SMS, TMT Bar Mill, Strip
+                    Mill, Medium and Light Structural Mill and Wire Rod Mill &
+                    ERW Pipe Plant.
                   </p>
                   <p>
                     Alongside contributing to Rwanda&apos;s growth story, the
@@ -433,10 +431,10 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
                   </p>
                   <p>
                     From the flat products to a whole range of long products, A1
-                    has a unique product portfolio that caters to markets across
-                    the steel value chain. A1 Iron and Steel aims to pioneer
-                    production of 100% value added steel products in the
-                    country.
+                    Iron & Steel has a unique product portfolio that caters to
+                    markets across the steel value chain. A1 Iron & Steel aims
+                    to pioneer production of 100% value-added steel products in
+                    the country.
                   </p>
                   <p>
                     The company endeavors to strengthen Rwanda&apos;s industrial
@@ -453,141 +451,99 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
         </div>
       </section>
 
-      {/* A1 in Numbers */}
-      <section
-        className="py-20 md:py-24 bg-gradient-to-b from-gray-50 to-white snap-start snap-always min-h-screen flex items-center"
-        style={{ scrollSnapAlign: "start" }}
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
-              A1 in <span className="logo-blue-gradient">Numbers</span>
-            </h2>
-            <div className="w-20 h-1 logo-orange-bg mx-auto" />
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
-            {[
-              {
-                icon: Building,
-                number: "2025",
-                label: "Founded in 2025",
-                color: "logo-blue-bg",
-              },
-              {
-                icon: Users,
-                number: "40+",
-                label: "Creative thinkers and engineers",
-                color: "logo-orange-bg",
-              },
-              {
-                icon: Globe,
-                number: "16",
-                label: "Countries we serve globally",
-                color: "from-green-500 to-green-700",
-              },
-              {
-                icon: DollarSign,
-                number: "$2.8b",
-                label: "Value of projects completed",
-                color: "from-purple-500 to-purple-700",
-              },
-              {
-                icon: TrendingUp,
-                number: "450m",
-                label: "Tons of steel produced annually",
-                color: "from-red-500 to-red-700",
-              },
-              {
-                icon: Award,
-                number: "500+",
-                label: "Projects completed successfully",
-                color: "from-indigo-500 to-indigo-700",
-              },
-            ].map((stat, index) => (
-              <div
-                key={index}
-                className="text-center bg-white rounded-2xl p-6 shadow-lg border border-gray-200 hover:shadow-2xl transition-all duration-300"
-              >
-                <div className="relative">
-                  <div
-                    className={`w-12 h-12 mx-auto mb-4 rounded-xl flex items-center justify-center shadow-md ${
-                      stat.color.includes("from-")
-                        ? `bg-gradient-to-br ${stat.color}`
-                        : stat.color
-                    }`}
-                  >
-                    <stat.icon className="w-6 h-6 text-white" />
-                  </div>
-                  <div className="text-3xl sm:text-4xl font-bold text-gray-900 mb-2">
-                    {stat.number}
-                  </div>
-                  <div className="text-sm text-gray-600 leading-tight">
-                    {stat.label}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Contact Section */}
       <section
-        className="py-20 md:py-24 bg-gradient-to-b from-white via-blue-50/30 to-white relative overflow-hidden snap-start snap-always min-h-screen flex items-center"
+        className="py-20 md:py-28 bg-gradient-to-b from-white via-blue-50/40 to-gray-50 relative overflow-hidden snap-start snap-always min-h-screen flex items-center"
         style={{ scrollSnapAlign: "start" }}
       >
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(241,133,46,0.05),transparent_70%)]" />
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-          <div className="text-center mb-12">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(241,133,46,0.08),transparent_50%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(32,132,177,0.06),transparent_50%)]" />
+        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+          <div className="text-center mb-14">
             <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
               Get In <span className="logo-blue-gradient">Touch</span>
             </h2>
             <div className="w-20 h-1 logo-orange-bg mx-auto mb-6 rounded-full" />
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto font-light">
+            <p className="text-xl text-gray-700 max-w-2xl mx-auto font-medium mb-2">
+              We&apos;re here to help with your steel requirements.
+            </p>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
               Thank you for choosing A1 Iron & Steel as your trusted partner in
-              strength and progress!
+              strength and progress. Reach out for quotes, inquiries, or a
+              conversation—we typically respond within 24 hours.
             </p>
           </div>
 
-          <div className="flex justify-center mb-12">
+          {/* Contact info cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 mb-12">
+            <a
+              href="mailto:a1steelrwanda@gmail.com"
+              className="group flex items-start gap-4 p-5 sm:p-6 bg-white rounded-2xl border border-gray-200 shadow-md hover:shadow-xl hover:border-[#f1852e]/30 transition-all duration-300 text-left"
+            >
+              <div className="w-12 h-12 rounded-xl logo-orange-bg flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
+                <Mail className="w-6 h-6 text-white" />
+              </div>
+              <div className="min-w-0">
+                <h3 className="font-bold text-gray-900 mb-1">Email</h3>
+                <p className="text-sm text-gray-600 mb-1">Primary contact</p>
+                <span className="text-[#2084b1] font-medium text-sm break-all">
+                  a1steelrwanda@gmail.com
+                </span>
+              </div>
+            </a>
+            <div className="flex items-start gap-4 p-5 sm:p-6 bg-white rounded-2xl border border-gray-200 shadow-md">
+              <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 bg-[#2084b1]">
+                <MapPin className="w-6 h-6 text-white" />
+              </div>
+              <div className="min-w-0">
+                <h3 className="font-bold text-gray-900 mb-1">Office</h3>
+                <p className="text-xs text-gray-600 leading-snug">
+                  A1 IRON & STEEL RWANDA LIMITED, 2nd FLOOR, BPR TOWER,
+                  NYARUGENGE, KIGALI, RWANDA
+                </p>
+              </div>
+            </div>
+            <div className="flex items-start gap-4 p-5 sm:p-6 bg-white rounded-2xl border border-gray-200 shadow-md">
+              <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 bg-[#2084b1]">
+                <MapPin className="w-6 h-6 text-white" />
+              </div>
+              <div className="min-w-0">
+                <h3 className="font-bold text-gray-900 mb-1">Plant</h3>
+                <p className="text-xs text-gray-600 leading-snug">
+                  MUSANZE INDUSTRIAL PARK, SECTOR KIMONYI, CELL BURAMIRA,
+                  DISTRICT MUSANZE, RWANDA
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* CTAs */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <button
               onClick={() => router.push("/contactus")}
-              className="logo-orange-bg text-white px-12 py-4 rounded-full font-bold text-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 flex items-center gap-2"
+              className="w-full sm:w-auto logo-orange-bg text-white px-10 py-4 rounded-xl font-bold text-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2"
               aria-label="Navigate to contact us page"
             >
               <Phone className="w-5 h-5" />
               Contact Us
             </button>
-          </div>
-
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button
               onClick={() => {
                 const subject = encodeURIComponent("Product Quote Request");
                 const body = encodeURIComponent(
-                  `Hello,\n\nI am interested in getting a quote for your steel products.\n\nPlease provide me with pricing and availability information.\n\nThank you.`
+                  `Hello,\n\nI am interested in getting a quote for your steel products.\n\nPlease provide me with pricing and availability information.\n\nThank you.`,
                 );
-                window.location.href = `mailto:marketing@a1steelrwanda.com?subject=${subject}&body=${body}`;
+                window.location.href = `mailto:a1steelrwanda@gmail.com?subject=${subject}&body=${body}`;
               }}
-              className="logo-orange-bg text-white px-10 py-4 rounded-full font-bold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+              className="w-full sm:w-auto border-2 border-[#f1852e] text-[#f1852e] bg-white px-10 py-4 rounded-xl font-bold shadow-md hover:bg-[#f1852e] hover:text-white hover:shadow-lg transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
             >
               Request Quote
             </button>
             <button
               onClick={handleClose}
-              className="border-2 px-10 py-4 rounded-full font-bold shadow-lg hover:shadow-xl transition-all duration-300"
-              style={{ borderColor: "#f1852e", color: "#f1852e" }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = "#f1852e";
-                e.currentTarget.style.color = "white";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = "transparent";
-                e.currentTarget.style.color = "#f1852e";
-              }}
+              className="w-full sm:w-auto border-2 border-gray-300 text-gray-700 bg-white px-10 py-4 rounded-xl font-bold shadow-md hover:bg-gray-100 hover:border-gray-400 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
             >
-              Learn More
+              Back to Home
             </button>
           </div>
         </div>

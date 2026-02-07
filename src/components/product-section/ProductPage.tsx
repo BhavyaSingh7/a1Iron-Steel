@@ -76,7 +76,12 @@ const PRODUCTS_DATA: Product[] = [
       "Enhanced safety in construction",
       "Environmentally sustainable",
     ],
-    certifications: ["Rwanda Standards Board (RSB) Product Certified", "RS EAS 412-2(IDT)", "RS ISO 6935-2", "BS 4449"],
+    certifications: [
+      "Rwanda Standards Board (RSB) Product Certified",
+      "RS EAS 412-2(IDT)",
+      "RS ISO 6935-2",
+      "BS 4449",
+    ],
     priceRange: "Contact for pricing",
     availability: "In Stock",
   },
@@ -85,8 +90,8 @@ const PRODUCTS_DATA: Product[] = [
     title: "Round Bar",
     category: "Manufacturing",
     description:
-      "Precision and Strength for Diverse Applications. At A1 Iron & Steel, we specialize in the production of high-quality round bars, engineered to meet the needs of a wide range of industries, including construction, manufacturing, automotive, and more. Our round bars are crafted with precision and durability in mind, offering superior strength and reliability for both standard and customized applications. With advanced manufacturing processes and strict quality control, our round bars meet the highest industry standards.",
-    shortDescription: "Precision and Strength for Diverse Applications",
+      "Precision and Strength for diverse applications. At A1 Iron & Steel, we specialize in the production of high-quality round bars, engineered to meet the needs of a wide range of industries, including construction, manufacturing, automotive, and more. Our round bars are crafted with precision and durability in mind, offering superior strength and reliability for both standard and customized applications. With advanced manufacturing processes and strict quality control, our round bars meet the highest industry standards.",
+    shortDescription: "Precision and Strength for diverse applications",
     carouselDescription:
       "Precision-engineered round bars built to meet the highest standards for construction, manufacturing, automotive, and more.",
     image: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/products/Round bars.jpg`,
@@ -121,7 +126,10 @@ const PRODUCTS_DATA: Product[] = [
       "Cost-effective and efficient solution",
       "Sustainable production practices",
     ],
-    certifications: ["Rwanda Standards Board (RSB) Product Certified", "RS ISO 683 (Carbon Steel Bars)"],
+    certifications: [
+      "Rwanda Standards Board (RSB) Product Certified",
+      "RS ISO 683 (Carbon Steel Bars)",
+    ],
     priceRange: "Contact for pricing",
     availability: "In Stock",
   },
@@ -166,7 +174,11 @@ const PRODUCTS_DATA: Product[] = [
       "Excellent formability for various manufacturing needs",
       "Environmentally sustainable production",
     ],
-    certifications: ["Rwanda Standards Board (RSB) Product Certified", "RS ISO 16120", "ASTM A510"],
+    certifications: [
+      "Rwanda Standards Board (RSB) Product Certified",
+      "RS ISO 16120",
+      "ASTM A510",
+    ],
     priceRange: "Contact for pricing",
     availability: "In Stock",
   },
@@ -185,7 +197,7 @@ const PRODUCTS_DATA: Product[] = [
       "Thickness: 2 mm – 8 mm",
       "Length: 6 m",
       "Grade: Structural Steel",
-      "Surface: Mill Finish / Polished",
+      "Surface: Mill Finish",
       "Standards Followed: RS ISO 657-1 (Hot-rolled steel sections – angles), ASTM A36, IS 2062; Rwanda Standards Board (RSB) Product Certified",
     ],
     applications: [
@@ -207,11 +219,16 @@ const PRODUCTS_DATA: Product[] = [
       "Structural stability",
       "Easy installation",
       "Long-term durability",
-      "Cost effective",
+      "Cost-effective",
       "Versatile applications",
       "Superior quality",
     ],
-    certifications: ["Rwanda Standards Board (RSB) Product Certified", "RS ISO 657-1 (Hot-rolled steel sections – angles)", "ASTM A36", "IS 2062"],
+    certifications: [
+      "Rwanda Standards Board (RSB) Product Certified",
+      "RS ISO 657-1 (Hot-rolled steel sections – angles)",
+      "ASTM A36",
+      "IS 2062",
+    ],
     priceRange: "Contact for pricing",
     availability: "In Stock",
   },
@@ -220,8 +237,8 @@ const PRODUCTS_DATA: Product[] = [
     title: "C Channel",
     category: "Construction",
     description:
-      "MS Channel steel engineered to provide outstanding structural support, stability, and versatility. Features durable coating for long-lasting performance. Ideal for structural support, framing systems, and industrial applications.",
-    shortDescription: "MS Channel with durable coating",
+      "MS Channel steel engineered to provide outstanding structural support, stability, and versatility. Ideal for structural support, framing systems, and industrial applications.",
+    shortDescription: "MS Channel for structural and industrial applications",
     carouselDescription:
       "Long-lasting MS Channel steel ideal for stable, versatile structural and industrial solutions.",
     image: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/products/c-channel.jpg`,
@@ -248,13 +265,18 @@ const PRODUCTS_DATA: Product[] = [
     ],
     benefits: [
       "Versatile applications",
-      "Superior corrosion protection",
+      "Corrosion resistance",
       "Long-lasting performance",
-      "Cost competitive",
+      "Cost-competitive",
       "Easy installation",
       "High structural integrity",
     ],
-    certifications: ["Rwanda Standards Board (RSB) Product Certified", "RS ISO 657-1 (Hot-rolled steel sections – channels)", "ASTM A36", "IS 2062"],
+    certifications: [
+      "Rwanda Standards Board (RSB) Product Certified",
+      "RS ISO 657-1 (Hot-rolled steel sections – channels)",
+      "ASTM A36",
+      "IS 2062",
+    ],
     priceRange: "Contact for pricing",
     availability: "In Stock",
   },
@@ -263,10 +285,10 @@ const PRODUCTS_DATA: Product[] = [
     title: "Flat Bar",
     category: "Manufacturing",
     description:
-      "Steel flat bar for versatile industrial applications. Crafted to provide reliable strength and versatility for a range of manufacturing, construction, and fabrication needs.",
-    shortDescription: "Steel flat bar for versatile industrial applications",
+      "Steel Flat bars for versatile industrial applications. Crafted to provide reliable strength and versatility for a range of manufacturing, construction, and fabrication needs.",
+    shortDescription: "Steel Flat bars for versatile industrial applications",
     carouselDescription:
-      "Steel flat bar for versatile industrial applications. Crafted to provide reliable strength and versatility for a range of manufacturing, construction, and fabrication needs.",
+      "Steel Flat bars for versatile industrial applications. Crafted to provide reliable strength and versatility for a range of manufacturing, construction, and fabrication needs.",
     image: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/products/Flat-Bars.jpg`,
     specifications: [
       "Width: 16 mm – 75 mm",
@@ -299,7 +321,11 @@ const PRODUCTS_DATA: Product[] = [
       "Versatile applications",
       "Cost-effective solution",
     ],
-    certifications: ["Rwanda Standards Board (RSB) Product Certified", "ASTM A36", "IS 2062"],
+    certifications: [
+      "Rwanda Standards Board (RSB) Product Certified",
+      "ASTM A36",
+      "IS 2062",
+    ],
     priceRange: "Contact for pricing",
     availability: "In Stock",
   },
@@ -312,9 +338,7 @@ const PRODUCTS_DATA: Product[] = [
     shortDescription: "High-strength hot-rolled construction material",
     carouselDescription:
       "High-strength hot-rolled strips engineered for versatile performance across automotive, construction, manufacturing, and fabrication industries.",
-    image: `${
-      process.env.NEXT_PUBLIC_BASE_PATH || ""
-    }/products/HOT-ROLLED-STRIP.webp`,
+    image: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/products/hot-rolled.png`,
     specifications: [
       "Thickness: 0.8 mm – 2 mm",
       "Width: 80 mm – 240 mm",
@@ -347,7 +371,11 @@ const PRODUCTS_DATA: Product[] = [
       "Consistent quality in every batch",
       "Cost-effective manufacturing solution",
     ],
-    certifications: ["Rwanda Standards Board (RSB) Product Certified", "ASTM A36", "IS 2062"],
+    certifications: [
+      "Rwanda Standards Board (RSB) Product Certified",
+      "ASTM A36",
+      "IS 2062",
+    ],
     priceRange: "Contact for pricing",
     availability: "In Stock",
   },
@@ -388,11 +416,15 @@ const PRODUCTS_DATA: Product[] = [
       "High strength-to-weight ratio",
       "Easy fabrication and installation",
       "Versatile applications",
-      "Cost effective",
+      "Cost-effective",
       "Aesthetic appeal for architectural use",
       "Superior structural performance",
     ],
-    certifications: ["Rwanda Standards Board (RSB) Product Certified", "ASTM A500", "IS 4923"],
+    certifications: [
+      "Rwanda Standards Board (RSB) Product Certified",
+      "ASTM A500",
+      "IS 4923",
+    ],
     priceRange: "Contact for pricing",
     availability: "In Stock",
   },
@@ -437,12 +469,16 @@ const PRODUCTS_DATA: Product[] = [
     benefits: [
       "High durability for long-lasting performance",
       "Reliable fastening in various materials",
-      "Cost effective solution",
+      "Cost-effective solution",
       "Strong holding power",
       "Easy to use and install",
       "MS material quality",
     ],
-    certifications: ["Rwanda Standards Board (RSB) Product Certified", "ASTM F1667", "IS 723"],
+    certifications: [
+      "Rwanda Standards Board (RSB) Product Certified",
+      "ASTM F1667",
+      "IS 723",
+    ],
     priceRange: "Contact for pricing",
     availability: "In Stock",
   },
@@ -480,17 +516,21 @@ const PRODUCTS_DATA: Product[] = [
       "Easy to Use",
       "High Tensile Strength",
       "Long-lasting Performance",
-      "50kg Bag Packing",
+      "50 kg Bag Packing",
     ],
     benefits: [
       "MS annealed material quality",
       "Easy to use and handle",
       "Reliable performance in all conditions",
-      "Cost effective solution",
+      "Cost-effective solution",
       "High tensile strength",
-      "Convenient 50kg bag packing",
+      "Convenient 50 kg bag packing",
     ],
-    certifications: ["Rwanda Standards Board (RSB) Product Certified", "IS 280", "ASTM A641"],
+    certifications: [
+      "Rwanda Standards Board (RSB) Product Certified",
+      "IS 280",
+      "ASTM A641",
+    ],
     priceRange: "Contact for pricing",
     availability: "In Stock",
   },
@@ -533,11 +573,15 @@ const PRODUCTS_DATA: Product[] = [
       "Structural strengthening for concrete",
       "Easy installation and handling",
       "Corrosion resistance for durability",
-      "Cost effective solution",
+      "Cost-effective solution",
       "Uniform mesh pattern for consistent performance",
       "Enhanced structural integrity",
     ],
-    certifications: ["Rwanda Standards Board (RSB) Product Certified", "BS 4483", "IS 1566"],
+    certifications: [
+      "Rwanda Standards Board (RSB) Product Certified",
+      "BS 4483",
+      "IS 1566",
+    ],
     priceRange: "Contact for pricing",
     availability: "In Stock",
   },
@@ -546,8 +590,8 @@ const PRODUCTS_DATA: Product[] = [
     title: "GI Chain Link",
     category: "Infrastructure",
     description:
-      "Durable galvanized chain-link fencing material. GI (Galvanized Iron) Chain Link fencing that provides a strong, durable, and cost-effective solution for securing properties and enclosures.",
-    shortDescription: "Durable galvanized chain-link fencing material",
+      "Durable GI chain-link fencing material. GI Chain Link fencing that provides a strong, durable, and cost-effective solution for securing properties and enclosures.",
+    shortDescription: "Durable GI chain-link fencing material",
     carouselDescription:
       "Corrosion-resistant GI chain-link fencing providing robust and affordable protection for all types of properties.",
     image: `${
@@ -558,7 +602,6 @@ const PRODUCTS_DATA: Product[] = [
       "Wire Gauge: 8 – 12 gauge",
       "Height: 1 m – 3 m",
       "Post Spacing: 2.5 m – 3 m",
-      "Surface Finish: Zinc Coated",
       "Standards Followed: ASTM A392, BS 1722; Rwanda Standards Board (RSB) Product Certified",
     ],
     applications: [
@@ -569,10 +612,9 @@ const PRODUCTS_DATA: Product[] = [
       "Perimeter Protection",
     ],
     features: [
-      "Durable Coating",
       "Weather Resistance",
       "Easy Installation",
-      "Cost Effective",
+      "Cost-effective",
       "Long-lasting Performance",
       "Low Maintenance",
     ],
@@ -580,11 +622,15 @@ const PRODUCTS_DATA: Product[] = [
       "Security solution for properties",
       "Weather resistance for outdoor use",
       "Easy installation and maintenance",
-      "Cost effective long-term solution",
+      "Cost-effective long-term solution",
       "Long-lasting performance",
       "Low maintenance requirements",
     ],
-    certifications: ["Rwanda Standards Board (RSB) Product Certified", "ASTM A392", "BS 1722"],
+    certifications: [
+      "Rwanda Standards Board (RSB) Product Certified",
+      "ASTM A392",
+      "BS 1722",
+    ],
     priceRange: "Contact for pricing",
     availability: "In Stock",
   },
@@ -605,7 +651,6 @@ const PRODUCTS_DATA: Product[] = [
       "Barb Spacing: 75 mm – 150 mm",
       "Length: 400 m – 500 m rolls",
       "Barb Type: 2-point / 4-point",
-      "Surface Finish: Zinc Coated",
       "Standards Followed: ASTM A121, BS 4102; Rwanda Standards Board (RSB) Product Certified",
     ],
     applications: [
@@ -627,11 +672,15 @@ const PRODUCTS_DATA: Product[] = [
       "Security deterrent for properties",
       "High durability for long-term use",
       "Weather resistance for all conditions",
-      "Cost effective security solution",
+      "Cost-effective security solution",
       "Easy installation",
       "Effective perimeter protection",
     ],
-    certifications: ["Rwanda Standards Board (RSB) Product Certified", "ASTM A121", "BS 4102"],
+    certifications: [
+      "Rwanda Standards Board (RSB) Product Certified",
+      "ASTM A121",
+      "BS 4102",
+    ],
     priceRange: "Contact for pricing",
     availability: "In Stock",
   },
@@ -663,10 +712,10 @@ export default function ProductPage({ onClose }: { onClose: () => void }) {
         .includes(searchQuery.toLowerCase()) ||
       product.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
       product.features.some((f) =>
-        f.toLowerCase().includes(searchQuery.toLowerCase())
+        f.toLowerCase().includes(searchQuery.toLowerCase()),
       ) ||
       product.applications.some((a) =>
-        a.toLowerCase().includes(searchQuery.toLowerCase())
+        a.toLowerCase().includes(searchQuery.toLowerCase()),
       );
 
     const matchesCategory =
@@ -1343,10 +1392,10 @@ export default function ProductPage({ onClose }: { onClose: () => void }) {
                     onClick={() => {
                       if (selectedProduct) {
                         const subject = encodeURIComponent(
-                          `Product Quote Request - ${selectedProduct.title}`
+                          `Product Quote Request - ${selectedProduct.title}`,
                         );
                         const body = encodeURIComponent(
-                          `Hello,\n\nI am interested in getting a quote for ${selectedProduct.title}.\n\nPlease provide me with pricing and availability information.\n\nThank you.`
+                          `Hello,\n\nI am interested in getting a quote for ${selectedProduct.title}.\n\nPlease provide me with pricing and availability information.\n\nThank you.`,
                         );
                         window.location.href = `mailto:marketing@a1steelrwanda.com?subject=${subject}&body=${body}`;
                       }

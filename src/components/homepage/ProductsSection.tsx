@@ -141,7 +141,7 @@ export default function ProductsSection() {
           "Thickness: 2 mm – 8 mm",
           "Length: 6 m",
           "Grade: Structural Steel",
-          "Surface: Mill Finish / Polished",
+          "Surface: Mill Finish",
           "Standards Followed: RS ISO 657-1 (Hot-rolled steel sections – angles), ASTM A36, IS 2062; Rwanda Standards Board (RSB) Product Certified",
         ],
         applications: [
@@ -164,7 +164,7 @@ export default function ProductsSection() {
         id: 5,
         title: "C Channel",
         description:
-          "MS Channel with durable coating ideal for stable, versatile structural and industrial solutions.",
+          "MS Channel ideal for stable, versatile structural and industrial solutions.",
         carouselDescription:
           "Long-lasting MS Channel steel ideal for stable, versatile structural and industrial solutions.",
         image: `${
@@ -196,9 +196,9 @@ export default function ProductsSection() {
         id: 7,
         title: "Flat Bar",
         description:
-          "Steel flat bar for versatile industrial applications. Crafted to provide reliable strength and versatility for a range of manufacturing, construction, and fabrication needs.",
+          "Steel Flat bars for versatile industrial applications. Crafted to provide reliable strength and versatility for a range of manufacturing, construction, and fabrication needs.",
         carouselDescription:
-          "Steel flat bar for versatile industrial applications. Crafted to provide reliable strength and versatility for a range of manufacturing, construction, and fabrication needs.",
+          "Steel Flat bars for versatile industrial applications. Crafted to provide reliable strength and versatility for a range of manufacturing, construction, and fabrication needs.",
         image: `${
           process.env.NEXT_PUBLIC_BASE_PATH || ""
         }/products/Flat-Bars.jpg`,
@@ -235,7 +235,7 @@ export default function ProductsSection() {
           "High-strength hot-rolled strips engineered for versatile performance across automotive, construction, manufacturing, and fabrication industries.",
         image: `${
           process.env.NEXT_PUBLIC_BASE_PATH || ""
-        }/products/HOT-ROLLED-STRIP.webp`,
+        }/products/hot-rolled.png`,
         specifications: [
           "Thickness: 0.8 mm – 2 mm",
           "Width: 80 mm – 240 mm",
@@ -361,7 +361,7 @@ export default function ProductsSection() {
           "Easy to Use",
           "High Tensile Strength",
           "Long-lasting Performance",
-          "50kg Bag Packing",
+          "50 kg Bag Packing",
         ],
       },
       {
@@ -412,7 +412,6 @@ export default function ProductsSection() {
           "Wire Gauge: 8 – 12 gauge",
           "Height: 1 m – 3 m",
           "Post Spacing: 2.5 m – 3 m",
-          "Surface Finish: Zinc Coated",
           "Standards Followed: ASTM A392, BS 1722; Rwanda Standards Board (RSB) Product Certified",
         ],
         applications: [
@@ -423,10 +422,9 @@ export default function ProductsSection() {
           "Perimeter Protection",
         ],
         features: [
-          "Durable Coating",
           "Weather Resistance",
           "Easy Installation",
-          "Cost Effective",
+          "Cost-effective",
           "Long-lasting Performance",
           "Low Maintenance",
         ],
@@ -446,7 +444,6 @@ export default function ProductsSection() {
           "Barb Spacing: 75 mm – 150 mm",
           "Length: 400 m – 500 m rolls",
           "Barb Type: 2-point / 4-point",
-          "Surface Finish: Zinc Coated",
           "Standards Followed: ASTM A121, BS 4102; Rwanda Standards Board (RSB) Product Certified",
         ],
         applications: [
@@ -466,7 +463,7 @@ export default function ProductsSection() {
         ],
       },
     ],
-    []
+    [],
   );
 
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -503,13 +500,13 @@ export default function ProductsSection() {
         setCurrentIndex(index);
       }
     },
-    [products.length]
+    [products.length],
   );
 
   // Drag handlers
   const handleMouseDown = (e: React.MouseEvent) => {
     // Don't start dragging if clicking on a button
-    if ((e.target as HTMLElement).closest('button')) {
+    if ((e.target as HTMLElement).closest("button")) {
       return;
     }
     setIsDragging(true);
@@ -540,7 +537,7 @@ export default function ProductsSection() {
 
   const handleTouchStart = (e: React.TouchEvent) => {
     // Don't start dragging if touching a button
-    if ((e.target as HTMLElement).closest('button')) {
+    if ((e.target as HTMLElement).closest("button")) {
       return;
     }
     setIsDragging(true);
@@ -586,7 +583,15 @@ export default function ProductsSection() {
 
   // Debug: Log transform value when currentIndex changes
   useEffect(() => {
-    console.log("Carousel Transform - currentIndex:", currentIndex, "dragOffset:", dragOffset, "transform:", transformValue, "px");
+    console.log(
+      "Carousel Transform - currentIndex:",
+      currentIndex,
+      "dragOffset:",
+      dragOffset,
+      "transform:",
+      transformValue,
+      "px",
+    );
     if (carouselRef.current) {
       console.log("Applied transform:", carouselRef.current.style.transform);
       console.log("Carousel element:", carouselRef.current);
@@ -622,7 +627,10 @@ export default function ProductsSection() {
         </div>
 
         {/* Carousel Container */}
-        <div className="relative -mx-4 sm:-mx-6 lg:-mx-8" style={{ overflow: "visible" }}>
+        <div
+          className="relative -mx-4 sm:-mx-6 lg:-mx-8"
+          style={{ overflow: "visible" }}
+        >
           {/* Navigation Arrows - Responsive positioning */}
           <button
             onClick={(e) => {
@@ -691,78 +699,78 @@ export default function ProductsSection() {
                 position: "relative",
               }}
             >
-                {/* Render all products - show 3 at a time */}
-                {products.map((product, index) => (
+              {/* Render all products - show 3 at a time */}
+              {products.map((product, index) => (
+                <div
+                  key={`product-${product.id}-${index}`}
+                  className="flex-shrink-0"
+                  style={{
+                    width: "432px",
+                    paddingLeft: "16px",
+                    paddingRight: "16px",
+                    minWidth: "432px",
+                    flexShrink: 0,
+                  }}
+                >
                   <div
-                    key={`product-${product.id}-${index}`}
-                    className="flex-shrink-0"
+                    className="bg-white rounded-2xl overflow-hidden shadow-md border border-gray-100/80 h-full hover:border-gray-200 hover:shadow-xl transition-all duration-300 ease-out hover:-translate-y-1 flex flex-col cursor-pointer group"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      openProductModal(product);
+                    }}
                     style={{
-                      width: "432px",
-                      paddingLeft: "16px",
-                      paddingRight: "16px",
-                      minWidth: "432px",
-                      flexShrink: 0,
+                      boxShadow:
+                        "0 4px 12px -2px rgba(0, 0, 0, 0.08), 0 2px 6px -1px rgba(0, 0, 0, 0.04)",
                     }}
                   >
-                    <div
-                      className="bg-white rounded-lg overflow-hidden shadow-md border border-gray-100 h-full hover:border-gray-200 hover:shadow-lg transition-all duration-200 ease-out hover:-translate-y-2 flex flex-col cursor-pointer group"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        openProductModal(product);
-                      }}
-                      style={{
-                        boxShadow:
-                          "0 4px 12px -2px rgba(0, 0, 0, 0.08), 0 2px 6px -1px rgba(0, 0, 0, 0.04)",
-                      }}
-                    >
-                      {/* Product Image */}
-                      <div className="relative h-64 sm:h-72 overflow-hidden bg-gray-50">
-                        <Image
-                          src={product.image}
-                          alt={product.title}
-                          fill
-                          className="object-cover"
-                          quality={50}
-                          sizes="400px"
-                          priority={
-                            index >= currentIndex && index < currentIndex + 3
-                          }
-                          loading={
-                            index >= currentIndex && index < currentIndex + 3
-                              ? "eager"
-                              : "lazy"
-                          }
-                        />
-                        {/* Top right icon */}
-                        <div className="absolute top-4 right-4 w-8 h-8 bg-white/95 backdrop-blur-sm rounded-full flex items-center justify-center shadow-sm">
-                          <div className="w-3 h-3 bg-gray-400 rounded-full"></div>
-                        </div>
-                      </div>
-
-                      {/* Product Info */}
-                      <div className="p-6 sm:p-8 flex flex-col flex-grow">
-                        <h3 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-4 tracking-tight">
-                          {product.title}
-                        </h3>
-                        <p className="text-gray-600 mb-6 leading-relaxed flex-grow text-sm sm:text-base font-light">
-                          {product.carouselDescription}
-                        </p>
-
-                        {/* Horizontal line */}
-                        <div className="w-full h-px bg-gray-100 mb-5"></div>
-
-                        {/* LEARN MORE button */}
-                        <button
-                          className="text-orange-500 font-medium text-left hover:text-orange-600 transition-transform duration-200 ease-out hover:translate-x-1 text-sm tracking-wide group-hover:text-orange-600"
-                          style={{ letterSpacing: "0.05em" }}
-                        >
-                          LEARN MORE →
-                        </button>
+                    {/* Product Image */}
+                    <div className="relative h-64 sm:h-72 overflow-hidden bg-gray-50">
+                      <Image
+                        src={product.image}
+                        alt={product.title}
+                        fill
+                        className="object-cover"
+                        quality={50}
+                        sizes="400px"
+                        priority={
+                          index >= currentIndex && index < currentIndex + 3
+                        }
+                        loading={
+                          index >= currentIndex && index < currentIndex + 3
+                            ? "eager"
+                            : "lazy"
+                        }
+                      />
+                      {/* Top right icon */}
+                      <div className="absolute top-4 right-4 w-8 h-8 bg-white/95 backdrop-blur-sm rounded-full flex items-center justify-center shadow-sm">
+                        <div className="w-3 h-3 bg-gray-400 rounded-full"></div>
                       </div>
                     </div>
+
+                    {/* Product Info */}
+                    <div className="p-6 sm:p-8 flex flex-col flex-grow">
+                      <h3 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-4 tracking-tight">
+                        {product.title}
+                      </h3>
+                      <p className="text-gray-600 mb-6 leading-relaxed flex-grow text-sm sm:text-base font-light">
+                        {product.carouselDescription}
+                      </p>
+
+                      {/* Horizontal line */}
+                      <div className="w-full h-px bg-gray-100 mb-5"></div>
+
+                      {/* LEARN MORE button */}
+                      <button
+                        className="text-orange-500 font-medium text-left hover:text-orange-600 transition-transform duration-200 ease-out hover:translate-x-1 text-sm tracking-wide group-hover:text-orange-600"
+                        style={{ letterSpacing: "0.05em" }}
+                      >
+                        LEARN MORE →
+                      </button>
+                    </div>
                   </div>
-                ))}
-              </div>
+                </div>
+              ))}
+            </div>
           </div>
 
           {/* Pagination Dots - One dot per product (14 dots) */}
@@ -975,10 +983,10 @@ export default function ProductsSection() {
                   <button
                     onClick={() => {
                       const subject = encodeURIComponent(
-                        `Product Quote Request - ${selectedProduct.title}`
+                        `Product Quote Request - ${selectedProduct.title}`,
                       );
                       const body = encodeURIComponent(
-                        `Hello,\n\nI am interested in getting a quote for ${selectedProduct.title}.\n\nPlease provide me with pricing and availability information.\n\nThank you.`
+                        `Hello,\n\nI am interested in getting a quote for ${selectedProduct.title}.\n\nPlease provide me with pricing and availability information.\n\nThank you.`,
                       );
                       window.location.href = `mailto:marketing@a1steelrwanda.com?subject=${subject}&body=${body}`;
                     }}
