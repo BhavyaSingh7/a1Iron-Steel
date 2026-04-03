@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import React from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
@@ -24,6 +24,8 @@ import {
   Sparkles,
   Zap,
   Globe,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 
 interface MediaPageProps {
@@ -32,6 +34,11 @@ interface MediaPageProps {
 
 export default function MediaPage({ onClose }: MediaPageProps) {
   const router = useRouter();
+  const [activeOccasion, setActiveOccasion] = React.useState<{
+    title: string;
+    images: string[];
+  } | null>(null);
+  const [activeImageIndex, setActiveImageIndex] = React.useState(0);
 
   const handleClose = () => {
     const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
@@ -58,6 +65,28 @@ export default function MediaPage({ onClose }: MediaPageProps) {
     if (element) {
       element.scrollIntoView({ behavior: "smooth", block: "start" });
     }
+  };
+
+  const openOccasionGallery = (title: string, images: string[]) => {
+    setActiveOccasion({ title, images });
+    setActiveImageIndex(0);
+  };
+
+  const closeOccasionGallery = () => {
+    setActiveOccasion(null);
+    setActiveImageIndex(0);
+  };
+
+  const nextOccasionImage = () => {
+    if (!activeOccasion) return;
+    setActiveImageIndex((prev) => (prev + 1) % activeOccasion.images.length);
+  };
+
+  const prevOccasionImage = () => {
+    if (!activeOccasion) return;
+    setActiveImageIndex(
+      (prev) => (prev - 1 + activeOccasion.images.length) % activeOccasion.images.length,
+    );
   };
 
   const articles = [
@@ -136,6 +165,80 @@ export default function MediaPage({ onClose }: MediaPageProps) {
       description: "Connect professionally and explore career opportunities",
       followers: "Connect with us",
       username: "A1 Iron & Steel Rwanda",
+    },
+  ];
+
+  const specialOccasions = [
+    {
+      id: 1,
+      title: "Company Milestone",
+      description: "Celebrating our achievements",
+      image: "/media/company-milestone/1.jpeg",
+      date: "2025",
+      galleryImages: Array.from({ length: 18 }, (_, i) => `/media/company-milestone/${i + 1}.jpeg`),
+    },
+    {
+      id: 2,
+      title: "Team Celebration",
+      description: "Our dedicated team",
+      image: "/media/2.jpeg",
+      date: "2025",
+      galleryImages: ["/media/2.jpeg"],
+    },
+    {
+      id: 3,
+      title: "Award Ceremony",
+      description: "Recognition and excellence",
+      image: "/media/3.jpeg",
+      date: "2025",
+      galleryImages: ["/media/3.jpeg"],
+    },
+    {
+      id: 4,
+      title: "Community Event",
+      description: "Engaging with our community",
+      image: "/media/5.jpeg",
+      date: "2025",
+      galleryImages: ["/media/5.jpeg"],
+    },
+    {
+      id: 5,
+      title: "Opening Ceremony",
+      description: "A new chapter begins",
+      image: "/media/opening-ceremony/2.jpeg",
+      date: "2025",
+      galleryImages: [
+        "/media/opening-ceremony/2.jpeg",
+        "/media/opening-ceremony/3.jpeg",
+        "/media/opening-ceremony/4.jpeg",
+        "/media/opening-ceremony/5.jpeg",
+        "/media/opening-ceremony/6.jpeg",
+        "/media/opening-ceremony/7.jpeg",
+        "/media/opening-ceremony/8.jpeg",
+        "/media/opening-ceremony/9.jpeg",
+        "/media/opening-ceremony/10.jpeg",
+        "/media/opening-ceremony/11.jpeg",
+        "/media/opening-ceremony/12.jpeg",
+        "/media/opening-ceremony/13.jpeg",
+        "/media/opening-ceremony/14.jpeg",
+        "/media/opening-ceremony/15.jpeg",
+        "/media/opening-ceremony/16.jpeg",
+        "/media/opening-ceremony/17.jpeg",
+        "/media/opening-ceremony/18.jpeg",
+      ],
+    },
+    {
+      id: 6,
+      title: "Partnership Event",
+      description: "Building strong relationships",
+      image: "/media/partnership-events/libf1.jpeg",
+      date: "2025",
+      galleryImages: [
+        "/media/partnership-events/libf1.jpeg",
+        "/media/partnership-events/libf2.jpeg",
+        "/media/partnership-events/libf3.jpeg",
+        "/media/partnership-events/libf4.jpeg",
+      ],
     },
   ];
 
@@ -392,53 +495,12 @@ export default function MediaPage({ onClose }: MediaPageProps) {
             transition={{ duration: 0.8, delay: 0.3 }}
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
           >
-            {/* Placeholder for special occasion images - You can add actual images here */}
-            {[
-              {
-                id: 1,
-                title: "Company Milestone",
-                description: "Celebrating our achievements",
-                image: "/media/1.jpeg",
-                date: "2025",
-              },
-              {
-                id: 2,
-                title: "Team Celebration",
-                description: "Our dedicated team",
-                image: "/media/2.jpeg",
-                date: "2025",
-              },
-              {
-                id: 3,
-                title: "Award Ceremony",
-                description: "Recognition and excellence",
-                image: "/media/3.jpeg",
-                date: "2025",
-              },
-              {
-                id: 4,
-                title: "Community Event",
-                description: "Engaging with our community",
-                image: "/media/5.jpeg",
-                date: "2025",
-              },
-              {
-                id: 5,
-                title: "Opening Ceremony",
-                description: "A new chapter begins",
-                image: "/media/6.jpeg",
-                date: "2025",
-              },
-              {
-                id: 6,
-                title: "Partnership Event",
-                description: "Building strong relationships",
-                image: "/media/1.jpeg",
-                date: "2025",
-              },
-            ].map((occasion, index) => (
+            {specialOccasions.map((occasion, index) => (
               <motion.div
                 key={occasion.id}
+                onClick={() =>
+                  openOccasionGallery(occasion.title, occasion.galleryImages)
+                }
                 initial={{ opacity: 0, y: 50, scale: 0.9 }}
                 whileInView={{ opacity: 1, y: 0, scale: 1 }}
                 viewport={{ once: true }}
@@ -508,7 +570,12 @@ export default function MediaPage({ onClose }: MediaPageProps) {
                     <span className="text-xs text-orange-400 font-semibold">
                       {occasion.date}
                     </span>
-                    <motion.div
+                    <motion.button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        openOccasionGallery(occasion.title, occasion.galleryImages);
+                      }}
                       className="flex items-center text-blue-400 text-sm font-semibold"
                       whileHover={{ x: 5 }}
                     >
@@ -524,7 +591,7 @@ export default function MediaPage({ onClose }: MediaPageProps) {
                       >
                         →
                       </motion.span>
-                    </motion.div>
+                    </motion.button>
                   </div>
                 </div>
 
@@ -1020,6 +1087,104 @@ export default function MediaPage({ onClose }: MediaPageProps) {
           ))}
         </div>
       </div>
+
+      {/* Occasion Gallery Modal */}
+      <AnimatePresence>
+        {activeOccasion && (
+          <motion.div
+            className="fixed inset-0 z-[70] bg-black/80 backdrop-blur-md flex items-center justify-center p-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={closeOccasionGallery}
+          >
+            <motion.div
+              className="relative w-full max-w-6xl max-h-[92vh] bg-slate-900/95 border border-white/10 rounded-2xl overflow-hidden"
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.95, opacity: 0 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex items-center justify-between p-4 border-b border-white/10">
+                <h3 className="text-white text-lg sm:text-xl font-semibold">
+                  {activeOccasion.title}
+                </h3>
+                <button
+                  type="button"
+                  onClick={closeOccasionGallery}
+                  className="p-2 rounded-lg bg-white/10 hover:bg-white/20 text-white"
+                  aria-label="Close gallery"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+
+              <div className="relative p-4">
+                <div className="relative h-[50vh] sm:h-[58vh] rounded-xl overflow-hidden bg-black/30">
+                  <Image
+                    src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}${
+                      activeOccasion.images[activeImageIndex]
+                    }`}
+                    alt={`${activeOccasion.title} ${activeImageIndex + 1}`}
+                    fill
+                    className="object-contain"
+                    unoptimized
+                  />
+                </div>
+
+                {activeOccasion.images.length > 1 && (
+                  <>
+                    <button
+                      type="button"
+                      onClick={prevOccasionImage}
+                      className="absolute left-6 top-1/2 -translate-y-1/2 p-2 sm:p-3 rounded-full bg-black/50 hover:bg-black/70 text-white"
+                      aria-label="Previous image"
+                    >
+                      <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={nextOccasionImage}
+                      className="absolute right-6 top-1/2 -translate-y-1/2 p-2 sm:p-3 rounded-full bg-black/50 hover:bg-black/70 text-white"
+                      aria-label="Next image"
+                    >
+                      <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
+                    </button>
+                  </>
+                )}
+              </div>
+
+              {activeOccasion.images.length > 1 && (
+                <div className="px-4 pb-4">
+                  <div className="flex gap-2 overflow-x-auto">
+                    {activeOccasion.images.map((img, idx) => (
+                      <button
+                        key={img}
+                        type="button"
+                        onClick={() => setActiveImageIndex(idx)}
+                        className={`relative w-20 h-16 rounded-md overflow-hidden border-2 flex-shrink-0 ${
+                          idx === activeImageIndex
+                            ? "border-orange-500"
+                            : "border-white/20"
+                        }`}
+                        aria-label={`Open image ${idx + 1}`}
+                      >
+                        <Image
+                          src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}${img}`}
+                          alt={`${activeOccasion.title} thumbnail ${idx + 1}`}
+                          fill
+                          className="object-cover"
+                          unoptimized
+                        />
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.div>
   );
 }
