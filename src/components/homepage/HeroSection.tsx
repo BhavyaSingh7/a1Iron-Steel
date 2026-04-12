@@ -20,6 +20,9 @@ interface Industry {
   action?: () => void;
 }
 
+/** Bump this when you replace a file but keep the same filename (avoids stale browser/CDN cache). */
+const HOMEPAGE_OUR_COMPANY_VER = "2";
+
 // Industries data - mapped to homepage images
 const INDUSTRIES: Industry[] = [
   {
@@ -29,7 +32,7 @@ const INDUSTRIES: Industry[] = [
       "Rwanda's premier steel manufacturer delivering exceptional quality, sustainable solutions, and unwavering reliability.",
     image: `${
       process.env.NEXT_PUBLIC_BASE_PATH || ""
-    }/homepage/our-company.jpeg`,
+    }/homepage/our-company.jpeg?v=${HOMEPAGE_OUR_COMPANY_VER}`,
   },
   {
     id: 1,
