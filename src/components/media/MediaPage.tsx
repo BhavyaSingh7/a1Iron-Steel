@@ -210,11 +210,17 @@ export default function MediaPage({ onClose }: MediaPageProps) {
       id: 3,
       title: "Partnership Event",
       description: "Building strong relationships",
-      image: "/media/partnership-events/1a.jpeg",
+      image: "/media/partnership-events/libf1.jpeg",
       date: "2026",
-      galleryImages: ["1a", "2a", "3a", "4a", "5a", "6a", "7a"].map(
-        (name) => `/media/partnership-events/${name}.jpeg`,
-      ),
+      galleryImages: [
+        "/media/partnership-events/libf1.jpeg",
+        "/media/partnership-events/libf2.jpeg",
+        "/media/partnership-events/libf3.jpeg",
+        "/media/partnership-events/libf4.jpeg",
+        ...["1a", "2a", "3a", "4a", "5a", "6a", "7a"].map(
+          (name) => `/media/partnership-events/${name}.jpeg`,
+        ),
+      ],
     },
     {
       id: 4,
