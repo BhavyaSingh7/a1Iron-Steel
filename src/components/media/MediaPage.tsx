@@ -171,14 +171,6 @@ export default function MediaPage({ onClose }: MediaPageProps) {
   const specialOccasions = [
     {
       id: 1,
-      title: "Company Milestone",
-      description: "Celebrating our achievements",
-      image: "/media/company-milestone/1.jpeg",
-      date: "2025",
-      galleryImages: Array.from({ length: 18 }, (_, i) => `/media/company-milestone/${i + 1}.jpeg`),
-    },
-    {
-      id: 2,
       title: "Team Celebration",
       description: "Our dedicated team",
       image: "/media/team-celebration/1.jpeg",
@@ -189,7 +181,7 @@ export default function MediaPage({ onClose }: MediaPageProps) {
       ),
     },
     {
-      id: 3,
+      id: 2,
       title: "Opening Ceremony",
       description: "A new chapter begins",
       image: "/media/opening-ceremony/2.jpeg",
@@ -215,20 +207,17 @@ export default function MediaPage({ onClose }: MediaPageProps) {
       ],
     },
     {
-      id: 4,
+      id: 3,
       title: "Partnership Event",
       description: "Building strong relationships",
-      image: "/media/partnership-events/libf1.jpeg",
+      image: "/media/partnership-events/1a.jpeg",
       date: "2026",
-      galleryImages: [
-        "/media/partnership-events/libf1.jpeg",
-        "/media/partnership-events/libf2.jpeg",
-        "/media/partnership-events/libf3.jpeg",
-        "/media/partnership-events/libf4.jpeg",
-      ],
+      galleryImages: ["1a", "2a", "3a", "4a", "5a", "6a", "7a"].map(
+        (name) => `/media/partnership-events/${name}.jpeg`,
+      ),
     },
     {
-      id: 5,
+      id: 4,
       title: "Prime Minister Visit",
       description: "Honoured to host national leadership",
       image: "/media/prime-minister-visit/1.jpeg",
