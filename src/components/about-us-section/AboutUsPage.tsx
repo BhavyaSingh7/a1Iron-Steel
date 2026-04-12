@@ -121,6 +121,72 @@ export default function AboutUsPage({ onClose }: AboutUsPageProps) {
         </div>
       </section>
 
+      {/* Message from the Board of Directors */}
+      <section
+        className="py-20 md:py-28 bg-gradient-to-b from-gray-50 via-white to-gray-50 relative snap-start snap-always min-h-screen flex items-center overflow-hidden"
+        style={{ scrollSnapAlign: "start" }}
+      >
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,rgba(32,132,177,0.06),transparent_45%)] pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_70%,rgba(241,133,46,0.06),transparent_45%)] pointer-events-none" />
+        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+          <div
+            className="relative bg-white rounded-3xl p-8 sm:p-12 md:p-14 shadow-xl border overflow-hidden"
+            style={{
+              borderColor: "rgba(32, 132, 177, 0.15)",
+              boxShadow: "0 20px 60px -12px rgba(32, 132, 177, 0.15)",
+            }}
+          >
+            <div className="absolute top-0 left-0 w-full h-2 logo-primary-bg" />
+            <div className="absolute top-0 right-0 w-40 h-40 bg-blue-100/40 rounded-full blur-3xl -translate-y-20 translate-x-20" />
+            <div className="absolute bottom-0 left-0 w-40 h-40 bg-orange-100/40 rounded-full blur-3xl translate-y-20 -translate-x-20" />
+
+            <div className="relative text-center mb-10">
+              <div className="flex justify-center mb-6">
+                <div className="w-16 h-1 logo-orange-bg rounded-full" />
+              </div>
+              <h2 className="text-3xl sm:text-4xl md:text-[2.5rem] font-bold text-gray-900 leading-tight">
+                Message from the{" "}
+                <span className="logo-blue-gradient">Board of Directors</span>
+              </h2>
+            </div>
+
+            <div className="relative space-y-6 text-gray-700 leading-relaxed text-base sm:text-lg text-left">
+              <p>
+                At A1 Iron & Steel Rwanda Limited, we view steel as more than
+                a material—it is the backbone of progress and the foundation of
+                enduring infrastructure. Our commitment to precision, quality,
+                and reliability defines every aspect of our operations.
+              </p>
+              <p>
+                Driven by innovation and operational excellence, we deliver
+                world-class steel solutions that meet evolving industry demands
+                and global standards. Our strength lies not only in our
+                products, but in the trust we build, the partnerships we nurture,
+                and the value we create.
+              </p>
+              <p>
+                As we advance, we remain steadfast in our commitment to
+                sustainability, responsible growth, and continuous
+                improvement—ensuring a lasting positive impact on the
+                communities we serve.
+              </p>
+              <p>
+                We extend our sincere appreciation to our stakeholders and team
+                for their unwavering support as we continue to build with
+                strength, purpose, and vision.
+              </p>
+            </div>
+
+            <div className="relative mt-10 pt-8 border-t border-gray-200 text-center sm:text-right">
+              <p className="font-semibold text-gray-900">Board of Directors</p>
+              <p className="mt-1 text-gray-600 font-medium">
+                A1 Iron & Steel Rwanda Limited
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Company Description */}
       <section
         className="py-20 md:py-24 bg-white relative snap-start snap-always min-h-screen flex items-center"

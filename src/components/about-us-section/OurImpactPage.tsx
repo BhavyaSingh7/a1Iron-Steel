@@ -133,7 +133,14 @@ export default function OurImpactPage({ onClose }: OurImpactPageProps) {
   const selectedAreas = impactAreas.filter((a) => selectedIds.has(a.id));
 
   return (
-    <div className="fixed inset-0 bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950 z-50 overflow-y-auto">
+    <div
+      className="fixed inset-0 bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950 z-50 overflow-y-auto"
+      style={{
+        scrollBehavior: "smooth",
+        scrollSnapType: "y mandatory",
+        scrollPaddingTop: "4rem",
+      }}
+    >
       {/* Animated background */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
         <motion.div
@@ -181,7 +188,10 @@ export default function OurImpactPage({ onClose }: OurImpactPageProps) {
       </motion.header>
 
       {/* Hero */}
-      <section className="relative min-h-screen flex flex-col items-center justify-center z-10 pt-20 pb-20 md:pt-24 md:pb-24">
+      <section
+        className="relative min-h-screen flex flex-col items-center justify-center z-10 pt-20 pb-20 md:pt-24 md:pb-24 snap-start snap-always"
+        style={{ scrollSnapAlign: "start" }}
+      >
         <motion.div
           className="relative max-w-4xl mx-auto px-6 sm:px-8 lg:px-10 text-center w-full"
           initial={{ opacity: 0, y: 40 }}
@@ -236,7 +246,10 @@ export default function OurImpactPage({ onClose }: OurImpactPageProps) {
       </section>
 
       {/* Interactive: Choose Your Impact */}
-      <section className="relative min-h-screen flex flex-col items-center justify-center z-10 pt-20 pb-20 md:pt-24 md:pb-24">
+      <section
+        className="relative min-h-screen flex flex-col items-center justify-center z-10 pt-20 pb-20 md:pt-24 md:pb-24 snap-start snap-always"
+        style={{ scrollSnapAlign: "start" }}
+      >
         <div className="max-w-5xl mx-auto px-6 sm:px-8 lg:px-10 w-full flex flex-col items-center">
           <motion.h2
             className="text-2xl sm:text-3xl md:text-4xl font-bold text-white text-center mb-2"
@@ -342,7 +355,8 @@ export default function OurImpactPage({ onClose }: OurImpactPageProps) {
       {/* Personalized result + expandable cards */}
       <section
         id="impact-details"
-        className="relative min-h-screen flex flex-col justify-center z-10 pt-20 pb-20 md:pt-24 md:pb-24"
+        className="relative min-h-screen flex flex-col justify-center z-10 pt-20 pb-20 md:pt-24 md:pb-24 snap-start snap-always"
+        style={{ scrollSnapAlign: "start" }}
       >
         <div className="max-w-4xl mx-auto px-6 sm:px-8 lg:px-10 w-full">
           <AnimatePresence>
@@ -449,7 +463,10 @@ export default function OurImpactPage({ onClose }: OurImpactPageProps) {
       </section>
 
       {/* CTA */}
-      <section className="relative min-h-screen flex flex-col items-center justify-center border-t border-white/10 z-10 pt-20 pb-20 md:pt-24 md:pb-24">
+      <section
+        className="relative min-h-screen flex flex-col items-center justify-center border-t border-white/10 z-10 pt-20 pb-20 md:pt-24 md:pb-24 snap-start snap-always"
+        style={{ scrollSnapAlign: "start" }}
+      >
         <div className="max-w-xl mx-auto px-6 sm:px-8 text-center">
           <p className="text-base sm:text-lg text-white/90 mb-8 leading-relaxed">
             Join us in building a stronger, more sustainable future.

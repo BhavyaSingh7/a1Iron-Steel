@@ -219,13 +219,24 @@ export default function MediaPage({ onClose }: MediaPageProps) {
       title: "Partnership Event",
       description: "Building strong relationships",
       image: "/media/partnership-events/libf1.jpeg",
-      date: "2025",
+      date: "2026",
       galleryImages: [
         "/media/partnership-events/libf1.jpeg",
         "/media/partnership-events/libf2.jpeg",
         "/media/partnership-events/libf3.jpeg",
         "/media/partnership-events/libf4.jpeg",
       ],
+    },
+    {
+      id: 5,
+      title: "Prime Minister Visit",
+      description: "Honoured to host national leadership",
+      image: "/media/prime-minister-visit/1.jpeg",
+      date: "2025",
+      galleryImages: Array.from(
+        { length: 4 },
+        (_, i) => `/media/prime-minister-visit/${i + 1}.jpeg`,
+      ),
     },
   ];
 
